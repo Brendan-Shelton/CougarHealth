@@ -10,13 +10,13 @@ namespace CoreProject
     {
         /// <summary>
         /// The main entry point for the application.
-        /// </summary>
+        /// </summary>C:\Users\michael\Documents\Engineering\CS325_CP\CoreProject\CoreProject\Program.cs
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new CougarHealth());
         }
     }
 }

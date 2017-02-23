@@ -46,14 +46,82 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="AccountManagement.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AccountManagement.Designer.cs">
+      <DependentUpon>AccountManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Billing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Billing.Designer.cs">
+      <DependentUpon>Billing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\EmployeeControllers\Accountant.cs" />
+    <Compile Include="Controller\EmployeeControllers\CougarCostsController.cs" />
+    <Compile Include="Controller\EmployeeControllers\CreateEmployeeController.cs" />
+    <Compile Include="Controller\EmployeeControllers\Manager.cs" />
+    <Compile Include="Controller\EmployeeControllers\PlanAdministrator.cs" />
+    <Compile Include="Controller\EmployeeControllers\PlanModifyController.cs" />
+    <Compile Include="Controller\EmployeeControllers\SupportSpecialist.cs" />
+    <Compile Include="Controller\EnrolleeControllers\EnrollController.cs" />
+    <Compile Include="Controller\EnrolleeControllers\PlanController.cs" />
+    <Compile Include="Controller\EnrolleeControllers\SearchController.cs" />
+    <Compile Include="Controller\EnrolleeControllers\SupportController.cs" />
+    <Compile Include="Controller\HSPControllers\BillController.cs" />
+    <Compile Include="Controller\HSPControllers\CreateHSPController.cs" />
+    <Compile Include="Controller\HSPControllers\SupportController.cs" />
+    <Compile Include="CougarCosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CougarCosts.Designer.cs">
+      <DependentUpon>CougarCosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CougarHealth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CougarHealth.Designer.cs">
+      <DependentUpon>CougarHealth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Enrollee\DependentEnrollee.cs" />
+    <Compile Include="Data\Enrollee\Enrollee.cs" />
+    <Compile Include="Data\Enrollee\EnrolleePlan.cs" />
+    <Compile Include="Data\Enrollee\InsurancePlan.cs" />
+    <Compile Include="Data\Enrollee\PrimaryEnrollee.cs" />
+    <Compile Include="Data\HealthcareServiceProvider\HSP.cs" />
+    <Compile Include="ExpenseReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExpenseReport.Designer.cs">
+      <DependentUpon>ExpenseReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonthlyReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonthlyReport.Designer.cs">
+      <DependentUpon>MonthlyReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlanManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlanManagement.Designer.cs">
+      <DependentUpon>PlanManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchServices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchServices.Designer.cs">
+      <DependentUpon>SearchServices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Support.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Support.Designer.cs">
+      <DependentUpon>Support.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -76,6 +144,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
