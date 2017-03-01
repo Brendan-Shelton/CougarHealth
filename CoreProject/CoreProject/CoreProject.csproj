@@ -78,6 +78,12 @@
     <Compile Include="Present\CougarCosts.Designer.cs">
       <DependentUpon>CougarCosts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\Enroll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\Enroll.Designer.cs">
+      <DependentUpon>Enroll.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,12 @@
     <Compile Include="Present\Support.Designer.cs">
       <DependentUpon>Support.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Present\Enroll.resx">
+      <DependentUpon>Enroll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
