@@ -1,6 +1,6 @@
-﻿namespace CoreProject
+﻿namespace CoreProject.Present
 {
-    partial class PlanManagement
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "PlanManagement";
+            this.Text = "CougarHealth";
         }
 
         #endregion

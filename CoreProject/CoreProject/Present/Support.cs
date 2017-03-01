@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CoreProject
+namespace CoreProject.Present
 {
-    public partial class CougarHealth : Form
+    public partial class Support : Form
     {
-        public CougarHealth()
+        public Support()
         {
             InitializeComponent();
         }

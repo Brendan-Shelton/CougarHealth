@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CoreProject
+namespace CoreProject.Present
 {
-    public partial class SearchServices : Form
+    public partial class Billing : Form
     {
-        public SearchServices()
+        public Billing()
         {
             InitializeComponent();
         }

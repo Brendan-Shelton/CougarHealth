@@ -1,4 +1,4 @@
-﻿namespace CoreProject
+﻿namespace CoreProject.Present
 {
     partial class CougarCosts
     {

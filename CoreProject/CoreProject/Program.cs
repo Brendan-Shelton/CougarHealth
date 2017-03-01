@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CoreProject.Present;
 
 namespace CoreProject
 {
@@ -16,7 +17,7 @@ namespace CoreProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CougarHealth());
+            Application.Run(new Main());
         }
     }
 }

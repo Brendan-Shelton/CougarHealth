@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CoreProject
+namespace CoreProject.Present
 {
-    public partial class ExpenseReport : Form
+    public partial class MonthlyReport : Form
     {
-        public ExpenseReport()
+        public MonthlyReport()
         {
             InitializeComponent();
         }

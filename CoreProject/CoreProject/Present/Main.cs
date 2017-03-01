@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CoreProject
+namespace CoreProject.Present
 {
-    public partial class CougarCosts : Form
+    public partial class Main : Form
     {
-        public CougarCosts()
+        public Main()
         {
             InitializeComponent();
         }
