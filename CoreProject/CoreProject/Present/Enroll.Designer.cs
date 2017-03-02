@@ -55,6 +55,9 @@
             this.submit = new System.Windows.Forms.Button();
             this.toPersonal = new System.Windows.Forms.Button();
             this.errMsg = new System.Windows.Forms.Label();
+            this.contactErr = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.contactPage.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -199,6 +202,9 @@
             // 
             // contactPage
             // 
+            this.contactPage.Controls.Add(this.label15);
+            this.contactPage.Controls.Add(this.label14);
+            this.contactPage.Controls.Add(this.contactErr);
             this.contactPage.Controls.Add(this.pin);
             this.contactPage.Controls.Add(this.label13);
             this.contactPage.Controls.Add(this.email);
@@ -268,11 +274,11 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Arial", 15.75F);
             this.label11.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label11.Location = new System.Drawing.Point(179, 156);
+            this.label11.Location = new System.Drawing.Point(171, 156);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(143, 24);
+            this.label11.Size = new System.Drawing.Size(151, 24);
             this.label11.TabIndex = 5;
-            this.label11.Text = "Mobile Phone:";
+            this.label11.Text = "Mobile Phone*:";
             // 
             // homePhone
             // 
@@ -312,6 +318,7 @@
             this.submit.TabIndex = 10;
             this.submit.Text = "Submit";
             this.submit.UseVisualStyleBackColor = true;
+            this.submit.Click += new System.EventHandler(this.submit_Click);
             // 
             // toPersonal
             // 
@@ -333,6 +340,40 @@
             this.errMsg.Size = new System.Drawing.Size(129, 24);
             this.errMsg.TabIndex = 12;
             this.errMsg.Text = "Place Holder";
+            // 
+            // contactErr
+            // 
+            this.contactErr.AutoSize = true;
+            this.contactErr.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.contactErr.ForeColor = System.Drawing.Color.White;
+            this.contactErr.Location = new System.Drawing.Point(93, 332);
+            this.contactErr.Name = "contactErr";
+            this.contactErr.Size = new System.Drawing.Size(69, 24);
+            this.contactErr.TabIndex = 11;
+            this.contactErr.Text = "Error: ";
+            this.contactErr.Visible = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label14.Location = new System.Drawing.Point(341, 402);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(133, 18);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "* - means optional";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label15.Location = new System.Drawing.Point(395, 369);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(30, 18);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "2/2";
             // 
             // Enroll
             // 
@@ -394,5 +435,8 @@
         private System.Windows.Forms.TextBox mobilePhone;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label errMsg;
+        private System.Windows.Forms.Label contactErr;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
     }
 }
