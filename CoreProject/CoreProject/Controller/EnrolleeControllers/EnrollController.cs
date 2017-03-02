@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using CoreProject.Data.Enrollee;
 
 namespace CoreProject.Controller.EnrolleeControllers
 {
@@ -14,6 +16,8 @@ namespace CoreProject.Controller.EnrolleeControllers
             public string homePhone;
             public string errMsg;
         }
+
+        public Enrollee Enrollee { get; set; }
         /// <summary>
         /// Uses regex to verify if the social security number is correct 
         /// TODO: in database implementation we need to check ssn in the database
@@ -86,7 +90,28 @@ namespace CoreProject.Controller.EnrolleeControllers
             string pin,
             Contact contactInfo )
         {
-          
+            this.Enrollee = new Enrollee()
+            {
+                BillingAddr = billingAddr,
+                Email = contactInfo.email,
+                FirstName = firstName,
+                HomePhone = contactInfo.homePhone,
+                LastName = lastName,
+                MailingAddr = mailingAddr,
+                MobilePhone = contactInfo.mobilePhone,
+                SSN = ssn
+            };
+            Enrollee.changePIN(pin);
+        }
+
+        public void PickPlan( string type )
+        {
+            
+        }
+
+        public string[] PlanTypes()
+        {
+            return null;
         }
     }
 }
