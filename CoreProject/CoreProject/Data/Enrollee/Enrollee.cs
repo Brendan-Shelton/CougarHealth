@@ -66,5 +66,22 @@ namespace CoreProject.Data.Enrollee
             //TODO: hash pin 
             this.Pin = newPin;
         }
+
+        public override bool Equals(object obj)
+        {
+            var that = (Enrollee) obj;
+            // optional members
+            var mobileEqual = that.MobilePhone?.Equals(this.MobilePhone) ?? true;
+            var billingEqual = that.BillingAddr?.Equals(this.BillingAddr) ?? true;
+
+            return that.Email.Equals(this.Email) &&
+                   that.FirstName.Equals(this.FirstName) &&
+                   that.LastName.Equals(this.LastName) &&
+                   billingEqual &&
+                   that.Pin.Equals(this.Pin) &&
+                   that.HomePhone.Equals(this.HomePhone) &&
+                   that.SSN.Equals(this.SSN) &&
+                   mobileEqual;
+        }
     }
 }

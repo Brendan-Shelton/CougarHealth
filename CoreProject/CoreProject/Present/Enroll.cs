@@ -19,6 +19,7 @@ namespace CoreProject.Present
     public partial class Enroll : Form
     {
         public EnrollController EnrollCtrl { get; }
+        public Enrollee Type { get; set; }
 
         /// <summary>
         /// The base constructor. It initializes the gui and sets the
@@ -84,7 +85,7 @@ namespace CoreProject.Present
 
         private void submit_Click(object sender, EventArgs e)
         {
-            EnrollController.Contact contactInfo = this.EnrollCtrl.NewContact(
+            var contactInfo = this.EnrollCtrl.NewContact(
                 this.homePhone.Text, 
                 this.mobilePhone.Text, 
                 this.email.Text
@@ -104,6 +105,7 @@ namespace CoreProject.Present
                     contactInfo
                 );
                 this.contactErr.Text += @"Success";
+                this.contactErr.Visible = true;
             }
             else
             {
