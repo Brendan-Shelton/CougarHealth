@@ -43,6 +43,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.contactPage = new System.Windows.Forms.Panel();
+            this.planView = new System.Windows.Forms.Panel();
+            this.plans = new System.Windows.Forms.DomainUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.contactErr = new System.Windows.Forms.Label();
             this.pin = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.email = new System.Windows.Forms.TextBox();
@@ -55,10 +60,13 @@
             this.submit = new System.Windows.Forms.Button();
             this.toPersonal = new System.Windows.Forms.Button();
             this.errMsg = new System.Windows.Forms.Label();
-            this.contactErr = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ServiceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ServiceCoverage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Copayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contactPage.SuspendLayout();
+            this.planView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -202,6 +210,7 @@
             // 
             // contactPage
             // 
+            this.contactPage.Controls.Add(this.planView);
             this.contactPage.Controls.Add(this.label15);
             this.contactPage.Controls.Add(this.label14);
             this.contactPage.Controls.Add(this.contactErr);
@@ -222,6 +231,60 @@
             this.contactPage.Size = new System.Drawing.Size(787, 459);
             this.contactPage.TabIndex = 14;
             this.contactPage.Visible = false;
+            // 
+            // planView
+            // 
+            this.planView.Controls.Add(this.dataGridView1);
+            this.planView.Controls.Add(this.plans);
+            this.planView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.planView.Location = new System.Drawing.Point(0, 0);
+            this.planView.Name = "planView";
+            this.planView.Size = new System.Drawing.Size(787, 459);
+            this.planView.TabIndex = 14;
+            this.planView.Visible = false;
+            // 
+            // plans
+            // 
+            this.plans.Location = new System.Drawing.Point(41, 29);
+            this.plans.Name = "plans";
+            this.plans.Size = new System.Drawing.Size(120, 20);
+            this.plans.TabIndex = 0;
+            this.plans.Text = "Pick a plan to view";
+            this.plans.SelectedItemChanged += new System.EventHandler(this.plans_SelectedItemChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label15.Location = new System.Drawing.Point(395, 369);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(30, 18);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "2/2";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label14.Location = new System.Drawing.Point(341, 402);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(133, 18);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "* - means optional";
+            // 
+            // contactErr
+            // 
+            this.contactErr.AutoSize = true;
+            this.contactErr.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.contactErr.ForeColor = System.Drawing.Color.White;
+            this.contactErr.Location = new System.Drawing.Point(93, 332);
+            this.contactErr.Name = "contactErr";
+            this.contactErr.Size = new System.Drawing.Size(69, 24);
+            this.contactErr.TabIndex = 11;
+            this.contactErr.Text = "Error: ";
+            this.contactErr.Visible = false;
             // 
             // pin
             // 
@@ -341,39 +404,32 @@
             this.errMsg.TabIndex = 12;
             this.errMsg.Text = "Place Holder";
             // 
-            // contactErr
+            // dataGridView1
             // 
-            this.contactErr.AutoSize = true;
-            this.contactErr.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contactErr.ForeColor = System.Drawing.Color.White;
-            this.contactErr.Location = new System.Drawing.Point(93, 332);
-            this.contactErr.Name = "contactErr";
-            this.contactErr.Size = new System.Drawing.Size(69, 24);
-            this.contactErr.TabIndex = 11;
-            this.contactErr.Text = "Error: ";
-            this.contactErr.Visible = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ServiceType,
+            this.ServiceCoverage,
+            this.Copayment});
+            this.dataGridView1.Location = new System.Drawing.Point(227, 98);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(333, 258);
+            this.dataGridView1.TabIndex = 1;
             // 
-            // label14
+            // ServiceType
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label14.Location = new System.Drawing.Point(341, 402);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(133, 18);
-            this.label14.TabIndex = 12;
-            this.label14.Text = "* - means optional";
+            this.ServiceType.HeaderText = "Service";
+            this.ServiceType.Name = "ServiceType";
             // 
-            // label15
+            // ServiceCoverage
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label15.Location = new System.Drawing.Point(395, 369);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(30, 18);
-            this.label15.TabIndex = 13;
-            this.label15.Text = "2/2";
+            this.ServiceCoverage.HeaderText = "Coverage";
+            this.ServiceCoverage.Name = "ServiceCoverage";
+            // 
+            // Copayment
+            // 
+            this.Copayment.HeaderText = "Copayment";
+            this.Copayment.Name = "Copayment";
             // 
             // Enroll
             // 
@@ -401,6 +457,8 @@
             this.Text = "Enroll";
             this.contactPage.ResumeLayout(false);
             this.contactPage.PerformLayout();
+            this.planView.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -438,5 +496,11 @@
         private System.Windows.Forms.Label contactErr;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Panel planView;
+        private System.Windows.Forms.DomainUpDown plans;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ServiceType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ServiceCoverage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Copayment;
     }
 }

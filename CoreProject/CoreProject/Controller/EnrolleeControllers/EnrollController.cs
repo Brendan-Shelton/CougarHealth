@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using CoreProject.Data;
 using CoreProject.Data.Enrollee;
 
 namespace CoreProject.Controller.EnrolleeControllers
@@ -15,6 +18,14 @@ namespace CoreProject.Controller.EnrolleeControllers
             public string mobilePhone;
             public string homePhone;
             public string errMsg;
+        }
+
+        public IEnumerable<InsurancePlan> Plans { get; private set; }
+        public DbMgr Mgr { get; private set; }
+        public EnrollController()
+        {
+            this.Mgr = DbMgr.Instance;
+            this.Plans = this.Mgr.GetPlans();
         }
 
         public Enrollee Enrollee { get; set; }
@@ -136,9 +147,16 @@ namespace CoreProject.Controller.EnrolleeControllers
             
         }
 
-        public string[] PlanTypes()
+        /// <summary>
+        /// Gets all plans from the Database and returns a array of 2-tuples that 
+        /// have the primary key of the plan as item1 and the name of the plan as 
+        /// item2
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> ShowPlans()
         {
-            return null;
+            var planIdentifiers = from plan in Plans select plan.Type;
+            return planIdentifiers;
         }
     }
 }

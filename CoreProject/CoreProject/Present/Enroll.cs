@@ -45,6 +45,7 @@ namespace CoreProject.Present
             this.errMsg.Visible = true;
         }
 
+        #region PersonalInfo
         /// <summary>
         /// Check if SSN is valid and cycle to the next page if so 
         /// </summary>
@@ -72,7 +73,9 @@ namespace CoreProject.Present
                 errForm.Show();
             }
         }
+        #endregion
 
+        #region ContactInfo
         /// <summary>
         /// Goes back to the previous (main) page from the contact page 
         /// </summary>
@@ -104,8 +107,12 @@ namespace CoreProject.Present
                     this.pin.Text,
                     contactInfo
                 );
-                this.contactErr.Text += @"Success";
-                this.contactErr.Visible = true;
+                var planIdentifiers = this.EnrollCtrl.ShowPlans();
+                foreach ( var plan in planIdentifiers )
+                {
+                    plans.Items.Add(plan);
+                }
+                planView.Visible = true;
             }
             else
             {
@@ -114,5 +121,13 @@ namespace CoreProject.Present
                 this.contactErr.Visible = true;
             }
         }
+        #endregion
+
+        #region PickPlan
+        private void plans_SelectedItemChanged(object sender, EventArgs e)
+        {
+            
+        }
+        #endregion
     }
 }

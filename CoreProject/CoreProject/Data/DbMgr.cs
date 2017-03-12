@@ -7,7 +7,7 @@ using CoreProject.Data.Enrollee;
 
 namespace CoreProject.Data
 {
-    class DbMgr
+    public class DbMgr
     {
         private static DbMgr _instance;
         /// <summary>
