@@ -130,6 +130,11 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(155, 237);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown1.TabIndex = 13;
@@ -142,11 +147,15 @@
             this.button2.TabIndex = 14;
             this.button2.Text = "Add";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // listView1
             // 
+            this.listView1.LabelWrap = false;
             this.listView1.Location = new System.Drawing.Point(418, 30);
+            this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
+            this.listView1.ShowGroups = false;
             this.listView1.Size = new System.Drawing.Size(202, 192);
             this.listView1.TabIndex = 15;
             this.listView1.UseCompatibleStateImageBehavior = false;

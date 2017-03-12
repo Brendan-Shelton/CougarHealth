@@ -31,5 +31,14 @@ namespace CoreProject.Present
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            String s = listBox1.SelectedItem.ToString();
+            s += " - $" + numericUpDown1.Value.ToString();
+
+            listView1.Items.Add(s);
+            listView1.Update();
+        }
     }
 }
