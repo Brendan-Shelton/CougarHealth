@@ -142,9 +142,23 @@ namespace CoreProject.Controller.EnrolleeControllers
             Enrollee.changePIN(pin);
         }
 
+        /// <summary>
+        /// Pick a plan and attach it to an Enrollee based on it's identifier
+        /// </summary>
+        /// <param name="type"></param>
         public void PickPlan( string type )
         {
-            
+            var planPicked = (from plan in Plans
+                              where plan.Type == type
+                              select plan).FirstOrDefault();
+            if (planPicked != null)
+            {
+                var enrolleePlan = new EnrolleePlan
+                {
+                        
+                };
+                 
+            }
         }
 
         /// <summary>
@@ -157,6 +171,19 @@ namespace CoreProject.Controller.EnrolleeControllers
         {
             var planIdentifiers = from plan in Plans select plan.Type;
             return planIdentifiers;
+        }
+
+        /// <summary>
+        /// gets the plan corresponding to the plan selected and returns it  
+        /// </summary>
+        /// <param name="identifier"></param>
+        /// <returns></returns>
+        public Service[] ShowPlanDetails(string identifier)
+        {
+            var planToShow = (from plan in Plans
+                             where plan.Type == identifier
+                             select plan).FirstOrDefault()?.ServiceCosts;
+            return planToShow;
         }
     }
 }

@@ -126,7 +126,22 @@ namespace CoreProject.Present
         #region PickPlan
         private void plans_SelectedItemChanged(object sender, EventArgs e)
         {
-            
+            var planIdentifier = (string) plans.SelectedItem;
+            var planServices = EnrollCtrl.ShowPlanDetails(planIdentifier);
+
+            foreach (var service in planServices)
+            {
+                planDetails.Rows.Add(
+                    service.Name, 
+                    service.PercentCoverage, 
+                    service.RequiredCopayment
+                );
+            }
+            planDetails.Visible = true;
+        }
+        private void planPick_Click(object sender, EventArgs e)
+        {
+
         }
         #endregion
     }

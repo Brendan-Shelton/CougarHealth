@@ -50,6 +50,8 @@ namespace CoreProject.Data
                     PrimaryFee = 45.0,
                     DependentChangeFee = 40.0,
                     PrimaryChangeFee = 150.0,
+                    OPMFamily = 18000,
+                    OPMIndividual = 9500,
                     ServiceCosts = new[]
                     {
                         new Service

@@ -60,13 +60,14 @@
             this.submit = new System.Windows.Forms.Button();
             this.toPersonal = new System.Windows.Forms.Button();
             this.errMsg = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.planDetails = new System.Windows.Forms.DataGridView();
             this.ServiceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ServiceCoverage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Copayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.planPick = new System.Windows.Forms.Button();
             this.contactPage.SuspendLayout();
             this.planView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.planDetails)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -234,7 +235,8 @@
             // 
             // planView
             // 
-            this.planView.Controls.Add(this.dataGridView1);
+            this.planView.Controls.Add(this.planPick);
+            this.planView.Controls.Add(this.planDetails);
             this.planView.Controls.Add(this.plans);
             this.planView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.planView.Location = new System.Drawing.Point(0, 0);
@@ -404,17 +406,18 @@
             this.errMsg.TabIndex = 12;
             this.errMsg.Text = "Place Holder";
             // 
-            // dataGridView1
+            // planDetails
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.planDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.planDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ServiceType,
             this.ServiceCoverage,
             this.Copayment});
-            this.dataGridView1.Location = new System.Drawing.Point(227, 98);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(333, 258);
-            this.dataGridView1.TabIndex = 1;
+            this.planDetails.Location = new System.Drawing.Point(227, 98);
+            this.planDetails.Name = "planDetails";
+            this.planDetails.Size = new System.Drawing.Size(333, 258);
+            this.planDetails.TabIndex = 1;
+            this.planDetails.Visible = false;
             // 
             // ServiceType
             // 
@@ -430,6 +433,16 @@
             // 
             this.Copayment.HeaderText = "Copayment";
             this.Copayment.Name = "Copayment";
+            // 
+            // planPick
+            // 
+            this.planPick.Location = new System.Drawing.Point(637, 396);
+            this.planPick.Name = "planPick";
+            this.planPick.Size = new System.Drawing.Size(75, 23);
+            this.planPick.TabIndex = 2;
+            this.planPick.Text = "pick";
+            this.planPick.UseVisualStyleBackColor = true;
+            this.planPick.Click += new System.EventHandler(this.planPick_Click);
             // 
             // Enroll
             // 
@@ -458,7 +471,7 @@
             this.contactPage.ResumeLayout(false);
             this.contactPage.PerformLayout();
             this.planView.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.planDetails)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -498,9 +511,10 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel planView;
         private System.Windows.Forms.DomainUpDown plans;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView planDetails;
         private System.Windows.Forms.DataGridViewTextBoxColumn ServiceType;
         private System.Windows.Forms.DataGridViewTextBoxColumn ServiceCoverage;
         private System.Windows.Forms.DataGridViewTextBoxColumn Copayment;
+        private System.Windows.Forms.Button planPick;
     }
 }
