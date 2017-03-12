@@ -8,5 +8,6 @@ namespace CoreProject.Controller.EmployeeControllers
 {
     public class CougarCostsController
     {
+
     }
 }
