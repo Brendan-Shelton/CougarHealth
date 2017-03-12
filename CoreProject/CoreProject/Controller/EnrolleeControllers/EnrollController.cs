@@ -81,6 +81,27 @@ namespace CoreProject.Controller.EnrolleeControllers
             return false;
         }
 
+        /// <summary>
+        /// remove the leading one, hyphens, and spaces from the inputted phone
+        /// </summary>
+        private string TransformPhone( string inputPhone )
+        {
+            return Regex.Replace(inputPhone, "^1", "")
+                        .Replace("-", "")
+                        .Replace(" ", ""); 
+        }
+        /// <summary>
+        /// Create an enrollee object matching a unifying format and store it 
+        /// into the database. Unifying format means no extra characters in 
+        /// ssn, homephone, or mobilephone
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="ssn"></param>
+        /// <param name="mailingAddr"></param>
+        /// <param name="billingAddr"></param>
+        /// <param name="pin"></param>
+        /// <param name="contactInfo"></param>
         public void CreateEnrollee(
             string firstName, 
             string lastName, 
@@ -90,16 +111,22 @@ namespace CoreProject.Controller.EnrolleeControllers
             string pin,
             Contact contactInfo )
         {
+            // the ssn can come in a variety formats and I need to make sure 
+            // they all just end up in the format NNNNNNNNN
+            var transformedSSN = ssn.Replace(" ", "").Replace("-", "");
+            var transformedHome = TransformPhone(contactInfo.homePhone);
+            var transformedMobile = TransformPhone(contactInfo.mobilePhone);
+
             this.Enrollee = new Enrollee()
             {
                 BillingAddr = billingAddr,
                 Email = contactInfo.email,
                 FirstName = firstName,
-                HomePhone = contactInfo.homePhone,
+                HomePhone = transformedHome,
                 LastName = lastName,
                 MailingAddr = mailingAddr,
-                MobilePhone = contactInfo.mobilePhone,
-                SSN = ssn
+                MobilePhone = transformedMobile,
+                SSN = transformedSSN
             };
             Enrollee.changePIN(pin);
         }

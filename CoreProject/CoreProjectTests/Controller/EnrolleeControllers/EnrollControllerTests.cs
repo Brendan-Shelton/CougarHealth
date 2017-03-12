@@ -22,11 +22,13 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             var last = "Rhodes";
             var email = "me@michaelrhodes.us";
             var billing = "804 n ealy";
+            var hyphenPhone = "1214-291-3214";
             var home = "2142913214";
             var ssn = "222101923";
+            var hyphenSsn = "222-10-1923";
             var pin = "9253";
-            string mailing = null;
-            string mobile = null;
+            string mailing = "";
+            string mobile = "";
 
             var testEnrollee = new Enrollee
             {
@@ -45,14 +47,14 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             var ctrlContact = new EnrollController.Contact
             {
                 email = email,
-                homePhone = home,
-                mobilePhone = null
+                homePhone = hyphenPhone,
+                mobilePhone = mobile
             };
             ctrl.CreateEnrollee(
                 first,
                 last,
-                ssn,
-                null,
+                hyphenSsn,
+                mailing,
                 billing,
                 pin,
                 ctrlContact
