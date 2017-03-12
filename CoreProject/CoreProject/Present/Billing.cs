@@ -37,8 +37,22 @@ namespace CoreProject.Present
             String s = listBox1.SelectedItem.ToString();
             s += " - $" + numericUpDown1.Value.ToString();
 
-            listView1.Items.Add(s);
-            listView1.Update();
+            listBox2.Items.Add(s);
+            listBox2.Update();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //check policy number (if not exists show error message)
+            var checkPolicy = this.billControl.checkPolicy(this.textBox1.Text);
+            //check enrollee (if not exists show error message)
+            var checkEnrollee = this.billControl.checkEnrollee(this.textBox3.Text);
+            //send each service to be processed to controller
+            for (int i = 0; i < listBox2.Items.Count; i++)
+            {
+                Console.Write(listBox2.Items[i]);
+            }
+            
         }
     }
 }
