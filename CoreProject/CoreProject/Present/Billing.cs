@@ -52,7 +52,15 @@ namespace CoreProject.Present
             {
                 Console.Write(listBox2.Items[i]);
             }
-            
+
+            button3.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Invoice invoice = new Invoice();
+            invoice.Show();
         }
     }
 }

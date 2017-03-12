@@ -78,6 +78,12 @@
     <Compile Include="Present\CougarCosts.Designer.cs">
       <DependentUpon>CougarCosts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\Invoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\Invoice.Designer.cs">
+      <DependentUpon>Invoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     </Compile>
     <EmbeddedResource Include="Present\Billing.resx">
       <DependentUpon>Billing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\Invoice.resx">
+      <DependentUpon>Invoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
