@@ -29,9 +29,8 @@ namespace CoreProject.Data
         {
             
         }
-        // Temporary arrays for testing data, can change later.
-        Enrollee.Enrollee[] enArr = new Enrollee.Enrollee[3];
-        Enrollee.EnrolleePlan[] enPlanArr = new Enrollee.EnrolleePlan[3];
+
+        Enrollee.Enrollee e = new Enrollee.Enrollee();
 
         /// <summary>
         /// Method stub that will eventually retrieve an enrollee from the database 
@@ -41,29 +40,39 @@ namespace CoreProject.Data
 
         public Enrollee.Enrollee GetEnrolleeByName(String f, String l)
         {
-            Enrollee.Enrollee r = null;
-            foreach (Enrollee.Enrollee e in enArr)
-            {
-                if (e.FirstName.Equals(f) && e.LastName.Equals(l))
-                {
-                    r = e;
-                    break;
-                }
-            }
-            return r;
+            
+            e.FirstName = "First";
+            e.LastName = "Last";
+            //foreach (Enrollee.Enrollee e in enArr)
+           // {
+               // if (e.FirstName.Equals(f) && e.LastName.Equals(l))
+               // {
+             //       r = e;
+            //        break;
+           //     }
+           // }
+            return e;
         }
 
         public Enrollee.EnrolleePlan GetPolicyByID(int ID)
         {
-            Enrollee.EnrolleePlan r = null;
-            foreach (Enrollee.EnrolleePlan e in enPlanArr)
-            {
-                if(e.PlanNum == ID)
-                {
-                    r = e;
-                    break;
-                }
-            }
+            Enrollee.InsurancePlan plan = new Enrollee.InsurancePlan();
+            Enrollee.PrimaryEnrollee e = new Enrollee.PrimaryEnrollee();
+            e.FirstName = "First";
+            e.LastName = "Last";
+            Enrollee.EnrolleePlan r = new Enrollee.EnrolleePlan(e, plan);
+           // foreach (Enrollee.EnrolleePlan e in enPlanArr)
+           // {
+           //     if(e != null)
+           //     {
+           //         if (e.PlanNum == ID)
+           //         {
+           //             r = e;
+           //             break;
+           //         }
+            //    }
+                    
+           // }
 
             return r;
         }
@@ -281,7 +290,7 @@ namespace CoreProject.Data
                         new Service
                         {
                             Category = "Hospital",
-                            Name = "Diagnostic Lab and x-ray",
+                            Name = "Diagnostic Lab & X-Ray",
                             PercentCoverage = 1.0,
                             RequiredCopayment = 0,
                             InNetMax = new Tuple<double, Service.MaxPayRate>(

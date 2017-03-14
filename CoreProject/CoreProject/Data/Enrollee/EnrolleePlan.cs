@@ -59,14 +59,16 @@ namespace CoreProject.Data.Enrollee
             // start at the top of the plan 
             this.PYMBRemainder = plan.PYMB;
             this.APDRemainder = plan.APD;
-            this.OPMRemainder = plan.OPMFamily;
+            //this.OPMRemainder = plan.OPMFamily;
         }
         public void AddDependent(DependentEnrollee enrollee)
         {
         }
         public void AddCharge(double charge)
-        {    
-
+        {
+            this.Charges.Add(charge);
+            this.PYMBRemainder -= charge;
+            this.TotalCost += charge;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace CoreProject.Controller.HSPControllers
 
         }
 
-        public bool checkEnrollee(String name)
+        public bool CheckEnrollee(String name)
         {
             String[] nameArr = new String[2];
             nameArr = name.Split();
@@ -71,9 +71,12 @@ namespace CoreProject.Controller.HSPControllers
 
 
 
-        public double[,] HSPCalculate(String[] services, int[] charges)
+        public double[,] HSPCalculate(List<String> s, List<int> c)
         {
             // For each service, check plan, and what they pay, max allowed, then calculate based on charge and service provided
+
+            String[] services = s.ToArray();
+            int[] charges = c.ToArray();
 
             int serviceID = 0;
             double adjustedCharge = 0, enrolleeCharge = 0, HSPCharge = 0;
@@ -85,20 +88,27 @@ namespace CoreProject.Controller.HSPControllers
             {
                 for (int j = 0; j < plan.ServiceCosts.Length; j++)
                 {
+                    Console.WriteLine(services[i]);
+                    Console.WriteLine(plan.ServiceCosts[j].Name);
                     if (plan.ServiceCosts[j].Name.Equals(services[i]))
                     {
                         serviceID = j;
+                        break;
                     }
                 }
-
 
                 if (charges[i] > plan.ServiceCosts[serviceID].InNetMax.Item1)
                 {
                     adjustedCharge = plan.ServiceCosts[serviceID].InNetMax.Item1;
                 }
+                else
+                {
+                    adjustedCharge = charges[i];
+                }
 
-                enrolleeCharge = ((charges[i] * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment);
-                HSPCharge = (charges[i] * plan.ServiceCosts[serviceID].PercentCoverage);
+
+                enrolleeCharge = ((adjustedCharge * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment);
+                HSPCharge = (adjustedCharge * plan.ServiceCosts[serviceID].PercentCoverage);
 
                 returnArr[i, 0] = adjustedCharge;
                 returnArr[i, 1] = enrolleeCharge;
@@ -125,6 +135,7 @@ namespace CoreProject.Controller.HSPControllers
                         serviceID = j;
                     }
                 }
+
 
 
             }

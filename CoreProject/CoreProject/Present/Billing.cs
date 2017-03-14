@@ -15,6 +15,8 @@ namespace CoreProject.Present
     {
         public BillController billControl { get; }
         public Billing Type { get; set; }
+        List<String> services = new List<String>();
+        List<int> charges = new List<int>();
             
         public Billing(BillController billControl)
         {
@@ -35,7 +37,9 @@ namespace CoreProject.Present
         private void button2_Click(object sender, EventArgs e)
         {
             String s = listBox1.SelectedItem.ToString();
+            services.Add(listBox1.SelectedItem.ToString());
             s += " - $" + numericUpDown1.Value.ToString();
+            charges.Add(Convert.ToInt32(numericUpDown1.Value));
 
             listBox2.Items.Add(s);
             listBox2.Update();
@@ -44,9 +48,9 @@ namespace CoreProject.Present
         private void button1_Click(object sender, EventArgs e)
         {
             //check policy number (if not exists show error message)
-            var checkPolicy = this.billControl.checkPolicy(this.textBox1.Text);
+            var checkPolicy = this.billControl.CheckPolicy(Convert.ToInt32(this.textBox1.Text));
             //check enrollee (if not exists show error message)
-            var checkEnrollee = this.billControl.checkEnrollee(this.textBox3.Text);
+            var checkEnrollee = this.billControl.CheckEnrollee(this.textBox3.Text);
             //send each service to be processed to controller
             for (int i = 0; i < listBox2.Items.Count; i++)
             {
@@ -59,7 +63,7 @@ namespace CoreProject.Present
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Invoice invoice = new Invoice();
+            Invoice invoice = new Invoice(billControl.HSPCalculate(services, charges));
             invoice.Show();
         }
     }
