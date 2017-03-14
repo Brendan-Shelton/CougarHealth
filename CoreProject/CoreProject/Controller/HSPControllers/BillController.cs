@@ -56,10 +56,11 @@ namespace CoreProject.Controller.HSPControllers
 
         public void getPlan()
         {
-            Type type = enrolleePlan.GetType();
+            
             plan = new Data.Enrollee.InsurancePlan();
+            plan.Type = "Basic";
 
-            if ((type.ToString()).Equals(Plans[0].Type))
+            if (plan.Type.Equals(Plans[0].Type))
                 plan = Plans[0];
             else
                 plan = Plans[1];
@@ -120,10 +121,14 @@ namespace CoreProject.Controller.HSPControllers
 
         }
 
-        public double[,] OHSPCalculate(String[] services, int[] charges)
+        public double[,] OHSPCalculate(List<String> s, List<int> c)
         {
+            String[] services = s.ToArray();
+            int[] charges = c.ToArray();
+
             getPlan();
             double[,] returnArr = new double[services.Length, 3];
+            double enrolleeCharge = 0, HSPCharge = 0, adjustedCharge = 0;
             int serviceID = 0;
 
             for (int i = 0; i < services.Length; i++)
@@ -133,10 +138,25 @@ namespace CoreProject.Controller.HSPControllers
                     if (plan.ServiceCosts[j].Name.Equals(services[i]))
                     {
                         serviceID = j;
+                        break;
                     }
                 }
+                adjustedCharge = plan.ServiceCosts[serviceID].InNetMax.Item1;
+                if (charges[i] < adjustedCharge)
+                {
+                    adjustedCharge = charges[i];
+                    enrolleeCharge = ((adjustedCharge * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment);
+                }
+                else
+                {
+                    enrolleeCharge = ((charges[i] - adjustedCharge) + ((adjustedCharge * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment));
+                }
+                    
+                HSPCharge = (adjustedCharge * plan.ServiceCosts[serviceID].PercentCoverage);
 
-
+                returnArr[i, 0] = charges[i];
+                returnArr[i, 1] = enrolleeCharge;
+                returnArr[i, 2] = HSPCharge;
 
             }
             return returnArr;

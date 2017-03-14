@@ -63,7 +63,7 @@ namespace CoreProject.Present
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Invoice invoice = new Invoice(billControl.HSPCalculate(services, charges));
+            Invoice invoice = new Invoice(billControl.OHSPCalculate(services, charges));
             invoice.Show();
         }
     }

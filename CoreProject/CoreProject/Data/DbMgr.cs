@@ -60,7 +60,9 @@ namespace CoreProject.Data
             Enrollee.PrimaryEnrollee e = new Enrollee.PrimaryEnrollee();
             e.FirstName = "First";
             e.LastName = "Last";
+            plan.Type = "Basic";
             Enrollee.EnrolleePlan r = new Enrollee.EnrolleePlan(e, plan);
+            
            // foreach (Enrollee.EnrolleePlan e in enPlanArr)
            // {
            //     if(e != null)
@@ -142,7 +144,7 @@ namespace CoreProject.Data
                         new Service
                         {
                             Category = "Hospital",
-                            Name = "Diagnostic Lab and x-ray",
+                            Name = "Diagnostic Lab & X-Ray",
                             PercentCoverage = .9,
                             RequiredCopayment = 0,
                             InNetMax = new Tuple<double, Service.MaxPayRate>(
