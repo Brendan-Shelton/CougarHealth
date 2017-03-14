@@ -70,7 +70,7 @@ namespace CoreProject.Controller.HSPControllers
 
 
 
-
+        // TODO Change return type to String so that name of service can be included in return array OR send service ID and get plan Name from that.
 
         public double[,] HSPCalculate(List<String> s, List<int> c)
         {
