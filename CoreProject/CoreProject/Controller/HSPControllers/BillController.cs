@@ -8,23 +8,24 @@ using CoreProject.Data;
 
 namespace CoreProject.Controller.HSPControllers
 {
-    
+
 
     public class BillController
     {
         public DbMgr Mgr;
-        public IEnumerable<InsurancePlan> Plans;
+        public List<InsurancePlan> Plans;
         public Type planType;
         public Enrollee enrollee;
         public EnrolleePlan enrolleePlan;
+        public InsurancePlan plan;
 
         public BillController()
         {
             this.Mgr = DbMgr.Instance;
-            this.Plans = Mgr.GetPlans();
+            this.Plans = (List<InsurancePlan>)Mgr.GetPlans();
         }
-        
-        
+
+
 
         public bool CheckPolicy(int policyID)
         {
@@ -37,7 +38,7 @@ namespace CoreProject.Controller.HSPControllers
                 enrolleePlan = Mgr.GetPolicyByID(policyID);
                 return true;
             }
-                
+
         }
 
         public bool checkEnrollee(String name)
@@ -50,42 +51,84 @@ namespace CoreProject.Controller.HSPControllers
             }
             else
                 enrollee = Mgr.GetEnrolleeByName(nameArr[0], nameArr[1]);
-                return true;
+            return true;
         }
 
-        
-        
-        
+        public void getPlan()
+        {
+            Type type = enrolleePlan.GetType();
+            plan = new Data.Enrollee.InsurancePlan();
 
-        
-        
+            if ((type.ToString()).Equals(Plans[0].Type))
+                plan = Plans[0];
+            else
+                plan = Plans[1];
+        }
 
 
-        public void HSPCalculate(InsurancePlan plan, String[] services, int[] charges)
+
+
+
+
+
+        public double[,] HSPCalculate(String[] services, int[] charges)
         {
             // For each service, check plan, and what they pay, max allowed, then calculate based on charge and service provided
-            Type type = plan.GetType();
-            
-            for(int i = 0; i < services.Length; i++)
+
+            int serviceID = 0;
+            double adjustedCharge = 0, enrolleeCharge = 0, HSPCharge = 0;
+            getPlan();
+
+            double[,] returnArr = new double[services.Length, 3];
+
+            for (int i = 0; i < services.Length; i++)
             {
-                if(charges[i] > plan.getServiceCost(services[i]))
+                for (int j = 0; j < plan.ServiceCosts.Length; j++)
                 {
-                    double adjustedCharge = plan.getService(services[i]);
+                    if (plan.ServiceCosts[j].Name.Equals(services[i]))
+                    {
+                        serviceID = j;
+                    }
                 }
 
-                double enrolleeCharge = (charges[i] * (1 - getService(services[i]).getPercentCoverage())) + getService(services[i]).getRequiredCopayment();
-                double HSPCharge = (charges[i] * getService(services[i]).getPercentCoverage());
 
+                if (charges[i] > plan.ServiceCosts[serviceID].InNetMax.Item1)
+                {
+                    adjustedCharge = plan.ServiceCosts[serviceID].InNetMax.Item1;
+                }
+
+                enrolleeCharge = ((charges[i] * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment);
+                HSPCharge = (charges[i] * plan.ServiceCosts[serviceID].PercentCoverage);
+
+                returnArr[i, 0] = adjustedCharge;
+                returnArr[i, 1] = enrolleeCharge;
+                returnArr[i, 2] = HSPCharge;
             }
 
-            
-                
+            return returnArr;
+
 
         }
 
-        public void OHSPCalculate()
+        public double[,] OHSPCalculate(String[] services, int[] charges)
         {
-            
+            getPlan();
+            double[,] returnArr = new double[services.Length, 3];
+            int serviceID = 0;
+
+            for (int i = 0; i < services.Length; i++)
+            {
+                for (int j = 0; j < plan.ServiceCosts.Length; j++)
+                {
+                    if (plan.ServiceCosts[j].Name.Equals(services[i]))
+                    {
+                        serviceID = j;
+                    }
+                }
+
+
+            }
+            return returnArr;
         }
     }
 }
