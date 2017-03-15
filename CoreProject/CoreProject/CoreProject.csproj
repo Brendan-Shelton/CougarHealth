@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DbMgr.cs" />
+    <Compile Include="Data\Enrollee\Service.cs" />
     <Compile Include="Present\AccountManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +79,12 @@
     </Compile>
     <Compile Include="Present\CougarCosts.Designer.cs">
       <DependentUpon>CougarCosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\Invoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\Invoice.Designer.cs">
+      <DependentUpon>Invoice.cs</DependentUpon>
     </Compile>
     <Compile Include="Present\Main.cs">
       <SubType>Form</SubType>
@@ -122,6 +130,15 @@
     <Compile Include="Present\Support.Designer.cs">
       <DependentUpon>Support.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Present\Billing.resx">
+      <DependentUpon>Billing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\Invoice.resx">
+      <DependentUpon>Invoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

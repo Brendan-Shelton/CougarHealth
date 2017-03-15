@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CoreProject.Controller.HSPControllers;
 
 namespace CoreProject.Present
 {
@@ -15,6 +16,13 @@ namespace CoreProject.Present
         public Main()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var billControl = new BillController();
+            var billGUI = new Billing(billControl);
+            billGUI.Show();
         }
     }
 }
