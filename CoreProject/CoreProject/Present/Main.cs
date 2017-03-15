@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CoreProject.Controller.EmployeeControllers;
 
 namespace CoreProject.Present
 {
@@ -15,6 +16,15 @@ namespace CoreProject.Present
         public Main()
         {
             InitializeComponent();
+
+        }
+
+      
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var rangeReportCtrl = new RangeReportController();
+            var rangeGUI = new ExpenseReport(rangeReportCtrl);
+            rangeGUI.Show();
         }
     }
 }

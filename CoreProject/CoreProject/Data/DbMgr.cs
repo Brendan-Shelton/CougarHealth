@@ -34,5 +34,25 @@ namespace CoreProject.Data
         /// </summary>
         /// <param name="enrollee"></param>
         public void SaveEnrollee(Enrollee.Enrollee enrollee) { }
+
+       
+
+        private int getNumBills(DateTime begin, DateTime end)
+        {
+            //This would be where the system calls the number of Bills that exist during this date range
+            //  
+            //return numBills; 
+
+            return 0;
+        }
+
+        //Linq ----> Look it up
+        public  String[][] getBills(DateTime begin, DateTime end)
+        {
+            //This function will return a 2D array of the bills, in a format to be determined.
+            String[][] bills = new String[numBills][];
+
+            return bills;
+        }
     }
 }
