@@ -348,7 +348,7 @@ namespace CoreProject.Data
             PrimaryEnrolleeSet = new List<PrimaryEnrollee>();
         }
 
-        Enrollee.Enrollee e = new Enrollee.Enrollee("0000");
+        Enrollee.Enrollee e = new Enrollee.Enrollee();
 
         /// <summary>
         /// Method stub that will eventually retrieve an enrollee from the database 
@@ -372,10 +372,10 @@ namespace CoreProject.Data
                          select plan).FirstOrDefault();
         }
 
-        ///public IEnumerable<Enrollee.InsurancePlan> GetPlans()
-        ///{
-        ///    return Plans;
-        ///}
+        public IEnumerable<Enrollee.InsurancePlan> GetPlans()
+        {
+            return Plans;
+        }
 
         /// <summary>
         /// Find the enrollee with the matching email and password. If no 
@@ -433,7 +433,7 @@ namespace CoreProject.Data
         public Enrollee.EnrolleePlan GetPolicyByID(int ID)
         {
             Enrollee.InsurancePlan plan = new Enrollee.InsurancePlan();
-            Enrollee.PrimaryEnrollee e = new Enrollee.PrimaryEnrollee("0000");
+            Enrollee.PrimaryEnrollee e = new Enrollee.PrimaryEnrollee();
             e.FirstName = "First";
             e.LastName = "Last";
             plan.Type = "Basic";
