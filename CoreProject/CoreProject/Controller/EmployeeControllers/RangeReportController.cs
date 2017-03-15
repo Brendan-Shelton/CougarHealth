@@ -57,12 +57,12 @@ namespace CoreProject.Controller.EmployeeControllers
 
             rangeBills[1].amount = 90000;
             rangeBills[1].dateOfBill = new DateTime(2017, 3, 4);
-            rangeBills[1].location = "Doctor";
+            rangeBills[1].location = "Physician";
             rangeBills[1].planType = 1;
 
             rangeBills[2].amount = 449;
             rangeBills[2].dateOfBill = new DateTime(2017, 2, 26);
-            rangeBills[2].location = "Pharmacy";
+            rangeBills[2].location = "Other";
             rangeBills[2].planType = 0;
 
             rangeBills[3].amount = 200;
@@ -72,7 +72,7 @@ namespace CoreProject.Controller.EmployeeControllers
 
             rangeBills[4].amount = 1000;
             rangeBills[4].dateOfBill = new DateTime(2017, 2, 20);
-            rangeBills[4].location = "Emergency Room";
+            rangeBills[4].location = "Physician";
             rangeBills[4].planType = 0;
             //----------------------------------------------------------------------
             return rangeBills;

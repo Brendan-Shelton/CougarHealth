@@ -31,6 +31,7 @@ namespace CoreProject.Present
         {
             var monthReportCtrl = new MonthReportController();
             var monthGUI = new MonthlyReport(monthReportCtrl);
+            monthGUI.Show();
         }
     }
 }
