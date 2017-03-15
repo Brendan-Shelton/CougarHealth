@@ -28,7 +28,7 @@ namespace CoreProject.Controller.EnrolleeControllers
             this.Plans = this.Mgr.GetPlans();
         }
 
-        public Enrollee Enrollee { get; set; }
+        public PrimaryEnrollee Enrollee { get; set; }
         /// <summary>
         /// Uses regex to verify if the social security number is correct 
         /// TODO: in database implementation we need to check ssn in the database
@@ -113,7 +113,7 @@ namespace CoreProject.Controller.EnrolleeControllers
         /// <param name="billingAddr"></param>
         /// <param name="pin"></param>
         /// <param name="contactInfo"></param>
-        public void CreateEnrollee(
+        public void CreatePrimaryEnrollee(
             string firstName, 
             string lastName, 
             string ssn,
@@ -128,7 +128,7 @@ namespace CoreProject.Controller.EnrolleeControllers
             var transformedHome = TransformPhone(contactInfo.homePhone);
             var transformedMobile = TransformPhone(contactInfo.mobilePhone);
 
-            this.Enrollee = new Enrollee()
+            this.Enrollee = new PrimaryEnrollee(pin)
             {
                 BillingAddr = billingAddr,
                 Email = contactInfo.email,
@@ -139,25 +139,25 @@ namespace CoreProject.Controller.EnrolleeControllers
                 MobilePhone = transformedMobile,
                 SSN = transformedSSN
             };
-            Enrollee.changePIN(pin);
         }
 
         /// <summary>
         /// Pick a plan and attach it to an Enrollee based on it's identifier
         /// </summary>
         /// <param name="type"></param>
-        public void PickPlan( string type )
+        public int PickPlan( string type )
         {
-            var planPicked = (from plan in Plans
-                              where plan.Type == type
-                              select plan).FirstOrDefault();
+            if ( this.Enrollee == null ) throw new ArgumentException("There is no enrollee");
+            var planPicked = Mgr.GetPlanByType(type);
             if (planPicked != null)
             {
-                var enrolleePlan = new EnrolleePlan
-                {
-                        
-                };
-                 
+                var enrolleePlan = new EnrolleePlan(this.Enrollee, planPicked);
+                Mgr.SaveEnrolleePlan(enrolleePlan);
+                return enrolleePlan.PlanNum;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException();
             }
         }
 
@@ -169,6 +169,8 @@ namespace CoreProject.Controller.EnrolleeControllers
         /// <returns></returns>
         public IEnumerable<string> ShowPlans()
         {
+            // looks like something that should be in dbmgr but I chose here
+            // because I am essentailly calling a map function on the plans set
             var planIdentifiers = from plan in Plans select plan.Type;
             return planIdentifiers;
         }
@@ -180,10 +182,19 @@ namespace CoreProject.Controller.EnrolleeControllers
         /// <returns></returns>
         public Service[] ShowPlanDetails(string identifier)
         {
-            var planToShow = (from plan in Plans
-                             where plan.Type == identifier
-                             select plan).FirstOrDefault()?.ServiceCosts;
-            return planToShow;
+            var planToShow = Mgr.GetPlanByType(identifier);
+            if (planToShow == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            return planToShow.ServiceCosts;
+        }
+
+        public string GetName()
+        {
+            if ( this.Enrollee == null ) throw new ArgumentException("There is no enrollee");
+            return this.Enrollee.FirstName + " " + this.Enrollee.LastName;
         }
     }
 }

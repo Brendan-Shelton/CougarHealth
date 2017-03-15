@@ -44,6 +44,11 @@
             this.label8 = new System.Windows.Forms.Label();
             this.contactPage = new System.Windows.Forms.Panel();
             this.planView = new System.Windows.Forms.Panel();
+            this.planPick = new System.Windows.Forms.Button();
+            this.planDetails = new System.Windows.Forms.DataGridView();
+            this.ServiceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ServiceCoverage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Copayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.plans = new System.Windows.Forms.DomainUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -60,14 +65,13 @@
             this.submit = new System.Windows.Forms.Button();
             this.toPersonal = new System.Windows.Forms.Button();
             this.errMsg = new System.Windows.Forms.Label();
-            this.planDetails = new System.Windows.Forms.DataGridView();
-            this.ServiceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ServiceCoverage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Copayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.planPick = new System.Windows.Forms.Button();
+            this.finish = new System.Windows.Forms.Panel();
+            this.confirmation = new System.Windows.Forms.Label();
+            this.exitForm = new System.Windows.Forms.Button();
             this.contactPage.SuspendLayout();
             this.planView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.planDetails)).BeginInit();
+            this.finish.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -235,6 +239,7 @@
             // 
             // planView
             // 
+            this.planView.Controls.Add(this.finish);
             this.planView.Controls.Add(this.planPick);
             this.planView.Controls.Add(this.planDetails);
             this.planView.Controls.Add(this.plans);
@@ -244,6 +249,44 @@
             this.planView.Size = new System.Drawing.Size(787, 459);
             this.planView.TabIndex = 14;
             this.planView.Visible = false;
+            // 
+            // planPick
+            // 
+            this.planPick.Location = new System.Drawing.Point(637, 396);
+            this.planPick.Name = "planPick";
+            this.planPick.Size = new System.Drawing.Size(75, 23);
+            this.planPick.TabIndex = 2;
+            this.planPick.Text = "pick";
+            this.planPick.UseVisualStyleBackColor = true;
+            this.planPick.Click += new System.EventHandler(this.planPick_Click);
+            // 
+            // planDetails
+            // 
+            this.planDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.planDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ServiceType,
+            this.ServiceCoverage,
+            this.Copayment});
+            this.planDetails.Location = new System.Drawing.Point(227, 98);
+            this.planDetails.Name = "planDetails";
+            this.planDetails.Size = new System.Drawing.Size(333, 258);
+            this.planDetails.TabIndex = 1;
+            this.planDetails.Visible = false;
+            // 
+            // ServiceType
+            // 
+            this.ServiceType.HeaderText = "Service";
+            this.ServiceType.Name = "ServiceType";
+            // 
+            // ServiceCoverage
+            // 
+            this.ServiceCoverage.HeaderText = "Coverage";
+            this.ServiceCoverage.Name = "ServiceCoverage";
+            // 
+            // Copayment
+            // 
+            this.Copayment.HeaderText = "Copayment";
+            this.Copayment.Name = "Copayment";
             // 
             // plans
             // 
@@ -406,43 +449,37 @@
             this.errMsg.TabIndex = 12;
             this.errMsg.Text = "Place Holder";
             // 
-            // planDetails
+            // finish
             // 
-            this.planDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.planDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ServiceType,
-            this.ServiceCoverage,
-            this.Copayment});
-            this.planDetails.Location = new System.Drawing.Point(227, 98);
-            this.planDetails.Name = "planDetails";
-            this.planDetails.Size = new System.Drawing.Size(333, 258);
-            this.planDetails.TabIndex = 1;
-            this.planDetails.Visible = false;
+            this.finish.Controls.Add(this.exitForm);
+            this.finish.Controls.Add(this.confirmation);
+            this.finish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.finish.Location = new System.Drawing.Point(0, 0);
+            this.finish.Name = "finish";
+            this.finish.Size = new System.Drawing.Size(787, 459);
+            this.finish.TabIndex = 3;
+            this.finish.Visible = false;
             // 
-            // ServiceType
+            // confirmation
             // 
-            this.ServiceType.HeaderText = "Service";
-            this.ServiceType.Name = "ServiceType";
+            this.confirmation.AutoSize = true;
+            this.confirmation.Font = new System.Drawing.Font("Arial Narrow", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.confirmation.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.confirmation.Location = new System.Drawing.Point(316, 114);
+            this.confirmation.Name = "confirmation";
+            this.confirmation.Size = new System.Drawing.Size(88, 33);
+            this.confirmation.TabIndex = 0;
+            this.confirmation.Text = "label16";
             // 
-            // ServiceCoverage
+            // exitForm
             // 
-            this.ServiceCoverage.HeaderText = "Coverage";
-            this.ServiceCoverage.Name = "ServiceCoverage";
-            // 
-            // Copayment
-            // 
-            this.Copayment.HeaderText = "Copayment";
-            this.Copayment.Name = "Copayment";
-            // 
-            // planPick
-            // 
-            this.planPick.Location = new System.Drawing.Point(637, 396);
-            this.planPick.Name = "planPick";
-            this.planPick.Size = new System.Drawing.Size(75, 23);
-            this.planPick.TabIndex = 2;
-            this.planPick.Text = "pick";
-            this.planPick.UseVisualStyleBackColor = true;
-            this.planPick.Click += new System.EventHandler(this.planPick_Click);
+            this.exitForm.Location = new System.Drawing.Point(329, 201);
+            this.exitForm.Name = "exitForm";
+            this.exitForm.Size = new System.Drawing.Size(75, 23);
+            this.exitForm.TabIndex = 1;
+            this.exitForm.Text = "Okay";
+            this.exitForm.UseVisualStyleBackColor = true;
+            this.exitForm.Click += new System.EventHandler(this.exitForm_Click);
             // 
             // Enroll
             // 
@@ -472,6 +509,8 @@
             this.contactPage.PerformLayout();
             this.planView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.planDetails)).EndInit();
+            this.finish.ResumeLayout(false);
+            this.finish.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -516,5 +555,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ServiceCoverage;
         private System.Windows.Forms.DataGridViewTextBoxColumn Copayment;
         private System.Windows.Forms.Button planPick;
+        private System.Windows.Forms.Panel finish;
+        private System.Windows.Forms.Label confirmation;
+        private System.Windows.Forms.Button exitForm;
     }
 }

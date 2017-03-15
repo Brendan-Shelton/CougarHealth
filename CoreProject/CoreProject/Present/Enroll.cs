@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreProject.Controller.EnrolleeControllers;
 using CoreProject.Data.Enrollee;
@@ -98,7 +90,7 @@ namespace CoreProject.Present
 
             if ( goodInfo && this.pin.Text != "" )
             {
-                this.EnrollCtrl.CreateEnrollee(
+                this.EnrollCtrl.CreatePrimaryEnrollee(
                     this.firstName.Text,
                     this.lastName.Text,
                     this.SSN.Text,
@@ -124,8 +116,17 @@ namespace CoreProject.Present
         #endregion
 
         #region PickPlan
+        /// <summary>
+        /// display the details of an insurance plan in a tabular format
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void plans_SelectedItemChanged(object sender, EventArgs e)
         {
+            if (planDetails.Rows.Count > 1)
+            {
+                planDetails.Rows.Clear();
+            }
             var planIdentifier = (string) plans.SelectedItem;
             var planServices = EnrollCtrl.ShowPlanDetails(planIdentifier);
 
@@ -139,10 +140,30 @@ namespace CoreProject.Present
             }
             planDetails.Visible = true;
         }
+        /// <summary>
+        /// attaches an the user to the plan on the backend and sends back a 
+        /// confirmation message 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void planPick_Click(object sender, EventArgs e)
         {
-
+            var planIdentifier = (string) plans.SelectedItem;
+            var plan = this.EnrollCtrl.PickPlan(planIdentifier);
+            var customer = this.EnrollCtrl.GetName();
+            this.confirmation.Text = $"Congratulations {customer} your plan is: {plan}";
+            this.finish.Visible = true;
         }
         #endregion
+
+        /// <summary>
+        /// The final panel is complete so the form is finished 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void exitForm_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

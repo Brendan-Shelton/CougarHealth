@@ -11,6 +11,7 @@ namespace CoreProject.Data.Enrollee
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string HomePhone { get; set; }
+        public string Email { get; set; }
         /// <summary>
         /// optional for the enrollee to have
         /// </summary>
@@ -54,17 +55,11 @@ namespace CoreProject.Data.Enrollee
             }
             get { return _ssn; }
         }
-        public string MailingAddr { get; set; }
-        /// <summary>
-        /// optional for the enrollee to have
-        /// </summary>
-        public string BillingAddr { get; set; } = null;
 
-        public string Email { get; set; }
-
-        public Enrollee()
+        public Enrollee( string pin )
         {
             this.Id = ++idCount;
+            this.changePIN(pin);
         }
 
         public void changePIN(string newPin)
@@ -78,16 +73,19 @@ namespace CoreProject.Data.Enrollee
             var that = (Enrollee) obj;
             // optional members
             var mobileEqual = that.MobilePhone?.Equals(this.MobilePhone) ?? true;
-            var billingEqual = that.BillingAddr?.Equals(this.BillingAddr) ?? true;
 
             return that.Email.Equals(this.Email) &&
                    that.FirstName.Equals(this.FirstName) &&
                    that.LastName.Equals(this.LastName) &&
-                   billingEqual &&
                    that.Pin.Equals(this.Pin) &&
                    that.HomePhone.Equals(this.HomePhone) &&
                    that.SSN.Equals(this.SSN) &&
                    mobileEqual;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

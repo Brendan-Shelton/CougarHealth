@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreProject.Data;
 using CoreProject.Data.Enrollee;
 
 namespace CoreProject.Controller.EnrolleeControllers.Tests
@@ -30,7 +31,7 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             string mailing = "";
             string mobile = "";
 
-            var testEnrollee = new Enrollee
+            var testEnrollee = new PrimaryEnrollee(pin)
             {
                 BillingAddr = billing,
                 Email = email,
@@ -41,7 +42,6 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
                 SSN = ssn,
                 MobilePhone = mobile
             };
-            testEnrollee.changePIN(pin);
 
             // act
             var ctrlContact = new EnrollController.Contact
@@ -50,7 +50,7 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
                 homePhone = hyphenPhone,
                 mobilePhone = mobile
             };
-            ctrl.CreateEnrollee(
+            ctrl.CreatePrimaryEnrollee(
                 first,
                 last,
                 hyphenSsn,
@@ -98,6 +98,11 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             Assert.IsFalse(letterCheck);
         }
 
+        /// <summary>
+        /// Testing good and bad contact information. Mobile phones are 
+        /// optional, email address should have a site, and phone numbers 
+        /// should be of US format with hyphens and spaces allowed
+        /// </summary>
         [TestMethod()]
         public void VerifyContactTest()
         {
@@ -168,7 +173,7 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             };
             var noEmail = new EnrollController.Contact
             {
-                email = "", 
+                email = "",
                 errMsg = null,
                 mobilePhone = "2192011021",
                 homePhone = "2173277777"
@@ -200,7 +205,50 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             Assert.AreEqual(britishPhone.errMsg, "A valid US based mobile phone is required" +
                                      "\n(you could also leave the field blank)");
             Assert.AreEqual(badEmail.errMsg, "A valid email is required");
-            
+
+        }
+
+        /// <summary>
+        /// Make sure we output a Service array and check that we get something
+        /// back 
+        /// </summary>
+        [TestMethod()]
+        public void ShowPlanDetailsTest()
+        {
+            var ctrl = new EnrollController();
+            // should work properly 
+            string goodPlan = "Basic";
+            DbMgr mgr = DbMgr.Instance;
+
+            var beBasic = ctrl.ShowPlanDetails(goodPlan);
+
+            Assert.IsNotNull(beBasic);
+            Assert.IsInstanceOfType(beBasic, typeof(Service[]));
+        }
+
+        /// <summary>
+        /// Throws a null reference because there is no insurance plan for 
+        /// "bad"
+        /// </summary>
+        [TestMethod()]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void ShowPlanDetailsTestException()
+        {
+            const string badPlan = "bad";
+            var ctrl = new EnrollController();
+            ctrl.ShowPlanDetails(badPlan);
+        }
+
+        /// <summary>
+        /// Their is no Enrollee attached to the ctrl so this should be an 
+        /// invalid call
+        /// </summary>
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetNameTest()
+        {
+            var ctrl = new EnrollController();
+            ctrl.GetName();
         }
     }
 }

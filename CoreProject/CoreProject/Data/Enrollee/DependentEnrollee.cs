@@ -8,5 +8,9 @@ namespace CoreProject.Data.Enrollee
 {
     public class DependentEnrollee: Enrollee
     {
+        public DependentEnrollee( string pin ): base(pin)
+        {
+            
+        }
     }
 }
