@@ -49,10 +49,13 @@ namespace CoreProject.Data.HealthcareServiceProvider
             }
         }
 
-        public HSP()
+        public HSP(string pin)
         {
             this.Id = ++idCount;
+            this.changePIN(pin);
         }
+
+
 
         public void changePIN(string newPin)
         {

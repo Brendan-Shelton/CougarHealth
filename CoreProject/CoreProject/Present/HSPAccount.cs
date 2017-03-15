@@ -31,5 +31,22 @@ namespace CoreProject.Present
         {
 
         }
+
+        private void Submit_Click(object sender, EventArgs e)
+        {
+            // TODO: Still need to validate inputs and insert optional fields if they exist
+            // Additionally, personnel info needs to be worked out.
+
+            List<string> servicesOffered = new List<string>();
+            foreach (String item in this.ServicesOffered.SelectedItems)
+                servicesOffered.Add(item);
+            String address = this.Street.Text + " " + this.City.Text + " " + this.State.Text + " " + this.Zip.Text;
+
+            this.HSPControl.CreateHSP(
+                this.CompanyName.Text,
+                servicesOffered,
+                address,
+                this.Pin.Text);
+        }
     }
 }
