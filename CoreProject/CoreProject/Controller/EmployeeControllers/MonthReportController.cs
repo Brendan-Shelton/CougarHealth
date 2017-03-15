@@ -31,6 +31,9 @@ namespace CoreProject.Controller.EmployeeControllers
             public double OHSPOtherCosts;
         }
 
+
+
+
         //public DbMgr Mgr { get; private set; }
 
         public MonthReportController()
