@@ -14,16 +14,21 @@ namespace CoreProject.Controller.EmployeeControllers
         {
             public int numBasicEnrollees;
             public int numExtendedEnrollees;
-            public int totalBasicIncome;
-            public int totalExtendedIncome;
-            public int numIHSPBills;
-            public int numOHSPBills;
-            public int IHSPhospitalCosts;
-            public int OHSPhospitalCosts;
-            public int IHSPPhysicianCosts;
-            public int OHSPPhysicianCosts;
-            public int IHSPOtherCosts;
-            public int OHSPOtherCosts;
+            public int numEnrolleeBills;
+            public double totalBasicIncome;
+            public double totalExtendedIncome;
+            public int numIHSPHospitalBills;
+            public int numOHSPHospitalBills;
+            public int numIHSPPhysicianBills;
+            public int numOHSPPhysicianBills;
+            public int numIHSPOtherBills;
+            public int numOHSPOtherBills;
+            public double IHSPhospitalCosts;
+            public double OHSPhospitalCosts;
+            public double IHSPPhysicianCosts;
+            public double OHSPPhysicianCosts;
+            public double IHSPOtherCosts;
+            public double OHSPOtherCosts;
         }
 
         //public DbMgr Mgr { get; private set; }
@@ -74,12 +79,61 @@ namespace CoreProject.Controller.EmployeeControllers
         }
 
         public void update(MonthlyReport report)
-        {
+        { 
            report.setMonth(updateMonth(DateTime.Now));
             financeSystem funds = retrieveFinances(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), DateTime.Now);
 
+            double amountOwedIHSP = 0;
+            double amountOwedOHSP = 0;
+
             report.setBasicEnrollNum(funds.numBasicEnrollees);
             report.setExtendedErollNum(funds.numExtendedEnrollees);
+
+            report.setBasicTotalIncome(funds.totalBasicIncome);
+            report.setExtendTotalIncome(funds.totalExtendedIncome);
+            report.setTotalEnrolleePayments(funds.numEnrolleeBills);
+
+            report.setIHSPNumHospBills(funds.numIHSPHospitalBills);
+            report.setOHSPNumHospBills(funds.numOHSPHospitalBills);
+
+            report.setIHSPNumPhysBills(funds.numIHSPPhysicianBills);
+            report.setOHSPNumPhysBills(funds.numOHSPPhysicianBills);
+
+            report.setIHSPNumOtherBills(funds.numIHSPOtherBills);
+            report.setOHSPNumOtherBills(funds.numOHSPOtherBills);
+
+            report.setHospitalIHSP(funds.IHSPhospitalCosts);
+            report.setHospitalOHSP(funds.OHSPhospitalCosts);
+            amountOwedIHSP += funds.IHSPhospitalCosts;
+            amountOwedOHSP += funds.OHSPhospitalCosts;
+
+            report.setPhysicianIHSP(funds.IHSPPhysicianCosts);
+            report.setPhysicianOHSP(funds.OHSPPhysicianCosts);
+            amountOwedIHSP += funds.IHSPPhysicianCosts;
+            amountOwedOHSP += funds.OHSPPhysicianCosts;
+
+            report.setOtherIHSP(funds.IHSPOtherCosts);
+            report.setOtherOHSP(funds.OHSPOtherCosts);
+            amountOwedIHSP += funds.IHSPOtherCosts;
+            amountOwedOHSP += funds.OHSPOtherCosts;
+
+            report.setAmountOwedIHSP(amountOwedIHSP);
+            report.setAmountOwedOHSP(amountOwedOHSP);
+
+            double paidPercentage = 0;
+
+            paidPercentage = (amountOwedIHSP + amountOwedOHSP) / (2000*funds.numIHSPHospitalBills + 150*funds.numIHSPPhysicianBills
+                + 300*funds.numIHSPOtherBills + amountOwedOHSP);
+
+            paidPercentage = paidPercentage * 100;
+            report.setMaxPercentBillable(paidPercentage);
+
+            double totalCosts = 0;
+
+            totalCosts += amountOwedIHSP;
+            totalCosts += amountOwedOHSP;
+
+            report.setTotalCosts(totalCosts);
 
         }
 
@@ -94,8 +148,13 @@ namespace CoreProject.Controller.EmployeeControllers
             //-----------------------------------------------
             temp.numBasicEnrollees = 120;
             temp.numExtendedEnrollees = 58;
-            temp.numIHSPBills = 200;
-            temp.numOHSPBills = 120;
+            temp.numEnrolleeBills = 259;
+            temp.numIHSPHospitalBills = 200;
+            temp.numOHSPHospitalBills = 120;
+            temp.numIHSPPhysicianBills = 50;
+            temp.numOHSPPhysicianBills = 25;
+            temp.numIHSPOtherBills = 47;
+            temp.numOHSPOtherBills = 34;
             temp.OHSPPhysicianCosts = 2000;
             temp.IHSPhospitalCosts = 56000;
             temp.OHSPhospitalCosts = 12000;

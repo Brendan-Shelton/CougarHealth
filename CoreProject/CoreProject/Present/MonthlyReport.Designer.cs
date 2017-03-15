@@ -46,14 +46,14 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.OHSPNumBills = new System.Windows.Forms.Label();
+            this.IHSPPhysicianNumBills = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.MonthLabel = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.amountOwedOHSP = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.ISHPNumBills = new System.Windows.Forms.Label();
+            this.ISHPHospitalNumBills = new System.Windows.Forms.Label();
             this.amountOwedIHSP = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -70,6 +70,11 @@
             this.label36 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.PercentMaxChargeLabel = new System.Windows.Forms.Label();
+            this.IHSPOtherNumBills = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.OHSPHospitalNumBills = new System.Windows.Forms.Label();
+            this.OHSPPhysicianNumBills = new System.Windows.Forms.Label();
+            this.OHSPOtherNumBills = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // MonthReportLabel
@@ -244,22 +249,21 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(141, 434);
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(175, 412);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(290, 13);
+            this.label15.Size = new System.Drawing.Size(125, 13);
             this.label15.TabIndex = 17;
-            this.label15.Text = "Number of Bills . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ." +
-    " . . ";
+            this.label15.Text = "IHSP Number of Bills";
             // 
-            // OHSPNumBills
+            // IHSPPhysicianNumBills
             // 
-            this.OHSPNumBills.Location = new System.Drawing.Point(515, 429);
-            this.OHSPNumBills.Name = "OHSPNumBills";
-            this.OHSPNumBills.Size = new System.Drawing.Size(53, 23);
-            this.OHSPNumBills.TabIndex = 18;
-            this.OHSPNumBills.Text = "label16";
-            this.OHSPNumBills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.IHSPPhysicianNumBills.Location = new System.Drawing.Point(247, 490);
+            this.IHSPPhysicianNumBills.Name = "IHSPPhysicianNumBills";
+            this.IHSPPhysicianNumBills.Size = new System.Drawing.Size(53, 23);
+            this.IHSPPhysicianNumBills.TabIndex = 18;
+            this.IHSPPhysicianNumBills.Text = "label16";
+            this.IHSPPhysicianNumBills.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label17
             // 
@@ -284,65 +288,64 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(131, 601);
+            this.label18.Location = new System.Drawing.Point(93, 601);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(290, 13);
+            this.label18.Size = new System.Drawing.Size(266, 13);
             this.label18.TabIndex = 21;
-            this.label18.Text = "Amount Owed  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . " +
-    ". ";
+            this.label18.Text = "Amount Owed  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
             // 
             // amountOwedOHSP
             // 
-            this.amountOwedOHSP.Location = new System.Drawing.Point(503, 596);
+            this.amountOwedOHSP.Location = new System.Drawing.Point(516, 596);
             this.amountOwedOHSP.Name = "amountOwedOHSP";
-            this.amountOwedOHSP.Size = new System.Drawing.Size(75, 23);
+            this.amountOwedOHSP.Size = new System.Drawing.Size(81, 23);
             this.amountOwedOHSP.TabIndex = 22;
             this.amountOwedOHSP.Text = "label19";
-            this.amountOwedOHSP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.amountOwedOHSP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label20
             // 
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(515, 406);
+            this.label20.Location = new System.Drawing.Point(495, 406);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(53, 23);
+            this.label20.Size = new System.Drawing.Size(102, 23);
             this.label20.TabIndex = 23;
-            this.label20.Text = "OHSP";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label20.Text = "OHSP Costs";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label21
             // 
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(437, 406);
+            this.label21.Location = new System.Drawing.Point(306, 406);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(63, 23);
+            this.label21.Size = new System.Drawing.Size(87, 23);
             this.label21.TabIndex = 24;
-            this.label21.Text = "IHSP";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label21.Text = "IHSP Costs";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // ISHPNumBills
+            // ISHPHospitalNumBills
             // 
-            this.ISHPNumBills.Location = new System.Drawing.Point(437, 429);
-            this.ISHPNumBills.Name = "ISHPNumBills";
-            this.ISHPNumBills.Size = new System.Drawing.Size(63, 23);
-            this.ISHPNumBills.TabIndex = 25;
-            this.ISHPNumBills.Text = "label22";
-            this.ISHPNumBills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ISHPHospitalNumBills.Location = new System.Drawing.Point(237, 446);
+            this.ISHPHospitalNumBills.Name = "ISHPHospitalNumBills";
+            this.ISHPHospitalNumBills.Size = new System.Drawing.Size(63, 23);
+            this.ISHPHospitalNumBills.TabIndex = 25;
+            this.ISHPHospitalNumBills.Text = "label22";
+            this.ISHPHospitalNumBills.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // amountOwedIHSP
             // 
-            this.amountOwedIHSP.Location = new System.Drawing.Point(437, 596);
+            this.amountOwedIHSP.Location = new System.Drawing.Point(308, 596);
             this.amountOwedIHSP.Name = "amountOwedIHSP";
-            this.amountOwedIHSP.Size = new System.Drawing.Size(60, 23);
+            this.amountOwedIHSP.Size = new System.Drawing.Size(85, 23);
             this.amountOwedIHSP.TabIndex = 26;
             this.amountOwedIHSP.Text = "label23";
-            this.amountOwedIHSP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.amountOwedIHSP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label24
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(376, 481);
+            this.label24.Location = new System.Drawing.Point(124, 451);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(45, 13);
             this.label24.TabIndex = 27;
@@ -351,8 +354,8 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(262, 457);
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(65, 412);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(104, 13);
             this.label25.TabIndex = 28;
@@ -360,58 +363,58 @@
             // 
             // HospitalIHSP
             // 
-            this.HospitalIHSP.Location = new System.Drawing.Point(434, 476);
+            this.HospitalIHSP.Location = new System.Drawing.Point(319, 446);
             this.HospitalIHSP.Name = "HospitalIHSP";
-            this.HospitalIHSP.Size = new System.Drawing.Size(63, 23);
+            this.HospitalIHSP.Size = new System.Drawing.Size(74, 23);
             this.HospitalIHSP.TabIndex = 29;
             this.HospitalIHSP.Text = "label26";
-            this.HospitalIHSP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.HospitalIHSP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // HospitalOHSP
             // 
-            this.HospitalOHSP.Location = new System.Drawing.Point(512, 476);
+            this.HospitalOHSP.Location = new System.Drawing.Point(504, 446);
             this.HospitalOHSP.Name = "HospitalOHSP";
-            this.HospitalOHSP.Size = new System.Drawing.Size(56, 23);
+            this.HospitalOHSP.Size = new System.Drawing.Size(93, 23);
             this.HospitalOHSP.TabIndex = 30;
             this.HospitalOHSP.Text = "label27";
-            this.HospitalOHSP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.HospitalOHSP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.HospitalOHSP.Click += new System.EventHandler(this.label27_Click);
             // 
             // label28
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(369, 513);
+            this.label28.Location = new System.Drawing.Point(117, 495);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(52, 13);
             this.label28.TabIndex = 31;
             this.label28.Text = "Physician";
             this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label28.Click += new System.EventHandler(this.label28_Click);
             // 
             // physicianIHSP
             // 
-            this.physicianIHSP.AutoSize = true;
-            this.physicianIHSP.Location = new System.Drawing.Point(446, 513);
+            this.physicianIHSP.Location = new System.Drawing.Point(322, 490);
             this.physicianIHSP.Name = "physicianIHSP";
-            this.physicianIHSP.Size = new System.Drawing.Size(41, 13);
+            this.physicianIHSP.Size = new System.Drawing.Size(71, 23);
             this.physicianIHSP.TabIndex = 32;
             this.physicianIHSP.Text = "label29";
-            this.physicianIHSP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.physicianIHSP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // PhysicanOHSP
             // 
-            this.PhysicanOHSP.Location = new System.Drawing.Point(515, 508);
+            this.PhysicanOHSP.Location = new System.Drawing.Point(501, 490);
             this.PhysicanOHSP.Name = "PhysicanOHSP";
-            this.PhysicanOHSP.Size = new System.Drawing.Size(50, 23);
+            this.PhysicanOHSP.Size = new System.Drawing.Size(96, 23);
             this.PhysicanOHSP.TabIndex = 33;
             this.PhysicanOHSP.Text = "label30";
-            this.PhysicanOHSP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PhysicanOHSP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(388, 547);
+            this.label31.Location = new System.Drawing.Point(136, 542);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(33, 13);
             this.label31.TabIndex = 34;
@@ -420,40 +423,40 @@
             // 
             // categoryOtherIHSP
             // 
-            this.categoryOtherIHSP.AutoSize = true;
-            this.categoryOtherIHSP.Location = new System.Drawing.Point(446, 547);
+            this.categoryOtherIHSP.Location = new System.Drawing.Point(325, 537);
             this.categoryOtherIHSP.Name = "categoryOtherIHSP";
-            this.categoryOtherIHSP.Size = new System.Drawing.Size(41, 13);
+            this.categoryOtherIHSP.Size = new System.Drawing.Size(68, 23);
             this.categoryOtherIHSP.TabIndex = 35;
             this.categoryOtherIHSP.Text = "label32";
+            this.categoryOtherIHSP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // categoryOtherOHSP
             // 
-            this.categoryOtherOHSP.Location = new System.Drawing.Point(512, 542);
+            this.categoryOtherOHSP.Location = new System.Drawing.Point(498, 537);
             this.categoryOtherOHSP.Name = "categoryOtherOHSP";
-            this.categoryOtherOHSP.Size = new System.Drawing.Size(53, 23);
+            this.categoryOtherOHSP.Size = new System.Drawing.Size(99, 23);
             this.categoryOtherOHSP.TabIndex = 36;
             this.categoryOtherOHSP.Text = "label33";
-            this.categoryOtherOHSP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.categoryOtherOHSP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label34
             // 
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(385, 677);
+            this.label34.Location = new System.Drawing.Point(336, 677);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(36, 13);
+            this.label34.Size = new System.Drawing.Size(71, 13);
             this.label34.TabIndex = 37;
-            this.label34.Text = "Total";
+            this.label34.Text = "Total Costs";
             // 
             // totalCharges
             // 
-            this.totalCharges.AutoSize = true;
-            this.totalCharges.Location = new System.Drawing.Point(527, 677);
+            this.totalCharges.Location = new System.Drawing.Point(504, 672);
             this.totalCharges.Name = "totalCharges";
-            this.totalCharges.Size = new System.Drawing.Size(41, 13);
+            this.totalCharges.Size = new System.Drawing.Size(93, 23);
             this.totalCharges.TabIndex = 38;
             this.totalCharges.Text = "label35";
+            this.totalCharges.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label36
             // 
@@ -469,27 +472,79 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(130, 627);
+            this.label5.Location = new System.Drawing.Point(94, 627);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(289, 13);
+            this.label5.Size = new System.Drawing.Size(265, 13);
             this.label5.TabIndex = 40;
-            this.label5.Text = "Percent of Max Allowable Charges . . . . . . . . . . . . . . . . . . . .";
+            this.label5.Text = "Percent of Max Allowable Charges . . . . . . . . . . . . . . . .";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PercentMaxChargeLabel
             // 
-            this.PercentMaxChargeLabel.AutoSize = true;
-            this.PercentMaxChargeLabel.Location = new System.Drawing.Point(452, 627);
+            this.PercentMaxChargeLabel.Location = new System.Drawing.Point(309, 624);
             this.PercentMaxChargeLabel.Name = "PercentMaxChargeLabel";
-            this.PercentMaxChargeLabel.Size = new System.Drawing.Size(35, 13);
+            this.PercentMaxChargeLabel.Size = new System.Drawing.Size(84, 18);
             this.PercentMaxChargeLabel.TabIndex = 41;
             this.PercentMaxChargeLabel.Text = "label6";
+            this.PercentMaxChargeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PercentMaxChargeLabel.Click += new System.EventHandler(this.PercentMaxChargeLabel_Click);
+            // 
+            // IHSPOtherNumBills
+            // 
+            this.IHSPOtherNumBills.Location = new System.Drawing.Point(200, 537);
+            this.IHSPOtherNumBills.Name = "IHSPOtherNumBills";
+            this.IHSPOtherNumBills.Size = new System.Drawing.Size(100, 23);
+            this.IHSPOtherNumBills.TabIndex = 42;
+            this.IHSPOtherNumBills.Text = "label6";
+            this.IHSPOtherNumBills.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(401, 400);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(91, 36);
+            this.label9.TabIndex = 43;
+            this.label9.Text = "OHSP Number of Bills";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // OHSPHospitalNumBills
+            // 
+            this.OHSPHospitalNumBills.Location = new System.Drawing.Point(408, 446);
+            this.OHSPHospitalNumBills.Name = "OHSPHospitalNumBills";
+            this.OHSPHospitalNumBills.Size = new System.Drawing.Size(84, 23);
+            this.OHSPHospitalNumBills.TabIndex = 44;
+            this.OHSPHospitalNumBills.Text = "label10";
+            this.OHSPHospitalNumBills.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // OHSPPhysicianNumBills
+            // 
+            this.OHSPPhysicianNumBills.Location = new System.Drawing.Point(404, 490);
+            this.OHSPPhysicianNumBills.Name = "OHSPPhysicianNumBills";
+            this.OHSPPhysicianNumBills.Size = new System.Drawing.Size(88, 23);
+            this.OHSPPhysicianNumBills.TabIndex = 45;
+            this.OHSPPhysicianNumBills.Text = "label12";
+            this.OHSPPhysicianNumBills.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // OHSPOtherNumBills
+            // 
+            this.OHSPOtherNumBills.Location = new System.Drawing.Point(404, 537);
+            this.OHSPOtherNumBills.Name = "OHSPOtherNumBills";
+            this.OHSPOtherNumBills.Size = new System.Drawing.Size(88, 23);
+            this.OHSPOtherNumBills.TabIndex = 46;
+            this.OHSPOtherNumBills.Text = "label16";
+            this.OHSPOtherNumBills.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MonthlyReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(667, 732);
+            this.Controls.Add(this.OHSPOtherNumBills);
+            this.Controls.Add(this.OHSPPhysicianNumBills);
+            this.Controls.Add(this.OHSPHospitalNumBills);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.IHSPOtherNumBills);
             this.Controls.Add(this.PercentMaxChargeLabel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label36);
@@ -506,14 +561,14 @@
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label24);
             this.Controls.Add(this.amountOwedIHSP);
-            this.Controls.Add(this.ISHPNumBills);
+            this.Controls.Add(this.ISHPHospitalNumBills);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.amountOwedOHSP);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.MonthLabel);
             this.Controls.Add(this.label17);
-            this.Controls.Add(this.OHSPNumBills);
+            this.Controls.Add(this.IHSPPhysicianNumBills);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -559,14 +614,14 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label OHSPNumBills;
+        private System.Windows.Forms.Label IHSPPhysicianNumBills;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label MonthLabel;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label amountOwedOHSP;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label ISHPNumBills;
+        private System.Windows.Forms.Label ISHPHospitalNumBills;
         private System.Windows.Forms.Label amountOwedIHSP;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
@@ -583,5 +638,10 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label PercentMaxChargeLabel;
+        private System.Windows.Forms.Label IHSPOtherNumBills;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label OHSPHospitalNumBills;
+        private System.Windows.Forms.Label OHSPPhysicianNumBills;
+        private System.Windows.Forms.Label OHSPOtherNumBills;
     }
 }
