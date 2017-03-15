@@ -156,6 +156,7 @@ namespace CoreProject.Controller.HSPControllers
                 returnArr[i, 0] = plan.ServiceCosts[serviceID].Name;
                 returnArr[i, 1] = charges[i].ToString();
                 returnArr[i, 2] = enrolleeCharge.ToString();
+                enrolleePlan.AddCharge(enrolleeCharge);
                 returnArr[i, 3] = HSPCharge.ToString();
 
             }

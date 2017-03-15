@@ -66,7 +66,9 @@ namespace CoreProject.Data.Enrollee
         }
         public void AddCharge(double charge)
         {
-            this.Charges.Add(charge);
+            if(this.OPMRemainder > charge)
+                this.Charges.Add(charge);
+            this.OPMRemainder -= charge;
             this.PYMBRemainder -= charge;
             this.TotalCost += charge;
         }
