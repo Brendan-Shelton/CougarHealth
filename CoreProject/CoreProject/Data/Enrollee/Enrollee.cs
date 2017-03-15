@@ -43,7 +43,7 @@ namespace CoreProject.Data.Enrollee
 
         private string _ssn;
         /// <summary>
-        /// Can only be set once because it is unique to the Enrollee
+        /// Can only be set once because it is unique to the PrimaryEnrollee
         /// </summary>
         public string SSN {
             set

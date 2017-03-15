@@ -20,6 +20,12 @@ namespace CoreProject.Controller.EnrolleeControllers
             public string errMsg;
         }
 
+        public string[] Relationships => new[]
+        {
+            "Significant Other",
+            "Child"
+        };
+
         public IEnumerable<InsurancePlan> Plans { get; private set; }
         public DbMgr Mgr { get; private set; }
         public EnrollController()
@@ -28,7 +34,8 @@ namespace CoreProject.Controller.EnrolleeControllers
             this.Plans = this.Mgr.GetPlans();
         }
 
-        public PrimaryEnrollee Enrollee { get; set; }
+        public PrimaryEnrollee PrimaryEnrollee { get; set; }
+        public DependentEnrollee DependentEnrollee { get; set; }
         /// <summary>
         /// Uses regex to verify if the social security number is correct 
         /// TODO: in database implementation we need to check ssn in the database
@@ -42,6 +49,13 @@ namespace CoreProject.Controller.EnrolleeControllers
             return ssnPat.IsMatch(ssn);
         }
 
+        /// <summary>
+        /// creates a container for contact information.
+        /// </summary>
+        /// <param name="home"></param>
+        /// <param name="mobile"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public Contact NewContact(string home, string mobile, string email)
         {
             return new Contact() {email = email, mobilePhone = mobile, homePhone = home};
@@ -128,7 +142,7 @@ namespace CoreProject.Controller.EnrolleeControllers
             var transformedHome = TransformPhone(contactInfo.homePhone);
             var transformedMobile = TransformPhone(contactInfo.mobilePhone);
 
-            this.Enrollee = new PrimaryEnrollee(pin)
+            this.PrimaryEnrollee = new PrimaryEnrollee(pin)
             {
                 BillingAddr = billingAddr,
                 Email = contactInfo.email,
@@ -139,19 +153,20 @@ namespace CoreProject.Controller.EnrolleeControllers
                 MobilePhone = transformedMobile,
                 SSN = transformedSSN
             };
+            Mgr.SaveEnrollee(this.PrimaryEnrollee);
         }
 
         /// <summary>
-        /// Pick a plan and attach it to an Enrollee based on it's identifier
+        /// Pick a plan and attach it to an PrimaryEnrollee based on it's identifier
         /// </summary>
         /// <param name="type"></param>
         public int PickPlan( string type )
         {
-            if ( this.Enrollee == null ) throw new ArgumentException("There is no enrollee");
+            if ( this.PrimaryEnrollee == null ) throw new ArgumentException("There is no enrollee");
             var planPicked = Mgr.GetPlanByType(type);
             if (planPicked != null)
             {
-                var enrolleePlan = new EnrolleePlan(this.Enrollee, planPicked);
+                var enrolleePlan = new EnrolleePlan(this.PrimaryEnrollee, planPicked);
                 Mgr.SaveEnrolleePlan(enrolleePlan);
                 return enrolleePlan.PlanNum;
             }
@@ -191,10 +206,56 @@ namespace CoreProject.Controller.EnrolleeControllers
             return planToShow.ServiceCosts;
         }
 
+        /// <summary>
+        /// Gets the first name and last name of the primary enrollee
+        /// </summary>
+        /// <returns></returns>
         public string GetName()
         {
-            if ( this.Enrollee == null ) throw new ArgumentException("There is no enrollee");
-            return this.Enrollee.FirstName + " " + this.Enrollee.LastName;
+            if ( this.PrimaryEnrollee == null ) throw new ArgumentException("There is no enrollee");
+            return this.PrimaryEnrollee.FirstName + " " + this.PrimaryEnrollee.LastName;
+        }
+
+        public int? LoginPrimary(string email, string pin)
+        {
+            return Mgr.Login(email, pin);
+        }
+
+        /// <summary>
+        /// Creates a new dependent object and attaches it to the the enrollee 
+        /// of the primary enrollee pointed to by primaryId 
+        /// </summary>
+        /// <param name="primaryId"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="ssn"></param>
+        /// <param name="relationship"></param>
+        /// <param name="pin"></param>
+        /// <param name="contact"></param>
+        /// <returns></returns>
+        public int CreateDependent(
+            int primaryId,
+            string firstName, 
+            string lastName, 
+            string ssn,
+            string relationship,
+            string pin,
+            Contact contact
+        )
+        {
+            var enrolleePlan = Mgr.GetPlanByPrimary(primaryId);
+            enrolleePlan.AddDependent(new DependentEnrollee (pin)
+            {
+                Email = contact.email,
+                FirstName = firstName,
+                HomePhone = contact.homePhone,
+                LastName = lastName,
+                MobilePhone = contact.mobilePhone,
+                Relationship = relationship,
+                SSN = ssn
+            });
+
+            return enrolleePlan.PlanNum;
         }
     }
 }

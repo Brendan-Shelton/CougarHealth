@@ -8,6 +8,7 @@ namespace CoreProject.Data.Enrollee
 {
     public class DependentEnrollee: Enrollee
     {
+        public string Relationship { get; set; }
         public DependentEnrollee( string pin ): base(pin)
         {
             

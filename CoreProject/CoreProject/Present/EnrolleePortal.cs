@@ -11,24 +11,25 @@ using CoreProject.Controller.EnrolleeControllers;
 
 namespace CoreProject.Present
 {
-    public partial class Main : Form
+    public partial class EnrolleePortal : Form
     {
-        public Main()
+        public EnrolleePortal()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Open the enrollment gui to allow the client to enroll in an insurance plan 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void enroll_Click(object sender, EventArgs e)
         {
-            var portal = new EnrolleePortal();
-            portal.Show();
-            portal.Closed += (source, args) => this.Close();
-            this.Hide();
+
+            var enrollCtrl = new EnrollController();
+            var enrollGui = new PrimaryEnroll(enrollCtrl);
+            enrollGui.Show();
+        }
+
+        private void dependent_Click(object sender, EventArgs e)
+        {
+            var depedentGUI = new Login();
+            depedentGUI.Show();
         }
     }
 }

@@ -374,5 +374,49 @@ namespace CoreProject.Data
         {
             return Plans;
         }
+
+        /// <summary>
+        /// Find the enrollee with the matching email and password. If no 
+        /// enrollee exists then the query will return 0 and in which case 
+        /// we return null.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pin"></param>
+        /// <returns></returns>
+        public int? Login(string email, string pin)
+        {
+            var resultId =  (from enrollee in PrimaryEnrolleeSet
+                where enrollee.Email == email && enrollee.Pin == pin
+                select enrollee.Id).FirstOrDefault();
+            // zero is default for set and not a valid id 
+            if (resultId == 0) return null;
+            return resultId;
+
+        }
+
+        /// <summary>
+        /// get the primary enrollee object corresponding to the id provided
+        /// </summary>
+        /// <param name="primaryId"></param>
+        /// <returns></returns>
+        public PrimaryEnrollee FindPrimaryById(int primaryId)
+        {
+            return (from enrollee in PrimaryEnrolleeSet
+                where enrollee.Id == primaryId
+                select enrollee).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the EnrolleePlan object for the primary enrollee corresponding
+        /// to the given primary id 
+        /// </summary>
+        /// <param name="primaryId"></param>
+        /// <returns></returns>
+        public EnrolleePlan GetPlanByPrimary(int primaryId)
+        {
+            return (from plan in PlanSet
+                where plan.PrimaryEnrollee == primaryId
+                select plan).FirstOrDefault();
+        }
     }
 }

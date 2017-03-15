@@ -8,7 +8,7 @@ namespace CoreProject.Present
     /// <summary>
     /// A form that the user fills out to enroll in an insurance plan 
     /// </summary>
-    public partial class Enroll : Form
+    public partial class PrimaryEnroll : Form
     {
         public EnrollController EnrollCtrl { get; }
         public Enrollee Type { get; set; }
@@ -18,7 +18,7 @@ namespace CoreProject.Present
         /// EnrollCtrl to the provided Controller.
         /// </summary>
         /// <param name="enrollCtrl"></param>
-        public Enroll( EnrollController enrollCtrl )
+        public PrimaryEnroll( EnrollController enrollCtrl )
         {
             this.EnrollCtrl = enrollCtrl;
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace CoreProject.Present
         /// </summary>
         /// <param name="enrollCtrl"></param>
         /// <param name="failMessage"></param>
-        public Enroll( EnrollController enrollCtrl, string failMessage ) : this(enrollCtrl)
+        public PrimaryEnroll( EnrollController enrollCtrl, string failMessage ) : this(enrollCtrl)
         {
             this.errMsg.Text = failMessage;
             this.errMsg.Visible = true;
@@ -57,7 +57,7 @@ namespace CoreProject.Present
             else
             {
                 this.Hide();
-                var errForm = new Enroll(this.EnrollCtrl, 
+                var errForm = new PrimaryEnroll(this.EnrollCtrl, 
                     validSSN ? "You didn't submit required fields" : 
                                "Invalid Social Security Number");
                 // close this form when the child form is closed -> creates a closing chain
