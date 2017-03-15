@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using CoreProject.Data;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -22,14 +23,22 @@ namespace CoreProject.Present
         private double percentBasic;
         private double percentExtended;
 
-
+        //DbMgr dbmgr = DbMgr.Instance;
+        public DbMgr dbmgr { get; }
 
         public ExpenseReport()
         {
             InitializeComponent();
-
-            //This is where the 
+            MyInitialize();
             numBills = 0;
+        }
+
+        private void MyInitialize()
+        {
+           
+            BasicCostsView.ColumnCount = 2;
+            BasicCostsView.Columns[0].Name = "Basic";
+            
         }
 
         /*
@@ -38,11 +47,31 @@ namespace CoreProject.Present
             that the paid amount represents. 
             (The total amount from all bills value should be adjusted to reflect the maximum billable amount by IHSPs)
          */
-        public void retrieveRangedData(DateTime bDate, DateTime eDate)
+        public String[][] retrieveRangedData(DateTime bDate, DateTime eDate)
         {
-            
+            String[][] data = dbmgr.getBills(bDate, eDate);
+
+            return data;
         }
 
-        
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BasicCostsView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

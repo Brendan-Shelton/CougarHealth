@@ -122,6 +122,9 @@
     <Compile Include="Present\Support.Designer.cs">
       <DependentUpon>Support.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Present\ExpenseReport.resx">
+      <DependentUpon>ExpenseReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
