@@ -43,14 +43,6 @@ namespace CoreProject.Data
             
             e.FirstName = "First";
             e.LastName = "Last";
-            //foreach (Enrollee.Enrollee e in enArr)
-           // {
-               // if (e.FirstName.Equals(f) && e.LastName.Equals(l))
-               // {
-             //       r = e;
-            //        break;
-           //     }
-           // }
             return e;
         }
 
@@ -62,19 +54,6 @@ namespace CoreProject.Data
             e.LastName = "Last";
             plan.Type = "Basic";
             Enrollee.EnrolleePlan r = new Enrollee.EnrolleePlan(e, plan);
-            
-           // foreach (Enrollee.EnrolleePlan e in enPlanArr)
-           // {
-           //     if(e != null)
-           //     {
-           //         if (e.PlanNum == ID)
-           //         {
-           //             r = e;
-           //             break;
-           //         }
-            //    }
-                    
-           // }
 
             return r;
         }
