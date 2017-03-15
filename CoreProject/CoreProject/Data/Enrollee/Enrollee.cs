@@ -68,24 +68,26 @@ namespace CoreProject.Data.Enrollee
             this.Pin = newPin;
         }
 
+        /// <summary>
+        /// If the SSN of that is the same as the SSN this then they are equal
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             var that = (Enrollee) obj;
             // optional members
-            var mobileEqual = that.MobilePhone?.Equals(this.MobilePhone) ?? true;
 
-            return that.Email.Equals(this.Email) &&
-                   that.FirstName.Equals(this.FirstName) &&
-                   that.LastName.Equals(this.LastName) &&
-                   that.Pin.Equals(this.Pin) &&
-                   that.HomePhone.Equals(this.HomePhone) &&
-                   that.SSN.Equals(this.SSN) &&
-                   mobileEqual;
+            return that.SSN == this.SSN;
         }
 
+        /// <summary>
+        /// Each enrollee has a unique SSN
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.SSN.GetHashCode();
         }
     }
 }

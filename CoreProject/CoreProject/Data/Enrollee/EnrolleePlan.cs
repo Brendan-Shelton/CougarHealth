@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoreProject.Data.Enrollee
 {
-    public class EnrolleePlan
+    public class EnrolleePlan 
     {
         public int PlanNum { get; }
         public string Type { get; }
@@ -51,7 +51,7 @@ namespace CoreProject.Data.Enrollee
         /// <summary>
         /// the primary key of the primary enrollee
         /// </summary>
-        public int? PrimaryEnrollee { get; private set; } = null;
+        public int? PrimaryEnrollee { get; } = null;
 
         public EnrolleePlan( PrimaryEnrollee primary, InsurancePlan plan )
         {
@@ -76,5 +76,15 @@ namespace CoreProject.Data.Enrollee
         {
             
         }
+
+        public override int GetHashCode()
+        {
+            if ( PrimaryEnrollee == null )
+            {
+                throw new ArgumentException("Primary enrollee does not exists");
+            }
+            return PlanNum.GetHashCode() * PrimaryEnrollee.GetHashCode();
+        }
+
     }
 }

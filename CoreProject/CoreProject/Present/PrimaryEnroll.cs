@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using CoreProject.Controller.EnrolleeControllers;
 using CoreProject.Data.Enrollee;
@@ -78,6 +79,12 @@ namespace CoreProject.Present
             contactPage.Visible = false;
         }
 
+        /// <summary>
+        /// Creates a new primary enrollee object if the object isn't already in
+        /// our database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void submit_Click(object sender, EventArgs e)
         {
             var contactInfo = this.EnrollCtrl.NewContact(
@@ -90,15 +97,25 @@ namespace CoreProject.Present
 
             if ( goodInfo && this.pin.Text != "" )
             {
-                this.EnrollCtrl.CreatePrimaryEnrollee(
-                    this.firstName.Text,
-                    this.lastName.Text,
-                    this.SSN.Text,
-                    this.mailingAddr.Text,
-                    this.billingAddr.Text,
-                    this.pin.Text,
-                    contactInfo
-                );
+                try
+                {
+                    this.EnrollCtrl.CreatePrimaryEnrollee(
+                        this.firstName.Text,
+                        this.lastName.Text,
+                        this.SSN.Text,
+                        this.mailingAddr.Text,
+                        this.billingAddr.Text,
+                        this.pin.Text,
+                        contactInfo
+                    );
+                }
+                catch ( DataException except )
+                {
+                    this.contactErr.Text = @"Error " + except.Message;
+                    this.contactErr.Visible = true;
+                    // don't submit the enrollee
+                    return;
+                }
                 var planIdentifiers = this.EnrollCtrl.ShowPlans();
                 foreach ( var plan in planIdentifiers )
                 {
@@ -149,7 +166,18 @@ namespace CoreProject.Present
         private void planPick_Click(object sender, EventArgs e)
         {
             var planIdentifier = (string) plans.SelectedItem;
-            var plan = this.EnrollCtrl.PickPlan(planIdentifier);
+            int plan;
+            try
+            {
+                plan = this.EnrollCtrl.PickPlan(planIdentifier);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                this.contactErr.Text = @"Error: I need a valid plan";
+                this.contactErr.Visible = true;
+                this.contactErr.BringToFront();
+                return;
+            }
             var customer = this.EnrollCtrl.GetName();
             this.confirmation.Text = $"Congratulations {customer} your plan is: {plan}";
             this.finish.Visible = true;

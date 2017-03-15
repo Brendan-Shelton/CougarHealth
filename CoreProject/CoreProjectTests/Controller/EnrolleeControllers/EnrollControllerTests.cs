@@ -2,6 +2,7 @@
 using CoreProject.Controller.EnrolleeControllers;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
     public class EnrollControllerTests
     {
         [TestMethod()]
-        public void CreateEnrolleeTest()
+        public void CreatePrimaryEnrolleeTest()
         {
             // arrange
             var ctrl = new EnrollController();
@@ -43,13 +44,14 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
                 MobilePhone = mobile
             };
 
-            // act
             var ctrlContact = new EnrollController.Contact
             {
                 email = email,
                 homePhone = hyphenPhone,
                 mobilePhone = mobile
             };
+
+            // act
             ctrl.CreatePrimaryEnrollee(
                 first,
                 last,
@@ -63,6 +65,55 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             //assert
             Assert.IsNotNull(ctrl.PrimaryEnrollee);
             Assert.AreEqual(ctrl.PrimaryEnrollee, testEnrollee);
+        }
+
+        /// <summary>
+        /// Make sure we get a data exception if we try to create a primary
+        /// enrollee if they already exist
+        /// </summary>
+        [TestMethod()]
+        [ExpectedException(typeof(DataException))]
+        public void CreateDuplicatePrimaryEnrolleeTest()
+        {
+            // arrange
+            var ctrl = new EnrollController();
+            var first = "Michael";
+            var last = "Rhodes";
+            var email = "me@michaelrhodes.us";
+            var billing = "804 n ealy";
+            var hyphenPhone = "1214-291-3214";
+            var home = "2142913214";
+            var ssn = "222101923";
+            var hyphenSsn = "222-10-1923";
+            var pin = "9253";
+            string mailing = "";
+            string mobile = "";
+            var ctrlContact = new EnrollController.Contact
+            {
+                email = email,
+                homePhone = hyphenPhone,
+                mobilePhone = mobile
+            };
+
+            ctrl.CreatePrimaryEnrollee(
+                first,
+                last,
+                hyphenSsn,
+                mailing,
+                billing,
+                pin,
+                ctrlContact
+            );
+
+            ctrl.CreatePrimaryEnrollee(
+                first,
+                last,
+                hyphenSsn,
+                mailing,
+                billing,
+                pin,
+                ctrlContact
+            );
         }
 
         [TestMethod()]
@@ -270,11 +321,11 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             var plan = mgr.Plans.ElementAt(0);
             var enrolleePlan = new EnrolleePlan(primary, plan);
             mgr.PlanSet.Add(enrolleePlan);
-            
+
 
             // testing 
             var planId = ctrl.CreateDependent(
-                primary.Id, 
+                primary.Id,
                 "Dude",
                 "McGuy",
                 "334102341",
@@ -289,5 +340,6 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
 
             Assert.AreEqual(planId, enrolleePlan.PlanNum);
         }
+
     }
 }

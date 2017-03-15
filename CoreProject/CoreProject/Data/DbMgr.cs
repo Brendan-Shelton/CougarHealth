@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
@@ -20,13 +22,13 @@ namespace CoreProject.Data
         /// it instantiates the _instance field and then returns it 
         /// </summary>
         public static DbMgr Instance => _instance ?? (_instance = new DbMgr());
-        public List<EnrolleePlan> PlanSet { get; set; }
+        public HashSet<EnrolleePlan> PlanSet { get; set; }
         /// <summary>
         /// A fake DB set for primary enrollees that we create
         /// </summary>
-        public List<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; }
+        public HashSet<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; }
 
-        public List<DependentEnrollee> DependentEnrolleSet { get; set; }
+        public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
         /// <summary>
         /// a fake DB set for the different types of insurance plans and their 
         /// services 
@@ -343,25 +345,38 @@ namespace CoreProject.Data
         /// </summary>
         private DbMgr()
         {
-            PlanSet = new List<EnrolleePlan>(); 
-            DependentEnrolleSet = new List<DependentEnrollee>();
-            PrimaryEnrolleeSet = new List<PrimaryEnrollee>();
+            PlanSet = new HashSet<EnrolleePlan>(); 
+            DependentEnrolleSet = new HashSet<DependentEnrollee>();
+            PrimaryEnrolleeSet = new HashSet<PrimaryEnrollee>();
         }
 
-        Enrollee.Enrollee e = new Enrollee.Enrollee();
-
         /// <summary>
-        /// Method stub that will eventually retrieve an enrollee from the database 
+        /// Method stub that will eventually save an enrollee from the database 
+        /// if the enrollee already exists we throw a data exception
         /// </summary>
         /// <param name="enrollee"></param>
         public void SaveEnrollee(PrimaryEnrollee enrollee)
         {
-            PrimaryEnrolleeSet.Add(enrollee);    
+            if ( !PrimaryEnrolleeSet.Add(enrollee) )
+            {
+                throw new DataException($"{enrollee.FirstName} was already in our system");
+            }
         }
 
+        /// <summary>
+        /// Save an enrollee plan into the database if  
+        /// </summary>
+        /// <param name="plan"></param>
         public void SaveEnrolleePlan(EnrolleePlan plan)
         {
-            PlanSet.Add(plan); 
+            if ( !PlanSet.Add(plan) )
+            {
+                var updatePlan = ( from policy in PlanSet
+                                   where policy.PlanNum == plan.PlanNum
+                                   select policy ).First();
+                PlanSet.Remove(updatePlan);
+                PlanSet.Add(plan);
+            }
         }
 
         public Enrollee.InsurancePlan GetPlanByType( string type )
@@ -424,329 +439,19 @@ namespace CoreProject.Data
 
         public Enrollee.Enrollee GetEnrolleeByName(String f, String l)
         {
-            
-            e.FirstName = "First";
-            e.LastName = "Last";
-            return e;
+            var primary = ( from enrollee in this.PrimaryEnrolleeSet
+                            where f == enrollee.FirstName && l == enrollee.LastName
+                            select enrollee).FirstOrDefault();
+            return primary;
         }
 
         public Enrollee.EnrolleePlan GetPolicyByID(int ID)
         {
-            Enrollee.InsurancePlan plan = new Enrollee.InsurancePlan();
-            Enrollee.PrimaryEnrollee e = new Enrollee.PrimaryEnrollee();
-            e.FirstName = "First";
-            e.LastName = "Last";
-            plan.Type = "Basic";
-            Enrollee.EnrolleePlan r = new Enrollee.EnrolleePlan(e, plan);
-
+            var r = ( from plan in PlanSet
+                      where plan.PlanNum == ID
+                      select plan).FirstOrDefault();
             return r;
         }
 
-        public IEnumerable<Enrollee.InsurancePlan> GetPlans()
-        {
-            return new List<InsurancePlan>()
-            {
-                new InsurancePlan()
-                {
-                    Id = 1,
-                    Type = "Basic",
-                    APD = 250.0,
-                    PYMB = 250000.0,
-                    DependentFee = 20.0,
-                    PrimaryFee = 45.0,
-                    DependentChangeFee = 40.0,
-                    PrimaryChangeFee = 150.0,
-                    ServiceCosts = new[]
-                    {
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "inpatient",
-                            PercentCoverage = 0.9,
-                            RequiredCopayment = 400.0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                2000,
-                                Service.MaxPayRate.Day
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "Inpatient (Behavioral Health",
-                            PercentCoverage = 0.9,
-                            RequiredCopayment = 400.0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                1500,
-                                Service.MaxPayRate.Day
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "Emergency Room",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 250.0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                1000,
-                                Service.MaxPayRate.PCY 
-                            )
-
-                        },
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "Outpatient Surgery",
-                            PercentCoverage = 0.9,
-                            RequiredCopayment = 250,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                4000,
-                                Service.MaxPayRate.PCY 
-                            )
-
-                        },
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "Diagnostic Lab & X-Ray",
-                            PercentCoverage = .9,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                500,
-                                Service.MaxPayRate.PCY 
-                            )
-
-                        },
-                        new Service
-                        {
-                            Category = "Physician",
-                            Name = "Office Visit",
-                            PercentCoverage = .9,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                150,
-                                Service.MaxPayRate.PCY 
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Physician",
-                            Name = "Specialist Visit",
-                            PercentCoverage = .9,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                300,
-                                Service.MaxPayRate.PCY 
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Physician",
-                            Name = "Preventive Services",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                25,
-                                Service.MaxPayRate.PCY 
-                            )
-                        }, 
-                        new Service
-                        {
-                            Category = "Physician",
-                            Name = "Baby Services",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                300,
-                                Service.MaxPayRate.PCY
-                            )
-                        }, 
-                        new Service
-                        {
-                            Category = "Other",
-                            Name = "Durable Medical Equipment",
-                            PercentCoverage = .8,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                300,
-                                Service.MaxPayRate.PCY
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Other",
-                            Name = "Nursing Facility",
-                            PercentCoverage = .9,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                250,
-                                Service.MaxPayRate.Day
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Other",
-                            Name = "Physical Therapy",
-                            PercentCoverage = .9,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                100, Service.MaxPayRate.Session
-                            )
-                        }
-                    } // ServiceCosts
-                }, // Basic 
-                new InsurancePlan()
-                {
-                    Id = 2,
-                    Type = "Extended",
-                    APD = 0,
-                    PYMB = 1000000.0,
-                    DependentFee = 25.0,
-                    PrimaryFee = 65.0,
-                    DependentChangeFee = 20.0,
-                    PrimaryChangeFee = 50.0,
-                    ServiceCosts = new[]
-                    {
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "Inpatient",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 300.0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                2000,
-                                Service.MaxPayRate.Day
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "Inpatient (Behavioral Health",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 300.0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                1500,
-                                Service.MaxPayRate.Day
-                            )
-
-                        },
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "Emergency Room",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 250.0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                1000,
-                                Service.MaxPayRate.PCY 
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "Outpatient Surgery",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 250,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                4000,
-                                Service.MaxPayRate.PCY 
-                            )
-
-                        },
-                        new Service
-                        {
-                            Category = "Hospital",
-                            Name = "Diagnostic Lab & X-Ray",
-                            PercentCoverage = 1.0,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                500,
-                                Service.MaxPayRate.PCY 
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Physician",
-                            Name = "Office Visit",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 20,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                150,
-                                Service.MaxPayRate.PCY 
-                            )
-                        },
-                        new Service
-                        {
-                            Category = "Physician",
-                            Name = "Specialist Visit",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 30,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                300,
-                                Service.MaxPayRate.PCY 
-                            )
-
-                        },
-                        new Service
-                        {
-                            Category = "Physician",
-                            Name = "Preventive Services",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                25,
-                                Service.MaxPayRate.PCY 
-                            )
-
-                        }, 
-                        new Service
-                        {
-                            Category = "Physician",
-                            Name = "Baby Services",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                300,
-                                Service.MaxPayRate.PCY
-                            )
-
-                        }, 
-                        new Service
-                        {
-                            Category = "Other",
-                            Name = "Durable Medical Equipment",
-                            PercentCoverage = .8,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                300,
-                                Service.MaxPayRate.PCY
-                            )
-
-                        },
-                        new Service
-                        {
-                            Category = "Other",
-                            Name = "Nursing Facility",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 0,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                250,
-                                Service.MaxPayRate.Day
-                            )
-
-                        },
-                        new Service
-                        {
-                            Category = "Other",
-                            Name = "Physical Therapy",
-                            PercentCoverage = 1,
-                            RequiredCopayment = 30,
-                            InNetMax = new Tuple<double, Service.MaxPayRate>(
-                                100, Service.MaxPayRate.Session
-                            )
-                        }
-                    } // ServiceCosts
-                }
-            }; // List<InsurancePlan
-        }
     }
 }
