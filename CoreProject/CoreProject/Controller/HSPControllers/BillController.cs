@@ -72,7 +72,7 @@ namespace CoreProject.Controller.HSPControllers
 
         // TODO Change return type to String so that name of service can be included in return array OR send service ID and get plan Name from that.
 
-        public double[,] HSPCalculate(List<String> s, List<int> c)
+        public String[,] HSPCalculate(List<String> s, List<int> c)
         {
             // For each service, check plan, and what they pay, max allowed, then calculate based on charge and service provided
 
@@ -83,7 +83,7 @@ namespace CoreProject.Controller.HSPControllers
             double adjustedCharge = 0, enrolleeCharge = 0, HSPCharge = 0;
             getPlan();
 
-            double[,] returnArr = new double[services.Length, 3];
+            String[,] returnArr = new String[services.Length, 4];
 
             for (int i = 0; i < services.Length; i++)
             {
@@ -110,10 +110,10 @@ namespace CoreProject.Controller.HSPControllers
 
                 enrolleeCharge = ((adjustedCharge * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment);
                 HSPCharge = (adjustedCharge * plan.ServiceCosts[serviceID].PercentCoverage);
-
-                returnArr[i, 0] = adjustedCharge;
-                returnArr[i, 1] = enrolleeCharge;
-                returnArr[i, 2] = HSPCharge;
+                returnArr[i, 0] = plan.ServiceCosts[serviceID].Name;
+                returnArr[i, 1] = adjustedCharge.ToString();
+                returnArr[i, 2] = enrolleeCharge.ToString();
+                returnArr[i, 3] = HSPCharge.ToString();
             }
 
             return returnArr;
@@ -121,13 +121,13 @@ namespace CoreProject.Controller.HSPControllers
 
         }
 
-        public double[,] OHSPCalculate(List<String> s, List<int> c)
+        public String[,] OHSPCalculate(List<String> s, List<int> c)
         {
             String[] services = s.ToArray();
             int[] charges = c.ToArray();
 
             getPlan();
-            double[,] returnArr = new double[services.Length, 3];
+            String[,] returnArr = new String[services.Length, 4];
             double enrolleeCharge = 0, HSPCharge = 0, adjustedCharge = 0;
             int serviceID = 0;
 
@@ -153,10 +153,10 @@ namespace CoreProject.Controller.HSPControllers
                 }
                     
                 HSPCharge = (adjustedCharge * plan.ServiceCosts[serviceID].PercentCoverage);
-
-                returnArr[i, 0] = charges[i];
-                returnArr[i, 1] = enrolleeCharge;
-                returnArr[i, 2] = HSPCharge;
+                returnArr[i, 0] = plan.ServiceCosts[serviceID].Name;
+                returnArr[i, 1] = charges[i].ToString();
+                returnArr[i, 2] = enrolleeCharge.ToString();
+                returnArr[i, 3] = HSPCharge.ToString();
 
             }
             return returnArr;
