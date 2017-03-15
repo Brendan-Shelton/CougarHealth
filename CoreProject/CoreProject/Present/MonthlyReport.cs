@@ -23,6 +23,7 @@ namespace CoreProject.Present
             mthCtrl.update(this);
         }
 
+
         public void setBasicEnrollNum(int amount)
         {
             if (amount >=0 )
