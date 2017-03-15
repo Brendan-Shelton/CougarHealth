@@ -98,6 +98,12 @@
     <Compile Include="Present\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\Invoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\Invoice.Designer.cs">
+      <DependentUpon>Invoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\Main.cs">
       <SubType>Form</SubType>
     </Compile>
