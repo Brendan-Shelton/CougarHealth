@@ -33,5 +33,26 @@ namespace CoreProject.Present
             var monthGUI = new MonthlyReport(monthReportCtrl);
             monthGUI.Show();
         }
+
+        /// <summary>
+        /// Open the enrollment gui to allow the client to enroll in an insurance plan 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void enroll_Click(object sender, EventArgs e)
+        {
+            var portal = new EnrolleePortal();
+            portal.Show();
+            portal.Closed += (source, args) => this.Close();
+            this.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var portal = new HSPPortal();
+            portal.Show();
+            portal.Closed += (source, args) => this.Close();
+            this.Hide();
+        }
     }
 }
