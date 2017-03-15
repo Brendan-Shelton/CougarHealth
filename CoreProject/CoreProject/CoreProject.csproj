@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
     <Compile Include="Controller\EmployeeControllers\RangeReportController.cs" />
     <Compile Include="Present\AccountManagement.cs">
       <SubType>Form</SubType>
@@ -128,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\MonthlyReport.resx">
+      <DependentUpon>MonthlyReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

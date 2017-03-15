@@ -7,13 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CoreProject.Controller.EmployeeControllers;
 
 namespace CoreProject.Present
 {
     public partial class MonthlyReport : Form
     {
-        public MonthlyReport()
-        {
+        public MonthReportController mthCtrl { get; private set; }
+
+        public MonthlyReport(MonthReportController monthCtrllr) {
+
+            mthCtrl = monthCtrllr;
             InitializeComponent();
         }
     }

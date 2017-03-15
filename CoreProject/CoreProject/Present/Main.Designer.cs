@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
+            this.monthButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -41,11 +42,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // monthButton
+            // 
+            this.monthButton.Location = new System.Drawing.Point(240, 212);
+            this.monthButton.Name = "monthButton";
+            this.monthButton.Size = new System.Drawing.Size(161, 23);
+            this.monthButton.TabIndex = 1;
+            this.monthButton.Text = "Monthly Report";
+            this.monthButton.UseVisualStyleBackColor = true;
+            this.monthButton.Click += new System.EventHandler(this.monthButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(615, 499);
+            this.Controls.Add(this.monthButton);
             this.Controls.Add(this.button1);
             this.Name = "Main";
             this.Text = "CougarHealth";
@@ -56,5 +68,6 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button monthButton;
     }
 }

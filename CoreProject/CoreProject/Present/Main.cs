@@ -26,5 +26,11 @@ namespace CoreProject.Present
             var rangeGUI = new ExpenseReport(rangeReportCtrl);
             rangeGUI.Show();
         }
+
+        private void monthButton_Click(object sender, EventArgs e)
+        {
+            var monthReportCtrl = new MonthReportController();
+            var monthGUI = new MonthlyReport(monthReportCtrl);
+        }
     }
 }
