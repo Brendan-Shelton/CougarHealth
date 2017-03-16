@@ -129,7 +129,7 @@
             this.PSBasicPercent = new System.Windows.Forms.MaskedTextBox();
             this.BCBasicPercent = new System.Windows.Forms.MaskedTextBox();
             this.POVExtendPercent = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.POVExtendCopay = new System.Windows.Forms.MaskedTextBox();
             this.SOVExtendPercent = new System.Windows.Forms.MaskedTextBox();
             this.SOVExtendCopay = new System.Windows.Forms.MaskedTextBox();
             this.PSExtendPercent = new System.Windows.Forms.MaskedTextBox();
@@ -453,7 +453,7 @@
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(134, 13);
             this.label25.TabIndex = 60;
-            this.label25.Text = "Diganostic Lab & X-Ray";
+            this.label25.Text = "Diagnostic Lab & X-Ray";
             // 
             // label35
             // 
@@ -1116,15 +1116,15 @@
             this.POVExtendPercent.TabIndex = 155;
             this.POVExtendPercent.Text = "100";
             // 
-            // maskedTextBox1
+            // POVExtendCopay
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(779, 122);
-            this.maskedTextBox1.Mask = "000000000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.PromptChar = ' ';
-            this.maskedTextBox1.Size = new System.Drawing.Size(34, 20);
-            this.maskedTextBox1.TabIndex = 156;
-            this.maskedTextBox1.Text = "20";
+            this.POVExtendCopay.Location = new System.Drawing.Point(779, 122);
+            this.POVExtendCopay.Mask = "000000000";
+            this.POVExtendCopay.Name = "POVExtendCopay";
+            this.POVExtendCopay.PromptChar = ' ';
+            this.POVExtendCopay.Size = new System.Drawing.Size(34, 20);
+            this.POVExtendCopay.TabIndex = 156;
+            this.POVExtendCopay.Text = "20";
             // 
             // SOVExtendPercent
             // 
@@ -1240,6 +1240,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(827, 551);
             this.Controls.Add(this.PTExtendCopay);
             this.Controls.Add(this.PTExtendPercent);
@@ -1252,7 +1253,7 @@
             this.Controls.Add(this.PSExtendPercent);
             this.Controls.Add(this.SOVExtendCopay);
             this.Controls.Add(this.SOVExtendPercent);
-            this.Controls.Add(this.maskedTextBox1);
+            this.Controls.Add(this.POVExtendCopay);
             this.Controls.Add(this.POVExtendPercent);
             this.Controls.Add(this.BCBasicPercent);
             this.Controls.Add(this.PSBasicPercent);
@@ -1464,7 +1465,7 @@
         private System.Windows.Forms.MaskedTextBox PSBasicPercent;
         private System.Windows.Forms.MaskedTextBox BCBasicPercent;
         private System.Windows.Forms.MaskedTextBox POVExtendPercent;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox POVExtendCopay;
         private System.Windows.Forms.MaskedTextBox SOVExtendPercent;
         private System.Windows.Forms.MaskedTextBox SOVExtendCopay;
         private System.Windows.Forms.MaskedTextBox PSExtendPercent;
