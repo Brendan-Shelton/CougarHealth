@@ -24,5 +24,12 @@ namespace CoreProject.Present
             var hspForm = new HSPAccount(hspCtrl);
             hspForm.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var billCtrl = new BillController();
+            var billForm = new Billing(billCtrl);
+            billForm.Show();
+        }
     }
 }
