@@ -46,5 +46,12 @@ namespace CoreProject.Present
             portal.Closed += (source, args) => this.Close();
             this.Hide();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            // Temporary until a HSP Portal is created.
+            var portal = new Billing(new Controller.HSPControllers.BillController());
+            portal.Show();
+        }
     }
 }

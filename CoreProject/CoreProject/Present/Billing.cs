@@ -17,7 +17,10 @@ namespace CoreProject.Present
         public Billing Type { get; set; }
         List<String> services = new List<String>();
         List<int> charges = new List<int>();
-            
+        /// <summary>
+        /// This is the default constructor for the Billing GUI.
+        /// </summary>
+        /// <param name="billControl"></param>
         public Billing(BillController billControl)
         {
             this.billControl = billControl;
@@ -63,7 +66,7 @@ namespace CoreProject.Present
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Invoice invoice = new Invoice(billControl.OHSPCalculate(services, charges));
+            Invoice invoice = new Invoice(billControl.HSPCalculate(services, charges));
             invoice.Show();
         }
     }
