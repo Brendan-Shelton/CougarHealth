@@ -33,6 +33,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -64,17 +65,18 @@
             this.button1.BackColor = System.Drawing.Color.Silver;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(126, 138);
+            this.button1.Location = new System.Drawing.Point(137, 301);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(119, 41);
             this.button1.TabIndex = 4;
             this.button1.Text = "Date Range Report";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(137, 316);
+            this.button2.Location = new System.Drawing.Point(137, 138);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(108, 38);
             this.button2.TabIndex = 5;
@@ -85,10 +87,21 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Font = new System.Drawing.Font("Rockwell", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(87, 279);
+            this.dateTimePicker1.Location = new System.Drawing.Point(90, 102);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(199, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(207, 20);
             this.dateTimePicker1.TabIndex = 6;
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(493, 202);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(174, 50);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "Cougar Costs";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // EmployeePortal
             // 
@@ -97,6 +110,7 @@
             this.BackColor = System.Drawing.Color.Firebrick;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(783, 486);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -116,5 +130,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Button button3;
     }
 }

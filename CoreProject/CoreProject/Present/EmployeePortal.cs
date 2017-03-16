@@ -27,5 +27,19 @@ namespace CoreProject.Present
             monthGUI.Show();
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var rangeReportCtrl = new RangeReportController();
+            var expenseGUI = new ExpenseReport(rangeReportCtrl);
+            expenseGUI.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var cougarCostsCtrl = new CougarCostsController();
+            var cougCostGUI = new CougarCosts(cougarCostsCtrl);
+            cougCostGUI.Show();
+        }
     }
 }

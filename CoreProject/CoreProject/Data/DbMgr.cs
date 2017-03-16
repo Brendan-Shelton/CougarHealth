@@ -12,6 +12,9 @@ namespace CoreProject.Data
     public class DbMgr
     {
         private static DbMgr _instance;
+
+        private int AdminPassKey = 1234;
+
         /// <summary>
         /// get the single instance of DbMgr allowed in the application
         /// 
@@ -338,6 +341,92 @@ namespace CoreProject.Data
                 } // ServiceCosts
             } // Extended
         }; // Plan
+
+
+        public void adminUpdateVerify(int passkey, int planType, String category,
+            String name, Boolean percent, double val)
+        {
+            if (passkey == AdminPassKey)
+            {
+                adminUpdatePlan(planType, category, name, percent, val);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Takes an int, String, String, Bool, and int and updates the corresponding values of the insurance plan
+        /// </summary>
+        /// <param name="planType"></param>
+        /// <param name="category"></param>
+        /// <param name="name"></param>
+        /// <param name="percent"></param>
+        /// <param name="val"></param>
+        
+        private void adminUpdatePlan(int planType, String category, String name, Boolean percent, double val)
+        {
+
+            //APD = 250.0,
+            //    PYMB = 250000.0,
+            //    DependentFee = 20.0,
+            //    PrimaryFee = 45.0,
+            //    DependentChangeFee = 40.0,
+            //    PrimaryChangeFee = 150.0,
+            //    OPMFamily = 18000,
+            //    OPMIndividual = 9500,
+
+
+            for (int i = 0; i < 2; i++)
+            {
+                if (Plans[i].Id == planType)
+                {
+                    if (category.Equals("Benefits"))
+                    {
+                        switch (name)
+                        {
+                            case "APD": Plans[i].APD = val;
+                                break;
+                            case "PYMB": Plans[i].PYMB = val;
+                                break;
+                            case "DependentFee": Plans[i].DependentFee = val;
+                                break;
+                            case "PrimaryFee": Plans[i].PrimaryFee = val;
+                                break;
+                            case "DependentChangeFee": Plans[i].DependentChangeFee = val;
+                                break;
+                            case "PrimaryChangeFee": Plans[i].PrimaryChangeFee = val;
+                                break;
+                            case "OPMFamily": Plans[i].OPMFamily = val;
+                                break;
+                            case "OPMIndividual": Plans[i].OPMIndividual = val;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < Plans[i].ServiceCosts.Length; j++)
+                        {
+                            if (Plans[i].ServiceCosts[j].Category.Equals(category) &&
+                                Plans[i].ServiceCosts[j].Name.Equals(name))
+                            {
+                                if (percent == true)
+                                {
+                                    Plans[i].ServiceCosts[j].PercentCoverage = val;
+                                }
+                                else
+                                {
+                                    Plans[i].ServiceCosts[j].RequiredCopayment = val;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
 
         /// <summary>
         /// For now this is does nothing but it will eventually initialize the
