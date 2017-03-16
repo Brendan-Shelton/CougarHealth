@@ -17,11 +17,15 @@ namespace CoreProject.Present
         public Billing Type { get; set; }
         List<String> services = new List<String>();
         List<int> charges = new List<int>();
-            
+        /// <summary>
+        /// This is the default constructor for the Billing GUI.
+        /// </summary>
+        /// <param name="billControl"></param>
         public Billing(BillController billControl)
         {
             this.billControl = billControl;
             InitializeComponent();
+            this.errMsg.Hide();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -48,23 +52,54 @@ namespace CoreProject.Present
         private void button1_Click(object sender, EventArgs e)
         {
             //check policy number (if not exists show error message)
-            var checkPolicy = this.billControl.CheckPolicy(Convert.ToInt32(this.textBox1.Text));
+            bool checkPolicy = this.billControl.CheckPolicy(Convert.ToInt32(this.textBox1.Text));
+            if (!checkPolicy)
+            {
+                this.textBox1.Clear();
+                this.errMsg.Show();
+            }
             //check enrollee (if not exists show error message)
-            var checkEnrollee = this.billControl.CheckEnrollee(this.textBox3.Text);
+            bool checkEnrollee = this.billControl.CheckEnrollee(this.textBox3.Text);
+            if (!checkEnrollee)
+            {
+                this.textBox3.Clear();
+                this.errMsg.Show();
+            }
+
+            bool checkHSPName = this.billControl.CheckHSP(this.textBox2.Text);
+            if (!checkHSPName)
+            {
+                this.textBox3.Clear();
+                this.errMsg.Show();
+            }
             //send each service to be processed to controller
             for (int i = 0; i < listBox2.Items.Count; i++)
             {
                 Console.Write(listBox2.Items[i]);
             }
-
-            button3.Show();
+            if(checkHSPName && checkEnrollee && checkPolicy)
+                button3.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Invoice invoice = new Invoice(billControl.OHSPCalculate(services, charges));
+            Invoice invoice;
+            if (billControl.getHspType())
+            {
+                invoice = new Invoice(billControl.HSPCalculate(services, charges));
+            }
+            else
+            {
+                invoice = new Invoice(billControl.OHSPCalculate(services, charges));
+            }
+            
             invoice.Show();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

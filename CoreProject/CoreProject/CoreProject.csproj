@@ -100,11 +100,23 @@
     <Compile Include="Present\EnrolleePortal.Designer.cs">
       <DependentUpon>EnrolleePortal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\HSPPortal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\HSPPortal.Designer.cs">
+      <DependentUpon>HSPPortal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Present\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\HSPAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\HSPAccount.Designer.cs">
+      <DependentUpon>HSPAccount.cs</DependentUpon>
     </Compile>
     <Compile Include="Present\Invoice.cs">
       <SubType>Form</SubType>
@@ -162,6 +174,9 @@
     <Compile Include="Present\Support.Designer.cs">
       <DependentUpon>Support.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Present\Billing.resx">
+      <DependentUpon>Billing.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\CougarCosts.resx">
       <DependentUpon>CougarCosts.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,8 +192,17 @@
     <EmbeddedResource Include="Present\ExpenseReport.resx">
       <DependentUpon>ExpenseReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Present\HSPPortal.resx">
+      <DependentUpon>HSPPortal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\HSPAccount.resx">
+      <DependentUpon>HSPAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\Invoice.resx">
+      <DependentUpon>Invoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

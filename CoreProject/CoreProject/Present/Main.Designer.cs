@@ -31,7 +31,7 @@ namespace CoreProject.Present
         {
             this.heading = new System.Windows.Forms.Label();
             this.enroll = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.hspForm = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -58,16 +58,17 @@ namespace CoreProject.Present
             this.enroll.UseVisualStyleBackColor = true;
             this.enroll.Click += new System.EventHandler(this.enroll_Click);
             // 
-            // button1
+            // hspForm
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(531, 344);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(277, 58);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Healthcare Provider Portal";
-            this.button1.UseVisualStyleBackColor = true;
+            this.hspForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.hspForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hspForm.Location = new System.Drawing.Point(531, 344);
+            this.hspForm.Name = "hspForm";
+            this.hspForm.Size = new System.Drawing.Size(277, 58);
+            this.hspForm.TabIndex = 3;
+            this.hspForm.Text = "Healthcare Provider Portal";
+            this.hspForm.UseVisualStyleBackColor = true;
+            this.hspForm.Click += new System.EventHandler(this.hspForm_Click);
             // 
             // button2
             // 
@@ -88,7 +89,7 @@ namespace CoreProject.Present
             this.BackColor = System.Drawing.Color.DarkRed;
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.hspForm);
             this.Controls.Add(this.enroll);
             this.Controls.Add(this.heading);
             this.Name = "Main";
@@ -102,7 +103,7 @@ namespace CoreProject.Present
 
         private System.Windows.Forms.Label heading;
         private System.Windows.Forms.Button enroll;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button hspForm;
         private System.Windows.Forms.Button button2;
     }
 }

@@ -13,22 +13,69 @@ namespace CoreProject.Data.HealthcareServiceProvider
         /// <summary>
         /// Required fields
         /// </summary>
-        public String Name { get; set; }
-        public List<String> ServicesOffered { get; set; }
-        public List<String> personnel { get; set; } 
-        public String Address { get; set; }
-
+        public string Name { get; set; }
+        public List<string> ServicesOffered { get; set; }
+        public string Personnel { get; set; }
+        public string Address { get; set; }
+        public bool InNetwork { get; private set; }
         /// <summary>
         /// Optional fields
         /// </summary>
-        public String BankName { get; set; }
+        public string BankName { get; set; } = null;
         public int AccountNum { get; set; }
         public int RoutingNum { get; set; }
+
+        private static int idCount = 0;
 
         /// <summary>
         /// Unique to each HSP/OHSP
         /// </summary>
         public int Id { get; }
+        private string _pin;
 
+        /// <summary>
+        /// Basically a password for the HSP that allows them to log in 
+        /// with their company name.
+        /// </summary>
+        public string Pin
+        {
+            get { return _pin; }
+            private set
+            {
+                if (_pin == value)
+                    throw new ArgumentException("Pin can't be the same as previous");
+                _pin = value;
+            }
+        }
+
+        public HSP(string pin, bool isNetwork)
+        {
+            this.Id = ++idCount;
+            this.InNetwork = isNetwork;
+            this.ChangePIN(pin);
+        }
+
+
+
+        public void ChangePIN(string newPin)
+        {
+            this.Pin = newPin;
+        }
+
+        public void ChangeNetworkStatus()
+        {
+            this.InNetwork = !InNetwork;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var that = (HSP) obj;
+            return that.Name == this.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
     }
 }

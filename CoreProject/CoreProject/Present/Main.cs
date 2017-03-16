@@ -31,6 +31,14 @@ namespace CoreProject.Present
         {
             var portal = new EnrolleePortal();
             portal.Show();
+            //portal.Closed += (source, args) => this.Close();
+            //this.Hide();
+        }
+
+        private void hspForm_Click(object sender, EventArgs e)
+        {
+            var portal = new HSPPortal();
+            portal.Show();
             portal.Closed += (source, args) => this.Close();
             this.Hide();
         }
