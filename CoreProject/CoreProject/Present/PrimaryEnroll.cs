@@ -179,7 +179,7 @@ namespace CoreProject.Present
                 return;
             }
             var customer = this.EnrollCtrl.GetName();
-            this.confirmation.Text = $"Congratulations {customer} your plan is: {plan}";
+            this.confirmation.Text = $@"Congratulations {customer} your plan is: {plan}";
             this.finish.Visible = true;
         }
         #endregion
