@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
+    <Compile Include="Controller\EmployeeControllers\RangeReportController.cs" />
     <Compile Include="Data\DbMgr.cs" />
     <Compile Include="Data\Enrollee\Service.cs" />
     <Compile Include="Present\AccountManagement.cs">
@@ -85,6 +87,12 @@
     </Compile>
     <Compile Include="Present\DependentEnroll.Designer.cs">
       <DependentUpon>DependentEnroll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\EmployeePortal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\EmployeePortal.Designer.cs">
+      <DependentUpon>EmployeePortal.cs</DependentUpon>
     </Compile>
     <Compile Include="Present\EnrolleePortal.cs">
       <SubType>Form</SubType>
@@ -156,6 +164,9 @@
     </Compile>
     <EmbeddedResource Include="Present\DependentEnroll.resx">
       <DependentUpon>DependentEnroll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\EmployeePortal.resx">
+      <DependentUpon>EmployeePortal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\EnrolleePortal.resx">
       <DependentUpon>EnrolleePortal.cs</DependentUpon>

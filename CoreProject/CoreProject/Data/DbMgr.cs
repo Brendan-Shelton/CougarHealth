@@ -31,7 +31,7 @@ namespace CoreProject.Data
         /// a fake DB set for the different types of insurance plans and their 
         /// services 
         /// </summary>
-        public IEnumerable<InsurancePlan> Plans => new List<InsurancePlan>()
+        public List<InsurancePlan> Plans => new List<InsurancePlan>()
         {
             new InsurancePlan()
             {
@@ -442,7 +442,7 @@ namespace CoreProject.Data
             return r;
         }
 
-        public IEnumerable<Enrollee.InsurancePlan> GetPlans()
+        public List<Enrollee.InsurancePlan> GetPlans()
         {
             return new List<InsurancePlan>()
             {

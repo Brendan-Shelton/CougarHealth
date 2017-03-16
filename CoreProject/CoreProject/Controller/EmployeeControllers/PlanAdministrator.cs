@@ -8,5 +8,17 @@ namespace CoreProject.Controller.EmployeeControllers
 {
     internal class PlanAdministrator
     {
+
+        public PlanAdministrator()
+        {
+
+        }
+
+        public void editInsurancePlan()
+        {
+
+        }
+
+
     }
 }
