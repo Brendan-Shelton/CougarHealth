@@ -15,14 +15,15 @@ namespace CoreProject.Present
     {
         public MonthReportController mthCtrl { get; private set; }
 
-        public MonthlyReport(MonthReportController monthCtrllr) {
+        public MonthlyReport(MonthReportController monthCtrllr, DateTime date) {
 
             this.mthCtrl = monthCtrllr;
             InitializeComponent();
 
-            mthCtrl.update(this);
+            mthCtrl.update(this, date);
         }
 
+        
 
         public void setBasicEnrollNum(int amount)
         {

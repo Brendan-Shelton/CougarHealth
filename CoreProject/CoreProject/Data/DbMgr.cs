@@ -33,7 +33,7 @@ namespace CoreProject.Data
         /// a fake DB set for the different types of insurance plans and their 
         /// services 
         /// </summary>
-        public IEnumerable<InsurancePlan> Plans => new List<InsurancePlan>()
+        public List<InsurancePlan> Plans => new List<InsurancePlan>()
         {
             new InsurancePlan()
             {
@@ -360,7 +360,7 @@ namespace CoreProject.Data
             if ( !PrimaryEnrolleeSet.Add(enrollee) )
             {
                 throw new DataException($"{enrollee.FirstName} was already in our system");
-            }
+        }
         }
 
         /// <summary>
@@ -376,8 +376,8 @@ namespace CoreProject.Data
                                    select policy ).First();
                 plan.PlanNum = updatePlan.PlanNum;
                 PlanSet.Remove(updatePlan);
-                PlanSet.Add(plan);
-            }
+            PlanSet.Add(plan); 
+        }
         }
 
         public Enrollee.InsurancePlan GetPlanByType( string type )

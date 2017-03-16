@@ -81,10 +81,10 @@ namespace CoreProject.Controller.EmployeeControllers
             return temp;
         }
 
-        public void update(MonthlyReport report)
+        public void update(MonthlyReport report, DateTime date)
         { 
-           report.setMonth(updateMonth(DateTime.Now));
-            financeSystem funds = retrieveFinances(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), DateTime.Now);
+           report.setMonth(updateMonth(date));
+            financeSystem funds = retrieveFinances(new DateTime(date.Year, date.Month, 1), new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)));
 
             double amountOwedIHSP = 0;
             double amountOwedOHSP = 0;
