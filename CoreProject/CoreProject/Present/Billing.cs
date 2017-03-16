@@ -14,9 +14,8 @@ namespace CoreProject.Present
     public partial class Billing : Form
     {
         public BillController billControl { get; }
-        public Billing Type { get; set; }
-        List<String> services = new List<String>();
-        List<int> charges = new List<int>();
+        private List<String> services = new List<String>();
+        private List<int> charges = new List<int>();
         /// <summary>
         /// This is the default constructor for the Billing GUI.
         /// </summary>
