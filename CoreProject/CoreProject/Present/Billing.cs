@@ -65,20 +65,41 @@ namespace CoreProject.Present
                 this.textBox3.Clear();
                 this.errMsg.Show();
             }
+
+            bool checkHSPName = this.billControl.CheckHSP(this.textBox2.Text);
+            if (!checkHSPName)
+            {
+                this.textBox3.Clear();
+                this.errMsg.Show();
+            }
             //send each service to be processed to controller
             for (int i = 0; i < listBox2.Items.Count; i++)
             {
                 Console.Write(listBox2.Items[i]);
             }
-
-            button3.Show();
+            if(checkHSPName && checkEnrollee && checkPolicy)
+                button3.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Invoice invoice = new Invoice(billControl.HSPCalculate(services, charges));
+            Invoice invoice;
+            if (billControl.getHspType())
+            {
+                invoice = new Invoice(billControl.HSPCalculate(services, charges));
+            }
+            else
+            {
+                invoice = new Invoice(billControl.OHSPCalculate(services, charges));
+            }
+            
             invoice.Show();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
