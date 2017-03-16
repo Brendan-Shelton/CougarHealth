@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
 using CoreProject.Data;
+using CoreProject.Data.HealthcareServiceProvider;
 
 namespace CoreProject.Controller.HSPControllers
 {
@@ -14,10 +15,10 @@ namespace CoreProject.Controller.HSPControllers
     {
         public DbMgr Mgr;
         public List<InsurancePlan> Plans;
-        public Type planType;
         public Enrollee enrollee;
         public EnrolleePlan enrolleePlan;
         public InsurancePlan plan;
+        public HSP hsp;
         /// <summary>
         /// Creates a new Plans List and DbMGr Instance
         /// </summary>
@@ -27,7 +28,7 @@ namespace CoreProject.Controller.HSPControllers
             this.Plans = (List<InsurancePlan>)Mgr.GetPlans();
         }
 
-        
+
 
         /// <summary>
         /// Checks to see if the policy is valid.
@@ -56,19 +57,40 @@ namespace CoreProject.Controller.HSPControllers
         {
             String[] nameArr = new String[2];
             nameArr = name.Split();
-            if(nameArr.Length == 2)
+            if (nameArr.Length == 2)
             {
                 if (Mgr.GetEnrolleeByName(nameArr[0], nameArr[1]) == null)
                 {
                     return false;
                 }
                 else
+                {
                     enrollee = Mgr.GetEnrolleeByName(nameArr[0], nameArr[1]);
-                return true;
+                    return true;
+                }
+
             }
             else
                 return false;
-            
+
+        }
+
+        public bool CheckHSP(String hspName)
+        {
+            if (Mgr.GrabHspByName(hspName) == null)
+            {
+                return false;
+            }
+            else
+            {
+                hsp = Mgr.GrabHspByName(hspName);
+                return true;
+            }
+        }
+
+        public bool getHspType()
+        {
+            return hsp.InNetwork;
         }
         // Not sure if this is needed
         public void getPlan()
