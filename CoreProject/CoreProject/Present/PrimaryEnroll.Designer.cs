@@ -299,6 +299,7 @@
             this.ServiceType,
             this.ServiceCoverage,
             this.Copayment});
+            this.planDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.planDetails.Location = new System.Drawing.Point(227, 98);
             this.planDetails.Name = "planDetails";
             this.planDetails.Size = new System.Drawing.Size(333, 258);

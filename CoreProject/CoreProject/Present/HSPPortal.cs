@@ -25,7 +25,7 @@ namespace CoreProject.Present
             hspForm.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void bill_Click(object sender, EventArgs e)
         {
             var billCtrl = new BillController();
             var billForm = new Billing(billCtrl);
