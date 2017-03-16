@@ -56,13 +56,19 @@ namespace CoreProject.Controller.HSPControllers
         {
             String[] nameArr = new String[2];
             nameArr = name.Split();
-            if (Mgr.GetEnrolleeByName(nameArr[0], nameArr[1]) == null)
+            if(nameArr.Length == 2)
             {
-                return false;
+                if (Mgr.GetEnrolleeByName(nameArr[0], nameArr[1]) == null)
+                {
+                    return false;
+                }
+                else
+                    enrollee = Mgr.GetEnrolleeByName(nameArr[0], nameArr[1]);
+                return true;
             }
             else
-                enrollee = Mgr.GetEnrolleeByName(nameArr[0], nameArr[1]);
-            return true;
+                return false;
+            
         }
         // Not sure if this is needed
         public void getPlan()
@@ -121,8 +127,8 @@ namespace CoreProject.Controller.HSPControllers
                 }
 
                 // Calculate enrolleeCharge and HSPCharge
-                enrolleeCharge = ((adjustedCharge * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment);
-                HSPCharge = ((adjustedCharge * plan.ServiceCosts[serviceID].PercentCoverage) - plan.ServiceCosts[serviceID].RequiredCopayment);
+                enrolleeCharge = (((adjustedCharge - plan.ServiceCosts[serviceID].RequiredCopayment) * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment);
+                HSPCharge = ((adjustedCharge - plan.ServiceCosts[serviceID].RequiredCopayment) * plan.ServiceCosts[serviceID].PercentCoverage);
                 returnArr[i, 0] = plan.ServiceCosts[serviceID].Name;
                 returnArr[i, 1] = adjustedCharge.ToString();
                 returnArr[i, 2] = enrolleeCharge.ToString();
@@ -165,14 +171,14 @@ namespace CoreProject.Controller.HSPControllers
                 if (charges[i] < adjustedCharge)
                 {
                     adjustedCharge = charges[i];
-                    enrolleeCharge = ((adjustedCharge * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment);
+                    enrolleeCharge = (((adjustedCharge - plan.ServiceCosts[serviceID].RequiredCopayment) * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment);
                 }
                 else
                 {
-                    enrolleeCharge = ((charges[i] - adjustedCharge) + ((adjustedCharge * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment));
+                    enrolleeCharge = ((charges[i] - adjustedCharge) + (((adjustedCharge - plan.ServiceCosts[serviceID].RequiredCopayment) * (1 - plan.ServiceCosts[serviceID].PercentCoverage)) + plan.ServiceCosts[serviceID].RequiredCopayment));
                 }
                 // Calculate HSP Charge.
-                HSPCharge = ((adjustedCharge * plan.ServiceCosts[serviceID].PercentCoverage) - plan.ServiceCosts[serviceID].RequiredCopayment);
+                HSPCharge = ((adjustedCharge - plan.ServiceCosts[serviceID].RequiredCopayment) * plan.ServiceCosts[serviceID].PercentCoverage);
                 returnArr[i, 0] = plan.ServiceCosts[serviceID].Name;
                 returnArr[i, 1] = charges[i].ToString();
                 returnArr[i, 2] = enrolleeCharge.ToString();

@@ -25,6 +25,7 @@ namespace CoreProject.Present
         {
             this.billControl = billControl;
             InitializeComponent();
+            this.errMsg.Hide();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -51,9 +52,19 @@ namespace CoreProject.Present
         private void button1_Click(object sender, EventArgs e)
         {
             //check policy number (if not exists show error message)
-            var checkPolicy = this.billControl.CheckPolicy(Convert.ToInt32(this.textBox1.Text));
+            bool checkPolicy = this.billControl.CheckPolicy(Convert.ToInt32(this.textBox1.Text));
+            if (!checkPolicy)
+            {
+                this.textBox1.Clear();
+                this.errMsg.Show();
+            }
             //check enrollee (if not exists show error message)
-            var checkEnrollee = this.billControl.CheckEnrollee(this.textBox3.Text);
+            bool checkEnrollee = this.billControl.CheckEnrollee(this.textBox3.Text);
+            if (!checkEnrollee)
+            {
+                this.textBox3.Clear();
+                this.errMsg.Show();
+            }
             //send each service to be processed to controller
             for (int i = 0; i < listBox2.Items.Count; i++)
             {
