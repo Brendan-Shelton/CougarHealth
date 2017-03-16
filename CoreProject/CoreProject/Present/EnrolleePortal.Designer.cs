@@ -1,7 +1,6 @@
-﻿
-namespace CoreProject.Present
+﻿namespace CoreProject.Present
 {
-    partial class Main
+    partial class EnrolleePortal
     {
         /// <summary>
         /// Required designer variable.
@@ -31,8 +30,7 @@ namespace CoreProject.Present
         {
             this.heading = new System.Windows.Forms.Label();
             this.enroll = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.dependent = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // heading
@@ -40,58 +38,47 @@ namespace CoreProject.Present
             this.heading.AutoSize = true;
             this.heading.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.heading.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.heading.Location = new System.Drawing.Point(503, 131);
+            this.heading.Location = new System.Drawing.Point(464, 103);
             this.heading.Name = "heading";
-            this.heading.Size = new System.Drawing.Size(335, 55);
-            this.heading.TabIndex = 0;
-            this.heading.Text = "Cougar Health";
+            this.heading.Size = new System.Drawing.Size(338, 55);
+            this.heading.TabIndex = 1;
+            this.heading.Text = "Enrollee Portal";
             // 
             // enroll
             // 
             this.enroll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
             this.enroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.enroll.Location = new System.Drawing.Point(585, 269);
+            this.enroll.Location = new System.Drawing.Point(549, 219);
             this.enroll.Name = "enroll";
             this.enroll.Size = new System.Drawing.Size(162, 58);
-            this.enroll.TabIndex = 2;
-            this.enroll.Text = "Enrollee Portal";
+            this.enroll.TabIndex = 3;
+            this.enroll.Text = "New Insurance Plan";
             this.enroll.UseVisualStyleBackColor = true;
             this.enroll.Click += new System.EventHandler(this.enroll_Click);
             // 
-            // button1
+            // dependent
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(531, 344);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(277, 58);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Healthcare Provider Portal";
-            this.button1.UseVisualStyleBackColor = true;
+            this.dependent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
+            this.dependent.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dependent.Location = new System.Drawing.Point(551, 311);
+            this.dependent.Name = "dependent";
+            this.dependent.Size = new System.Drawing.Size(162, 58);
+            this.dependent.TabIndex = 4;
+            this.dependent.Text = "Add Dependent";
+            this.dependent.UseVisualStyleBackColor = true;
+            this.dependent.Click += new System.EventHandler(this.dependent_Click);
             // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(182)))), ((int)(((byte)(246)))));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(585, 435);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(162, 58);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Employee Portal";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // Main
+            // EnrolleePortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkRed;
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dependent);
             this.Controls.Add(this.enroll);
             this.Controls.Add(this.heading);
-            this.Name = "Main";
-            this.Text = "CougarHealth";
+            this.Name = "EnrolleePortal";
+            this.Text = "Enrollee Portal";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,7 +88,6 @@ namespace CoreProject.Present
 
         private System.Windows.Forms.Label heading;
         private System.Windows.Forms.Button enroll;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button dependent;
     }
 }
