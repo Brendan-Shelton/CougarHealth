@@ -18,7 +18,7 @@ namespace CoreProject.Controller.EmployeeControllers
         }
         
 
-        public void update(CougarCosts costs)
+        public void Update(CougarCosts costs)
         {
             dbmgr.adminUpdateVerify(1234, 1, "Benefits", "APD", false, costs.getAPDBasic());
             dbmgr.adminUpdateVerify(1234, 2, "Benefits", "APD", false, costs.getAPDExtend());

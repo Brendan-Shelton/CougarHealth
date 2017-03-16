@@ -74,7 +74,9 @@ namespace CoreProject.Present
 
             rangeCtrl.retrieveRangedData(BeginningDatePicker.Value, EndingDatePicker.Value);
 
-            rangeCtrl.outputBillsToForm(this);    
+           double[] temp = rangeCtrl.checkBills();
+           rangeCtrl.outputBillsToForm(this, temp[0], temp[1], temp[2], temp[3]);
+
         }
 
         public void changeBeginningDateLabel(String date)

@@ -37,7 +37,7 @@ namespace CoreProject.Present
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CostCtrl.update(this);
+            CostCtrl.Update(this);
             this.Hide();
         }
 

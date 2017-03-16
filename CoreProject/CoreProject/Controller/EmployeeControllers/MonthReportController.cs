@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Present;
+using CoreProject.Data;
 
 namespace CoreProject.Controller.EmployeeControllers
 {
@@ -34,11 +35,11 @@ namespace CoreProject.Controller.EmployeeControllers
 
 
 
-        //public DbMgr Mgr { get; private set; }
+        public DbMgr Mgr { get; private set; }
 
         public MonthReportController()
         {
-            //this.Mgr = DbMgr.Instance;
+            this.Mgr = DbMgr.Instance;
         }
 
         private String updateMonth(DateTime date)

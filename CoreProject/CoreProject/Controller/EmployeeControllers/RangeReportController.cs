@@ -37,7 +37,18 @@ namespace CoreProject.Controller.EmployeeControllers
         {
             //this.Mgr = DbMgr.Instance;
         }
-
+        public void setDates(DateTime bDate, DateTime eDate)
+        {
+            if (bDate < eDate)
+            {
+                begDate = bDate;
+                endDate = eDate;
+            } else
+            {
+                endDate = bDate;
+                begDate = eDate;
+            }
+        }
         // This method will talk to the DbMgr and will send the beginning date, and ending date, and
         //      pull all bills in between. It will save an array of Bills.
         //
@@ -78,15 +89,14 @@ namespace CoreProject.Controller.EmployeeControllers
             return rangeBills;
         }
 
-        public void outputBillsToForm(ExpenseReport expGUI)
+        public double[] checkBills()
         {
             basicPayments = 0;
             extendedPayments = 0;
 
             bill[] rangeBills = retrieveRangedData(begDate, endDate);
 
-            expGUI.changeBeginningDateLabel(begDate.ToShortDateString());
-            expGUI.changeEndDateLabel(endDate.ToShortDateString());
+            
             if (rangeBills != null) 
             for (int i = 0; i < rangeBills.Length; i++)
             {
@@ -102,8 +112,7 @@ namespace CoreProject.Controller.EmployeeControllers
                     }    
             }
 
-            expGUI.setBasicTotal(basicPayments);
-            expGUI.setExtendedTotal(extendedPayments);
+            
 
             int yearTotalBasic = 0;
             int yearTotalExtended = 0;
@@ -145,11 +154,23 @@ namespace CoreProject.Controller.EmployeeControllers
             {
                 extendPercent = 0;
             }
-            expGUI.setBasicPercentage(basicPercent);
-            expGUI.setExtendedPercentage(extendPercent);
+
+            double[] temp = { basicPercent, extendPercent, basicPayments, extendedPayments };
+            return temp;
         }
        
+        public void outputBillsToForm(ExpenseReport expGUI, double basic, double extend, double basicPayments, double extendPayments)
+        {
 
+            expGUI.changeBeginningDateLabel(begDate.ToShortDateString());
+            expGUI.changeEndDateLabel(endDate.ToShortDateString());
+
+            expGUI.setBasicPercentage(basic);
+            expGUI.setExtendedPercentage(extend);
+
+            expGUI.setBasicTotal(basicPayments);
+            expGUI.setExtendedTotal(extendedPayments);
+        }
 
     }
 }
