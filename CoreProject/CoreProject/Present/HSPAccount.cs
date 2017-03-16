@@ -22,31 +22,62 @@ namespace CoreProject.Present
             InitializeComponent();
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void Submit_Click(object sender, EventArgs args)
         {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Submit_Click(object sender, EventArgs e)
-        {
-            // TODO: Still need to validate inputs and insert optional fields if they exist
-            // Additionally, personnel info needs to be worked out.
-
             List<string> servicesOffered = new List<string>();
-            foreach (String item in this.ServicesOffered.SelectedItems)
+            foreach (string item in this.ServicesOffered.SelectedItems)
                 servicesOffered.Add(item);
-            String address = this.Street.Text + " " + this.City.Text + " " + this.State.Text + " " + this.Zip.Text;
+            string address = this.Street.Text;
+            CreateHSPController.BankInfo? info = null;
 
-            this.HSPControl.CreateHSP(
-                this.CompanyName.Text,
-                servicesOffered,
-                address,
-                this.Pin.Text);
+            if ( this.BankName.Text != "" &&
+                 this.routingNum.Text != "" &&
+                 this.accountNum.Text != "" )
+            {
+                info = new CreateHSPController.BankInfo
+                {
+                    Account = Int32.Parse(this.routingNum.Text),
+                    Routing = Int32.Parse(this.routingNum.Text),
+                    Name = this.BankName.Text
+                }; 
+            }
+
+            try
+            {
+                var id = this.HSPControl.CreateHSP(
+                    name: this.CompanyName.Text,
+                    services: servicesOffered,
+                    address: address,
+                    phone: this.phoneNum.Text,
+                    pin: this.pin.Text,
+                    netowrkStatus: this.networkStatus.Checked,
+                    info: info
+                );
+
+                this.thanks.Text = $@"Congratulations {this.CompanyName.Text} your id is {id}";
+                this.finishPane.Visible = true;
+
+            }
+            catch ( ArgumentException e )
+            {
+                this.error.Text = @"Error " + e.Message;
+                this.error.Visible = true;
+            }
+            catch ( DataException )
+            {
+                this.error.Text = $@"Error: {this.CompanyName.Text} already exist in the database";
+                this.error.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// The client hsp is done creating their account 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void donezo_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

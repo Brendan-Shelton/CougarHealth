@@ -13,15 +13,15 @@ namespace CoreProject.Data.HealthcareServiceProvider
         /// <summary>
         /// Required fields
         /// </summary>
-        public String Name { get; set; }
-        public List<String> ServicesOffered { get; set; }
-        public List<String> personnel { get; set; }
-        public String Address { get; set; }
-
+        public string Name { get; set; }
+        public List<string> ServicesOffered { get; set; }
+        public string Personnel { get; set; }
+        public string Address { get; set; }
+        public bool InNetwork { get; private set; }
         /// <summary>
         /// Optional fields
         /// </summary>
-        public String BankName { get; set; } = null;
+        public string BankName { get; set; } = null;
         public int AccountNum { get; set; }
         public int RoutingNum { get; set; }
 
@@ -34,9 +34,8 @@ namespace CoreProject.Data.HealthcareServiceProvider
         private string _pin;
 
         /// <summary>
-        /// Basically a password for the enrollee that allows them to log in 
-        /// with their email.
-        /// TODO: hash the password when set
+        /// Basically a password for the HSP that allows them to log in 
+        /// with their company name.
         /// </summary>
         public string Pin
         {
@@ -49,17 +48,34 @@ namespace CoreProject.Data.HealthcareServiceProvider
             }
         }
 
-        public HSP(string pin)
+        public HSP(string pin, bool isNetwork)
         {
             this.Id = ++idCount;
-            this.changePIN(pin);
+            this.InNetwork = isNetwork;
+            this.ChangePIN(pin);
         }
 
 
 
-        public void changePIN(string newPin)
+        public void ChangePIN(string newPin)
         {
             this.Pin = newPin;
+        }
+
+        public void ChangeNetworkStatus()
+        {
+            this.InNetwork = !InNetwork;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var that = (HSP) obj;
+            return that.Name == this.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
         }
     }
 }

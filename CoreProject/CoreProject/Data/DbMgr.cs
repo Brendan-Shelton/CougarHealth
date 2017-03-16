@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
+using CoreProject.Data.HealthcareServiceProvider;
 
 namespace CoreProject.Data
 {
@@ -29,6 +30,7 @@ namespace CoreProject.Data
         public HashSet<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; }
 
         public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
+        public HashSet<HSP> HspSet { get; }
         /// <summary>
         /// a fake DB set for the different types of insurance plans and their 
         /// services 
@@ -348,6 +350,7 @@ namespace CoreProject.Data
             PlanSet = new HashSet<EnrolleePlan>(); 
             DependentEnrolleSet = new HashSet<DependentEnrollee>();
             PrimaryEnrolleeSet = new HashSet<PrimaryEnrollee>();
+            HspSet = new HashSet<HSP>();
         }
 
         /// <summary>
@@ -380,12 +383,50 @@ namespace CoreProject.Data
             }
         }
 
+        /// <summary>
+        /// Adds a new HSP object into the database if it doesn't already exist
+        /// in the database. If the hsp object already exists in the database 
+        /// then it'll throw a DataException
+        /// </summary>
+        /// <param name="hsp"></param>
+        public void SaveHsp( HSP hsp )
+        {
+            if ( !HspSet.Add(hsp) )
+            {
+                throw new DataException("Hsp already exists in the database"); 
+            }
+        }
+
+        /// <summary>
+        /// grabs a hsp object by it's primary key 
+        /// </summary>
+        /// <param name="hspId"></param>
+        /// <returns></returns>
+        public HSP GrabHspById( int hspId )
+        {
+            return ( from hsp in HspSet
+                     where hsp.Id == hspId
+                     select hsp ).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// grabs a hsp object by it's uniquely identifiable name
+        /// </summary>
+        /// <param name="hspId"></param>
+        /// <returns></returns>
+        public HSP GrabHspByName( string hspName )
+        {
+            return ( from hsp in HspSet
+                     where hsp.Name == hspName
+                     select hsp ).FirstOrDefault();
+        }
+
         public Enrollee.InsurancePlan GetPlanByType( string type )
         {
             
-            return (from plan in Plans
-                         where plan.Type == type
-                         select plan).FirstOrDefault();
+            return ( from plan in Plans
+                     where plan.Type == type
+                     select plan ).FirstOrDefault();
         }
 
         public IEnumerable<Enrollee.InsurancePlan> GetPlans()
@@ -403,9 +444,9 @@ namespace CoreProject.Data
         /// <returns></returns>
         public int? Login(string email, string pin)
         {
-            var resultId =  (from enrollee in PrimaryEnrolleeSet
-                where enrollee.Email == email && enrollee.Pin == pin
-                select enrollee.Id).FirstOrDefault();
+            var resultId =  ( from enrollee in PrimaryEnrolleeSet
+                              where enrollee.Email == email && enrollee.Pin == pin
+                              select enrollee.Id ).FirstOrDefault();
             // zero is default for set and not a valid id 
             if (resultId == 0) return null;
             return resultId;
@@ -419,9 +460,9 @@ namespace CoreProject.Data
         /// <returns></returns>
         public PrimaryEnrollee FindPrimaryById(int primaryId)
         {
-            return (from enrollee in PrimaryEnrolleeSet
-                where enrollee.Id == primaryId
-                select enrollee).FirstOrDefault();
+            return ( from enrollee in PrimaryEnrolleeSet
+                     where enrollee.Id == primaryId
+                     select enrollee ).FirstOrDefault();
         }
 
         /// <summary>
@@ -432,9 +473,9 @@ namespace CoreProject.Data
         /// <returns></returns>
         public EnrolleePlan GetPlanByPrimary(int primaryId)
         {
-            return (from plan in PlanSet
-                where plan.PrimaryEnrollee == primaryId
-                select plan).FirstOrDefault();
+            return ( from plan in PlanSet
+                     where plan.PrimaryEnrollee == primaryId
+                     select plan ).FirstOrDefault();
         }
         public void SaveEnrollee(Enrollee.Enrollee enrollee) { }
 
