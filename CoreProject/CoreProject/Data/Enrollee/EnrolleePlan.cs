@@ -8,7 +8,7 @@ namespace CoreProject.Data.Enrollee
 {
     public class EnrolleePlan 
     {
-        public int PlanNum { get; }
+        public int PlanNum { get; set; }
         public string Type { get; }
         /* 
          * all of the following properties are privately set because they are 
@@ -77,13 +77,29 @@ namespace CoreProject.Data.Enrollee
             
         }
 
+        /// <summary>
+        /// this and that are equal if they have the same primary enrollee 
+        /// primary enrollees can't  have more than one plan 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            var that = (EnrolleePlan) obj;
+            return this.PrimaryEnrollee == that.PrimaryEnrollee;
+        }
+
+        /// <summary>
+        /// return the primary key of the primary enrollee 
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             if ( PrimaryEnrollee == null )
             {
                 throw new ArgumentException("Primary enrollee does not exists");
             }
-            return PlanNum.GetHashCode() * PrimaryEnrollee.GetHashCode();
+            return PrimaryEnrollee.Value;
         }
 
     }

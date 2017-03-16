@@ -341,5 +341,30 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             Assert.AreEqual(planId, enrolleePlan.PlanNum);
         }
 
+        /// <summary>
+        /// Trying to create duplicate plans 
+        /// </summary>
+        [TestMethod()]
+        public void PickPlanTest()
+        {
+            var ctrl = new EnrollController();
+            var mgr = DbMgr.Instance;
+            var primary = new PrimaryEnrollee("2103")
+            {
+                MailingAddr = "805 N Ealy",
+                Email = "me@michaelrhodes.us",
+                FirstName = "Michael",
+                LastName = "Rhodes",
+                HomePhone = "2178214819",
+                SSN = "555102104"
+            };
+            var plan = mgr.Plans.ElementAt(0);
+            ctrl.PrimaryEnrollee = primary;
+
+            var enrolleePlan = ctrl.PickPlan($"{plan.Type}");
+            var dupEnrolleePlan = ctrl.PickPlan($"{plan.Type}");
+
+            Assert.AreEqual(enrolleePlan, dupEnrolleePlan);
+        }
     }
 }

@@ -372,8 +372,9 @@ namespace CoreProject.Data
             if ( !PlanSet.Add(plan) )
             {
                 var updatePlan = ( from policy in PlanSet
-                                   where policy.PlanNum == plan.PlanNum
+                                   where policy.PrimaryEnrollee == plan.PrimaryEnrollee
                                    select policy ).First();
+                plan.PlanNum = updatePlan.PlanNum;
                 PlanSet.Remove(updatePlan);
                 PlanSet.Add(plan);
             }
@@ -441,7 +442,7 @@ namespace CoreProject.Data
         {
             var primary = ( from enrollee in this.PrimaryEnrolleeSet
                             where f == enrollee.FirstName && l == enrollee.LastName
-                            select enrollee).FirstOrDefault();
+                            select enrollee ).FirstOrDefault();
             return primary;
         }
 
@@ -449,7 +450,7 @@ namespace CoreProject.Data
         {
             var r = ( from plan in PlanSet
                       where plan.PlanNum == ID
-                      select plan).FirstOrDefault();
+                      select plan ).FirstOrDefault();
             return r;
         }
 
