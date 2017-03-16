@@ -14,11 +14,11 @@ namespace CoreProject.Controller.HSPControllers
     public class BillController
     {
         public DbMgr Mgr;
-        public List<InsurancePlan> Plans;
-        public Enrollee enrollee;
-        public EnrolleePlan enrolleePlan;
-        public InsurancePlan plan;
-        public HSP hsp;
+        private List<InsurancePlan> Plans;
+        private Enrollee enrollee;
+        private EnrolleePlan enrolleePlan;
+        private InsurancePlan plan;
+        private HSP hsp;
         /// <summary>
         /// Creates a new Plans List and DbMGr Instance
         /// </summary>
