@@ -168,6 +168,9 @@
     <Compile Include="Present\Support.Designer.cs">
       <DependentUpon>Support.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Present\Billing.resx">
+      <DependentUpon>Billing.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\DependentEnroll.resx">
       <DependentUpon>DependentEnroll.cs</DependentUpon>
     </EmbeddedResource>
