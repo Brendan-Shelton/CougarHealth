@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
+    <Compile Include="Controller\EmployeeControllers\RangeReportController.cs" />
     <Compile Include="Data\DbMgr.cs" />
     <Compile Include="Data\Enrollee\Service.cs" />
     <Compile Include="Present\AccountManagement.cs">
