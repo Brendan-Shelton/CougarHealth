@@ -223,7 +223,7 @@ namespace CoreProject.Present
 
         public double getIBHExtendPercent()
         {
-            double temp = double.Parse(getIBHExtendPercent.Text);
+            double temp = double.Parse(IBHExtendPercent.Text);
             if (temp < 0)
             {
                 temp *= -1;
@@ -233,7 +233,7 @@ namespace CoreProject.Present
 
         public double getIBHExtendCopay()
         {
-            double temp = double.Parse(getIBHExtendCopay.Text);
+            double temp = double.Parse(IBHExtendCopay.Text);
             if (temp < 0)
             {
                 temp *= -1;

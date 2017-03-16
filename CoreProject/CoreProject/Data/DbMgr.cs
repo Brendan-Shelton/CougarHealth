@@ -55,7 +55,7 @@ namespace CoreProject.Data
                     new Service
                     {
                         Category = "Hospital",
-                        Name = "inpatient",
+                        Name = "Inpatient",
                         PercentCoverage = 0.9,
                         RequiredCopayment = 400.0,
                         InNetMax = new Tuple<double, Service.MaxPayRate>(
