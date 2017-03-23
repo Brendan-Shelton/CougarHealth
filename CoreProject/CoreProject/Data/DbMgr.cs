@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
 using CoreProject.Data.HealthcareServiceProvider;
+using CoreProject.Data.Employees;
 
 namespace CoreProject.Data
 {
@@ -15,6 +16,8 @@ namespace CoreProject.Data
         private static DbMgr _instance;
 
         private int AdminPassKey = 1234;
+
+        
 
         /// <summary>
         /// get the single instance of DbMgr allowed in the application
@@ -34,6 +37,16 @@ namespace CoreProject.Data
 
         public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
         public HashSet<HSP> HspSet { get; }
+        public HashSet<Employee> EmployeeSet { get; } = new HashSet<Employee>()
+        {
+            // the test employee.
+            new Employee
+            {
+                UserName = "Guest",
+                Password = "guest",
+                Permission = Permission.Manager
+            }
+        };
         /// <summary>
         /// a fake DB set for the different types of insurance plans and their 
         /// services 
@@ -582,6 +595,21 @@ namespace CoreProject.Data
                       where plan.PlanNum == ID
                       select plan ).FirstOrDefault();
             return r;
+        }
+
+        /// <summary>
+        /// Search for the user name and password of the employee 
+        /// provided through the database
+        /// </summary>
+        /// <param name="checkEmployee">The employee encapsulating the info we are searching for</param>
+        /// <returns>The employee match (could be null)</returns>
+        public Employee EmployeeLogin(Employee checkEmployee)
+        {
+            var employeeResult = ( from employee in EmployeeSet
+                                   where checkEmployee.UserName == employee.UserName &&
+                                         checkEmployee.Password == employee.Password
+                                   select employee )?.FirstOrDefault();
+            return employeeResult;
         }
 
     }

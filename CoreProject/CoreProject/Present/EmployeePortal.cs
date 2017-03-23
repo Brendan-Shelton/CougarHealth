@@ -8,14 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreProject.Controller.EmployeeControllers;
+using CoreProject.Data.Employees;
 
 namespace CoreProject.Present
 {
     public partial class EmployeePortal : Form
     {
+        private Employee employee;
+
         public EmployeePortal()
         {
             InitializeComponent();
+        }
+
+        public EmployeePortal(Employee employee) : this()
+        {
+            this.employee = employee;
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CoreProject.Present
 {
-    public partial class AccountManagement : Form
+    public partial class CreateEmployee : Form
     {
-        public AccountManagement()
+        public CreateEmployee()
         {
             InitializeComponent();
         }

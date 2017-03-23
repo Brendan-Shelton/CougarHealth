@@ -43,7 +43,7 @@ namespace CoreProject.Data.Employees
         /// <returns>hashed password</returns>
         private string Passwordify(string plainPass)
         {
-            throw new NotImplementedException();
+            return plainPass;
         }
     }
 }

@@ -45,8 +45,8 @@ namespace CoreProject.Present
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var employGUI = new EmployeePortal();
-            employGUI.Show();
+            var login = new EmployeeLogin();
+            login.Show();
         }
     }
 }
