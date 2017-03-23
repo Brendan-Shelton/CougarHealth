@@ -49,6 +49,8 @@
     <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
     <Compile Include="Controller\EmployeeControllers\RangeReportController.cs" />
     <Compile Include="Data\DbMgr.cs" />
+    <Compile Include="Data\Employees\Employee.cs" />
+    <Compile Include="Data\Employees\Permission.cs" />
     <Compile Include="Data\Enrollee\Service.cs" />
     <Compile Include="Present\AccountManagement.cs">
       <SubType>Form</SubType>
@@ -62,13 +64,9 @@
     <Compile Include="Present\Billing.Designer.cs">
       <DependentUpon>Billing.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\EmployeeControllers\Accountant.cs" />
     <Compile Include="Controller\EmployeeControllers\CougarCostsController.cs" />
     <Compile Include="Controller\EmployeeControllers\CreateEmployeeController.cs" />
-    <Compile Include="Controller\EmployeeControllers\Manager.cs" />
-    <Compile Include="Controller\EmployeeControllers\PlanAdministrator.cs" />
     <Compile Include="Controller\EmployeeControllers\PlanModifyController.cs" />
-    <Compile Include="Controller\EmployeeControllers\SupportSpecialist.cs" />
     <Compile Include="Controller\EnrolleeControllers\EnrollController.cs" />
     <Compile Include="Controller\EnrolleeControllers\PlanController.cs" />
     <Compile Include="Controller\EnrolleeControllers\SearchController.cs" />
