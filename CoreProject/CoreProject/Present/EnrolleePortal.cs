@@ -31,5 +31,11 @@ namespace CoreProject.Present
             var depedentGUI = new Login();
             depedentGUI.Show();
         }
+
+        private void EnrolleeCostsButton_Click(object sender, EventArgs e)
+        {
+            var costsGUI = new EnrolleeCosts();
+            costsGUI.Show();
+        }
     }
 }

@@ -104,6 +104,12 @@
     <Compile Include="Present\EmployeePortal.Designer.cs">
       <DependentUpon>EmployeePortal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\EnrolleeCosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\EnrolleeCosts.Designer.cs">
+      <DependentUpon>EnrolleeCosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\EnrolleePortal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,6 +213,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\EmployeePortal.resx">
       <DependentUpon>EmployeePortal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\EnrolleeCosts.resx">
+      <DependentUpon>EnrolleeCosts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\EnrolleePortal.resx">
       <DependentUpon>EnrolleePortal.cs</DependentUpon>

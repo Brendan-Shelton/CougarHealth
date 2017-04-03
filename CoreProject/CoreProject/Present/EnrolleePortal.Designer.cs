@@ -31,6 +31,7 @@
             this.heading = new System.Windows.Forms.Label();
             this.enroll = new System.Windows.Forms.Button();
             this.dependent = new System.Windows.Forms.Button();
+            this.EnrolleeCostsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // heading
@@ -68,12 +69,24 @@
             this.dependent.UseVisualStyleBackColor = true;
             this.dependent.Click += new System.EventHandler(this.dependent_Click);
             // 
+            // EnrolleeCostsButton
+            // 
+            this.EnrolleeCostsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.EnrolleeCostsButton.Location = new System.Drawing.Point(551, 407);
+            this.EnrolleeCostsButton.Name = "EnrolleeCostsButton";
+            this.EnrolleeCostsButton.Size = new System.Drawing.Size(162, 54);
+            this.EnrolleeCostsButton.TabIndex = 5;
+            this.EnrolleeCostsButton.Text = "View Costs";
+            this.EnrolleeCostsButton.UseVisualStyleBackColor = true;
+            this.EnrolleeCostsButton.Click += new System.EventHandler(this.EnrolleeCostsButton_Click);
+            // 
             // EnrolleePortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkRed;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.EnrolleeCostsButton);
             this.Controls.Add(this.dependent);
             this.Controls.Add(this.enroll);
             this.Controls.Add(this.heading);
@@ -89,5 +102,6 @@
         private System.Windows.Forms.Label heading;
         private System.Windows.Forms.Button enroll;
         private System.Windows.Forms.Button dependent;
+        private System.Windows.Forms.Button EnrolleeCostsButton;
     }
 }
