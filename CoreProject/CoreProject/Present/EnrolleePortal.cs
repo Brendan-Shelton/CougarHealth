@@ -28,14 +28,10 @@ namespace CoreProject.Present
 
         private void dependent_Click(object sender, EventArgs e)
         {
-            var depedentGUI = new Login();
-            depedentGUI.Show();
+            var loginGUI = new Login();
+            loginGUI.Show();
         }
 
-        private void EnrolleeCostsButton_Click(object sender, EventArgs e)
-        {
-            var costsGUI = new EnrolleeCosts();
-            costsGUI.Show();
-        }
+       
     }
 }

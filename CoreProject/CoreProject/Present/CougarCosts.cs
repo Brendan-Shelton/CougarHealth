@@ -18,6 +18,12 @@ namespace CoreProject.Present
         {
             this.CostCtrl = CoCtrl;
             InitializeComponent();
+            myInitialize();
+        }
+
+        private void myInitialize()
+        {
+            
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

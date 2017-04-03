@@ -48,7 +48,7 @@
             this.APDLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.PYMBRlabel = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.InpatientPercentLabel = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -283,15 +283,15 @@
             this.label9.TabIndex = 15;
             this.label9.Text = "/";
             // 
-            // label10
+            // PYMBRlabel
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(312, 135);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(35, 13);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "label9";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PYMBRlabel.AutoSize = true;
+            this.PYMBRlabel.Location = new System.Drawing.Point(312, 135);
+            this.PYMBRlabel.Name = "PYMBRlabel";
+            this.PYMBRlabel.Size = new System.Drawing.Size(35, 13);
+            this.PYMBRlabel.TabIndex = 16;
+            this.PYMBRlabel.Text = "label9";
+            this.PYMBRlabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label11
             // 
@@ -785,7 +785,7 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.InpatientPercentLabel);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.PYMBRlabel);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.APDLabel);
@@ -832,7 +832,7 @@
         private System.Windows.Forms.Label APDLabel;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label PYMBRlabel;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label InpatientPercentLabel;
         private System.Windows.Forms.Label label12;

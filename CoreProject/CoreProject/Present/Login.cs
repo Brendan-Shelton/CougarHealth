@@ -25,10 +25,12 @@ namespace CoreProject.Present
             var enrollee = EnrollCtrl.LoginPrimary(this.emailLogin.Text, this.pinLogin.Text);
             if (enrollee != null)
             {
-                var dependentForm = new DependentEnroll(enrollee.Value);
-                dependentForm.Show();
-                dependentForm.Closed += (source, args) => this.Close();
+                
+                var enrolleeLoggedInForm = new LoggedInEnrollee(enrollee.Value);
+                enrolleeLoggedInForm.Show();
+                enrolleeLoggedInForm.FormClosed += (source, args) => this.Close();
                 this.Hide();
+
             }
             else
             {
