@@ -56,5 +56,11 @@ namespace CoreProject.Present
             var creationCtrl = new CreateEmployeeController();
             creation.Show();
         }
+
+        private void modify_Click(object sender, EventArgs e)
+        {
+            var manage = new ManageEmployee();
+            manage.Show();
+        }
     }
 }

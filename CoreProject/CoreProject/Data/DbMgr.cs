@@ -17,7 +17,9 @@ namespace CoreProject.Data
 
         private int AdminPassKey = 1234;
 
-        
+
+
+
 
         /// <summary>
         /// get the single instance of DbMgr allowed in the application
@@ -59,6 +61,8 @@ namespace CoreProject.Data
                      where employee.UserName == "Guest"
                      select employee )?.FirstOrDefault();
         }
+
+
         /// <summary>
         /// a fake DB set for the different types of insurance plans and their 
         /// services 
@@ -385,6 +389,52 @@ namespace CoreProject.Data
 
             return employee.Id;
         }
+        /// <summary>
+        /// Basically SELECT * FROM Employee
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Employee> GetAllEmployees()
+        {
+            return EmployeeSet;
+        }
+        /// <summary>
+        /// Update the employee that corresponds to the id of the employee 
+        /// supplied to the method 
+        /// </summary>
+        /// <param name="emp">The new credentials of the employee </param>
+        /// <returns></returns>
+        public int UpdateEmployee(Employee emp)
+        {
+            var toUpdate = (from employee in EmployeeSet
+                            where employee.UserName == emp.UserName
+                            select employee).FirstOrDefault();
+            if ( toUpdate == null )
+            {
+                throw new DataException("Employee doesn't exist in database");
+            }
+
+            if ( emp.NewName != null )
+            {
+                emp.UserName = emp.NewName;
+            }
+
+            toUpdate.UserName = emp.UserName;
+            toUpdate.Password = emp.Password;
+            toUpdate.Permission = emp.Permission;
+            return toUpdate.Id;
+        }
+
+        /// <summary>
+        /// Get an employee object corresponding to the provided username
+        /// </summary>
+        /// <param name="employeeName"></param>
+        /// <returns></returns>
+        public Employee GetEmployeeByName(string employeeName)
+        {
+            return ( from employee in EmployeeSet
+                     where employee.UserName == employeeName
+                     select employee )?.FirstOrDefault();
+        }
 
         public Employee GetEmployeeById ( int id )
         {
@@ -642,6 +692,7 @@ namespace CoreProject.Data
         /// <returns>The employee match (could be null)</returns>
         public Employee EmployeeLogin(Employee checkEmployee)
         {
+            // it is the job of the client of DbMgr to hash the password sent
             var employeeResult = ( from employee in EmployeeSet
                                    where checkEmployee.UserName == employee.UserName &&
                                          checkEmployee.Password == employee.Password

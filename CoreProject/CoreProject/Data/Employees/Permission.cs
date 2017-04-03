@@ -17,11 +17,11 @@ namespace CoreProject.Data.Employees
     /// </summary>
     public enum Permission
     {
+        None,
         PlanAdmin,
         EnrolleeSupport,
         HSPSupport,
         Accountant,
-        Manager,
-        Other
+        Manager
     }
 }

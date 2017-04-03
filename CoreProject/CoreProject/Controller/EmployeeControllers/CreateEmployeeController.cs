@@ -40,7 +40,7 @@ namespace CoreProject.Controller.EmployeeControllers
             password = password.Trim();
             confPass = confPass.Trim();
             permission = permission.Trim();
-            var perm = Permission.Other;
+            var perm = Permission.None;
             var employee = new Employee();
             // if there is an exception with creating the account 
             CreationException except = new CreationException();
@@ -81,7 +81,7 @@ namespace CoreProject.Controller.EmployeeControllers
             }
 
             employee.UserName = userName;
-            employee.Password = password;
+            employee.SetSecurePass(password);
             employee.Permission = perm;
             return Mgr.SaveEmployee(employee);
         }

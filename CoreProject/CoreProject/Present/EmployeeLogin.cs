@@ -49,5 +49,10 @@ namespace CoreProject.Present
                 this.ErrMsg.Text = "Error: Credentials invalid";
             }
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

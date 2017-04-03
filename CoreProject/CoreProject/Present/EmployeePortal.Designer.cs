@@ -36,6 +36,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.createEmployee = new System.Windows.Forms.Button();
+            this.modify = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -127,6 +128,17 @@
             this.createEmployee.UseVisualStyleBackColor = true;
             this.createEmployee.Click += new System.EventHandler(this.createEmployee_Click);
             // 
+            // modify
+            // 
+            this.modify.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modify.Location = new System.Drawing.Point(765, 206);
+            this.modify.Name = "modify";
+            this.modify.Size = new System.Drawing.Size(174, 66);
+            this.modify.TabIndex = 10;
+            this.modify.Text = "Modify Employee";
+            this.modify.UseVisualStyleBackColor = true;
+            this.modify.Click += new System.EventHandler(this.modify_Click);
+            // 
             // EmployeePortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -134,6 +146,7 @@
             this.BackColor = System.Drawing.Color.Firebrick;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.modify);
             this.Controls.Add(this.createEmployee);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button3);
@@ -159,5 +172,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button createEmployee;
+        private System.Windows.Forms.Button modify;
     }
 }

@@ -152,6 +152,12 @@
     <Compile Include="Present\ExpenseReport.Designer.cs">
       <DependentUpon>ExpenseReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\ManageEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\ManageEmployee.Designer.cs">
+      <DependentUpon>ManageEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\MonthlyReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\ManageEmployee.resx">
+      <DependentUpon>ManageEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\PrimaryEnroll.resx">
       <DependentUpon>PrimaryEnroll.cs</DependentUpon>

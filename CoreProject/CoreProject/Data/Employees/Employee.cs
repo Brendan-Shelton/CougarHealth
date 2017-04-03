@@ -21,6 +21,7 @@ namespace CoreProject.Data.Employees
         /// The username used to identify the employee stored in the database 
         /// </summary>
         public string UserName { get; set; }
+        public string NewName { get; set; }
         private string _password;
         /// <summary>
         /// The hashed password stored in the database 
@@ -33,7 +34,7 @@ namespace CoreProject.Data.Employees
             }
             set
             {
-                _password = this.Passwordify(value);
+                _password = value;
             }
         }
         public byte[] Salt { get; private set; }
@@ -49,6 +50,19 @@ namespace CoreProject.Data.Employees
         {
             this.Id = ++_idCount;
         }
+
+        public static Tuple<string, Permission>[] GetPermissions()
+        {
+            return new Tuple<string, Permission>[]
+            {
+                Tuple.Create("Plan Admin", Permission.PlanAdmin),
+                Tuple.Create("Enrollee Support", Permission.EnrolleeSupport),
+                Tuple.Create("HSP Support", Permission.HSPSupport),
+                Tuple.Create("Accountant", Permission.Accountant),
+                Tuple.Create("Manager", Permission.Manager)
+            };
+        }
+
         /// <summary>
         /// encrypt password for local machine accessibility 
         /// </summary>
@@ -97,6 +111,11 @@ namespace CoreProject.Data.Employees
 
             // in order to store as VARCHAR we need to convert to string
             return Convert.ToBase64String(hash);
+        }
+
+        public void SetSecurePass(string password)
+        {
+            this.Password = Passwordify(password);
         }
 
         /// <summary>

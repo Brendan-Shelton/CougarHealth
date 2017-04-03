@@ -35,15 +35,7 @@ namespace CoreProject.Controller.EmployeeControllers
         {
             this.ToLogin.Password = passwd;
             this.ToLogin.UserName = user;
-            Employee logged;
-            if ( user == "Guest" && passwd == "guest" )
-            {
-                logged = this.Mgr.GetGuest();
-            }
-            else
-            {
-                logged = this.Mgr.EmployeeLogin(this.ToLogin);
-            }
+            Employee logged = this.Mgr.EmployeeLogin(this.ToLogin);
             
             if ( logged == null )
             {
