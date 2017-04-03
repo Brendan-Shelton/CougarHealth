@@ -357,6 +357,31 @@ namespace CoreProject.Data
             } // Extended
         }; // Plan
 
+        /// <summary>
+        /// Saves an entire employee object into the database. If the employee 
+        /// was already inserted it throws a DataException
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public int SaveEmployee(Employee employee)
+        {
+
+            if ( !EmployeeSet.Add(employee) )
+            {
+                throw new DataException($"{employee.UserName} was already in our system");
+            }
+
+            return employee.Id;
+        }
+
+        public Employee GetEmployeeById ( int id )
+        {
+            var result = ( from employee in EmployeeSet
+                           where employee.Id == id
+                           select employee )?.FirstOrDefault();
+
+            return result;
+        }
 
         public void adminUpdateVerify(int passkey, int planType, String category,
             String name, Boolean percent, double val)
@@ -465,7 +490,7 @@ namespace CoreProject.Data
             if ( !PrimaryEnrolleeSet.Add(enrollee) )
             {
                 throw new DataException($"{enrollee.FirstName} was already in our system");
-        }
+            }
         }
 
         /// <summary>

@@ -21,6 +21,7 @@ namespace CoreProject.Data.Employees
         EnrolleeSupport,
         HSPSupport,
         Accountant,
-        Manager
+        Manager,
+        Other
     }
 }

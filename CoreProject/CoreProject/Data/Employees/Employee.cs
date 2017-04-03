@@ -39,6 +39,17 @@ namespace CoreProject.Data.Employees
         }
         public byte[] Salt { get; private set; }
 
+
+        private static int _idCount = 0;
+        /// <summary>
+        /// Id from the database 
+        /// </summary>
+        public int Id { get; set; }
+
+        public Employee()
+        {
+            this.Id = ++_idCount;
+        }
         /// <summary>
         /// encrypt password for local machine accessibility 
         /// </summary>
@@ -174,6 +185,32 @@ namespace CoreProject.Data.Employees
             AuthenticationException exception )
         {
             throw new NotImplementedException();
+        }
+
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            //       
+            // See the full list of guidelines at
+            //   http://go.microsoft.com/fwlink/?LinkID=85237  
+            // and also the guidance for operator== at
+            //   http://go.microsoft.com/fwlink/?LinkId=85238
+            //
+
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var other = (Employee)obj;
+
+            return other.Id == this.Id || other.UserName == this.UserName;
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return this.UserName.GetHashCode();
         }
 
     }
