@@ -55,25 +55,51 @@ namespace CoreProject.Present
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            UpdateTextBox();
+        }
+
+
+            private void UpdateTextBox()
+        {
             var Plans = CostCtrl.GetPlans();
             var percent = checkBox1.Checked;
-            foreach (var plan in Plans)
+            var maxPay = checkBox2.Checked;
+            if (maxPay && percent)
             {
-                if(plan == CostCtrl.GetPlan(listBox2.SelectedItem.ToString()))
+                // no can do
+            }
+            else
+            {
+                foreach (var plan in Plans)
                 {
-                    if (percent)
+                    if (plan == CostCtrl.GetPlan(listBox2.SelectedItem.ToString()))
                     {
-                        textBox1.Text = (100 * CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent)).ToString();
+                        if (percent)
+                        {
+                            textBox1.Text = (100 * CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay)).ToString();
+                        }
+                        else
+                        {
+                            textBox1.Text = CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay).ToString();
+                        }
+
                     }
-                    else
-                    {
-                        textBox1.Text = CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent).ToString();
-                    }
-                    
                 }
             }
+        }
 
-            
+        private void checkBox1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTextBox();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTextBox();
         }
     }
 }

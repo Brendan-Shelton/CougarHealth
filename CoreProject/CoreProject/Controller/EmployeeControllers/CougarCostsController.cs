@@ -30,7 +30,7 @@ namespace CoreProject.Controller.EmployeeControllers
             return dbmgr.GetPlanByType(name);
         }
 
-        public double GetNum(string name, string type, bool isPercent)
+        public double GetNum(string name, string type, bool isPercent, bool isMaxPay)
         {
             var plan = dbmgr.GetPlanByType(type);
             double retVal = 0;
@@ -61,6 +61,10 @@ namespace CoreProject.Controller.EmployeeControllers
                             if (isPercent)
                             {
                                 retVal = plan.ServiceCosts[i].PercentCoverage;
+                            }
+                            else if( isMaxPay)
+                            {
+                                retVal = plan.ServiceCosts[i].InNetMax.Item1;
                             }
                             else
                             {
