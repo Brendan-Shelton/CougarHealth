@@ -41,5 +41,12 @@ namespace CoreProject.Present
             var cougCostGUI = new CougarCosts(cougarCostsCtrl);
             cougCostGUI.Show();
         }
+
+        private void removePlan_Click(object sender, EventArgs e)
+        {
+            var removeCtrl = new RemovePlanController();
+            var removeGUI = new RemovePlan(removeCtrl);
+            removeGUI.Show();
+        }
     }
 }
