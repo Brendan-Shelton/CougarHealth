@@ -95,6 +95,10 @@
             this.label39 = new System.Windows.Forms.Label();
             this.PhysicalTherapyPercentLabel = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.OPMRemainingLabel = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.APDRemLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -215,6 +219,7 @@
             this.OPMILabel.Size = new System.Drawing.Size(35, 13);
             this.OPMILabel.TabIndex = 8;
             this.OPMILabel.Text = "label6";
+            this.OPMILabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label4
             // 
@@ -244,12 +249,13 @@
             this.OPMFLabel.Size = new System.Drawing.Size(35, 13);
             this.OPMFLabel.TabIndex = 11;
             this.OPMFLabel.Text = "label7";
+            this.OPMFLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(41, 245);
+            this.label8.Location = new System.Drawing.Point(41, 254);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(140, 13);
             this.label8.TabIndex = 12;
@@ -258,7 +264,7 @@
             // APDLabel
             // 
             this.APDLabel.AutoSize = true;
-            this.APDLabel.Location = new System.Drawing.Point(409, 245);
+            this.APDLabel.Location = new System.Drawing.Point(409, 254);
             this.APDLabel.Name = "APDLabel";
             this.APDLabel.Size = new System.Drawing.Size(35, 13);
             this.APDLabel.TabIndex = 13;
@@ -268,7 +274,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold);
-            this.label7.Location = new System.Drawing.Point(41, 286);
+            this.label7.Location = new System.Drawing.Point(41, 309);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(134, 17);
             this.label7.TabIndex = 14;
@@ -297,7 +303,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.label11.Location = new System.Drawing.Point(73, 319);
+            this.label11.Location = new System.Drawing.Point(73, 339);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 13);
             this.label11.TabIndex = 17;
@@ -306,7 +312,7 @@
             // InpatientPercentLabel
             // 
             this.InpatientPercentLabel.AutoSize = true;
-            this.InpatientPercentLabel.Location = new System.Drawing.Point(274, 319);
+            this.InpatientPercentLabel.Location = new System.Drawing.Point(274, 339);
             this.InpatientPercentLabel.Name = "InpatientPercentLabel";
             this.InpatientPercentLabel.Size = new System.Drawing.Size(41, 13);
             this.InpatientPercentLabel.TabIndex = 18;
@@ -316,7 +322,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(312, 319);
+            this.label12.Location = new System.Drawing.Point(312, 339);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(42, 13);
             this.label12.TabIndex = 19;
@@ -325,7 +331,7 @@
             // InpatientCopayLabel
             // 
             this.InpatientCopayLabel.AutoSize = true;
-            this.InpatientCopayLabel.Location = new System.Drawing.Point(353, 319);
+            this.InpatientCopayLabel.Location = new System.Drawing.Point(353, 339);
             this.InpatientCopayLabel.Name = "InpatientCopayLabel";
             this.InpatientCopayLabel.Size = new System.Drawing.Size(41, 13);
             this.InpatientCopayLabel.TabIndex = 20;
@@ -335,7 +341,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(407, 319);
+            this.label13.Location = new System.Drawing.Point(407, 339);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(37, 13);
             this.label13.TabIndex = 21;
@@ -345,7 +351,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.label14.Location = new System.Drawing.Point(73, 341);
+            this.label14.Location = new System.Drawing.Point(73, 362);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(170, 13);
             this.label14.TabIndex = 22;
@@ -354,7 +360,7 @@
             // InpatientBHPercentLabel
             // 
             this.InpatientBHPercentLabel.AutoSize = true;
-            this.InpatientBHPercentLabel.Location = new System.Drawing.Point(274, 341);
+            this.InpatientBHPercentLabel.Location = new System.Drawing.Point(274, 362);
             this.InpatientBHPercentLabel.Name = "InpatientBHPercentLabel";
             this.InpatientBHPercentLabel.Size = new System.Drawing.Size(41, 13);
             this.InpatientBHPercentLabel.TabIndex = 23;
@@ -364,7 +370,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(312, 341);
+            this.label15.Location = new System.Drawing.Point(312, 362);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(42, 13);
             this.label15.TabIndex = 24;
@@ -373,7 +379,7 @@
             // InpatientBHCopayLabel
             // 
             this.InpatientBHCopayLabel.AutoSize = true;
-            this.InpatientBHCopayLabel.Location = new System.Drawing.Point(353, 341);
+            this.InpatientBHCopayLabel.Location = new System.Drawing.Point(353, 362);
             this.InpatientBHCopayLabel.Name = "InpatientBHCopayLabel";
             this.InpatientBHCopayLabel.Size = new System.Drawing.Size(41, 13);
             this.InpatientBHCopayLabel.TabIndex = 25;
@@ -382,7 +388,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(407, 341);
+            this.label16.Location = new System.Drawing.Point(409, 362);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(37, 13);
             this.label16.TabIndex = 26;
@@ -392,7 +398,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.label17.Location = new System.Drawing.Point(73, 363);
+            this.label17.Location = new System.Drawing.Point(73, 384);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(105, 13);
             this.label17.TabIndex = 27;
@@ -401,7 +407,7 @@
             // EmergencyPercentLabel
             // 
             this.EmergencyPercentLabel.AutoSize = true;
-            this.EmergencyPercentLabel.Location = new System.Drawing.Point(274, 363);
+            this.EmergencyPercentLabel.Location = new System.Drawing.Point(274, 384);
             this.EmergencyPercentLabel.Name = "EmergencyPercentLabel";
             this.EmergencyPercentLabel.Size = new System.Drawing.Size(41, 13);
             this.EmergencyPercentLabel.TabIndex = 28;
@@ -411,7 +417,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(312, 363);
+            this.label18.Location = new System.Drawing.Point(312, 384);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(42, 13);
             this.label18.TabIndex = 29;
@@ -420,7 +426,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(407, 363);
+            this.label19.Location = new System.Drawing.Point(409, 384);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(37, 13);
             this.label19.TabIndex = 30;
@@ -429,7 +435,7 @@
             // EmergencyCopayLabel
             // 
             this.EmergencyCopayLabel.AutoSize = true;
-            this.EmergencyCopayLabel.Location = new System.Drawing.Point(353, 363);
+            this.EmergencyCopayLabel.Location = new System.Drawing.Point(353, 384);
             this.EmergencyCopayLabel.Name = "EmergencyCopayLabel";
             this.EmergencyCopayLabel.Size = new System.Drawing.Size(41, 13);
             this.EmergencyCopayLabel.TabIndex = 31;
@@ -439,7 +445,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.label20.Location = new System.Drawing.Point(73, 387);
+            this.label20.Location = new System.Drawing.Point(73, 406);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(113, 13);
             this.label20.TabIndex = 32;
@@ -448,7 +454,7 @@
             // OutpatientPercentLabel
             // 
             this.OutpatientPercentLabel.AutoSize = true;
-            this.OutpatientPercentLabel.Location = new System.Drawing.Point(274, 387);
+            this.OutpatientPercentLabel.Location = new System.Drawing.Point(274, 406);
             this.OutpatientPercentLabel.Name = "OutpatientPercentLabel";
             this.OutpatientPercentLabel.Size = new System.Drawing.Size(41, 13);
             this.OutpatientPercentLabel.TabIndex = 33;
@@ -458,7 +464,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(312, 387);
+            this.label21.Location = new System.Drawing.Point(310, 406);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(42, 13);
             this.label21.TabIndex = 34;
@@ -467,7 +473,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(407, 387);
+            this.label22.Location = new System.Drawing.Point(409, 406);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(37, 13);
             this.label22.TabIndex = 35;
@@ -476,7 +482,7 @@
             // OutpatientCopayLabel
             // 
             this.OutpatientCopayLabel.AutoSize = true;
-            this.OutpatientCopayLabel.Location = new System.Drawing.Point(353, 387);
+            this.OutpatientCopayLabel.Location = new System.Drawing.Point(353, 406);
             this.OutpatientCopayLabel.Name = "OutpatientCopayLabel";
             this.OutpatientCopayLabel.Size = new System.Drawing.Size(41, 13);
             this.OutpatientCopayLabel.TabIndex = 36;
@@ -486,7 +492,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.label23.Location = new System.Drawing.Point(73, 410);
+            this.label23.Location = new System.Drawing.Point(73, 429);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(155, 13);
             this.label23.TabIndex = 37;
@@ -495,7 +501,7 @@
             // DLXPercentLabel
             // 
             this.DLXPercentLabel.AutoSize = true;
-            this.DLXPercentLabel.Location = new System.Drawing.Point(392, 410);
+            this.DLXPercentLabel.Location = new System.Drawing.Point(392, 429);
             this.DLXPercentLabel.Name = "DLXPercentLabel";
             this.DLXPercentLabel.Size = new System.Drawing.Size(41, 13);
             this.DLXPercentLabel.TabIndex = 38;
@@ -505,7 +511,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(428, 410);
+            this.label24.Location = new System.Drawing.Point(429, 429);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(15, 13);
             this.label24.TabIndex = 39;
@@ -733,12 +739,55 @@
             this.label41.TabIndex = 62;
             this.label41.Text = "%";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.label10.Location = new System.Drawing.Point(81, 227);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(66, 13);
+            this.label10.TabIndex = 63;
+            this.label10.Text = "Remaining";
+            // 
+            // OPMRemainingLabel
+            // 
+            this.OPMRemainingLabel.AutoSize = true;
+            this.OPMRemainingLabel.Location = new System.Drawing.Point(402, 227);
+            this.OPMRemainingLabel.Name = "OPMRemainingLabel";
+            this.OPMRemainingLabel.Size = new System.Drawing.Size(41, 13);
+            this.OPMRemainingLabel.TabIndex = 64;
+            this.OPMRemainingLabel.Text = "label40";
+            this.OPMRemainingLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.label40.Location = new System.Drawing.Point(84, 270);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(66, 13);
+            this.label40.TabIndex = 65;
+            this.label40.Text = "Remaining";
+            // 
+            // APDRemLabel
+            // 
+            this.APDRemLabel.AutoSize = true;
+            this.APDRemLabel.Location = new System.Drawing.Point(403, 270);
+            this.APDRemLabel.Name = "APDRemLabel";
+            this.APDRemLabel.Size = new System.Drawing.Size(41, 13);
+            this.APDRemLabel.TabIndex = 66;
+            this.APDRemLabel.Text = "label42";
+            // 
             // EnrolleeCosts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(1108, 733);
+            this.Controls.Add(this.APDRemLabel);
+            this.Controls.Add(this.label40);
+            this.Controls.Add(this.OPMRemainingLabel);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label41);
             this.Controls.Add(this.PhysicalTherapyPercentLabel);
             this.Controls.Add(this.label39);
@@ -879,5 +928,9 @@
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label PhysicalTherapyPercentLabel;
         private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label OPMRemainingLabel;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label APDRemLabel;
     }
 }

@@ -52,6 +52,16 @@ namespace CoreProject.Present
             OPMFLabel.Text = String.Format("{0:C}", amount);
         }
 
+        public void setOutPockeRem(double amount)
+        {
+            OPMRemainingLabel.Text = String.Format("{0:C}", amount);
+        }
+
+        public void setAPDRem(double amount)
+        {
+            APDRemLabel.Text = String.Format("{0:C}", amount);
+        }
+
         public void setAPD(double amount)
         {
             APDLabel.Text = String.Format("{0:C}", amount);
