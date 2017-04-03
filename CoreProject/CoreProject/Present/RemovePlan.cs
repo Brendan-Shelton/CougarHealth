@@ -17,14 +17,23 @@ namespace CoreProject.Present
 
         public RemovePlan(RemovePlanController RemoveCtrl)
         {
-            this.RemoveCtrl = RemoveCtrl;   
+            this.RemoveCtrl = RemoveCtrl;
             InitializeComponent();
+
+            var plans = RemoveCtrl.ShowPlans();
+            foreach (var plan in plans)
+            {
+                planList.Items.Add(plan);
+            }
+
         }
+
+        
 
         private void submit_Click(object sender, EventArgs e)
         {
             //planList.SelectedItem.ToString()
-            RemoveCtrl.Remove("Basic");
+            RemoveCtrl.Remove(planList.SelectedItem.ToString());
         }
     }
 }
