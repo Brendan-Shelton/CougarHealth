@@ -44,7 +44,7 @@ namespace CoreProject.Data.Employees
         /// </summary>
         /// <param name="plainPass">plain text password</param>
         /// <returns>hashed password</returns>
-        private string Passwordify(string plainPass, byte[] salt = null )
+        public string Passwordify(string plainPass, byte[] salt = null )
         {
             if ( string.IsNullOrWhiteSpace(plainPass) )
             {
@@ -64,9 +64,10 @@ namespace CoreProject.Data.Employees
                 var rand = new Random();
                 // random number between 4 and 8 will be the length of the salt
                 int saltLen = rand.Next(minSalt, minSalt);
-                this.Salt = new byte[saltLen];
+                salt = new byte[saltLen];
                 var rng = new RNGCryptoServiceProvider();
-                rng.GetNonZeroBytes(this.Salt);
+                rng.GetNonZeroBytes(salt);
+                this.Salt = salt;
             }
             else if ( this.Salt != null && salt == null )
             {
@@ -93,7 +94,7 @@ namespace CoreProject.Data.Employees
         /// </summary>
         /// <param name="encryptedPass"></param>
         /// <returns></returns>
-        private bool CheckPass (string providedPass )
+        public bool CheckPass (string providedPass )
         {
             // password is stored as a hash 
             byte[] hashAndSalt = Convert.FromBase64String(this.Password);
@@ -113,21 +114,6 @@ namespace CoreProject.Data.Employees
         }
 
         
-
-        public bool CheckPass ( 
-            string password, 
-            string confPass, 
-            CreationException exception )
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckUser ( string userName, CreationException exception )
-        {
-            throw new NotImplementedException();
-
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -137,7 +123,7 @@ namespace CoreProject.Data.Employees
         /// <returns></returns>
         public bool ValidPass(string password, string confPass, CreationException exception)
         {
-            var valid = confPass == password && password.Length >= 8;
+            var valid = confPass == password && password?.Length >= 8;
             if ( !valid )
             {
                 exception.AddError("Invalid password", "Please enter a " +
@@ -158,10 +144,11 @@ namespace CoreProject.Data.Employees
             // one or more alphanumeric characters and an underscore
             Regex validUser = new Regex(@"^[a-zA-Z0-9_]+$");
             // don't count the beginning and ending whitespace
-            userName = userName.Trim();
+            userName = userName?.Trim();
             int userMax = 256;
             int userMin = 3;
-            bool valid = validUser.IsMatch(userName) && 
+            bool valid = userName != null && 
+                         validUser.IsMatch(userName) &&
                          userName.Length > userMin && 
                          userName.Length < userMax;
             if ( !valid )
