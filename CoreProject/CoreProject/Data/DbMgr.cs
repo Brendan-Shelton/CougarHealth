@@ -67,7 +67,7 @@ namespace CoreProject.Data
         /// a fake DB set for the different types of insurance plans and their 
         /// services 
         /// </summary>
-        public List<InsurancePlan> Plans => new List<InsurancePlan>()
+        public List<InsurancePlan> Plans = new List<InsurancePlan>()
         {
             new InsurancePlan()
             {

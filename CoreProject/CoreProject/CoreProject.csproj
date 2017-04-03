@@ -58,6 +58,12 @@
     <Compile Include="Data\Employees\Employee.cs" />
     <Compile Include="Data\Employees\Permission.cs" />
     <Compile Include="Data\Enrollee\Service.cs" />
+    <Compile Include="Present\ChangeCosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\ChangeCosts.Designer.cs">
+      <DependentUpon>ChangeCosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\CreateEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +198,9 @@
     </Compile>
     <EmbeddedResource Include="Present\Billing.resx">
       <DependentUpon>Billing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\ChangeCosts.resx">
+      <DependentUpon>ChangeCosts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\CougarCosts.resx">
       <DependentUpon>CougarCosts.cs</DependentUpon>
