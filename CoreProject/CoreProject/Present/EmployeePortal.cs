@@ -49,5 +49,12 @@ namespace CoreProject.Present
             var cougCostGUI = new CougarCosts(cougarCostsCtrl);
             cougCostGUI.Show();
         }
+
+        private void createEmployee_Click(object sender, EventArgs e)
+        {
+            var creation = new CreateEmployee();
+            var creationCtrl = new CreateEmployeeController();
+            creation.Show();
+        }
     }
 }

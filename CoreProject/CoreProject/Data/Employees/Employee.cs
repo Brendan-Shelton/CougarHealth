@@ -21,7 +21,6 @@ namespace CoreProject.Data.Employees
         /// The username used to identify the employee stored in the database 
         /// </summary>
         public string UserName { get; set; }
-        public string RealName { get; set; }
         private string _password;
         /// <summary>
         /// The hashed password stored in the database 
@@ -74,7 +73,7 @@ namespace CoreProject.Data.Employees
 
                 var rand = new Random();
                 // random number between 4 and 8 will be the length of the salt
-                int saltLen = rand.Next(minSalt, minSalt);
+                int saltLen = rand.Next(minSalt, maxSalt);
                 salt = new byte[saltLen];
                 var rng = new RNGCryptoServiceProvider();
                 rng.GetNonZeroBytes(salt);

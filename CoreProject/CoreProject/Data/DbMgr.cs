@@ -36,6 +36,8 @@ namespace CoreProject.Data
         public HashSet<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; }
 
         public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
+
+
         public HashSet<HSP> HspSet { get; }
         public HashSet<Employee> EmployeeSet { get; } = new HashSet<Employee>()
         {
@@ -47,6 +49,16 @@ namespace CoreProject.Data
                 Permission = Permission.Manager
             }
         };
+        /// <summary>
+        /// TEMP method to allow logging in as guest when no one is in the system 
+        /// </summary>
+        /// <returns></returns>
+        internal Employee GetGuest()
+        {
+            return ( from employee in EmployeeSet
+                     where employee.UserName == "Guest"
+                     select employee )?.FirstOrDefault();
+        }
         /// <summary>
         /// a fake DB set for the different types of insurance plans and their 
         /// services 

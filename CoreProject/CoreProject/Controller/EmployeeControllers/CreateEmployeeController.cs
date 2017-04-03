@@ -35,6 +35,11 @@ namespace CoreProject.Controller.EmployeeControllers
             string confPass,
             string permission)
         {
+            // trim any whitespace that can come up with winforms 
+            userName = userName.Trim();
+            password = password.Trim();
+            confPass = confPass.Trim();
+            permission = permission.Trim();
             var perm = Permission.Other;
             var employee = new Employee();
             // if there is an exception with creating the account 
