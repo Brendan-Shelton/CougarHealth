@@ -18,6 +18,6 @@ namespace CoreProject.Data.Enrollee
         public double DependentFee { get; set; }
         public double PrimaryChangeFee { get; set; }
         public double DependentChangeFee { get; set; }
-        public Service[] ServiceCosts { get; set; }
+        public List<Service> ServiceCosts { get; set; }
     }
 }

@@ -196,7 +196,7 @@ namespace CoreProject.Controller.EnrolleeControllers
         /// </summary>
         /// <param name="identifier"></param>
         /// <returns></returns>
-        public Service[] ShowPlanDetails(string identifier)
+        public List<Service> ShowPlanDetails(string identifier)
         {
             var planToShow = Mgr.GetPlanByType(identifier);
             if (planToShow == null)

@@ -81,7 +81,7 @@ namespace CoreProject.Data
                 PrimaryChangeFee = 150.0,
                 OPMFamily = 18000,
                 OPMIndividual = 9500,
-                ServiceCosts = new[]
+                ServiceCosts = new List<Service>
                 {
                     new Service
                     {
@@ -229,7 +229,7 @@ namespace CoreProject.Data
                 PrimaryFee = 65.0,
                 DependentChangeFee = 20.0,
                 PrimaryChangeFee = 50.0,
-                ServiceCosts = new[]
+                ServiceCosts = new List<Service>
                 {
                     new Service
                     {
@@ -508,7 +508,7 @@ namespace CoreProject.Data
                     }
                     else
                     {
-                        for (int j = 0; j < Plans[i].ServiceCosts.Length; j++)
+                        for (int j = 0; j < Plans[i].ServiceCosts.Count(); j++)
                         {
                             if (Plans[i].ServiceCosts[j].Category.Equals(category) &&
                                 Plans[i].ServiceCosts[j].Name.Equals(name))

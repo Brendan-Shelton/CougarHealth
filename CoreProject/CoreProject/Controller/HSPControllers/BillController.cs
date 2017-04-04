@@ -128,7 +128,7 @@ namespace CoreProject.Controller.HSPControllers
             for (int i = 0; i < services.Length; i++)
             {
                 // find service ID
-                for (int j = 0; j < plan.ServiceCosts.Length; j++)
+                for (int j = 0; j < plan.ServiceCosts.Count(); j++)
                 {
                     Console.WriteLine(services[i]);
                     Console.WriteLine(plan.ServiceCosts[j].Name);
@@ -180,7 +180,7 @@ namespace CoreProject.Controller.HSPControllers
             for (int i = 0; i < services.Length; i++)
             {
                 // Find service ID
-                for (int j = 0; j < plan.ServiceCosts.Length; j++)
+                for (int j = 0; j < plan.ServiceCosts.Count(); j++)
                 {
                     if (plan.ServiceCosts[j].Name.Equals(services[i]))
                     {
