@@ -19,17 +19,31 @@ namespace CoreProject.Controller.EmployeeControllers
             this.Plans = dbmgr.GetPlans();
         }
         
-
+        /// <summary>
+        /// Get all plans from DbMgr
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<InsurancePlan> GetPlans()
         {
             return Plans;
         }
-
+        /// <summary>
+        /// Get one plan from DbMgr
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public InsurancePlan GetPlan(String name)
         {
             return dbmgr.GetPlanByType(name);
         }
-
+        /// <summary>
+        /// Gets the number percent, max pay, or copayment
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="isPercent"></param>
+        /// <param name="isMaxPay"></param>
+        /// <returns></returns>
         public double GetNum(string name, string type, bool isPercent, bool isMaxPay)
         {
             var plan = dbmgr.GetPlanByType(type);
@@ -89,7 +103,14 @@ namespace CoreProject.Controller.EmployeeControllers
             return retVal;
         }
 
-        //replace with a more universal approach (ability for more than 2 plans)
+        /// <summary>
+        /// Updates one cost at a time
+        /// </summary>
+        /// <param name="plan"></param>
+        /// <param name="name"></param>
+        /// <param name="percent"></param>
+        /// <param name="max"></param>
+        /// <param name="val"></param>
         public void Update(InsurancePlan plan, string name, bool percent, bool max, double val)
         {
             if(plan != null && val >= 0)
@@ -125,8 +146,10 @@ namespace CoreProject.Controller.EmployeeControllers
                         {
                             if (plan.ServiceCosts[i].Name.Equals(name))
                             {
+                                // checks bools and if true executes for that value
                                 if (percent)
                                 {
+                                    // check for percent greater than 100%
                                     if(val <= 1)
                                     dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
                                 }
