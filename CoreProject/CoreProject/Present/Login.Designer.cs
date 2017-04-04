@@ -40,9 +40,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.DarkRed;
+            this.label1.BackColor = System.Drawing.Color.LightCoral;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(264, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(259, 33);
@@ -52,9 +52,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.DarkRed;
+            this.label2.BackColor = System.Drawing.Color.LightCoral;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label2.Location = new System.Drawing.Point(135, 106);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 29);
@@ -64,9 +64,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.DarkRed;
+            this.label3.BackColor = System.Drawing.Color.LightCoral;
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(150, 183);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 29);
@@ -103,7 +103,7 @@
             // 
             this.errMsg.AutoSize = true;
             this.errMsg.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.errMsg.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.errMsg.ForeColor = System.Drawing.SystemColors.ControlText;
             this.errMsg.Location = new System.Drawing.Point(324, 330);
             this.errMsg.Name = "errMsg";
             this.errMsg.Size = new System.Drawing.Size(51, 20);
@@ -115,7 +115,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkRed;
+            this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(771, 420);
             this.Controls.Add(this.errMsg);
             this.Controls.Add(this.loginSubmit);

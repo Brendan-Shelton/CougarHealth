@@ -14,8 +14,10 @@ namespace CoreProject.Present
     public partial class Login : Form
     {
         public EnrollController EnrollCtrl { get; set; }
-        public Login()
+        public Type LoginFor { get; set; }
+        public Login( Type loginFor )
         {
+            this.LoginFor = loginFor;
             EnrollCtrl = new EnrollController();
             InitializeComponent();
         }
@@ -25,9 +27,19 @@ namespace CoreProject.Present
             var enrollee = EnrollCtrl.LoginPrimary(this.emailLogin.Text, this.pinLogin.Text);
             if (enrollee != null)
             {
-                var dependentForm = new DependentEnroll(enrollee.Value);
-                dependentForm.Show();
-                dependentForm.Closed += (source, args) => this.Close();
+                Form form;
+                if ( LoginFor == typeof(DependentEnroll) )
+                {
+                    form = new DependentEnroll(enrollee.Value);
+
+                }
+                else
+                {
+                    form = new ModifyPlan(enrollee.Value);
+                }
+
+                form.Show();
+                form.Closed += (source, args) => this.Close();
                 this.Hide();
             }
             else

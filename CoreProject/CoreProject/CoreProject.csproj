@@ -51,6 +51,7 @@
     <Compile Include="Controller\EmployeeControllers\ManageEmployeeController.cs" />
     <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
     <Compile Include="Controller\EmployeeControllers\RangeReportController.cs" />
+    <Compile Include="Controller\EnrolleeControllers\ModifyPlanController.cs" />
     <Compile Include="Data\AuthenticationException.cs" />
     <Compile Include="Data\IAuthUser.cs" />
     <Compile Include="Data\DbMgr.cs" />
@@ -158,6 +159,12 @@
     <Compile Include="Present\ManageEmployee.Designer.cs">
       <DependentUpon>ManageEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\ModifyPlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\ModifyPlan.Designer.cs">
+      <DependentUpon>ModifyPlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\MonthlyReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,6 +182,12 @@
     </Compile>
     <Compile Include="Present\PrimaryEnroll.Designer.cs">
       <DependentUpon>PrimaryEnroll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\ViewServices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\ViewServices.Designer.cs">
+      <DependentUpon>ViewServices.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,8 +245,14 @@
     <EmbeddedResource Include="Present\ManageEmployee.resx">
       <DependentUpon>ManageEmployee.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Present\ModifyPlan.resx">
+      <DependentUpon>ModifyPlan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\PrimaryEnroll.resx">
       <DependentUpon>PrimaryEnroll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\ViewServices.resx">
+      <DependentUpon>ViewServices.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

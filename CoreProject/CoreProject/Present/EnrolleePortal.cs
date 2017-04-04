@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreProject.Controller.EnrolleeControllers;
+using CoreProject.Data.Enrollee;
 
 namespace CoreProject.Present
 {
@@ -28,8 +29,15 @@ namespace CoreProject.Present
 
         private void dependent_Click(object sender, EventArgs e)
         {
-            var depedentGUI = new Login();
+            var depedentGUI = new Login(typeof(DependentEnroll));
             depedentGUI.Show();
+        }
+
+
+        private void ModifyPlan_Click(object sender, EventArgs e)
+        {
+            var modifyGUI = new Login(typeof(ModifyPlan));
+            modifyGUI.Show();
         }
     }
 }

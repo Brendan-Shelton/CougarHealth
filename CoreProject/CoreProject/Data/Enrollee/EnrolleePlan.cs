@@ -8,8 +8,9 @@ namespace CoreProject.Data.Enrollee
 {
     public class EnrolleePlan 
     {
+        public readonly DateTime PCY = new DateTime(1979, 7, 1);
         public int PlanNum { get; set; }
-        public string Type { get; }
+        public string Type { get; private set; }
         /* 
          * all of the following properties are privately set because they are 
          * set on charge
@@ -17,6 +18,13 @@ namespace CoreProject.Data.Enrollee
         public double PYMBRemainder { get; private set; }
         public double OPMRemainder { get; private set; }
         public double APDRemainder { get; private set; }
+       
+        /// <summary>
+        /// A enrollee can only change once per PCY if this is the same year 
+        /// then the enrollee can't change the plan. Is set to null if never 
+        /// changed
+        /// </summary>
+        public DateTime? LastChange { get; private set; }
         public List<double> Charges { get; private set; }
         public double TotalCost { get; private set; }
         private List<int> _dependents;
@@ -65,8 +73,54 @@ namespace CoreProject.Data.Enrollee
             this.PYMBRemainder = plan.PYMB;
             this.APDRemainder = plan.APD;
             this.OPMRemainder = plan.OPMFamily;
+            this.Charges = new List<double>();
         }
+        
+        /// <summary>
+        /// Change the insurance plan attached to this EnrolleePlan to 
+        /// something different
+        /// </summary>
+        /// <param name="plan"></param>
+        public void ChangeTo( InsurancePlan plan )
+        {
+            var now = DateTime.Now;
+            // get current PCY 
+            DateTime thisPCY;
+            if (now.Month > 6)
+            {
+                thisPCY = new DateTime(now.Year, PCY.Month, PCY.Day);
+            }
+            else
+            {
+                thisPCY = new DateTime(now.Year - 1, PCY.Month, PCY.Day);
+            }
 
+            // changes can only be done once per PCY 
+            if ( now.Month > 6 && LastChange?.Year == thisPCY.Year || 
+                now.Month < 6 && LastChange?.Year == thisPCY.Year + 1 )
+            {
+                throw new ArgumentException("You can only change plans once per PCY");
+            }
+
+
+            // an enrollee can oly change their plan once per calender year
+            this.Type = plan.Type;
+            this.PYMBRemainder = plan.PYMB;
+            this.APDRemainder = plan.APD;
+            this.OPMRemainder = plan.OPMFamily;
+            // not the first month of the PCY, so there is a charge 
+            if ( DateTime.Now.Month != PCY.Month )
+            {
+                // charge the primary change fee once and the dependent fee for
+                // each dependent
+                this.AddCharge(plan.PrimaryChangeFee);
+                foreach ( int dependent in Dependents )
+                {
+                    this.AddCharge(plan.DependentChangeFee);
+                }
+            }
+            this.LastChange = now;
+        }
         public void AddDependent( DependentEnrollee enrollee )
         {
             
@@ -74,7 +128,7 @@ namespace CoreProject.Data.Enrollee
 
         public void AddCharge(double charge)
         {
-            
+            this.Charges.Add(charge);
         }
 
         /// <summary>
