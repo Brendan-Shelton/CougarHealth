@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\EmployeeControllers\ChangeBenefitsController.cs" />
     <Compile Include="Controller\EmployeeControllers\EmployeeLoginController.cs" />
     <Compile Include="Controller\EmployeeControllers\ManageEmployeeController.cs" />
     <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
@@ -58,6 +59,12 @@
     <Compile Include="Data\Employees\Employee.cs" />
     <Compile Include="Data\Employees\Permission.cs" />
     <Compile Include="Data\Enrollee\Service.cs" />
+    <Compile Include="Present\ChangeBenefits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\ChangeBenefits.Designer.cs">
+      <DependentUpon>ChangeBenefits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\CreateEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +199,9 @@
     </Compile>
     <EmbeddedResource Include="Present\Billing.resx">
       <DependentUpon>Billing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\ChangeBenefits.resx">
+      <DependentUpon>ChangeBenefits.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\CougarCosts.resx">
       <DependentUpon>CougarCosts.cs</DependentUpon>
