@@ -34,46 +34,57 @@ namespace CoreProject.Controller.EmployeeControllers
         {
             var plan = dbmgr.GetPlanByType(type);
             double retVal = 0;
-
-            switch (name)
+            if(plan != null && !(isPercent && isMaxPay))
             {
-                case "Plan Year Max Benefit": retVal = plan.PYMB;
-                    break;
-                case "Out of Pocket Maximum Per Enrollee": retVal = plan.OPMIndividual;
-                    break;
-                case "Out of Pocket Maximum Per Family": retVal = plan.OPMFamily;
-                    break;
-                case "Annual Plan Deductable": retVal = plan.APD;
-                    break;
-                case "Primary Enrollee Fee": retVal = plan.PrimaryFee;
-                    break;
-                case "Primary Enrollee Change Fee": retVal = plan.PrimaryChangeFee;
-                    break;
-                case "Dependent Enrollee Fee": retVal = plan.DependentFee;
-                    break;
-                case "Dependent Enrollee Change Fee": retVal = plan.DependentChangeFee;
-                    break;
-                default:
-                    for (int i = 0; i < plan.ServiceCosts.Length; i++)
-                    {
-                        if (plan.ServiceCosts[i].Name.Equals(name))
+                switch (name)
+                {
+                    case "Plan Year Max Benefit":
+                        retVal = plan.PYMB;
+                        break;
+                    case "Out of Pocket Maximum Per Enrollee":
+                        retVal = plan.OPMIndividual;
+                        break;
+                    case "Out of Pocket Maximum Per Family":
+                        retVal = plan.OPMFamily;
+                        break;
+                    case "Annual Plan Deductible":
+                        retVal = plan.APD;
+                        break;
+                    case "Primary Enrollee Fee":
+                        retVal = plan.PrimaryFee;
+                        break;
+                    case "Primary Enrollee Change Fee":
+                        retVal = plan.PrimaryChangeFee;
+                        break;
+                    case "Dependent Enrollee Fee":
+                        retVal = plan.DependentFee;
+                        break;
+                    case "Dependent Enrollee Change Fee":
+                        retVal = plan.DependentChangeFee;
+                        break;
+                    default:
+                        for (int i = 0; i < plan.ServiceCosts.Length; i++)
                         {
-                            if (isPercent)
+                            if (plan.ServiceCosts[i].Name.Equals(name))
                             {
-                                retVal = plan.ServiceCosts[i].PercentCoverage;
-                            }
-                            else if( isMaxPay)
-                            {
-                                retVal = plan.ServiceCosts[i].InNetMax.Item1;
-                            }
-                            else
-                            {
-                                retVal = plan.ServiceCosts[i].RequiredCopayment;
+                                if (isPercent)
+                                {
+                                    retVal = plan.ServiceCosts[i].PercentCoverage;
+                                }
+                                else if (isMaxPay)
+                                {
+                                    retVal = plan.ServiceCosts[i].InNetMax.Item1;
+                                }
+                                else
+                                {
+                                    retVal = plan.ServiceCosts[i].RequiredCopayment;
+                                }
                             }
                         }
-                    }
-                    break;
+                        break;
+                }
             }
+            
 
             return retVal;
         }
