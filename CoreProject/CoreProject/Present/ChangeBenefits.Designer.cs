@@ -123,6 +123,11 @@
             // copay
             // 
             this.copay.Location = new System.Drawing.Point(145, 136);
+            this.copay.Maximum = new decimal(new int[] {
+            1215752192,
+            23,
+            0,
+            0});
             this.copay.Name = "copay";
             this.copay.Size = new System.Drawing.Size(128, 22);
             this.copay.TabIndex = 8;
@@ -130,6 +135,11 @@
             // maxPay
             // 
             this.maxPay.Location = new System.Drawing.Point(145, 169);
+            this.maxPay.Maximum = new decimal(new int[] {
+            1215752192,
+            23,
+            0,
+            0});
             this.maxPay.Name = "maxPay";
             this.maxPay.Size = new System.Drawing.Size(128, 22);
             this.maxPay.TabIndex = 9;

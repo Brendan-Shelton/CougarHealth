@@ -68,14 +68,18 @@ namespace CoreProject.Controller.EmployeeControllers
         /// <param name="name"></param>
         public void RemoveBenefit(InsurancePlan plan, String name)
         {
-            for (int i = 0; i < plan.ServiceCosts.Count(); i++)
+            if(plan != null)
             {
-                if (plan.ServiceCosts[i].Name.Equals(name))
+                for (int i = 0; i < plan.ServiceCosts.Count(); i++)
                 {
-                    plan.ServiceCosts.Remove(plan.ServiceCosts[i]);
-                }
+                    if (plan.ServiceCosts[i].Name.Equals(name))
+                    {
+                        plan.ServiceCosts.Remove(plan.ServiceCosts[i]);
+                    }
 
+                }
             }
+            
             
         }
     }
