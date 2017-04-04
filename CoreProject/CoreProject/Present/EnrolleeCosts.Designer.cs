@@ -56,6 +56,7 @@
             this.OtherListBox = new System.Windows.Forms.ListBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Service = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,7 +71,7 @@
             this.label1.BackColor = System.Drawing.Color.LightCoral;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(38, 24);
+            this.label1.Location = new System.Drawing.Point(38, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(327, 31);
             this.label1.TabIndex = 0;
@@ -86,9 +87,9 @@
             this.Service,
             this.AmountBilled,
             this.TotalBillAmount});
-            this.BillsListView.Location = new System.Drawing.Point(498, 107);
+            this.BillsListView.Location = new System.Drawing.Point(534, 107);
             this.BillsListView.Name = "BillsListView";
-            this.BillsListView.Size = new System.Drawing.Size(578, 593);
+            this.BillsListView.Size = new System.Drawing.Size(543, 593);
             this.BillsListView.TabIndex = 1;
             this.BillsListView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
@@ -99,9 +100,9 @@
             this.chargesLabel.ForeColor = System.Drawing.SystemColors.InfoText;
             this.chargesLabel.Location = new System.Drawing.Point(40, 85);
             this.chargesLabel.Name = "chargesLabel";
-            this.chargesLabel.Size = new System.Drawing.Size(126, 20);
+            this.chargesLabel.Size = new System.Drawing.Size(197, 20);
             this.chargesLabel.TabIndex = 2;
-            this.chargesLabel.Text = "Total Charges:";
+            this.chargesLabel.Text = "Total Enrollee Charges:";
             // 
             // label2
             // 
@@ -346,6 +347,16 @@
             this.label12.Text = "label12";
             this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
+            this.label13.Location = new System.Drawing.Point(530, 69);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(133, 24);
+            this.label13.TabIndex = 72;
+            this.label13.Text = "Enrollee Bills";
+            // 
             // Date
             // 
             this.Date.DataPropertyName = "Date";
@@ -365,7 +376,7 @@
             // 
             // AmountBilled
             // 
-            this.AmountBilled.HeaderText = "Amount Billed";
+            this.AmountBilled.HeaderText = "Amount Billed to Enrollee";
             this.AmountBilled.Name = "AmountBilled";
             // 
             // TotalBillAmount
@@ -379,6 +390,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
             this.ClientSize = new System.Drawing.Size(1108, 790);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.OtherListBox);
@@ -450,5 +462,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Service;
         private System.Windows.Forms.DataGridViewTextBoxColumn AmountBilled;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalBillAmount;
+        private System.Windows.Forms.Label label13;
     }
 }

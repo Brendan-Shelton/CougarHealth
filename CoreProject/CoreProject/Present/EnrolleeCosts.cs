@@ -55,7 +55,7 @@ namespace CoreProject.Present
 
         public void addBillRow(Bill bill)
         {
-            BillsListView.Rows.Add(bill.date, bill.hsp.Name, bill.service.Name, bill.enrolleeBillAmount, bill.totalBillAmount);
+            BillsListView.Rows.Add(bill.date.ToShortDateString(), bill.hsp.Name, bill.service.Name, bill.enrolleeBillAmount, bill.totalBillAmount);
         }
 
         public void setPolicyNumber(int amount)

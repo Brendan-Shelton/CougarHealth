@@ -71,9 +71,8 @@ namespace CoreProject.Data
         public void addBill(Bill bill)
         {
             BillSet.Add(bill);
+            
         }
-
-
         public Bill[] getBillsById(int id)
         {
             //from Bill in BillSet

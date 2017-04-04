@@ -51,7 +51,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(383, 227);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(94, 19);
             this.button1.TabIndex = 0;
@@ -93,7 +93,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(116, 24);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(159, 20);
             this.textBox1.TabIndex = 7;
@@ -102,7 +102,7 @@
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(116, 54);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(159, 20);
             this.textBox3.TabIndex = 9;
@@ -126,7 +126,7 @@
             "Nursing Facility",
             "Physical Therapy"});
             this.listBox1.Location = new System.Drawing.Point(116, 86);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(159, 95);
             this.listBox1.TabIndex = 11;
@@ -145,7 +145,7 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(116, 193);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -158,7 +158,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(218, 193);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(56, 19);
             this.button2.TabIndex = 14;
@@ -170,7 +170,7 @@
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(310, 54);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(167, 134);
             this.listBox2.TabIndex = 15;
@@ -178,7 +178,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(383, 250);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(94, 19);
             this.button3.TabIndex = 16;
@@ -193,9 +193,9 @@
             this.errMsg.Location = new System.Drawing.Point(10, 256);
             this.errMsg.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.errMsg.Name = "errMsg";
-            this.errMsg.Size = new System.Drawing.Size(313, 13);
+            this.errMsg.Size = new System.Drawing.Size(331, 13);
             this.errMsg.TabIndex = 17;
-            this.errMsg.Text = "You have inputted an incorrect Policy Number or Patient Enrollee";
+            this.errMsg.Text = "You have inputted an incorrect Policy Number/Patient Enrollee/Date\r\n";
             // 
             // label5
             // 
@@ -210,7 +210,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(349, 28);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(128, 20);
             this.textBox2.TabIndex = 19;
@@ -253,7 +253,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Billing";
             this.Text = "Billing";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();

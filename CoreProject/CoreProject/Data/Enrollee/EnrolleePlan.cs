@@ -18,7 +18,8 @@ namespace CoreProject.Data.Enrollee
          * set on charge
          */
         public double PYMBRemainder { get; private set; }
-        public double OPMRemainder { get; private set; }
+        public double OPMFRemainder { get; private set; }
+        public double OPMIRemainder { get; private set; }
         public double APDRemainder { get; private set; }
         public List<Bill> Charges { get; private set; }
         public double TotalCost { get; private set; }
@@ -68,7 +69,8 @@ namespace CoreProject.Data.Enrollee
             // start at the top of the plan 
             this.PYMBRemainder = plan.PYMB;
             this.APDRemainder = plan.APD;
-            this.OPMRemainder = plan.OPMFamily;
+            this.OPMFRemainder = plan.OPMFamily;
+            this.OPMIRemainder = plan.OPMIndividual;
         }
 
         public void AddDependent( DependentEnrollee enrollee )
@@ -80,6 +82,35 @@ namespace CoreProject.Data.Enrollee
         {
             var bill = new Bill(date, hsp, service, enrolleeId, totalBillAmount, enrolleeBillAmount);
             Charges.Add(bill);
+            APDRemainder -= enrolleeBillAmount;
+            if (APDRemainder < 0)
+                APDRemainder = 0;
+            PYMBRemainder -= (totalBillAmount - enrolleeBillAmount);
+
+            if (OPMIRemainder !=0 && OPMFRemainder !=0)
+            {
+                if (OPMIRemainder < enrolleeBillAmount)
+                {
+                    TotalCost += OPMIRemainder;
+                } else if (OPMFRemainder < enrolleeBillAmount)
+                {
+                    TotalCost += OPMFRemainder;
+                } else
+                    TotalCost += (enrolleeBillAmount);
+            }
+
+            OPMIRemainder -= (totalBillAmount - enrolleeBillAmount);
+            if (OPMIRemainder < 0)
+            {
+                OPMIRemainder = 0;
+            }
+
+            OPMFRemainder -= (totalBillAmount - enrolleeBillAmount);
+            if (OPMFRemainder < 0)
+            {
+                OPMFRemainder = 0;
+            }
+
             
             planCtrl.addBill(bill);
             
