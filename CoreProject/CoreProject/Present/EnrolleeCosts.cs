@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreProject.Controller.EnrolleeControllers;
+using CoreProject.Data.Enrollee;
+using CoreProject.Data.HealthcareServiceProvider;
 
 namespace CoreProject.Present
 {
@@ -25,6 +27,40 @@ namespace CoreProject.Present
         private void myInitialize()
         {
             planCtrl.update(this);
+        }
+
+        public void addHospitalService(Service service)
+        {
+            String backline = service.PercentCoverage*100 + "% after $" + service.RequiredCopayment + " Copay\n";
+
+            String line = String.Format("{0, -30} {1, 34}", service.Name, backline);
+            HospitalListBox.Items.Add(line);
+        }
+
+        public void addPhysicianService(Service service)
+        {
+            String backline = service.PercentCoverage * 100 + "% after $" + service.RequiredCopayment + " Copay\n";
+
+            String line = String.Format("{0, -30} {1, 34}", service.Name, backline);
+            PhysicianListBox.Items.Add(line);
+        }
+
+        public void addOtherService(Service service)
+        {
+            String backline = service.PercentCoverage * 100 + "% after $" + service.RequiredCopayment + " Copay\n";
+
+            String line = String.Format("{0, -30} {1, 34}", service.Name, backline);
+            OtherListBox.Items.Add(line);
+        }
+
+        public void addBillRow(Bill bill)
+        {
+            BillsListView.Rows.Add(bill.date, bill.hsp.Name, bill.service.Name, bill.enrolleeBillAmount, bill.totalBillAmount);
+        }
+
+        public void setPolicyNumber(int amount)
+        {
+            label12.Text = amount + "";
         }
 
         public void setTotalCharges(double amount)
@@ -67,80 +103,7 @@ namespace CoreProject.Present
             APDLabel.Text = String.Format("{0:C}", amount);
         }
 
-        public void setInpatientPercent(double amount)
-        {
-            InpatientPercentLabel.Text = amount + "";
-        }
-
-        public void setInpatientCopay(double amount)
-        {
-            InpatientCopayLabel.Text = amount + "";
-        }
-
-        public void setInpatientBHPercent(double amount)
-        {
-            InpatientBHPercentLabel.Text = amount + "";
-        }
-
-        public void setInpatientBHCopay(double amount)
-        {
-            InpatientBHCopayLabel.Text = amount + "";
-        }
-
-        public void setEmergencyRoomPercent(double amount)
-        {
-            EmergencyPercentLabel.Text = amount + "";
-        }
-
-        public void setEmergencyRoomCopay(double amount)
-        {
-            EmergencyCopayLabel.Text = amount + "";
-        }
-
-        public void setOutpatientPercent(double amount)
-        {
-            OutpatientPercentLabel.Text = amount + "";
-        }
-
-        public void setOutpatientCopay(double amount)
-        {
-            OutpatientCopayLabel.Text = amount + "";
-        }
-
-        public void setDLX(double amount)
-        {
-            DLXPercentLabel.Text = amount + "";
-        }
-
-        public void setPhysicianPercent(double amount)
-        {
-            PhysicianPercentLabel.Text = amount + "";
-        }
-
-        public void setSpecialistPercent(double amount)
-        {
-            SpecialistPercentLabel.Text = amount + "";
-        }
-
-        public void setPreventativePercent(double amount)
-        {
-            PreventivePercentLabel.Text = amount + "";
-        }
-
-        public void setBabyCarePercent(double amount)
-        {
-            BabyCarePercentLabel.Text = amount + "";
-        }
-        
-        public void setDMEPercent(double amount)
-        {
-            DMEPercentLabel.Text = amount + "";
-        }
-
-        public void setPTPercent(double amount)
-        {
-            PhysicalTherapyPercentLabel.Text = amount + "";
-        }
+       
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -158,6 +121,11 @@ namespace CoreProject.Present
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
         {
 
         }

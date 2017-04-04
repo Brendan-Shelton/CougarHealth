@@ -52,6 +52,7 @@
     <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
     <Compile Include="Controller\EmployeeControllers\RangeReportController.cs" />
     <Compile Include="Data\AuthenticationException.cs" />
+    <Compile Include="Data\HealthcareServiceProvider\Bill.cs" />
     <Compile Include="Data\IAuthUser.cs" />
     <Compile Include="Data\DbMgr.cs" />
     <Compile Include="Data\CreationException.cs" />

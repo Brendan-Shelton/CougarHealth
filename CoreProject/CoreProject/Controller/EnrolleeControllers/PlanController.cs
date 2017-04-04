@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data;
 using CoreProject.Present;
+using CoreProject.Data.HealthcareServiceProvider;
 
 namespace CoreProject.Controller.EnrolleeControllers
 {
@@ -22,11 +23,17 @@ namespace CoreProject.Controller.EnrolleeControllers
             this.dbmgr = DbMgr.Instance;
         }
 
+        public void addBill(Bill bill)
+        {
+            dbmgr.addBill(bill);
+        }
 
         public void update(EnrolleeCosts costs)
         {
             var enrolleePlan = dbmgr.GetPlanByPrimary(_primaryId);
             var plan = dbmgr.GetPlanByType(enrolleePlan.Type);
+
+            costs.setPolicyNumber(_primaryId);
 
             costs.setTotalCharges(enrolleePlan.TotalCost);
             costs.setPlanYearMaxBen(plan.PYMB);
@@ -40,39 +47,28 @@ namespace CoreProject.Controller.EnrolleeControllers
 
             for (int i = 0; i < plan.ServiceCosts.Length; i++)
             {
-                switch (plan.ServiceCosts[i].Name)
+                switch(plan.ServiceCosts[i].Category)
                 {
-                    case "Inpatient":
-                        costs.setInpatientPercent(plan.ServiceCosts[i].PercentCoverage);
-                        costs.setInpatientCopay(plan.ServiceCosts[i].RequiredCopayment);
+                    case "Hospital":
+                        costs.addHospitalService(plan.ServiceCosts[i]);
                         break;
-                    case "Inpatient (Behavioral Health":
-                        costs.setInpatientBHPercent(plan.ServiceCosts[i].PercentCoverage);
-                        costs.setInpatientBHCopay(plan.ServiceCosts[i].RequiredCopayment);
+                    case "Physician":
+                        costs.addPhysicianService(plan.ServiceCosts[i]);
                         break;
-                    case "Emergency Room":
-                        costs.setEmergencyRoomPercent(plan.ServiceCosts[i].PercentCoverage);
-                        costs.setEmergencyRoomCopay(plan.ServiceCosts[i].RequiredCopayment);
+                    case "Other":
+                        costs.addOtherService(plan.ServiceCosts[i]);
                         break;
-                    case "Outpatient Surgery":
-                        costs.setOutpatientPercent(plan.ServiceCosts[i].PercentCoverage);
-                        costs.setOutpatientCopay(plan.ServiceCosts[i].RequiredCopayment);
-                        break;
-                    
+                                       
                 }
+            }
 
-                //    if (plan.ServiceCosts[j].Category.Equals(category) &&
-                //        plan.ServiceCosts[j].Name.Equals(name))
-                //    {
-                //        if (percent == true)
-                //        {
-                //            plan.ServiceCosts[j].PercentCoverage = val;
-                //        }
-                //        else
-                //        {
-                //            plan.ServiceCosts[j].RequiredCopayment = val;
-                //        }
-                //    }
+            var bills = dbmgr.getBillsById(_primaryId);
+
+            for (int i = 0; i < bills.Length; i++)
+            {
+                costs.addBillRow(bills[i]);
+            }
+
             }
         }
 
@@ -81,4 +77,4 @@ namespace CoreProject.Controller.EnrolleeControllers
 
 
     }
-}
+

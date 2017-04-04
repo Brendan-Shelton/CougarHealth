@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreProject.Data.HealthcareServiceProvider;
+using CoreProject.Controller.EnrolleeControllers;
 
 namespace CoreProject.Data.Enrollee
 {
     public class EnrolleePlan 
     {
+        public PlanController planCtrl { get; private set; }
         public int PlanNum { get; set; }
         public string Type { get; }
         /* 
@@ -17,7 +20,7 @@ namespace CoreProject.Data.Enrollee
         public double PYMBRemainder { get; private set; }
         public double OPMRemainder { get; private set; }
         public double APDRemainder { get; private set; }
-        public List<double> Charges { get; private set; }
+        public List<Bill> Charges { get; private set; }
         public double TotalCost { get; private set; }
         private List<int> _dependents;
         private List<double> _dependentOPMs;
@@ -59,8 +62,9 @@ namespace CoreProject.Data.Enrollee
             this.PrimaryEnrollee = primary.Id;
             this.Type = plan.Type;
             this.PlanNum = ++idCount;
-
+            this.planCtrl = new PlanController(primary.Id);
             this.Dependents = new List<int>();
+            this.Charges = new List<Bill>();
             // start at the top of the plan 
             this.PYMBRemainder = plan.PYMB;
             this.APDRemainder = plan.APD;
@@ -72,8 +76,12 @@ namespace CoreProject.Data.Enrollee
             
         }
 
-        public void AddCharge(double charge)
+        public void AddCharge(DateTime date, HSP hsp, Service service, int enrolleeId, double totalBillAmount, double enrolleeBillAmount)
         {
+            var bill = new Bill(date, hsp, service, enrolleeId, totalBillAmount, enrolleeBillAmount);
+            Charges.Add(bill);
+            
+            planCtrl.addBill(bill);
             
         }
 
