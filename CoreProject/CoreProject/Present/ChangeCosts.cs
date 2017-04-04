@@ -18,6 +18,7 @@ namespace CoreProject.Present
         {
             this.CostCtrl = CoCtrl;
             InitializeComponent();
+            label2.Hide();
 
             var Plans = CostCtrl.GetPlans();
 
@@ -51,6 +52,7 @@ namespace CoreProject.Present
                     }
                 }
             }
+            UpdateTextBox();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,15 +74,26 @@ namespace CoreProject.Present
             {
                 foreach (var plan in Plans)
                 {
+                    bool percentValid = false;
                     if (plan == CostCtrl.GetPlan(listBox2.SelectedItem.ToString()))
                     {
-                        if (percent)
+                        
+                        if(listBox1.SelectedItem != null)
                         {
-                            textBox1.Text = (100 * CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay)).ToString();
+                             percentValid = (CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay) <= 1);
+                        }
+                        if (percent && percentValid)
+                        {
+                            numericUpDown1.Text = (100 * CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay)).ToString();
+                            label3.Hide();
+                            label2.Show();
                         }
                         else
                         {
-                            textBox1.Text = CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay).ToString();
+                            if(listBox1.SelectedItem != null)
+                            numericUpDown1.Text = CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay).ToString();
+                            label3.Show();
+                            label2.Hide();
                         }
 
                     }
@@ -100,6 +113,36 @@ namespace CoreProject.Present
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             UpdateTextBox();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var Plans = CostCtrl.GetPlans();
+
+            foreach (var plan in Plans)
+            {
+                if (plan.Type.Equals(listBox2.SelectedItem.ToString()))
+                {
+                    if (checkBox1.Checked)
+                    {
+                        if(Convert.ToDouble(numericUpDown1.Value) > 1)
+                            CostCtrl.Update(plan, plan.Type, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, (Convert.ToDouble(numericUpDown1.Value) / 100));
+                        else if(Convert.ToDouble(numericUpDown1.Value) < 0)
+                        {
+                            // error
+                        }
+                        else
+                        {
+                            CostCtrl.Update(plan, plan.Type, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, Convert.ToDouble(numericUpDown1.Value));
+                        }
+                    }
+                    else
+                    {
+                        CostCtrl.Update(plan, plan.Type, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, Convert.ToDouble(numericUpDown1.Value));
+                    }
+                    this.Refresh();
+                }
+            }
         }
     }
 }
