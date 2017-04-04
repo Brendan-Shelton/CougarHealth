@@ -40,7 +40,7 @@ namespace CoreProject.Present
                     listBox1.Items.Add("Plan Year Max Benefit");
                     listBox1.Items.Add("Out of Pocket Maximum Per Enrollee");
                     listBox1.Items.Add("Out of Pocket Maximum Per Family");
-                    listBox1.Items.Add("Annual Plan Deductable");
+                    listBox1.Items.Add("Annual Plan Deductible");
                     listBox1.Items.Add("Primary Enrollee Fee");
                     listBox1.Items.Add("Primary Enrollee Change Fee");
                     listBox1.Items.Add("Dependent Enrollee Fee");
@@ -126,19 +126,19 @@ namespace CoreProject.Present
                     if (checkBox1.Checked)
                     {
                         if(Convert.ToDouble(numericUpDown1.Value) > 1)
-                            CostCtrl.Update(plan, plan.Type, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, (Convert.ToDouble(numericUpDown1.Value) / 100));
+                            CostCtrl.Update(plan, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, (Convert.ToDouble(numericUpDown1.Value) / 100));
                         else if(Convert.ToDouble(numericUpDown1.Value) < 0)
                         {
                             // error
                         }
                         else
                         {
-                            CostCtrl.Update(plan, plan.Type, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, Convert.ToDouble(numericUpDown1.Value));
+                            CostCtrl.Update(plan, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, Convert.ToDouble(numericUpDown1.Value));
                         }
                     }
                     else
                     {
-                        CostCtrl.Update(plan, plan.Type, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, Convert.ToDouble(numericUpDown1.Value));
+                        CostCtrl.Update(plan, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, Convert.ToDouble(numericUpDown1.Value));
                     }
                     this.Refresh();
                 }

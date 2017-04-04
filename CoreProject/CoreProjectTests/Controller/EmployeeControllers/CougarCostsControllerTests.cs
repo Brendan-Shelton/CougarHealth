@@ -101,31 +101,120 @@ namespace CoreProject.Controller.EmployeeControllers.Tests
         [TestMethod()]
         public void UpdateTest_Name()
         {
-            Assert.Fail();
+            var CostCtrl = new CougarCostsController();
+            var Plan = mgr.GetPlanByType("Basic");
+            CostCtrl.Update(Plan,  "Annual Plan Deductible", false, false, 0);
+            var TestResult_right = Plan.APD;
+            Plan.APD = 250;
+            CostCtrl.Update(Plan, "WRONG", false, false, 0);
+            var TestResult_wrong = Plan.APD;
+            Plan.APD = 250;
+            CostCtrl.Update(Plan, "", false, false, 0);
+            var TestResult_empty = Plan.APD;
+            Plan.APD = 250;
+            CostCtrl.Update(Plan, null, false, false, 0);
+            var TestResult_null = Plan.APD;
+
+            Assert.AreEqual(0, TestResult_right);
+            Assert.AreEqual(250, TestResult_wrong);
+            Assert.AreEqual(250, TestResult_empty);
+            Assert.AreEqual(250, TestResult_null);
         }
 
         [TestMethod()]
-        public void UpdateTest_Type()
+        public void UpdateTest_Plan()
         {
-            Assert.Fail();
+            var CostCtrl = new CougarCostsController();
+            var Plan = mgr.GetPlanByType("Basic");
+
+            CostCtrl.Update(Plan, "Annual Plan Deductible", false, false, 0);
+            var TestResult_right = Plan.APD;
+            Plan.APD = 250;
+            CostCtrl.Update(null, "Annual Plan Deductible", false, false, 0);
+            var TestResult_wrong = Plan.APD;
+
+            Assert.AreEqual(0, TestResult_right);
+            Assert.AreEqual(250, TestResult_wrong);
         }
 
         [TestMethod()]
         public void UpdateTest_Percent()
         {
-            Assert.Fail();
+            var CostCtrl = new CougarCostsController();
+            var Plan = mgr.GetPlanByType("Basic");
+
+            CostCtrl.Update(Plan, "Emergency Room", true, false, 0);
+            var TestResult_right = Plan.ServiceCosts[2].PercentCoverage;
+            Plan.ServiceCosts[2].PercentCoverage = 1;
+            CostCtrl.Update(Plan, "Emergency Room", false, false, 0);
+            var TestResult_wrong = Plan.ServiceCosts[2].PercentCoverage;
+
+            Assert.AreEqual(0, TestResult_right);
+            Assert.AreEqual(1, TestResult_wrong);
         }
 
         [TestMethod()]
         public void UpdateTest_MaxPay()
         {
-            Assert.Fail();
+            var CostCtrl = new CougarCostsController();
+            var Plan = mgr.GetPlanByType("Basic");
+            Tuple<double, Service.MaxPayRate > temp = new Tuple<double, Service.MaxPayRate>(1000, Plan.ServiceCosts[2].InNetMax.Item2);
+            CostCtrl.Update(Plan, "Emergency Room", false, true, 0);
+            var TestResult_right = Plan.ServiceCosts[2].InNetMax.Item1;
+            Plan.ServiceCosts[2].InNetMax = temp;
+            CostCtrl.Update(Plan, "Emergency Room", false, false, 0);
+            var TestResult_wrong = Plan.ServiceCosts[2].InNetMax.Item1;
+
+            Assert.AreEqual(0, TestResult_right);
+            Assert.AreEqual(1000, TestResult_wrong);
         }
 
         [TestMethod()]
         public void UpdateTest_Value()
         {
-            Assert.Fail();
+            var CostCtrl = new CougarCostsController();
+            var Plan = mgr.GetPlanByType("Basic");
+            // equivalance partitions and BVA
+
+            // Less than 0
+            //copayment
+            CostCtrl.Update(Plan, "Emergency Room", false, false, -1);
+            var TestResult_NegCopay = Plan.ServiceCosts[2].RequiredCopayment;
+
+            //percent
+            CostCtrl.Update(Plan, "Emergency Room", true, false, -1);
+            var TestResult_NegPercent = Plan.ServiceCosts[2].PercentCoverage;
+
+            // zero
+
+            // reset Plan values
+            Plan.ServiceCosts[2].PercentCoverage = 1;
+            Plan.ServiceCosts[2].RequiredCopayment = 250;
+
+            //copayment
+            CostCtrl.Update(Plan, "Emergency Room", false, false, 0);
+            var TestResult_ZeroCopay = Plan.ServiceCosts[2].RequiredCopayment;
+
+            //percent
+            CostCtrl.Update(Plan, "Emergency Room", true, false, 0);
+            var TestResult_ZeroPercent = Plan.ServiceCosts[2].RequiredCopayment;
+
+            // Greater than 1 (Percent only)
+
+            //reset Plan percent value
+            Plan.ServiceCosts[2].PercentCoverage = 1;
+
+            // percent
+            CostCtrl.Update(Plan, "Emergency Room", true, false, 1.1);
+            var TestResult_AbovePercent = Plan.ServiceCosts[2].PercentCoverage;
+
+            // asserts
+
+            Assert.AreEqual(250, TestResult_NegCopay);
+            Assert.AreEqual(1, TestResult_NegPercent);
+            Assert.AreEqual(0, TestResult_ZeroCopay);
+            Assert.AreEqual(0, TestResult_ZeroPercent);
+            Assert.AreEqual(1, TestResult_AbovePercent);
         }
     }
 }

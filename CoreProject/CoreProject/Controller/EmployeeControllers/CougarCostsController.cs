@@ -90,56 +90,60 @@ namespace CoreProject.Controller.EmployeeControllers
         }
 
         //replace with a more universal approach (ability for more than 2 plans)
-        public void Update(InsurancePlan plan, string type, string name, bool percent, bool max, double val)
+        public void Update(InsurancePlan plan, string name, bool percent, bool max, double val)
         {
-
-            switch (name)
+            if(plan != null && val >= 0)
             {
-                case "Plan Year Max Benefit":
-                    dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PYMB", percent, max, val);
-                    break;
-                case "Out of Pocket Maximum Per Enrollee":
-                    dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMIndividual", percent, max, val);
-                    break;
-                case "Out of Pocket Maximum Per Family":
-                    dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMFamily", percent, max, val);
-                    break;
-                case "Annual Plan Deductable":
-                    dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "APD", percent, max, val);
-                    break;
-                case "Primary Enrollee Fee":
-                    dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryFee", percent, max, val);
-                    break;
-                case "Primary Enrollee Change Fee":
-                    dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryChangeFee", percent, max, val);
-                    break;
-                case "Dependent Enrollee Fee":
-                    dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentFee", percent, max, val);
-                    break;
-                case "Dependent Enrollee Change Fee":
-                    dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentChangeFee", percent, max, val);
-                    break;
-                default:
-                    for (int i = 0; i < plan.ServiceCosts.Length; i++)
-                    {
-                        if (plan.ServiceCosts[i].Name.Equals(name))
+                switch (name)
+                {
+                    case "Plan Year Max Benefit":
+                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PYMB", percent, max, val);
+                        break;
+                    case "Out of Pocket Maximum Per Enrollee":
+                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMIndividual", percent, max, val);
+                        break;
+                    case "Out of Pocket Maximum Per Family":
+                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMFamily", percent, max, val);
+                        break;
+                    case "Annual Plan Deductible":
+                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "APD", percent, max, val);
+                        break;
+                    case "Primary Enrollee Fee":
+                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryFee", percent, max, val);
+                        break;
+                    case "Primary Enrollee Change Fee":
+                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryChangeFee", percent, max, val);
+                        break;
+                    case "Dependent Enrollee Fee":
+                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentFee", percent, max, val);
+                        break;
+                    case "Dependent Enrollee Change Fee":
+                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentChangeFee", percent, max, val);
+                        break;
+                    default:
+                        for (int i = 0; i < plan.ServiceCosts.Length; i++)
                         {
-                            if (percent)
+                            if (plan.ServiceCosts[i].Name.Equals(name))
                             {
-                                dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
-                            }
-                            else if (max)
-                            {
-                                dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
-                            }
-                            else
-                            {
-                                dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                if (percent)
+                                {
+                                    if(val <= 1)
+                                    dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                }
+                                else if (max)
+                                {
+                                    dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                }
+                                else
+                                {
+                                    dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                }
                             }
                         }
-                    }
-                    break;
+                        break;
+                }
             }
+            
            
         }
     }
