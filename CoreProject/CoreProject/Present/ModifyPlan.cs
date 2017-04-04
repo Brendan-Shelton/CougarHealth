@@ -126,10 +126,32 @@ namespace CoreProject.Present
             }
         }
 
+        /// <summary>
+        /// Attach the new Plan onto the current enrollee plan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PickPlan_Click(object sender, EventArgs e)
         {
-            this.Ctrl.ChangeCurrent(this.ComparedPlan);
-            this.Close();
+            try
+            {
+                this.Ctrl.ChangeCurrent(this.ComparedPlan);
+                this.Close();
+            }
+            catch ( ArgumentException )
+            {
+                DialogResult result = MessageBox.Show(
+                    "Plan Types can only be changed once per Plan Coverage Year",
+                    "Cannot change plan",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                
+                if ( result == DialogResult.OK)
+                {
+                    this.Focus();
+                }
+            }
         }
     }
 }

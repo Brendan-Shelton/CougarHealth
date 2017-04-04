@@ -54,6 +54,10 @@ namespace CoreProject.Controller.EnrolleeControllers
             return Mgr.GetPlanByType(type);
         }
 
+        /// <summary>
+        /// Get the names of the benefits we are comparing 
+        /// </summary>
+        /// <returns></returns>
         public string[] BenfitsCompared()
         {
             return ( from benefit in ComparedBenefits
