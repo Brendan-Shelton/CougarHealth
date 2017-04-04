@@ -40,7 +40,7 @@ namespace CoreProject.Controller.EnrolleeControllers
             costs.setPlanYearMaxRemain(plan.PYMB - enrolleePlan.TotalCost);
             costs.setOutPocketInd(plan.OPMIndividual);
             costs.setOutPocketFam(plan.OPMFamily);
-            costs.setOutPockeRem(enrolleePlan.OPMRemainder);
+            costs.setOutPockeRem(enrolleePlan.OPMFRemainder);
             costs.setAPD(plan.APD);
             costs.setAPDRem(enrolleePlan.APDRemainder);
 
