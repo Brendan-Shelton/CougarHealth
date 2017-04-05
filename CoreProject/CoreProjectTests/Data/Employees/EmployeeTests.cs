@@ -11,6 +11,25 @@ namespace CoreProject.Data.Employees.Tests
     [TestClass()]
     public class EmployeeTests
     {
+        /// <summary>
+        /// Testing whether a username provided to the controller is valid. 
+        /// This is the method that I did boundary value analysis and 
+        /// equivalence partitioning on. 
+        /// 
+        /// Equivalence Partitioning:
+        ///     strings of valid user name syntax | strings of invalid user 
+        ///     name syntax | empty strings
+        /// 
+        /// Boundary Values:
+        ///     valid - alpha words no underscores, alpha words with underscores, 
+        ///     alphanumeric words, alpha words with capitals
+        ///     
+        ///     invalid normal strings - strings with specials characters 
+        ///     and strings with spaces. 
+        ///     
+        ///     empty strings - null and ""
+        /// 
+        /// </summary>
         [TestMethod()]
         public void ValidUserTest()
         {
@@ -45,9 +64,11 @@ namespace CoreProject.Data.Employees.Tests
             Assert.IsFalse(invalidSpace);
             Assert.IsFalse(invalidSpecial);
             Assert.IsFalse(invalidNull);
-
         }
 
+        /// <summary>
+        /// Tests the password syntax checker
+        /// </summary>
         [TestMethod()]
         public void ValidPassTest()
         {
@@ -73,6 +94,9 @@ namespace CoreProject.Data.Employees.Tests
             Assert.IsFalse(invalidLen);
         }
 
+        /// <summary>
+        /// tests the password authentication of the program 
+        /// </summary>
         [TestMethod()]
         public void CheckPassTest()
         {
@@ -87,6 +111,11 @@ namespace CoreProject.Data.Employees.Tests
             Assert.IsTrue(match);
             Assert.IsFalse(noMatch);
         }
+
+        /// <summary>
+        /// makes sure that entering in a password with only whitespaces is an 
+        /// error
+        /// </summary>
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
         public void CheckPassEmptyTest()
@@ -100,6 +129,10 @@ namespace CoreProject.Data.Employees.Tests
             employee.CheckPass(empty);
         }
 
+        /// <summary>
+        /// checks to make sure that a null string supplied to the password 
+        /// authentication causes an error 
+        /// </summary>
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
         public void CheckPassNullTest()
@@ -113,6 +146,9 @@ namespace CoreProject.Data.Employees.Tests
             employee.CheckPass(nullstr);
         }
 
+        /// <summary>
+        /// Tests that the hashing and salting of the password is correct
+        /// </summary>
         [TestMethod()]
         public void PasswordifyTest()
         {
