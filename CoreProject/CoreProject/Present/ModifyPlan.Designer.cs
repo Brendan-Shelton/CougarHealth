@@ -89,6 +89,7 @@
             this.PickPlan.TabIndex = 5;
             this.PickPlan.Text = "select";
             this.PickPlan.UseVisualStyleBackColor = true;
+            this.PickPlan.Visible = false;
             this.PickPlan.Click += new System.EventHandler(this.PickPlan_Click);
             // 
             // CurrentServices
@@ -111,6 +112,7 @@
             this.OtherServices.TabIndex = 7;
             this.OtherServices.Text = "Other Services";
             this.OtherServices.UseVisualStyleBackColor = true;
+            this.OtherServices.Visible = false;
             this.OtherServices.Click += new System.EventHandler(this.OtherServices_Click);
             // 
             // ModifyPlan

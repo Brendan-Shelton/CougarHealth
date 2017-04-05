@@ -16,6 +16,7 @@ namespace CoreProject.Data.Enrollee.Tests
         public void ChangeToTest()
         {
             EnrolleePlan plan = Mgr.GetPolicyByID(1);
+            InsurancePlan nullPlan = null;
             InsurancePlan newPlan = Mgr.GetPlanByType("Extended");
 
             plan.ChangeTo(newPlan);
@@ -27,6 +28,7 @@ namespace CoreProject.Data.Enrollee.Tests
             // make sure the saved plan is the same as the plan we just worked with 
             Assert.AreSame(plan, bringBack);
         }
+
         /// <summary>
         /// Test that changing twice causes an exception
         /// </summary>
@@ -40,6 +42,17 @@ namespace CoreProject.Data.Enrollee.Tests
 
             plan.ChangeTo(newPlan);
             plan.ChangeTo(changeAgain);
+        }
+
+        /// <summary>
+        /// Tests for a null insurance plan being given 
+        /// </summary>
+        [TestMethod()]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void ChangeToNullTest()
+        {
+            EnrolleePlan plan = Mgr.GetPolicyByID(1);
+            plan.ChangeTo(null);
         }
     }
 }

@@ -102,7 +102,11 @@ namespace CoreProject.Data.Enrollee
                 throw new ArgumentException("You can only change plans once per PCY");
             }
 
-
+            // throw an error if null insurance plan 
+            if ( plan == null )
+            {
+                throw new NullReferenceException("The insurance plan selected can not be null");
+            }
             // an enrollee can oly change their plan once per calender year
             this.Type = plan.Type;
             this.PYMBRemainder = plan.PYMB;

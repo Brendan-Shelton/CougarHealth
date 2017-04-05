@@ -99,6 +99,8 @@ namespace CoreProject.Present
                 DataRow dr = this.Src.Rows[i];
                 dr[newColIdx] = comparedValues[i];
             }
+            this.PickPlan.Visible = true;
+            this.OtherServices.Visible = true; 
         }
         
         /// <summary>
@@ -151,6 +153,21 @@ namespace CoreProject.Present
                 {
                     this.Focus();
                 }
+            }
+            catch ( NullReferenceException )
+            {
+                DialogResult result = MessageBox.Show(
+                    "There is no plan to change to",
+                    "Cannot change plan",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                
+                if ( result == DialogResult.OK)
+                {
+                    this.Focus();
+                }
+            
             }
         }
     }

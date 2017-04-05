@@ -66,7 +66,7 @@ namespace CoreProject.Controller.EnrolleeControllers
         }
         
         /// <summary>
-        /// 
+        /// Prints the values of all properties in the Insurance plan type 
         /// </summary>
         /// <param name="plan"></param>
         /// <returns></returns>
