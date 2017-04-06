@@ -52,6 +52,7 @@
     <Compile Include="Controller\EmployeeControllers\ManageEmployeeController.cs" />
     <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
     <Compile Include="Controller\EmployeeControllers\RangeReportController.cs" />
+    <Compile Include="Controller\EmployeeControllers\RemovePlanController.cs" />
     <Compile Include="Data\AuthenticationException.cs" />
     <Compile Include="Data\IAuthUser.cs" />
     <Compile Include="Data\DbMgr.cs" />
@@ -195,6 +196,12 @@
     <Compile Include="Present\PrimaryEnroll.Designer.cs">
       <DependentUpon>PrimaryEnroll.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\RemovePlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\RemovePlan.Designer.cs">
+      <DependentUpon>RemovePlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Present\SearchServices.cs">
@@ -262,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\PrimaryEnroll.resx">
       <DependentUpon>PrimaryEnroll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\RemovePlan.resx">
+      <DependentUpon>RemovePlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

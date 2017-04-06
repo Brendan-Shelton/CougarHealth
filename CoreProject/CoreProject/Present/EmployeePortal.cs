@@ -68,5 +68,12 @@ namespace CoreProject.Present
             var changeBenefits = new ChangeBenefits(new ChangeBenefitsController());
             changeBenefits.Show();
         }
+
+        private void removePlan_Click(object sender, EventArgs e)
+        {
+            var removeCtrl = new RemovePlanController();
+            var removeGUI = new RemovePlan(removeCtrl);
+            removeGUI.Show();
+        }
     }
 }

@@ -58,6 +58,7 @@
     <Compile Include="Controller\EmployeeControllers\ManageEmployeeControllerTests.cs" />
     <Compile Include="Controller\EmployeeControllers\MonthReportControllerTests.cs" />
     <Compile Include="Controller\EmployeeControllers\RangeReportControllerTests.cs" />
+    <Compile Include="Controller\EmployeeControllers\RemovePlanControllerTests.cs" />
     <Compile Include="Controller\EnrolleeControllers\EnrollControllerTests.cs" />
     <Compile Include="Controller\HSPControllers\BillControllerTests.cs" />
     <Compile Include="Controller\HSPControllers\CreateHSPControllerTests.cs" />
