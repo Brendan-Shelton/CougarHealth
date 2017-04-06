@@ -28,70 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.PlanQueries = new System.Windows.Forms.ListBox();
+            this.Submit = new System.Windows.Forms.Button();
+            this.PlanList = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.Cost = new System.Windows.Forms.NumericUpDown();
+            this.PercentLabel = new System.Windows.Forms.Label();
+            this.DollarLabel = new System.Windows.Forms.Label();
+            this.Percent = new System.Windows.Forms.RadioButton();
+            this.MaxPay = new System.Windows.Forms.RadioButton();
+            this.Copay = new System.Windows.Forms.RadioButton();
+            this.Error = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.Cost)).BeginInit();
             this.SuspendLayout();
             // 
-            // listBox1
+            // PlanQueries
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(57, 94);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(227, 116);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.PlanQueries.FormattingEnabled = true;
+            this.PlanQueries.ItemHeight = 16;
+            this.PlanQueries.Location = new System.Drawing.Point(57, 94);
+            this.PlanQueries.Name = "PlanQueries";
+            this.PlanQueries.Size = new System.Drawing.Size(227, 116);
+            this.PlanQueries.TabIndex = 0;
+            this.PlanQueries.SelectedIndexChanged += new System.EventHandler(this.PlanQueries_SelectedIndexChanged);
             // 
-            // button1
+            // Submit
             // 
-            this.button1.Location = new System.Drawing.Point(57, 292);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 24);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Submit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Submit.Location = new System.Drawing.Point(57, 319);
+            this.Submit.Name = "Submit";
+            this.Submit.Size = new System.Drawing.Size(75, 24);
+            this.Submit.TabIndex = 2;
+            this.Submit.Text = "Submit";
+            this.Submit.UseVisualStyleBackColor = true;
+            this.Submit.Click += new System.EventHandler(this.Submit_Click);
             // 
-            // listBox2
+            // PlanList
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(290, 94);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(120, 116);
-            this.listBox2.TabIndex = 3;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(57, 243);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(79, 21);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "Percent";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            this.checkBox1.Click += new System.EventHandler(this.checkBox1_Click);
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(57, 270);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(147, 21);
-            this.checkBox2.TabIndex = 5;
-            this.checkBox2.Text = "Maximum Payment";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.PlanList.FormattingEnabled = true;
+            this.PlanList.ItemHeight = 16;
+            this.PlanList.Location = new System.Drawing.Point(290, 94);
+            this.PlanList.Name = "PlanList";
+            this.PlanList.Size = new System.Drawing.Size(120, 116);
+            this.PlanList.TabIndex = 3;
+            this.PlanList.SelectedIndexChanged += new System.EventHandler(this.PlanList_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -103,53 +82,104 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "View and Change Costs";
             // 
-            // numericUpDown1
+            // Cost
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(57, 216);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.Cost.Location = new System.Drawing.Point(57, 216);
+            this.Cost.Maximum = new decimal(new int[] {
             1410065408,
             2,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown1.TabIndex = 7;
+            this.Cost.Minimum = new decimal(new int[] {
+            1215752192,
+            23,
+            0,
+            -2147483648});
+            this.Cost.Name = "Cost";
+            this.Cost.Size = new System.Drawing.Size(120, 22);
+            this.Cost.TabIndex = 7;
             // 
-            // label2
+            // PercentLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(183, 218);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 17);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "%";
+            this.PercentLabel.AutoSize = true;
+            this.PercentLabel.Location = new System.Drawing.Point(183, 218);
+            this.PercentLabel.Name = "PercentLabel";
+            this.PercentLabel.Size = new System.Drawing.Size(20, 17);
+            this.PercentLabel.TabIndex = 8;
+            this.PercentLabel.Text = "%";
             // 
-            // label3
+            // DollarLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 218);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(16, 17);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "$";
+            this.DollarLabel.AutoSize = true;
+            this.DollarLabel.Location = new System.Drawing.Point(35, 218);
+            this.DollarLabel.Name = "DollarLabel";
+            this.DollarLabel.Size = new System.Drawing.Size(16, 17);
+            this.DollarLabel.TabIndex = 9;
+            this.DollarLabel.Text = "$";
+            // 
+            // Percent
+            // 
+            this.Percent.AutoSize = true;
+            this.Percent.Location = new System.Drawing.Point(57, 244);
+            this.Percent.Name = "Percent";
+            this.Percent.Size = new System.Drawing.Size(78, 21);
+            this.Percent.TabIndex = 10;
+            this.Percent.TabStop = true;
+            this.Percent.Text = "Percent";
+            this.Percent.UseVisualStyleBackColor = true;
+            this.Percent.CheckedChanged += new System.EventHandler(this.Percent_CheckedChanged);
+            // 
+            // MaxPay
+            // 
+            this.MaxPay.AutoSize = true;
+            this.MaxPay.Location = new System.Drawing.Point(57, 268);
+            this.MaxPay.Name = "MaxPay";
+            this.MaxPay.Size = new System.Drawing.Size(146, 21);
+            this.MaxPay.TabIndex = 11;
+            this.MaxPay.TabStop = true;
+            this.MaxPay.Text = "Maximum Payment";
+            this.MaxPay.UseVisualStyleBackColor = true;
+            this.MaxPay.CheckedChanged += new System.EventHandler(this.MaxPay_CheckedChanged);
+            // 
+            // Copay
+            // 
+            this.Copay.AutoSize = true;
+            this.Copay.Location = new System.Drawing.Point(57, 292);
+            this.Copay.Name = "Copay";
+            this.Copay.Size = new System.Drawing.Size(136, 21);
+            this.Copay.TabIndex = 12;
+            this.Copay.TabStop = true;
+            this.Copay.Text = "Copayment / Fee";
+            this.Copay.UseVisualStyleBackColor = true;
+            // 
+            // Error
+            // 
+            this.Error.AutoSize = true;
+            this.Error.Location = new System.Drawing.Point(220, 216);
+            this.Error.Name = "Error";
+            this.Error.Size = new System.Drawing.Size(40, 17);
+            this.Error.TabIndex = 13;
+            this.Error.Text = "Error";
             // 
             // ChangeCosts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 338);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.numericUpDown1);
+            this.ClientSize = new System.Drawing.Size(474, 357);
+            this.Controls.Add(this.Error);
+            this.Controls.Add(this.Copay);
+            this.Controls.Add(this.MaxPay);
+            this.Controls.Add(this.Percent);
+            this.Controls.Add(this.DollarLabel);
+            this.Controls.Add(this.PercentLabel);
+            this.Controls.Add(this.Cost);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.PlanList);
+            this.Controls.Add(this.Submit);
+            this.Controls.Add(this.PlanQueries);
             this.Name = "ChangeCosts";
             this.Text = "ChangeCosts";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Cost)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,14 +187,16 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.ListBox PlanQueries;
+        private System.Windows.Forms.Button Submit;
+        private System.Windows.Forms.ListBox PlanList;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown Cost;
+        private System.Windows.Forms.Label PercentLabel;
+        private System.Windows.Forms.Label DollarLabel;
+        private System.Windows.Forms.RadioButton Percent;
+        private System.Windows.Forms.RadioButton MaxPay;
+        private System.Windows.Forms.RadioButton Copay;
+        private System.Windows.Forms.Label Error;
     }
 }

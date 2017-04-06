@@ -64,6 +64,12 @@
     <Compile Include="Present\ChangeCosts.Designer.cs">
       <DependentUpon>ChangeCosts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\ChangeCostsSuccess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\ChangeCostsSuccess.Designer.cs">
+      <DependentUpon>ChangeCostsSuccess.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\CreateEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\ChangeCosts.resx">
       <DependentUpon>ChangeCosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\ChangeCostsSuccess.resx">
+      <DependentUpon>ChangeCostsSuccess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\CougarCosts.resx">
       <DependentUpon>CougarCosts.cs</DependentUpon>

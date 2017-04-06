@@ -18,131 +18,172 @@ namespace CoreProject.Present
         {
             this.CostCtrl = CoCtrl;
             InitializeComponent();
-            label2.Hide();
+            PercentLabel.Hide();
+            Error.Hide();
+            Copay.Checked = true;
 
             var Plans = CostCtrl.GetPlans();
 
             foreach (var plan in Plans)
             {
-                listBox2.Items.Add(plan.Type.ToString());
+                PlanList.Items.Add(plan.Type.ToString());
             }
-            
-            
         }
-
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Updates the textbox with the appropriate value
+        /// </summary>
+        private void UpdateTextBox()
         {
             var Plans = CostCtrl.GetPlans();
+            var percent = Percent.Checked;
+            var maxPay = MaxPay.Checked;
+
             foreach (var plan in Plans)
             {
-                if (plan == CostCtrl.GetPlan(listBox2.SelectedItem.ToString()))
+                bool percentValid = false;
+                if(PlanList.SelectedItem != null)
                 {
-                    listBox1.Items.Add("Plan Year Max Benefit");
-                    listBox1.Items.Add("Out of Pocket Maximum Per Enrollee");
-                    listBox1.Items.Add("Out of Pocket Maximum Per Family");
-                    listBox1.Items.Add("Annual Plan Deductible");
-                    listBox1.Items.Add("Primary Enrollee Fee");
-                    listBox1.Items.Add("Primary Enrollee Change Fee");
-                    listBox1.Items.Add("Dependent Enrollee Fee");
-                    listBox1.Items.Add("Dependent Enrollee Change Fee");
-
-                    for (int i = 0; i < plan.ServiceCosts.Length; i++)
+                    if (plan == CostCtrl.GetPlan(PlanList.SelectedItem.ToString()))
                     {
-                        listBox1.Items.Add(plan.ServiceCosts[i].Name);
-                    }
-                }
-            }
-            UpdateTextBox();
-        }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateTextBox();
-        }
-
-
-            private void UpdateTextBox()
-        {
-            var Plans = CostCtrl.GetPlans();
-            var percent = checkBox1.Checked;
-            var maxPay = checkBox2.Checked;
-            if (maxPay && percent)
-            {
-                // no can do
-            }
-            else
-            {
-                foreach (var plan in Plans)
-                {
-                    bool percentValid = false;
-                    if (plan == CostCtrl.GetPlan(listBox2.SelectedItem.ToString()))
-                    {
-                        
-                        if(listBox1.SelectedItem != null)
+                        if (PlanQueries.SelectedItem != null)
                         {
-                             percentValid = (CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay) <= 1);
+                            percentValid = (CostCtrl.GetNum(PlanQueries.SelectedItem.ToString(), plan.Type, percent, maxPay) <= 1);
                         }
                         if (percent && percentValid)
                         {
-                            numericUpDown1.Text = (100 * CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay)).ToString();
-                            label3.Hide();
-                            label2.Show();
+                            Cost.Text = (100 * CostCtrl.GetNum(PlanQueries.SelectedItem.ToString(), plan.Type, percent, maxPay)).ToString();
+                            DollarLabel.Hide();
+                            PercentLabel.Show();
                         }
                         else
                         {
-                            if(listBox1.SelectedItem != null)
-                            numericUpDown1.Text = CostCtrl.GetNum(listBox1.SelectedItem.ToString(), plan.Type, percent, maxPay).ToString();
-                            label3.Show();
-                            label2.Hide();
+                            if (PlanQueries.SelectedItem != null)
+                                Cost.Text = CostCtrl.GetNum(PlanQueries.SelectedItem.ToString(), plan.Type, percent, maxPay).ToString();
+                            DollarLabel.Show();
+                            PercentLabel.Hide();
                         }
-
                     }
+                
+
                 }
             }
         }
-
-        private void checkBox1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// When a different plan is selected, lists all benefits for that plan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlanList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            var Plans = CostCtrl.GetPlans();
+            foreach (var plan in Plans)
+            {
+                if (plan == CostCtrl.GetPlan(PlanList.SelectedItem.ToString()))
+                {
+                    PlanQueries.Items.Add("Plan Year Max Benefit");
+                    PlanQueries.Items.Add("Out of Pocket Maximum Per Enrollee");
+                    PlanQueries.Items.Add("Out of Pocket Maximum Per Family");
+                    PlanQueries.Items.Add("Annual Plan Deductible");
+                    PlanQueries.Items.Add("Primary Enrollee Fee");
+                    PlanQueries.Items.Add("Primary Enrollee Change Fee");
+                    PlanQueries.Items.Add("Dependent Enrollee Fee");
+                    PlanQueries.Items.Add("Dependent Enrollee Change Fee");
+
+                    for (int i = 0; i < plan.ServiceCosts.Length; i++)
+                    {
+                        PlanQueries.Items.Add(plan.ServiceCosts[i].Name);
+                    }
+                }
+            }
+            UpdateTextBox();
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Updates the textbox to corrected value when PlanQueries Index changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlanQueries_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateTextBox();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Updates textbox if Percent Radio button is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Percent_CheckedChanged(object sender, EventArgs e)
         {
             UpdateTextBox();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Updates textbox if MaxPay radio button is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MaxPay_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTextBox();
+        }
+        /// <summary>
+        /// Submits the selected information to the controller
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Submit_Click(object sender, EventArgs e)
         {
             var Plans = CostCtrl.GetPlans();
 
             foreach (var plan in Plans)
             {
-                if (plan.Type.Equals(listBox2.SelectedItem.ToString()))
+                if (plan.Type.Equals(PlanList.SelectedItem.ToString()))
                 {
-                    if (checkBox1.Checked)
+                    if (Percent.Checked)
                     {
-                        if(Convert.ToDouble(numericUpDown1.Value) > 1)
-                            CostCtrl.Update(plan, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, (Convert.ToDouble(numericUpDown1.Value) / 100));
-                        else if(Convert.ToDouble(numericUpDown1.Value) < 0)
+                        if (Convert.ToDouble(Cost.Value) >= 1)
                         {
-                            // error
+                            CostCtrl.Update(plan, PlanQueries.SelectedItem.ToString(), Percent.Checked, MaxPay.Checked, (Convert.ToDouble(Cost.Value) / 100));
+                            ChangeCostsSuccess CCS = new ChangeCostsSuccess();
+                            CCS.Show();
+
+                        }
+                            
+                        
+                        else if (Convert.ToDouble(Cost.Value) < 0)
+                        {
+                            Error.Text = "Percent cannot be negative";
+                            Error.Show();
                         }
                         else
                         {
-                            CostCtrl.Update(plan, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, Convert.ToDouble(numericUpDown1.Value));
+                            CostCtrl.Update(plan, PlanQueries.SelectedItem.ToString(), Percent.Checked, MaxPay.Checked, Convert.ToDouble(Cost.Value));
+                            Error.Hide();
                         }
                     }
                     else
                     {
-                        CostCtrl.Update(plan, listBox1.SelectedItem.ToString(), checkBox1.Checked, checkBox2.Checked, Convert.ToDouble(numericUpDown1.Value));
+                        if(PlanQueries.SelectedItem != null)
+                        {
+                            CostCtrl.Update(plan, PlanQueries.SelectedItem.ToString(), Percent.Checked, MaxPay.Checked, Convert.ToDouble(Cost.Value));
+                            ChangeCostsSuccess CCS = new ChangeCostsSuccess();
+                            CCS.Show();
+                        }
+                        
                     }
-                    this.Refresh();
+                    RefreshForm();   
                 }
             }
+            
+
         }
+        public void RefreshForm()
+        {
+            
+            this.Refresh();
+        }
+        
     }
 }

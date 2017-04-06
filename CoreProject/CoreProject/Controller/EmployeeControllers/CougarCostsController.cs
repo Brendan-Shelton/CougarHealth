@@ -11,16 +11,16 @@ namespace CoreProject.Controller.EmployeeControllers
     public class CougarCostsController
     {
 
-        public DbMgr dbmgr { get; private set; }
+        public DbMgr Mgr { get; private set; }
         private IEnumerable<InsurancePlan> Plans { get; }
         public CougarCostsController()
         {
-            this.dbmgr = DbMgr.Instance;
-            this.Plans = dbmgr.GetPlans();
+            this.Mgr = DbMgr.Instance;
+            this.Plans = Mgr.GetPlans();
         }
         
         /// <summary>
-        /// Get all plans from DbMgr
+        /// Get all plans from Mgr
         /// </summary>
         /// <returns></returns>
         public IEnumerable<InsurancePlan> GetPlans()
@@ -28,13 +28,13 @@ namespace CoreProject.Controller.EmployeeControllers
             return Plans;
         }
         /// <summary>
-        /// Get one plan from DbMgr
+        /// Get one plan from Mgr
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
         public InsurancePlan GetPlan(String name)
         {
-            return dbmgr.GetPlanByType(name);
+            return Mgr.GetPlanByType(name);
         }
         /// <summary>
         /// Gets the number percent, max pay, or copayment
@@ -46,7 +46,7 @@ namespace CoreProject.Controller.EmployeeControllers
         /// <returns></returns>
         public double GetNum(string name, string type, bool isPercent, bool isMaxPay)
         {
-            var plan = dbmgr.GetPlanByType(type);
+            var plan = Mgr.GetPlanByType(type);
             double retVal = 0;
             if(plan != null && !(isPercent && isMaxPay))
             {
@@ -118,28 +118,28 @@ namespace CoreProject.Controller.EmployeeControllers
                 switch (name)
                 {
                     case "Plan Year Max Benefit":
-                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PYMB", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PYMB", percent, max, val);
                         break;
                     case "Out of Pocket Maximum Per Enrollee":
-                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMIndividual", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMIndividual", percent, max, val);
                         break;
                     case "Out of Pocket Maximum Per Family":
-                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMFamily", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMFamily", percent, max, val);
                         break;
                     case "Annual Plan Deductible":
-                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "APD", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "APD", percent, max, val);
                         break;
                     case "Primary Enrollee Fee":
-                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryFee", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryFee", percent, max, val);
                         break;
                     case "Primary Enrollee Change Fee":
-                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryChangeFee", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryChangeFee", percent, max, val);
                         break;
                     case "Dependent Enrollee Fee":
-                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentFee", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentFee", percent, max, val);
                         break;
                     case "Dependent Enrollee Change Fee":
-                        dbmgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentChangeFee", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentChangeFee", percent, max, val);
                         break;
                     default:
                         for (int i = 0; i < plan.ServiceCosts.Length; i++)
@@ -151,15 +151,15 @@ namespace CoreProject.Controller.EmployeeControllers
                                 {
                                     // check for percent greater than 100%
                                     if(val <= 1)
-                                    dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                    Mgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
                                 }
                                 else if (max)
                                 {
-                                    dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                    Mgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
                                 }
                                 else
                                 {
-                                    dbmgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                    Mgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
                                 }
                             }
                         }
