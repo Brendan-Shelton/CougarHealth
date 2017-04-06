@@ -5,89 +5,168 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data;
 using CoreProject.Present;
+using CoreProject.Data.Enrollee;
 namespace CoreProject.Controller.EmployeeControllers
 {
     public class CougarCostsController
     {
 
-        public DbMgr dbmgr { get; private set; }
-
+        public DbMgr Mgr { get; private set; }
+        private IEnumerable<InsurancePlan> Plans { get; }
         public CougarCostsController()
         {
-            this.dbmgr = DbMgr.Instance;
+            this.Mgr = DbMgr.Instance;
+            this.Plans = Mgr.GetPlans();
         }
         
-
-        public void Update(CougarCosts costs)
+        /// <summary>
+        /// Get all plans from Mgr
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<InsurancePlan> GetPlans()
         {
-            dbmgr.adminUpdateVerify(1234, 1, "Benefits", "APD", false, costs.getAPDBasic());
-            dbmgr.adminUpdateVerify(1234, 2, "Benefits", "APD", false, costs.getAPDExtend());
+            return Plans;
+        }
+        /// <summary>
+        /// Get one plan from Mgr
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public InsurancePlan GetPlan(String name)
+        {
+            return Mgr.GetPlanByType(name);
+        }
+        /// <summary>
+        /// Gets the number percent, max pay, or copayment
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="isPercent"></param>
+        /// <param name="isMaxPay"></param>
+        /// <returns></returns>
+        public double GetNum(string name, string type, bool isPercent, bool isMaxPay)
+        {
+            var plan = Mgr.GetPlanByType(type);
+            double retVal = 0;
+            if(plan != null && !(isPercent && isMaxPay))
+            {
+                switch (name)
+                {
+                    case "Plan Year Max Benefit":
+                        retVal = plan.PYMB;
+                        break;
+                    case "Out of Pocket Maximum Per Enrollee":
+                        retVal = plan.OPMIndividual;
+                        break;
+                    case "Out of Pocket Maximum Per Family":
+                        retVal = plan.OPMFamily;
+                        break;
+                    case "Annual Plan Deductible":
+                        retVal = plan.APD;
+                        break;
+                    case "Primary Enrollee Fee":
+                        retVal = plan.PrimaryFee;
+                        break;
+                    case "Primary Enrollee Change Fee":
+                        retVal = plan.PrimaryChangeFee;
+                        break;
+                    case "Dependent Enrollee Fee":
+                        retVal = plan.DependentFee;
+                        break;
+                    case "Dependent Enrollee Change Fee":
+                        retVal = plan.DependentChangeFee;
+                        break;
+                    default:
+                        for (int i = 0; i < plan.ServiceCosts.Length; i++)
+                        {
+                            if (plan.ServiceCosts[i].Name.Equals(name))
+                            {
+                                if (isPercent)
+                                {
+                                    retVal = plan.ServiceCosts[i].PercentCoverage;
+                                }
+                                else if (isMaxPay)
+                                {
+                                    retVal = plan.ServiceCosts[i].InNetMax.Item1;
+                                }
+                                else
+                                {
+                                    retVal = plan.ServiceCosts[i].RequiredCopayment;
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
+            
 
-            dbmgr.adminUpdateVerify(1234, 1, "Benefits", "PYMB", false, costs.getPYMBBasic());
-            dbmgr.adminUpdateVerify(1234, 2, "Benefits", "PYMB", false, costs.getPYMBExtend());
+            return retVal;
+        }
 
-            dbmgr.adminUpdateVerify(1234, 1, "Benefits", "PrimaryFee", false, costs.getPrimaryBasicFee());
-            dbmgr.adminUpdateVerify(1234, 2, "Benefits", "PrimaryFee", false, costs.getPrimaryExtendFee());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Benefits", "PrimaryChangeFee", false, costs.getPrimaryBasicFee());
-            dbmgr.adminUpdateVerify(1234, 2, "Benefits", "PrimaryChangeFee", false, costs.getPrimaryExtendFee());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Benefits", "OPMFamily", false, costs.getOPMFBasic());
-            dbmgr.adminUpdateVerify(1234, 2, "Benefits", "OPMFamily", false, costs.getOPMFExtend());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Benefits", "OPMIndividual", false, costs.getOPMIBasic());
-            dbmgr.adminUpdateVerify(1234, 2, "Benefits", "OPMIndividual", false, costs.getOPMIExtend());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Hospital", "Inpatient", true, costs.getInpatientBasicPercent()/100);
-            dbmgr.adminUpdateVerify(1234, 2, "Hospital", "Inpatient", true, costs.getInpatientExtendPercent()/100);
-
-            dbmgr.adminUpdateVerify(1234, 1, "Hospital", "Inpatient", false, costs.getInpatientBasicCopay());
-            dbmgr.adminUpdateVerify(1234, 2, "Hospital", "Inpatient", false, costs.getInpatientExtendCopay());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Hospital", "Inpatient (Behavioral Health", true, costs.getIBHBasicPercent()/100);
-            dbmgr.adminUpdateVerify(1234, 2, "Hospital", "Inpatient (Behavioral Health", true, costs.getIBHExtendPercent()/100);
-
-            dbmgr.adminUpdateVerify(1234, 1, "Hospital", "Inpatient (Behavioral Health", false, costs.getIBHBasicCopay());
-            dbmgr.adminUpdateVerify(1234, 2, "Hospital", "Inpatient (Behavioral Health", false, costs.getIBHExtendCopay());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Hospital", "Emergency Room", true, costs.getERBasicPercent()/100);
-            dbmgr.adminUpdateVerify(1234, 2, "Hospital", "Emergency Room", true, costs.getERExtendPercent()/100);
-
-            dbmgr.adminUpdateVerify(1234, 1, "Hospital", "Emergency Room", false, costs.getERBasicCopay());
-            dbmgr.adminUpdateVerify(1234, 2, "Hospital", "Emergency Room", false, costs.getERExtendCopay());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Hospital", "Outpatient Surgery", true, costs.getOSBasicPercent()/100);
-            dbmgr.adminUpdateVerify(1234, 2, "Hospital", "Outpatient Surgery", true, costs.getOSExtendPercent()/100);
-
-            dbmgr.adminUpdateVerify(1234, 1, "Hospital", "Outpatient Surgery", false, costs.getOSBasicCopay());
-            dbmgr.adminUpdateVerify(1234, 2, "Hospital", "Outpatient Surgery", false, costs.getOSExtendcopay());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Hospital", "Diagnostic Lab and x-ray", true, costs.getDLXrayBasic()/100);
-            dbmgr.adminUpdateVerify(1234, 2, "Hospital", "Diagnostic Lab and x-ray", true, costs.getDLXrayExtend() / 100);
-
-            dbmgr.adminUpdateVerify(1234, 1, "Physician", "Office Visit", true, costs.getPOVBasicPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Physician", "Office Visit", true, costs.getPOVExtendPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Physician", "Office Visit", false, costs.getPOVExtendCopay());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Physician", "Specialist Visit", true, costs.getSOVBasicPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Physician", "Specialist Visit", true, costs.getSOVExtendPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Physician", "Specialist Visit", false, costs.getSOVExtendCopay());
-
-            dbmgr.adminUpdateVerify(1234, 1, "Physician", "Preventive Services", true, costs.getPSBasicPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Physician", "Preventive Services", true, costs.getPSExtendPercent() / 100);
-
-            dbmgr.adminUpdateVerify(1234, 1, "Physician", "Baby Services", true, costs.getBCBasicPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Physician", "Baby Services", true, costs.getBCExtendPercent() / 100);
-
-            dbmgr.adminUpdateVerify(1234, 1, "Other", "Durable Medical Equipment", true, costs.getDMEBasicPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Other", "Durable Medical Equipment", true, costs.getDMEExtendPercent() / 100);
-
-            dbmgr.adminUpdateVerify(1234, 1, "Other", "Nursing Facility", true, costs.getNFBasicPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Other", "Nursing Facility", true, costs.getNFExtendPercent() / 100);
-
-            dbmgr.adminUpdateVerify(1234, 1, "Other", "Physical Therapy", true, costs.getPTBasicPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Other", "Physical Therapy", true, costs.getPTExtendPercent() / 100);
-            dbmgr.adminUpdateVerify(1234, 2, "Other", "Physical Therapy", false, costs.getPTExtendCopay());
+        /// <summary>
+        /// Updates one cost at a time
+        /// </summary>
+        /// <param name="plan"></param>
+        /// <param name="name"></param>
+        /// <param name="percent"></param>
+        /// <param name="max"></param>
+        /// <param name="val"></param>
+        public void Update(InsurancePlan plan, string name, bool percent, bool max, double val)
+        {
+            if(plan != null && val >= 0)
+            {
+                switch (name)
+                {
+                    case "Plan Year Max Benefit":
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PYMB", percent, max, val);
+                        break;
+                    case "Out of Pocket Maximum Per Enrollee":
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMIndividual", percent, max, val);
+                        break;
+                    case "Out of Pocket Maximum Per Family":
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMFamily", percent, max, val);
+                        break;
+                    case "Annual Plan Deductible":
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "APD", percent, max, val);
+                        break;
+                    case "Primary Enrollee Fee":
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryFee", percent, max, val);
+                        break;
+                    case "Primary Enrollee Change Fee":
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryChangeFee", percent, max, val);
+                        break;
+                    case "Dependent Enrollee Fee":
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentFee", percent, max, val);
+                        break;
+                    case "Dependent Enrollee Change Fee":
+                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentChangeFee", percent, max, val);
+                        break;
+                    default:
+                        for (int i = 0; i < plan.ServiceCosts.Length; i++)
+                        {
+                            if (plan.ServiceCosts[i].Name.Equals(name))
+                            {
+                                // checks bools and if true executes for that value
+                                if (percent)
+                                {
+                                    // check for percent greater than 100%
+                                    if(val <= 1)
+                                    Mgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                }
+                                else if (max)
+                                {
+                                    Mgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                }
+                                else
+                                {
+                                    Mgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
+            
            
         }
     }

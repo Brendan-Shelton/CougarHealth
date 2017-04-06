@@ -446,11 +446,11 @@ namespace CoreProject.Data
         }
 
         public void adminUpdateVerify(int passkey, int planType, String category,
-            String name, Boolean percent, double val)
+            String name, Boolean percent, Boolean max, double val)
         {
             if (passkey == AdminPassKey)
             {
-                adminUpdatePlan(planType, category, name, percent, val);
+                adminUpdatePlan(planType, category, name, percent, max, val);
             }
         }
 
@@ -465,7 +465,7 @@ namespace CoreProject.Data
         /// <param name="percent"></param>
         /// <param name="val"></param>
         
-        private void adminUpdatePlan(int planType, String category, String name, Boolean percent, double val)
+        private void adminUpdatePlan(int planType, String category, String name, Boolean percent, Boolean max, double val)
         {
 
             //APD = 250.0,
@@ -510,12 +510,16 @@ namespace CoreProject.Data
                     {
                         for (int j = 0; j < Plans[i].ServiceCosts.Count(); j++)
                         {
-                            if (Plans[i].ServiceCosts[j].Category.Equals(category) &&
-                                Plans[i].ServiceCosts[j].Name.Equals(name))
+                            Tuple<double, Service.MaxPayRate> temp = Plans[i].ServiceCosts[j].InNetMax;
+                            if (Plans[i].ServiceCosts[j].Name.Equals(name))
                             {
                                 if (percent == true)
                                 {
                                     Plans[i].ServiceCosts[j].PercentCoverage = val;
+                                }
+                                else if (max)
+                                {
+                                    Plans[i].ServiceCosts[j].InNetMax = new Tuple<double, Service.MaxPayRate>(val, temp.Item2);
                                 }
                                 else
                                 {

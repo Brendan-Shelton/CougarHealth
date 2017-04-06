@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreProject.Controller.EmployeeControllers;
+using CoreProject.Data.Enrollee;
 
 namespace CoreProject.Present
 {
@@ -18,6 +19,25 @@ namespace CoreProject.Present
         {
             this.CostCtrl = CoCtrl;
             InitializeComponent();
+
+            //get the plans from the Controller
+            var Plans = CostCtrl.GetPlans();
+            // Each text field for Basic plan
+            PYMBBasic.Text = Plans.ElementAt(0).PYMB.ToString();
+            OPMIBasic.Text = Plans.ElementAt(0).OPMIndividual.ToString();
+            OPMFBasic.Text = Plans.ElementAt(0).OPMFamily.ToString();
+            APDBasic.Text = Plans.ElementAt(0).APD.ToString();
+            PrimaryBasicFee.Text = Plans.ElementAt(0).PrimaryFee.ToString();
+            DependentBasicFee.Text = Plans.ElementAt(0).DependentFee.ToString();
+            InpatientBasicPercent.Text = Plans.ElementAt(0).ServiceCosts[0].PercentCoverage.ToString();
+            InpatientBasicCopay.Text = Plans.ElementAt(0).ServiceCosts[0].RequiredCopayment.ToString();
+            IBHBasicPercent.Text = Plans.ElementAt(0).ServiceCosts[1].PercentCoverage.ToString();
+            IBHBasicCopay.Text = Plans.ElementAt(0).ServiceCosts[1].RequiredCopayment.ToString();
+            ERBasicPercent.Text = Plans.ElementAt(0).ServiceCosts[2].PercentCoverage.ToString();
+            ERBasicCopay.Text = Plans.ElementAt(0).ServiceCosts[2].RequiredCopayment.ToString();
+
+
+
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -37,7 +57,7 @@ namespace CoreProject.Present
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CostCtrl.Update(this);
+            
             this.Hide();
         }
 
