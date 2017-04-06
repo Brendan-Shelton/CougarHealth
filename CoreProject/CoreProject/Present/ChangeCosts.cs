@@ -90,7 +90,7 @@ namespace CoreProject.Present
                     PlanQueries.Items.Add("Dependent Enrollee Fee");
                     PlanQueries.Items.Add("Dependent Enrollee Change Fee");
 
-                    for (int i = 0; i < plan.ServiceCosts.Length; i++)
+                    for (int i = 0; i < plan.ServiceCosts.Count(); i++)
                     {
                         PlanQueries.Items.Add(plan.ServiceCosts[i].Name);
                     }

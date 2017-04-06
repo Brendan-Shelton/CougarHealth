@@ -77,7 +77,7 @@ namespace CoreProject.Controller.EmployeeControllers
                         retVal = plan.DependentChangeFee;
                         break;
                     default:
-                        for (int i = 0; i < plan.ServiceCosts.Length; i++)
+                        for (int i = 0; i < plan.ServiceCosts.Count(); i++)
                         {
                             if (plan.ServiceCosts[i].Name.Equals(name))
                             {
@@ -142,7 +142,7 @@ namespace CoreProject.Controller.EmployeeControllers
                         Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentChangeFee", percent, max, val);
                         break;
                     default:
-                        for (int i = 0; i < plan.ServiceCosts.Length; i++)
+                        for (int i = 0; i < plan.ServiceCosts.Count(); i++)
                         {
                             if (plan.ServiceCosts[i].Name.Equals(name))
                             {
