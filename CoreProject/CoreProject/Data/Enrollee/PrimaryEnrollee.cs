@@ -11,11 +11,14 @@ namespace CoreProject.Data.Enrollee
         public PrimaryEnrollee(string pin) : base(pin)
         {
         }
-
+        
         /// <summary>
         /// optional for the enrollee to have
         /// </summary>
         public string BillingAddr { get; set; } = null;
+
+        public override bool IsPrimary => true;
+
         public string MailingAddr { get; set; }
     }
 }

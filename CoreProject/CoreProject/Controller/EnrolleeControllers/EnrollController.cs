@@ -219,7 +219,21 @@ namespace CoreProject.Controller.EnrolleeControllers
 
         public int? LoginPrimary(string email, string pin)
         {
-            return Mgr.Login(email, pin);
+            Enrollee enrollee = LoginEnrollee(email, pin);
+            if (enrollee.IsPrimary) return enrollee.Id;
+            else throw new DataException("Enrollee doesn't have primary permission");
+        }
+
+        public Enrollee LoginEnrollee( string email, string pin )
+        {
+            Enrollee enrollee = Mgr.EnrolleeByEmail(email);
+            var except = new AuthenticationException();
+            enrollee.Login(email, pin, except);
+            if ( except.IsProblem )
+            {
+                throw except;
+            }
+            return enrollee;
         }
 
         /// <summary>

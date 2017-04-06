@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreProject.Data.Employees;
+using System.Security.Cryptography;
 
 namespace CoreProject.Data.Enrollee
 {
-    public class Enrollee
+    public abstract class Enrollee: AuthUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -41,6 +43,12 @@ namespace CoreProject.Data.Enrollee
             }
         }
 
+        /// <summary>
+        /// A abstract readonly property that is implemented in the 
+        /// subclasses. 
+        /// </summary>
+        public abstract bool IsPrimary { get; }
+
         private string _ssn;
         /// <summary>
         /// Can only be set once because it is unique to the PrimaryEnrollee
@@ -59,13 +67,7 @@ namespace CoreProject.Data.Enrollee
         public Enrollee( string pin )
         {
             this.Id = ++idCount;
-            this.changePIN(pin);
-        }
-
-        public void changePIN(string newPin)
-        {
-            //TODO: hash pin 
-            this.Pin = newPin;
+            this.Pin = Passwordify(pin);
         }
 
         /// <summary>
@@ -88,6 +90,21 @@ namespace CoreProject.Data.Enrollee
         public override int GetHashCode()
         {
             return this.SSN.GetHashCode();
+        }
+
+        public override bool ValidPass(string password, string confPass, CreationException exception)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool ValidUser(string userName, CreationException exception)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AuthUser Login(string userName, string password, AuthenticationException exception)
+        {
+            throw new NotImplementedException();
         }
     }
 }

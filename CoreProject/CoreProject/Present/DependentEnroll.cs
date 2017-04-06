@@ -15,7 +15,7 @@ namespace CoreProject.Present
     {
         public EnrollController EnrollCtrl { get; set; }
         private int _primaryId;
-        public DependentEnroll( int primary )
+        public DependentEnroll( int primary, bool isPrimary )
         {
             this._primaryId = primary;
             EnrollCtrl = new EnrollController();

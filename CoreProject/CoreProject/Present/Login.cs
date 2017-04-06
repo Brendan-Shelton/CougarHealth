@@ -24,18 +24,24 @@ namespace CoreProject.Present
 
         private void loginSubmit_Click(object sender, EventArgs e)
         {
-            var enrollee = EnrollCtrl.LoginPrimary(this.emailLogin.Text, this.pinLogin.Text);
+            var enrollee = EnrollCtrl.LoginEnrollee(this.emailLogin.Text, this.pinLogin.Text);
             if (enrollee != null)
             {
                 Form form;
-                if ( LoginFor == typeof(DependentEnroll) )
+                if ( LoginFor == typeof(DependentEnroll) && enrollee.IsPrimary )
                 {
-                    form = new DependentEnroll(enrollee.Value);
+                    form = new DependentEnroll(enrollee.Id, enrollee.IsPrimary);
 
+                }
+                else if ( LoginFor == typeof(ModifyPlan) && enrollee.IsPrimary)
+                {
+                    form = new ModifyPlan(enrollee.Id, enrollee.IsPrimary);
                 }
                 else
                 {
-                    form = new ModifyPlan(enrollee.Value);
+                    this.errMsg.Text = @"You don't not have permissions to access this form";
+                    this.errMsg.Visible = true;
+                    return;
                 }
 
                 form.Show();

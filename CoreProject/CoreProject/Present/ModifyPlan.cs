@@ -31,7 +31,7 @@ namespace CoreProject.Present
         /// Login the user with the ModifyPlanController. And create the Data source 
         /// </summary>
         /// <param name="primaryId"></param>
-        public ModifyPlan(int primaryId) : this()
+        public ModifyPlan(int primaryId, bool isPrimary) : this()
         {  
             this._primaryId = primaryId;
             this.Ctrl = new ModifyPlanController(primaryId);

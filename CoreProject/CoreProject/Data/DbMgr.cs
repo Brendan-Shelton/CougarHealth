@@ -35,23 +35,8 @@ namespace CoreProject.Data
         /// <summary>
         /// A fake DB set for primary enrollees that we create
         /// </summary>
-        public HashSet<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; } = new HashSet<PrimaryEnrollee>()
-        {
-            // temp test enrollee 
-            new PrimaryEnrollee ("1234")
-            {
-                Email = "guest@guest",
-                FirstName = "Guest",
-                LastName = "Guest",
-                HomePhone = "5555555555",
-                MobilePhone = "5555555555",
-                BillingAddr = "666 Avenue St.",
-                MailingAddr = "666 Avenue St.",
-                SSN = "123456789"
-            }
-
-        };
-
+        public HashSet<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; } = new HashSet<PrimaryEnrollee>();
+        public HashSet<Enrollee.Enrollee> EnrolleeSet { get; set; }
         public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
 
 
@@ -551,10 +536,19 @@ namespace CoreProject.Data
         /// </summary>
         private DbMgr()
         {
-            // get the guest account so we can add it to an enrollee plan 
-            var guest = ( from enrollee in this.PrimaryEnrolleeSet
-                          where enrollee.FirstName == "Guest"
-                          select enrollee ).FirstOrDefault();
+            // temp test enrollee 
+            var guest = new PrimaryEnrollee("1234")
+            {
+                Email = "guest@guest",
+                FirstName = "Guest",
+                LastName = "Guest",
+                HomePhone = "5555555555",
+                MobilePhone = "5555555555",
+                BillingAddr = "666 Avenue St.",
+                MailingAddr = "666 Avenue St.",
+                SSN = "123456789"
+            };
+            this.SaveEnrollee(guest);
             var basic = ( from insurance in Plans
                           where insurance.Type == "Basic"
                           select insurance ).FirstOrDefault();
@@ -572,11 +566,21 @@ namespace CoreProject.Data
         /// if the enrollee already exists we throw a data exception
         /// </summary>
         /// <param name="enrollee"></param>
-        public void SaveEnrollee(PrimaryEnrollee enrollee)
+        public void SaveEnrollee(Enrollee.Enrollee enrollee)
         {
-            if ( !PrimaryEnrolleeSet.Add(enrollee) )
+            if ( !EnrolleeSet.Add(enrollee) )
             {
                 throw new DataException($"{enrollee.FirstName} was already in our system");
+            }
+            if ( enrollee is PrimaryEnrollee && 
+                !PrimaryEnrolleeSet.Add((PrimaryEnrollee)enrollee) )
+            {
+                throw new DataException($"{enrollee.FirstName} was already" + 
+                    " in our system as primary enrollee");
+            }
+            else
+            {
+                DependentEnrolleSet.Add((DependentEnrollee)enrollee);
             }
         }
 
@@ -593,8 +597,8 @@ namespace CoreProject.Data
                                    select policy ).First();
                 plan.PlanNum = updatePlan.PlanNum;
                 PlanSet.Remove(updatePlan);
-            PlanSet.Add(plan); 
-        }
+                PlanSet.Add(plan); 
+            }
         }
 
         /// <summary>
@@ -635,7 +639,7 @@ namespace CoreProject.Data
                      select hsp ).FirstOrDefault();
         }
 
-        public Enrollee.InsurancePlan GetPlanByType( string type )
+        public InsurancePlan GetPlanByType( string type )
         {
             
             return ( from plan in Plans
@@ -643,7 +647,7 @@ namespace CoreProject.Data
                      select plan ).FirstOrDefault();
         }
 
-        public IEnumerable<Enrollee.InsurancePlan> GetPlans()
+        public IEnumerable<InsurancePlan> GetPlans()
         {
             return Plans;
         }
@@ -652,6 +656,8 @@ namespace CoreProject.Data
         /// Find the enrollee with the matching email and password. If no 
         /// enrollee exists then the query will return 0 and in which case 
         /// we return null.
+        /// 
+        /// DEPRECATED 
         /// </summary>
         /// <param name="email"></param>
         /// <param name="pin"></param>
@@ -665,6 +671,20 @@ namespace CoreProject.Data
             if (resultId == 0) return null;
             return resultId;
 
+        }
+
+        /// <summary>
+        /// Grabs the enrollee object by there email and trys to authenicate
+        /// them. If authentication fails then it returns null.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Enrollee.Enrollee EnrolleeByEmail ( string email )
+        {
+            Enrollee.Enrollee enrolleeResult = ( from enrollee in EnrolleeSet
+                                                 where enrollee.Email == email
+                                                 select enrollee ).FirstOrDefault();
+            return enrolleeResult;
         }
 
         /// <summary>
@@ -691,7 +711,6 @@ namespace CoreProject.Data
                      where plan.PrimaryEnrollee == primaryId
                      select plan ).FirstOrDefault();
         }
-        public void SaveEnrollee(Enrollee.Enrollee enrollee) { }
 
         public Enrollee.Enrollee GetEnrolleeByName(String f, String l)
         {

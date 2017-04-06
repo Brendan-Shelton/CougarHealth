@@ -9,6 +9,9 @@ namespace CoreProject.Data.Enrollee
     public class DependentEnrollee: Enrollee
     {
         public string Relationship { get; set; }
+
+        public override bool IsPrimary => false;
+
         public DependentEnrollee( string pin ): base(pin)
         {
             
