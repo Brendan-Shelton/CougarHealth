@@ -75,5 +75,10 @@ namespace CoreProject.Present
             var removeGUI = new RemovePlan(removeCtrl);
             removeGUI.Show();
         }
+
+        private void EmployeePortal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

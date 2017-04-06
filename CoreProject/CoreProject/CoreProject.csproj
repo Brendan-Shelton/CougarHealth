@@ -283,6 +283,9 @@
     <EmbeddedResource Include="Present\ModifyPlan.resx">
       <DependentUpon>ModifyPlan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Present\MonthlyReport.resx">
+      <DependentUpon>MonthlyReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\PrimaryEnroll.resx">
       <DependentUpon>PrimaryEnroll.cs</DependentUpon>
     </EmbeddedResource>

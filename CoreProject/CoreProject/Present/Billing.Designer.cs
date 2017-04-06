@@ -48,9 +48,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(509, 237);
+            this.button1.Location = new System.Drawing.Point(382, 193);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 23);
+            this.button1.Size = new System.Drawing.Size(94, 19);
             this.button1.TabIndex = 0;
             this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = true;
@@ -59,9 +60,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 30);
+            this.label1.Location = new System.Drawing.Point(10, 24);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 17);
+            this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Policy Number";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -69,40 +71,43 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 67);
+            this.label2.Location = new System.Drawing.Point(10, 54);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 17);
+            this.label2.Size = new System.Drawing.Size(81, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Patient Enrollee";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 106);
+            this.label3.Location = new System.Drawing.Point(9, 86);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 17);
+            this.label3.Size = new System.Drawing.Size(93, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Services Provided";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(155, 30);
+            this.textBox1.Location = new System.Drawing.Point(116, 24);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(211, 22);
+            this.textBox1.Size = new System.Drawing.Size(159, 20);
             this.textBox1.TabIndex = 7;
             this.textBox1.TabStop = false;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(155, 67);
+            this.textBox3.Location = new System.Drawing.Point(116, 54);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(211, 22);
+            this.textBox3.Size = new System.Drawing.Size(159, 20);
             this.textBox3.TabIndex = 9;
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
             this.listBox1.Items.AddRange(new object[] {
             "Inpatient",
             "Inpatient (Behavioral Health)",
@@ -118,38 +123,42 @@
             "Durable Medical Equipment",
             "Nursing Facility",
             "Physical Therapy"});
-            this.listBox1.Location = new System.Drawing.Point(155, 106);
+            this.listBox1.Location = new System.Drawing.Point(116, 86);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(211, 116);
+            this.listBox1.Size = new System.Drawing.Size(159, 95);
             this.listBox1.TabIndex = 11;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 237);
+            this.label4.Location = new System.Drawing.Point(9, 193);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 17);
+            this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 12;
             this.label4.Text = "Service Cost";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(155, 237);
+            this.numericUpDown1.Location = new System.Drawing.Point(116, 193);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDown1.Size = new System.Drawing.Size(90, 20);
             this.numericUpDown1.TabIndex = 13;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(291, 237);
+            this.button2.Location = new System.Drawing.Point(218, 193);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(56, 19);
             this.button2.TabIndex = 14;
             this.button2.Text = "Add";
             this.button2.UseVisualStyleBackColor = true;
@@ -158,17 +167,18 @@
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(413, 67);
+            this.listBox2.Location = new System.Drawing.Point(310, 54);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(221, 164);
+            this.listBox2.Size = new System.Drawing.Size(167, 134);
             this.listBox2.TabIndex = 15;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(509, 264);
+            this.button3.Location = new System.Drawing.Point(382, 214);
+            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(125, 23);
+            this.button3.Size = new System.Drawing.Size(94, 19);
             this.button3.TabIndex = 16;
             this.button3.Text = "View Invoice";
             this.button3.UseVisualStyleBackColor = true;
@@ -178,33 +188,37 @@
             // errMsg
             // 
             this.errMsg.AutoSize = true;
-            this.errMsg.Location = new System.Drawing.Point(12, 270);
+            this.errMsg.Location = new System.Drawing.Point(9, 219);
+            this.errMsg.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.errMsg.Name = "errMsg";
-            this.errMsg.Size = new System.Drawing.Size(418, 17);
+            this.errMsg.Size = new System.Drawing.Size(313, 13);
             this.errMsg.TabIndex = 17;
             this.errMsg.Text = "You have inputted an incorrect Policy Number or Patient Enrollee";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(382, 35);
+            this.label5.Location = new System.Drawing.Point(286, 28);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 17);
+            this.label5.Size = new System.Drawing.Size(60, 13);
             this.label5.TabIndex = 18;
             this.label5.Text = "HSP Name";
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(465, 34);
+            this.textBox2.Location = new System.Drawing.Point(349, 28);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(169, 22);
+            this.textBox2.Size = new System.Drawing.Size(128, 20);
             this.textBox2.TabIndex = 19;
             // 
             // Billing
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 319);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(241)))), ((int)(((byte)(224)))));
+            this.ClientSize = new System.Drawing.Size(511, 259);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.errMsg);
@@ -220,6 +234,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Billing";
             this.Text = "Billing";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();

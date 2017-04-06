@@ -36,17 +36,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(48, 49);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(36, 40);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(291, 29);
+            this.label1.Size = new System.Drawing.Size(229, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Cost Change Successful";
             // 
             // Submit
             // 
-            this.Submit.Location = new System.Drawing.Point(264, 108);
+            this.Submit.Location = new System.Drawing.Point(198, 88);
+            this.Submit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Submit.Name = "Submit";
-            this.Submit.Size = new System.Drawing.Size(75, 23);
+            this.Submit.Size = new System.Drawing.Size(56, 19);
             this.Submit.TabIndex = 1;
             this.Submit.Text = "OK";
             this.Submit.UseVisualStyleBackColor = true;
@@ -54,13 +57,15 @@
             // 
             // ChangeCostsSuccess
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(394, 173);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
+            this.ClientSize = new System.Drawing.Size(296, 141);
             this.Controls.Add(this.Submit);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ChangeCostsSuccess";
-            this.Text = "ChangeCostsSuccess";
+            this.Text = "Success";
             this.ResumeLayout(false);
             this.PerformLayout();
 

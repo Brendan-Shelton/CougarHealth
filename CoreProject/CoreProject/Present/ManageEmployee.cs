@@ -72,7 +72,7 @@ namespace CoreProject.Present
                     this.ToModify
                 );
                 DialogResult dialog = MessageBox.Show(
-                    $"Success Employee Id: {successId}", "", 
+                    $"Success Employee \"{this.Username.Text}\" has been changed", "", 
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Information);
                 

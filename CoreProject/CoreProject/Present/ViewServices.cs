@@ -13,7 +13,7 @@ namespace CoreProject.Present
 {
     public partial class ViewServices : Form
     {
-        public Service[] Services { get; set; }
+        public List<Service> Services { get; set; }
         public ViewServices(InsurancePlan plan)
         {
             this.Services = plan.ServiceCosts;

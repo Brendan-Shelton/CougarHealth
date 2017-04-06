@@ -53,6 +53,7 @@
             // 
             this.RangeReportTitle.AutoSize = true;
             this.RangeReportTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RangeReportTitle.ForeColor = System.Drawing.Color.White;
             this.RangeReportTitle.Location = new System.Drawing.Point(239, 23);
             this.RangeReportTitle.Name = "RangeReportTitle";
             this.RangeReportTitle.Size = new System.Drawing.Size(180, 25);
@@ -80,6 +81,7 @@
             // 
             this.BeginningDateLabel.AutoSize = true;
             this.BeginningDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BeginningDateLabel.ForeColor = System.Drawing.Color.White;
             this.BeginningDateLabel.Location = new System.Drawing.Point(167, 67);
             this.BeginningDateLabel.Name = "BeginningDateLabel";
             this.BeginningDateLabel.Size = new System.Drawing.Size(94, 13);
@@ -90,6 +92,7 @@
             // 
             this.EndingDateLabel.AutoSize = true;
             this.EndingDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EndingDateLabel.ForeColor = System.Drawing.Color.White;
             this.EndingDateLabel.Location = new System.Drawing.Point(388, 67);
             this.EndingDateLabel.Name = "EndingDateLabel";
             this.EndingDateLabel.Size = new System.Drawing.Size(77, 13);
@@ -111,6 +114,7 @@
             // 
             this.BeginningDateDisplayLabel.AutoSize = true;
             this.BeginningDateDisplayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BeginningDateDisplayLabel.ForeColor = System.Drawing.Color.White;
             this.BeginningDateDisplayLabel.Location = new System.Drawing.Point(226, 176);
             this.BeginningDateDisplayLabel.Name = "BeginningDateDisplayLabel";
             this.BeginningDateDisplayLabel.Size = new System.Drawing.Size(45, 13);
@@ -132,6 +136,7 @@
             // 
             this.EndingDateDisplayLabel.AutoSize = true;
             this.EndingDateDisplayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EndingDateDisplayLabel.ForeColor = System.Drawing.Color.White;
             this.EndingDateDisplayLabel.Location = new System.Drawing.Point(374, 176);
             this.EndingDateDisplayLabel.Name = "EndingDateDisplayLabel";
             this.EndingDateDisplayLabel.Size = new System.Drawing.Size(45, 13);
@@ -143,6 +148,7 @@
             // 
             this.CostsLabel.AutoSize = true;
             this.CostsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CostsLabel.ForeColor = System.Drawing.Color.White;
             this.CostsLabel.Location = new System.Drawing.Point(131, 192);
             this.CostsLabel.Name = "CostsLabel";
             this.CostsLabel.Size = new System.Drawing.Size(37, 15);
@@ -153,6 +159,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(131, 207);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(391, 13);
@@ -163,6 +170,7 @@
             // 
             this.BasicPlanLabel.AutoSize = true;
             this.BasicPlanLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BasicPlanLabel.ForeColor = System.Drawing.Color.White;
             this.BasicPlanLabel.Location = new System.Drawing.Point(167, 239);
             this.BasicPlanLabel.Name = "BasicPlanLabel";
             this.BasicPlanLabel.Size = new System.Drawing.Size(261, 13);
@@ -174,6 +182,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(166, 302);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(262, 13);
@@ -183,6 +192,7 @@
             // BasicTotalCostsLabel
             // 
             this.BasicTotalCostsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BasicTotalCostsLabel.ForeColor = System.Drawing.Color.White;
             this.BasicTotalCostsLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BasicTotalCostsLabel.Location = new System.Drawing.Point(433, 234);
             this.BasicTotalCostsLabel.Name = "BasicTotalCostsLabel";
@@ -195,6 +205,7 @@
             // ExtendedTotalCostsLabel
             // 
             this.ExtendedTotalCostsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExtendedTotalCostsLabel.ForeColor = System.Drawing.Color.White;
             this.ExtendedTotalCostsLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ExtendedTotalCostsLabel.Location = new System.Drawing.Point(434, 297);
             this.ExtendedTotalCostsLabel.Name = "ExtendedTotalCostsLabel";
@@ -208,6 +219,7 @@
             // 
             this.BasicPercentLabel.AutoSize = true;
             this.BasicPercentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BasicPercentLabel.ForeColor = System.Drawing.Color.White;
             this.BasicPercentLabel.Location = new System.Drawing.Point(181, 266);
             this.BasicPercentLabel.Name = "BasicPercentLabel";
             this.BasicPercentLabel.Size = new System.Drawing.Size(246, 13);
@@ -216,6 +228,7 @@
             // 
             // BasicPercNumLabel
             // 
+            this.BasicPercNumLabel.ForeColor = System.Drawing.Color.White;
             this.BasicPercNumLabel.Location = new System.Drawing.Point(433, 261);
             this.BasicPercNumLabel.Name = "BasicPercNumLabel";
             this.BasicPercNumLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -228,6 +241,7 @@
             // 
             this.ExtendedPercentLabel.AutoSize = true;
             this.ExtendedPercentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExtendedPercentLabel.ForeColor = System.Drawing.Color.White;
             this.ExtendedPercentLabel.Location = new System.Drawing.Point(181, 328);
             this.ExtendedPercentLabel.Name = "ExtendedPercentLabel";
             this.ExtendedPercentLabel.Size = new System.Drawing.Size(246, 13);
@@ -236,6 +250,7 @@
             // 
             // ExtendedPercNumLabel
             // 
+            this.ExtendedPercNumLabel.ForeColor = System.Drawing.Color.White;
             this.ExtendedPercNumLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ExtendedPercNumLabel.Location = new System.Drawing.Point(433, 323);
             this.ExtendedPercNumLabel.Name = "ExtendedPercNumLabel";
@@ -249,7 +264,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Salmon;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.ClientSize = new System.Drawing.Size(659, 416);
             this.Controls.Add(this.ExtendedPercNumLabel);
             this.Controls.Add(this.ExtendedPercentLabel);
@@ -271,7 +286,7 @@
             this.Controls.Add(this.BeginningDatePicker);
             this.Controls.Add(this.RangeReportTitle);
             this.Name = "ExpenseReport";
-            this.Text = "ExpenseReport";
+            this.Text = "Expense Report";
             this.ResumeLayout(false);
             this.PerformLayout();
 

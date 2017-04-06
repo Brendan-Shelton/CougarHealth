@@ -21,6 +21,11 @@ namespace CoreProject.Present
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Creates an employee account using the fields of the form 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Submit_Click(object sender, EventArgs e)
         {
             try
@@ -32,7 +37,7 @@ namespace CoreProject.Present
                     this.Permission.Text
                 );
                 DialogResult dialog = MessageBox.Show(
-                    $"Success Employee Id: {newId}", "", 
+                    $"Success Employee {Username.Text} has been made", "", 
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Information);
                 

@@ -50,8 +50,8 @@
             this.networkStatus = new System.Windows.Forms.CheckBox();
             this.error = new System.Windows.Forms.Label();
             this.finishPane = new System.Windows.Forms.Panel();
-            this.thanks = new System.Windows.Forms.Label();
             this.donezo = new System.Windows.Forms.Button();
+            this.thanks = new System.Windows.Forms.Label();
             this.finishPane.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -281,16 +281,6 @@
             this.finishPane.TabIndex = 30;
             this.finishPane.Visible = false;
             // 
-            // thanks
-            // 
-            this.thanks.AutoSize = true;
-            this.thanks.Font = new System.Drawing.Font("Arial Narrow", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.thanks.Location = new System.Drawing.Point(115, 65);
-            this.thanks.Name = "thanks";
-            this.thanks.Size = new System.Drawing.Size(280, 31);
-            this.thanks.TabIndex = 0;
-            this.thanks.Text = "Congratulations you\'ve won";
-            // 
             // donezo
             // 
             this.donezo.Location = new System.Drawing.Point(356, 240);
@@ -301,11 +291,21 @@
             this.donezo.UseVisualStyleBackColor = true;
             this.donezo.Click += new System.EventHandler(this.donezo_Click);
             // 
+            // thanks
+            // 
+            this.thanks.AutoSize = true;
+            this.thanks.Font = new System.Drawing.Font("Arial Narrow", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.thanks.Location = new System.Drawing.Point(115, 65);
+            this.thanks.Name = "thanks";
+            this.thanks.Size = new System.Drawing.Size(280, 31);
+            this.thanks.TabIndex = 0;
+            this.thanks.Text = "Congratulations you\'ve won";
+            // 
             // HSPAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Coral;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(241)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(771, 420);
             this.Controls.Add(this.finishPane);
             this.Controls.Add(this.error);
@@ -331,7 +331,7 @@
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "HSPAccount";
-            this.Text = "HSPAccount";
+            this.Text = "Create an account";
             this.finishPane.ResumeLayout(false);
             this.finishPane.PerformLayout();
             this.ResumeLayout(false);

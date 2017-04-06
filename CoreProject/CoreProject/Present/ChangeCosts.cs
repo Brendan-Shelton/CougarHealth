@@ -184,6 +184,5 @@ namespace CoreProject.Present
             
             this.Refresh();
         }
-        
     }
 }

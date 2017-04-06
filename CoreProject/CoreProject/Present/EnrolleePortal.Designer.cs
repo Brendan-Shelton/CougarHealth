@@ -38,7 +38,7 @@
             // 
             this.heading.AutoSize = true;
             this.heading.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.heading.ForeColor = System.Drawing.Color.Black;
+            this.heading.ForeColor = System.Drawing.Color.White;
             this.heading.Location = new System.Drawing.Point(464, 103);
             this.heading.Name = "heading";
             this.heading.Size = new System.Drawing.Size(338, 55);
@@ -85,7 +85,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightCoral;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.ModifyPlan);
             this.Controls.Add(this.dependent);

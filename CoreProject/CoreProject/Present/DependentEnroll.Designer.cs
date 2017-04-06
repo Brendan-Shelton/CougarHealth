@@ -40,6 +40,9 @@
             this.personNext = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.contactForm = new System.Windows.Forms.Panel();
+            this.confirmPane = new System.Windows.Forms.Panel();
+            this.done = new System.Windows.Forms.Button();
+            this.successMsg = new System.Windows.Forms.Label();
             this.errMsg = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.toFinish = new System.Windows.Forms.Button();
@@ -53,9 +56,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.confirmPane = new System.Windows.Forms.Panel();
-            this.successMsg = new System.Windows.Forms.Label();
-            this.done = new System.Windows.Forms.Button();
             this.contactForm.SuspendLayout();
             this.confirmPane.SuspendLayout();
             this.SuspendLayout();
@@ -192,9 +192,44 @@
             this.contactForm.Visible = false;
             this.contactForm.Paint += new System.Windows.Forms.PaintEventHandler(this.contactForm_Paint);
             // 
+            // confirmPane
+            // 
+            this.confirmPane.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
+            this.confirmPane.Controls.Add(this.done);
+            this.confirmPane.Controls.Add(this.successMsg);
+            this.confirmPane.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.confirmPane.Location = new System.Drawing.Point(0, 0);
+            this.confirmPane.Name = "confirmPane";
+            this.confirmPane.Size = new System.Drawing.Size(787, 459);
+            this.confirmPane.TabIndex = 17;
+            this.confirmPane.Visible = false;
+            // 
+            // done
+            // 
+            this.done.Location = new System.Drawing.Point(667, 378);
+            this.done.Name = "done";
+            this.done.Size = new System.Drawing.Size(75, 23);
+            this.done.TabIndex = 1;
+            this.done.Text = "Done";
+            this.done.UseVisualStyleBackColor = true;
+            this.done.Click += new System.EventHandler(this.done_Click);
+            // 
+            // successMsg
+            // 
+            this.successMsg.AutoSize = true;
+            this.successMsg.Font = new System.Drawing.Font("Arial Narrow", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.successMsg.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.successMsg.Location = new System.Drawing.Point(92, 46);
+            this.successMsg.Name = "successMsg";
+            this.successMsg.Size = new System.Drawing.Size(84, 31);
+            this.successMsg.TabIndex = 0;
+            this.successMsg.Text = "label13";
+            this.successMsg.Visible = false;
+            // 
             // errMsg
             // 
             this.errMsg.AutoSize = true;
+            this.errMsg.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.errMsg.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.errMsg.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.errMsg.Location = new System.Drawing.Point(369, 382);
@@ -207,6 +242,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label12.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label12.Location = new System.Drawing.Point(382, 418);
             this.label12.Name = "label12";
@@ -269,6 +305,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label11.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label11.Location = new System.Drawing.Point(195, 321);
@@ -280,6 +317,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label10.Location = new System.Drawing.Point(73, 176);
@@ -291,6 +329,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label9.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label9.Location = new System.Drawing.Point(175, 245);
@@ -302,6 +341,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label8.Location = new System.Drawing.Point(100, 99);
@@ -313,6 +353,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label7.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label7.Location = new System.Drawing.Point(149, 23);
@@ -321,44 +362,11 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Dependent Enroll > Contact Information";
             // 
-            // confirmPane
-            // 
-            this.confirmPane.Controls.Add(this.done);
-            this.confirmPane.Controls.Add(this.successMsg);
-            this.confirmPane.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.confirmPane.Location = new System.Drawing.Point(0, 0);
-            this.confirmPane.Name = "confirmPane";
-            this.confirmPane.Size = new System.Drawing.Size(787, 459);
-            this.confirmPane.TabIndex = 17;
-            this.confirmPane.Visible = false;
-            // 
-            // successMsg
-            // 
-            this.successMsg.AutoSize = true;
-            this.successMsg.Font = new System.Drawing.Font("Arial Narrow", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.successMsg.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.successMsg.Location = new System.Drawing.Point(92, 46);
-            this.successMsg.Name = "successMsg";
-            this.successMsg.Size = new System.Drawing.Size(84, 31);
-            this.successMsg.TabIndex = 0;
-            this.successMsg.Text = "label13";
-            this.successMsg.Visible = false;
-            // 
-            // done
-            // 
-            this.done.Location = new System.Drawing.Point(667, 378);
-            this.done.Name = "done";
-            this.done.Size = new System.Drawing.Size(75, 23);
-            this.done.TabIndex = 1;
-            this.done.Text = "Done";
-            this.done.UseVisualStyleBackColor = true;
-            this.done.Click += new System.EventHandler(this.done_Click);
-            // 
             // DependentEnroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkRed;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.ClientSize = new System.Drawing.Size(787, 459);
             this.Controls.Add(this.contactForm);
             this.Controls.Add(this.label4);
@@ -373,7 +381,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "DependentEnroll";
-            this.Text = "DependentEnroll";
+            this.Text = "Enroll Your Dependent";
             this.Load += new System.EventHandler(this.DependentEnroll_Load);
             this.contactForm.ResumeLayout(false);
             this.contactForm.PerformLayout();
