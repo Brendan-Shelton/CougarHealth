@@ -29,11 +29,21 @@ namespace CoreProject.Present
         }
 
         
-
+        /// <summary>
+        /// Submits the information to the controller
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void submit_Click(object sender, EventArgs e)
         {
-            //planList.SelectedItem.ToString()
-            RemoveCtrl.Remove(planList.SelectedItem.ToString());
+            
+            var result = RemoveCtrl.Remove(planList.SelectedItem.ToString());
+            if (!result)
+            {
+                planList.Items.Remove(planList.SelectedItem);
+                MessageBox.Show("Successfully Removed Plan");
+            }
+            
         }
     }
 }
