@@ -30,21 +30,39 @@ namespace CoreProject.Present
             if(planList.SelectedItem != null)
             {
                 var plan = ChangeCtrl.GetPlan(planList.SelectedItem.ToString());
-                ChangeCtrl.AddBenefit(plan, benefitName.Text, catName.Text, Convert.ToDouble(percent.Value), Convert.ToDouble(copay.Value), Convert.ToDouble(maxPay.Value));
-                // can't seem to get refresh to work properly
-                this.Refresh();
+                var result = ChangeCtrl.AddBenefit(plan, benefitName.Text, catName.Text, Convert.ToDouble(percent.Value), Convert.ToDouble(copay.Value), Convert.ToDouble(maxPay.Value));
+                if (result)
+                {
+                    benefitList.Items.Add(benefitName.Text);
+
+                    MessageBox.Show("Successfully Added Benefit");
+                }
+                else
+                {
+                    MessageBox.Show("Error Processing Request");
+                }
+                
             }
             
         }
 
         private void removeSubmit_Click(object sender, EventArgs e)
         {
-            if(planList.SelectedItem != null)
+            if(planList.SelectedItem != null && benefitList.SelectedItem != null)
             {
                 var plan = ChangeCtrl.GetPlan(planList.SelectedItem.ToString());
-                ChangeCtrl.RemoveBenefit(plan, benefitList.SelectedItem.ToString());
-                // cant seem to get the refresh to work properly
-                this.Refresh();
+                var result = ChangeCtrl.RemoveBenefit(plan, benefitList.SelectedItem.ToString());
+                if (result)
+                {
+                    benefitList.Items.Remove(benefitList.SelectedItem);
+                    MessageBox.Show("Successfully Removed Benefit");
+                }
+                else
+                {
+                    MessageBox.Show("Error Processing Request");
+                }
+                
+
             }
             
         }

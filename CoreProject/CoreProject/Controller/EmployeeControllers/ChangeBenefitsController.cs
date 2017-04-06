@@ -10,7 +10,7 @@ namespace CoreProject.Controller.EmployeeControllers
 {
     public class ChangeBenefitsController
     {
-        DbMgr mgr = DbMgr.Instance;
+        DbMgr Mgr = DbMgr.Instance;
         /// <summary>
         /// Get a single plan from the DbMgr
         /// </summary>
@@ -18,7 +18,7 @@ namespace CoreProject.Controller.EmployeeControllers
         /// <returns></returns>
         public InsurancePlan GetPlan(String name)
         {
-            return mgr.GetPlanByType(name);
+            return Mgr.GetPlanByType(name);
         }
         /// <summary>
         /// Get every plan from DbMgr
@@ -26,7 +26,7 @@ namespace CoreProject.Controller.EmployeeControllers
         /// <returns></returns>
         public IEnumerable<InsurancePlan> GetPlans()
         {
-            return mgr.GetPlans();
+            return Mgr.GetPlans();
         }
 
 
@@ -39,12 +39,12 @@ namespace CoreProject.Controller.EmployeeControllers
         /// <param name="percent"></param>
         /// <param name="copay"></param>
         /// <param name="maxPay"></param>
-        public void AddBenefit(InsurancePlan plan, String name, String cat, double percent, double copay, double maxPay)
+        public bool AddBenefit(InsurancePlan plan, String name, String cat, double percent, double copay, double maxPay)
         {
             //check that information is valid
             if (plan == null || name == "" || name == null || cat == null || percent < 0 || percent > 100 || maxPay < 0 || copay < 0)
             {
-                // error
+                return false;
             }
             else
             {
@@ -57,6 +57,8 @@ namespace CoreProject.Controller.EmployeeControllers
                     RequiredCopayment = copay,
                     InNetMax = new Tuple<double, Service.MaxPayRate>(maxPay, Service.MaxPayRate.PCY)
                 });
+
+                return true;
             }
             
             
@@ -66,7 +68,7 @@ namespace CoreProject.Controller.EmployeeControllers
         /// </summary>
         /// <param name="plan"></param>
         /// <param name="name"></param>
-        public void RemoveBenefit(InsurancePlan plan, String name)
+        public bool RemoveBenefit(InsurancePlan plan, String name)
         {
             if(plan != null)
             {
@@ -78,6 +80,11 @@ namespace CoreProject.Controller.EmployeeControllers
                     }
 
                 }
+                return true;
+            }
+            else
+            {
+                return false;
             }
             
             
