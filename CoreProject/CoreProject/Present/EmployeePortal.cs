@@ -62,5 +62,11 @@ namespace CoreProject.Present
             var manage = new ManageEmployee();
             manage.Show();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var changeBenefits = new ChangeBenefits(new ChangeBenefitsController());
+            changeBenefits.Show();
+        }
     }
 }
