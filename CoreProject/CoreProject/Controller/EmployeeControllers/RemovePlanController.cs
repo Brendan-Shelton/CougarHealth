@@ -40,20 +40,14 @@ namespace CoreProject.Controller.EmployeeControllers
         /// <param name="name">Name of plan</param>
         public bool Remove(String name)
         {
-            for (int i = 0; i < dbmgr.Plans.Count; i++)
+            if (name == "" || name == null)
+                return false;
+            else
             {
-                if (dbmgr.Plans[i].Type.Equals(name))
-                {
-                    dbmgr.Plans.RemoveAt(i);
-                    return true;
-                }
-
-                else
-                {
-                    return false;
-                }
+                dbmgr.RemovePlan(name);
+                return true;
             }
-            return false;
+            
         }
     }
 }

@@ -38,10 +38,14 @@ namespace CoreProject.Present
         {
             
             var result = RemoveCtrl.Remove(planList.SelectedItem.ToString());
-            if (!result)
+            if (result)
             {
                 planList.Items.Remove(planList.SelectedItem);
                 MessageBox.Show("Successfully Removed Plan");
+            }
+            else
+            {
+                MessageBox.Show("Error when removing plan");
             }
             
         }

@@ -584,5 +584,15 @@ namespace CoreProject.Data
             return r;
         }
 
+        public void RemovePlan(string name)
+        {
+            for (int i = 0; i < Plans.Count; i++)
+            {
+                if (Plans[i].Type.Equals(name))
+                {
+                    Plans.RemoveAt(i);
+                }
+            }
+        }
     }
 }
