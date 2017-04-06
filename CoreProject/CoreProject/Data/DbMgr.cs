@@ -35,7 +35,22 @@ namespace CoreProject.Data
         /// <summary>
         /// A fake DB set for primary enrollees that we create
         /// </summary>
-        public HashSet<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; }
+        public HashSet<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; } = new HashSet<PrimaryEnrollee>()
+        {
+            // temp test enrollee 
+            new PrimaryEnrollee ("1234")
+            {
+                Email = "guest@guest",
+                FirstName = "Guest",
+                LastName = "Guest",
+                HomePhone = "5555555555",
+                MobilePhone = "5555555555",
+                BillingAddr = "666 Avenue St.",
+                MailingAddr = "666 Avenue St.",
+                SSN = "123456789"
+            }
+
+        };
 
         public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
 
@@ -540,9 +555,19 @@ namespace CoreProject.Data
         /// </summary>
         private DbMgr()
         {
-            PlanSet = new HashSet<EnrolleePlan>(); 
+            // get the guest account so we can add it to an enrollee plan 
+            var guest = ( from enrollee in this.PrimaryEnrolleeSet
+                          where enrollee.FirstName == "Guest"
+                          select enrollee ).FirstOrDefault();
+            var basic = ( from insurance in Plans
+                          where insurance.Type == "Basic"
+                          select insurance ).FirstOrDefault();
+
+            PlanSet = new HashSet<EnrolleePlan>
+            {
+                new EnrolleePlan(guest, basic)
+            }; 
             DependentEnrolleSet = new HashSet<DependentEnrollee>();
-            PrimaryEnrolleeSet = new HashSet<PrimaryEnrollee>();
             HspSet = new HashSet<HSP>();
         }
 

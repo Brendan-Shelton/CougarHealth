@@ -64,6 +64,7 @@
     <Compile Include="Controller\HSPControllers\CreateHSPControllerTests.cs" />
     <Compile Include="Data\DbMgrTests.cs" />
     <Compile Include="Data\Employees\EmployeeTests.cs" />
+    <Compile Include="Data\Enrollee\EnrolleePlanTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
