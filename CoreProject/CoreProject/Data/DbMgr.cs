@@ -30,7 +30,20 @@ namespace CoreProject.Data
         /// is not null (that is what the '??' operator is for). If it is null
         /// it instantiates the _instance field and then returns it 
         /// </summary>
-        public static DbMgr Instance => _instance ?? (_instance = new DbMgr());
+        //public static DbMgr Instance => _instance ?? (_instance = new DbMgr());
+
+        public static DbMgr Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new DbMgr();
+                }
+                return _instance;
+            }
+        }
+
         public HashSet<EnrolleePlan> PlanSet { get; set; }
         /// <summary>
         /// A fake DB set for primary enrollees that we create
@@ -287,7 +300,6 @@ namespace CoreProject.Data
                 PrimaryChangeFee = 50.0,
                 OPMFamily = 12000,
                 OPMIndividual = 6500,
-                ServiceCosts = new[]
                 ServiceCosts = new List<Service>
                 {
                     new Service

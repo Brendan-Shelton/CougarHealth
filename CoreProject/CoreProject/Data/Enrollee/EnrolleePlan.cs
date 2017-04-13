@@ -29,7 +29,6 @@ namespace CoreProject.Data.Enrollee
         /// changed
         /// </summary>
         public DateTime? LastChange { get; private set; }
-        public List<double> Charges { get; private set; }
         public List<Bill> Charges { get; private set; }
         public double TotalCost { get; private set; }
         private List<int> _dependents;
@@ -78,8 +77,7 @@ namespace CoreProject.Data.Enrollee
             // start at the top of the plan 
             this.PYMBRemainder = plan.PYMB;
             this.APDRemainder = plan.APD;
-            this.OPMRemainder = plan.OPMFamily;
-            this.Charges = new List<double>();
+            this.OPMFRemainder = plan.OPMFamily;
         }
         
         /// <summary>
@@ -109,7 +107,7 @@ namespace CoreProject.Data.Enrollee
             }
             this.OPMFRemainder = plan.OPMFamily;
             this.OPMIRemainder = plan.OPMIndividual;
-        }
+        
 
             // throw an error if null insurance plan 
             if ( plan == null )
@@ -120,7 +118,7 @@ namespace CoreProject.Data.Enrollee
             this.Type = plan.Type;
             this.PYMBRemainder = plan.PYMB;
             this.APDRemainder = plan.APD;
-            this.OPMRemainder = plan.OPMFamily;
+            this.OPMFRemainder = plan.OPMFamily;
             // not the first month of the PCY, so there is a charge 
             if ( DateTime.Now.Month != PCY.Month )
             {
@@ -148,15 +146,17 @@ namespace CoreProject.Data.Enrollee
                 APDRemainder = 0;
             PYMBRemainder -= (totalBillAmount - enrolleeBillAmount);
 
-            if (OPMIRemainder !=0 && OPMFRemainder !=0)
+            if (OPMIRemainder != 0 && OPMFRemainder != 0)
             {
                 if (OPMIRemainder < enrolleeBillAmount)
                 {
                     TotalCost += OPMIRemainder;
-                } else if (OPMFRemainder < enrolleeBillAmount)
+                }
+                else if (OPMFRemainder < enrolleeBillAmount)
                 {
                     TotalCost += OPMFRemainder;
-                } else
+                }
+                else
                     TotalCost += (enrolleeBillAmount);
             }
 
@@ -172,12 +172,13 @@ namespace CoreProject.Data.Enrollee
                 OPMFRemainder = 0;
             }
 
-            
+
             planCtrl.addBill(bill);
+        }
             
         public void AddCharge(double charge)
         {
-            this.Charges.Add(charge);
+           
         }
 
         /// <summary>

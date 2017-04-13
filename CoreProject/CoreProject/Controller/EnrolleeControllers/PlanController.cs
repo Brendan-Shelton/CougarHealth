@@ -45,7 +45,7 @@ namespace CoreProject.Controller.EnrolleeControllers
             costs.setAPDRem(enrolleePlan.APDRemainder);
 
 
-            for (int i = 0; i < plan.ServiceCosts.Length; i++)
+            for (int i = 0; i < plan.ServiceCosts.Count; i++)
             {
                 switch(plan.ServiceCosts[i].Category)
                 {
