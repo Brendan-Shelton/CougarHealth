@@ -54,6 +54,8 @@ namespace CoreProject.Data
 
         public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
 
+        public HashSet<Bill> BillSet { get; set; }
+
 
         public HashSet<HSP> HspSet { get; }
         public HashSet<Employee> EmployeeSet { get; } = new HashSet<Employee>()
@@ -75,6 +77,45 @@ namespace CoreProject.Data
             return ( from employee in EmployeeSet
                      where employee.UserName == "Guest"
                      select employee )?.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Allows an addition to the BillSet. Takes in a Bill as a parameter, Void.
+        /// </summary>
+        /// <param name="bill"></param>
+        public void addBill(Bill bill)
+        {
+            BillSet.Add(bill);
+            
+        }
+        public Bill[] getBillsById(int id)
+        {
+            //from Bill in BillSet
+            //       where Bill.enrolleeId == id
+            //       select Bill);
+
+            // var bill = from Bill in BillSet where Bill.enrolleeId == id select Bill;
+            var bills = new Bill[BillSet.Count];
+            int billCount = 0;
+            var enumerator = BillSet.GetEnumerator();
+            while(enumerator.MoveNext())
+            {
+                if (enumerator.Current.enrolleeId == id)
+                {
+                    bills[billCount] = enumerator.Current;
+                    billCount++;
+                }
+            }
+
+            var finalBills = new Bill[billCount];
+
+            for (int i = 0; i < finalBills.Length; i++)
+            {
+                finalBills[i] = bills[i];
+            }
+
+            return finalBills;
+
         }
 
 
@@ -244,6 +285,9 @@ namespace CoreProject.Data
                 PrimaryFee = 65.0,
                 DependentChangeFee = 20.0,
                 PrimaryChangeFee = 50.0,
+                OPMFamily = 12000,
+                OPMIndividual = 6500,
+                ServiceCosts = new[]
                 ServiceCosts = new List<Service>
                 {
                     new Service
@@ -569,6 +613,7 @@ namespace CoreProject.Data
             }; 
             DependentEnrolleSet = new HashSet<DependentEnrollee>();
             HspSet = new HashSet<HSP>();
+            BillSet = new HashSet<Bill>();
         }
 
         /// <summary>

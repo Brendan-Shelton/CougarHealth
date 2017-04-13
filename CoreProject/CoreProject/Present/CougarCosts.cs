@@ -38,6 +38,12 @@ namespace CoreProject.Present
 
 
 
+            myInitialize();
+        }
+
+        private void myInitialize()
+        {
+            
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

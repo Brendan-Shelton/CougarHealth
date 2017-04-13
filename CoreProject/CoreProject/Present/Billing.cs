@@ -71,12 +71,19 @@ namespace CoreProject.Present
                 this.textBox3.Clear();
                 this.errMsg.Show();
             }
+
+            bool checkDate = (dateServicePicker.Value <= DateTime.Now);
+            if (!checkDate)
+            {
+                this.textBox3.Clear();
+                this.errMsg.Show();
+            }
             //send each service to be processed to controller
             for (int i = 0; i < listBox2.Items.Count; i++)
             {
                 Console.Write(listBox2.Items[i]);
             }
-            if(checkHSPName && checkEnrollee && checkPolicy)
+            if(checkHSPName && checkEnrollee && checkPolicy && checkDate)
                 button3.Show();
         }
 
@@ -86,11 +93,11 @@ namespace CoreProject.Present
             Invoice invoice;
             if (billControl.getHspType())
             {
-                invoice = new Invoice(billControl.HSPCalculate(services, charges));
+                invoice = new Invoice(billControl.HSPCalculate(services, charges, dateServicePicker.Value));
             }
             else
             {
-                invoice = new Invoice(billControl.OHSPCalculate(services, charges));
+                invoice = new Invoice(billControl.OHSPCalculate(services, charges, dateServicePicker.Value));
             }
             
             invoice.Show();

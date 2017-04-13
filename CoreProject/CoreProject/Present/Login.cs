@@ -41,6 +41,7 @@ namespace CoreProject.Present
                 form.Show();
                 form.Closed += (source, args) => this.Close();
                 this.Hide();
+
             }
             else
             {

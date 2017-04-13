@@ -65,7 +65,7 @@
             this.dependent.Name = "dependent";
             this.dependent.Size = new System.Drawing.Size(162, 58);
             this.dependent.TabIndex = 4;
-            this.dependent.Text = "Add Dependent";
+            this.dependent.Text = "Enrollee Login";
             this.dependent.UseVisualStyleBackColor = true;
             this.dependent.Click += new System.EventHandler(this.dependent_Click);
             // 

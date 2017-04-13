@@ -13,7 +13,7 @@ namespace CoreProject.Controller.HSPControllers
 
     public class BillController
     {
-        public DbMgr Mgr;
+        public DbMgr Mgr { get; private set; }
         private List<InsurancePlan> Plans;
         private Enrollee enrollee;
         private EnrolleePlan enrolleePlan;
@@ -112,7 +112,7 @@ namespace CoreProject.Controller.HSPControllers
         /// <param name="s"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public String[,] HSPCalculate(List<String> s, List<int> c)
+        public String[,] HSPCalculate(List<String> s, List<int> c, DateTime date)
         {
             // For each service, check plan, and what they pay, max allowed, then calculate based on charge and service provided
 
@@ -155,6 +155,7 @@ namespace CoreProject.Controller.HSPControllers
                 returnArr[i, 1] = adjustedCharge.ToString();
                 returnArr[i, 2] = enrolleeCharge.ToString();
                 returnArr[i, 3] = HSPCharge.ToString();
+                enrolleePlan.AddCharge(date, hsp, plan.ServiceCosts[serviceID], enrollee.Id, adjustedCharge, enrolleeCharge);
             }
 
             return returnArr;
@@ -167,7 +168,7 @@ namespace CoreProject.Controller.HSPControllers
         /// <param name="s"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public String[,] OHSPCalculate(List<String> s, List<int> c)
+        public String[,] OHSPCalculate(List<String> s, List<int> c, DateTime date)
         {
             String[] services = s.ToArray();
             int[] charges = c.ToArray();
@@ -204,9 +205,9 @@ namespace CoreProject.Controller.HSPControllers
                 returnArr[i, 0] = plan.ServiceCosts[serviceID].Name;
                 returnArr[i, 1] = charges[i].ToString();
                 returnArr[i, 2] = enrolleeCharge.ToString();
-                enrolleePlan.AddCharge(enrolleeCharge);
+               
                 returnArr[i, 3] = HSPCharge.ToString();
-
+                enrolleePlan.AddCharge(date, hsp, plan.ServiceCosts[serviceID], enrollee.Id, adjustedCharge, enrolleeCharge);
             }
             return returnArr;
         }
