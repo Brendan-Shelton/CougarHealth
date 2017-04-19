@@ -17,10 +17,6 @@ namespace CoreProject.Data
 
         private int AdminPassKey = 1234;
 
-
-
-
-
         /// <summary>
         /// get the single instance of DbMgr allowed in the application
         /// 

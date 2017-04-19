@@ -33,6 +33,7 @@ namespace CoreProject.Data.Enrollee
         public double TotalCost { get; private set; }
         private List<int> _dependents;
         private List<double> _dependentOPMs;
+        private int primary;
         /// <summary>
         /// list of primary keys of the dependent enrollees
         /// </summary>
@@ -71,7 +72,6 @@ namespace CoreProject.Data.Enrollee
             this.PrimaryEnrollee = primary.Id;
             this.Type = plan.Type;
             this.PlanNum = ++idCount;
-            this.planCtrl = new PlanController(primary.Id);
             this.Dependents = new List<int>();
             this.Charges = new List<Bill>();
             // start at the top of the plan 
@@ -139,6 +139,7 @@ namespace CoreProject.Data.Enrollee
 
         public void AddCharge(DateTime date, HSP hsp, Service service, int enrolleeId, double totalBillAmount, double enrolleeBillAmount)
         {
+            this.planCtrl = new PlanController((int)PrimaryEnrollee);
             var bill = new Bill(date, hsp, service, enrolleeId, totalBillAmount, enrolleeBillAmount);
             Charges.Add(bill);
             APDRemainder -= enrolleeBillAmount;

@@ -34,5 +34,11 @@ namespace CoreProject.Present
             var enrolleeCostsGUI = new EnrolleeCosts(enrollPlanCtrl);
             enrolleeCostsGUI.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form form = new ModifyPlan(_primaryId);
+            form.Show();
+        }
     }
 }
