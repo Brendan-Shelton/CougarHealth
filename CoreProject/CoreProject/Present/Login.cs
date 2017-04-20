@@ -35,12 +35,13 @@ namespace CoreProject.Present
                 }
                 else
                 {
-                    form = new ModifyPlan(enrollee.Value);
+                    form = new LoggedInEnrollee(enrollee.Value);
                 }
 
                 form.Show();
                 form.Closed += (source, args) => this.Close();
                 this.Hide();
+
             }
             else
             {

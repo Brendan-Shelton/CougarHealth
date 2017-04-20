@@ -72,6 +72,7 @@
     <Compile Include="Controller\EmployeeControllers\RemovePlanController.cs" />
     <Compile Include="Controller\EnrolleeControllers\ModifyPlanController.cs" />
     <Compile Include="Data\AuthenticationException.cs" />
+    <Compile Include="Data\HealthcareServiceProvider\Bill.cs" />
     <Compile Include="Data\IAuthUser.cs" />
     <Compile Include="Data\DbMgr.cs" />
     <Compile Include="Data\CreationException.cs" />
@@ -142,6 +143,12 @@
     <Compile Include="Present\EmployeePortal.Designer.cs">
       <DependentUpon>EmployeePortal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\EnrolleeCosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\EnrolleeCosts.Designer.cs">
+      <DependentUpon>EnrolleeCosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\EnrolleePortal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +160,12 @@
     </Compile>
     <Compile Include="Present\HSPPortal.Designer.cs">
       <DependentUpon>HSPPortal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\LoggedInEnrollee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\LoggedInEnrollee.Designer.cs">
+      <DependentUpon>LoggedInEnrollee.cs</DependentUpon>
     </Compile>
     <Compile Include="Present\Login.cs">
       <SubType>Form</SubType>
@@ -273,6 +286,9 @@
     <EmbeddedResource Include="Present\EmployeePortal.resx">
       <DependentUpon>EmployeePortal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Present\EnrolleeCosts.resx">
+      <DependentUpon>EnrolleeCosts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\EnrolleePortal.resx">
       <DependentUpon>EnrolleePortal.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\HSPPortal.resx">
       <DependentUpon>HSPPortal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\LoggedInEnrollee.resx">
+      <DependentUpon>LoggedInEnrollee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

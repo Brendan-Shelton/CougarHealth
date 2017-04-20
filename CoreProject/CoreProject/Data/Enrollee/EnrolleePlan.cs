@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreProject.Data.HealthcareServiceProvider;
+using CoreProject.Controller.EnrolleeControllers;
 
 namespace CoreProject.Data.Enrollee
 {
     public class EnrolleePlan 
     {
+        public PlanController planCtrl { get; private set; }
         public readonly DateTime PCY = new DateTime(1979, 7, 1);
         public int PlanNum { get; set; }
         public string Type { get; private set; }
@@ -16,7 +19,8 @@ namespace CoreProject.Data.Enrollee
          * set on charge
          */
         public double PYMBRemainder { get; private set; }
-        public double OPMRemainder { get; private set; }
+        public double OPMFRemainder { get; private set; }
+        public double OPMIRemainder { get; private set; }
         public double APDRemainder { get; private set; }
        
         /// <summary>
@@ -25,10 +29,11 @@ namespace CoreProject.Data.Enrollee
         /// changed
         /// </summary>
         public DateTime? LastChange { get; private set; }
-        public List<double> Charges { get; private set; }
+        public List<Bill> Charges { get; private set; }
         public double TotalCost { get; private set; }
         private List<int> _dependents;
         private List<double> _dependentOPMs;
+        private int primary;
         /// <summary>
         /// list of primary keys of the dependent enrollees
         /// </summary>
@@ -67,13 +72,12 @@ namespace CoreProject.Data.Enrollee
             this.PrimaryEnrollee = primary.Id;
             this.Type = plan.Type;
             this.PlanNum = ++idCount;
-
             this.Dependents = new List<int>();
+            this.Charges = new List<Bill>();
             // start at the top of the plan 
             this.PYMBRemainder = plan.PYMB;
             this.APDRemainder = plan.APD;
-            this.OPMRemainder = plan.OPMFamily;
-            this.Charges = new List<double>();
+            this.OPMFRemainder = plan.OPMFamily;
         }
         
         /// <summary>
@@ -101,6 +105,9 @@ namespace CoreProject.Data.Enrollee
             {
                 throw new ArgumentException("You can only change plans once per PCY");
             }
+            this.OPMFRemainder = plan.OPMFamily;
+            this.OPMIRemainder = plan.OPMIndividual;
+        
 
             // throw an error if null insurance plan 
             if ( plan == null )
@@ -111,7 +118,7 @@ namespace CoreProject.Data.Enrollee
             this.Type = plan.Type;
             this.PYMBRemainder = plan.PYMB;
             this.APDRemainder = plan.APD;
-            this.OPMRemainder = plan.OPMFamily;
+            this.OPMFRemainder = plan.OPMFamily;
             // not the first month of the PCY, so there is a charge 
             if ( DateTime.Now.Month != PCY.Month )
             {
@@ -130,9 +137,49 @@ namespace CoreProject.Data.Enrollee
             
         }
 
+        public void AddCharge(DateTime date, HSP hsp, Service service, int enrolleeId, double totalBillAmount, double enrolleeBillAmount)
+        {
+            this.planCtrl = new PlanController((int)PrimaryEnrollee);
+            var bill = new Bill(date, hsp, service, enrolleeId, totalBillAmount, enrolleeBillAmount);
+            Charges.Add(bill);
+            APDRemainder -= enrolleeBillAmount;
+            if (APDRemainder < 0)
+                APDRemainder = 0;
+            PYMBRemainder -= (totalBillAmount - enrolleeBillAmount);
+
+            if (OPMIRemainder != 0 && OPMFRemainder != 0)
+            {
+                if (OPMIRemainder < enrolleeBillAmount)
+                {
+                    TotalCost += OPMIRemainder;
+                }
+                else if (OPMFRemainder < enrolleeBillAmount)
+                {
+                    TotalCost += OPMFRemainder;
+                }
+                else
+                    TotalCost += (enrolleeBillAmount);
+            }
+
+            OPMIRemainder -= (totalBillAmount - enrolleeBillAmount);
+            if (OPMIRemainder < 0)
+            {
+                OPMIRemainder = 0;
+            }
+
+            OPMFRemainder -= (totalBillAmount - enrolleeBillAmount);
+            if (OPMFRemainder < 0)
+            {
+                OPMFRemainder = 0;
+            }
+
+
+            planCtrl.addBill(bill);
+        }
+            
         public void AddCharge(double charge)
         {
-            this.Charges.Add(charge);
+           
         }
 
         /// <summary>

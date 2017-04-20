@@ -29,15 +29,15 @@ namespace CoreProject.Present
 
         private void dependent_Click(object sender, EventArgs e)
         {
-            var depedentGUI = new Login(typeof(DependentEnroll));
-            depedentGUI.Show();
+            var enrolleeGUI = new Login(typeof(LoggedInEnrollee));
+            enrolleeGUI.Show();
         }
 
 
-        private void ModifyPlan_Click(object sender, EventArgs e)
-        {
-            var modifyGUI = new Login(typeof(ModifyPlan));
-            modifyGUI.Show();
-        }
+        //private void ModifyPlan_Click(object sender, EventArgs e)
+        //{
+        //    var modifyGUI = new Login(typeof(ModifyPlan));
+        //    modifyGUI.Show();
+        //}
     }
 }
