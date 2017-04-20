@@ -10,6 +10,7 @@ namespace CoreProject.Data.Enrollee
     {
         public int Id { get; set; }
         public string Type { get; set; }
+        public bool   Optional { get; set; }
         public double PYMB { get; set; }
         public double APD { get; set; }
         public double OPMIndividual { get; set; }

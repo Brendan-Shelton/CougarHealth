@@ -138,6 +138,7 @@ namespace CoreProject.Data
             {
                 Id = 1,
                 Type = "Basic",
+                Optional = false,
                 APD = 250.0,
                 PYMB = 250000.0,
                 DependentFee = 20.0,
@@ -178,7 +179,7 @@ namespace CoreProject.Data
                         RequiredCopayment = 250.0,
                         InNetMax = new Tuple<double, Service.MaxPayRate>(
                             1000,
-                            Service.MaxPayRate.PCY 
+                            Service.MaxPayRate.PCY
                         )
 
                     },
@@ -190,7 +191,7 @@ namespace CoreProject.Data
                         RequiredCopayment = 250,
                         InNetMax = new Tuple<double, Service.MaxPayRate>(
                             4000,
-                            Service.MaxPayRate.PCY 
+                            Service.MaxPayRate.PCY
                         )
 
                     },
@@ -202,7 +203,7 @@ namespace CoreProject.Data
                         RequiredCopayment = 0,
                         InNetMax = new Tuple<double, Service.MaxPayRate>(
                             500,
-                            Service.MaxPayRate.PCY 
+                            Service.MaxPayRate.PCY
                         )
 
                     },
@@ -214,7 +215,7 @@ namespace CoreProject.Data
                         RequiredCopayment = 0,
                         InNetMax = new Tuple<double, Service.MaxPayRate>(
                             150,
-                            Service.MaxPayRate.PCY 
+                            Service.MaxPayRate.PCY
                         )
                     },
                     new Service
@@ -225,7 +226,7 @@ namespace CoreProject.Data
                         RequiredCopayment = 0,
                         InNetMax = new Tuple<double, Service.MaxPayRate>(
                             300,
-                            Service.MaxPayRate.PCY 
+                            Service.MaxPayRate.PCY
                         )
                     },
                     new Service
@@ -236,9 +237,9 @@ namespace CoreProject.Data
                         RequiredCopayment = 0,
                         InNetMax = new Tuple<double, Service.MaxPayRate>(
                             25,
-                            Service.MaxPayRate.PCY 
+                            Service.MaxPayRate.PCY
                         )
-                    }, 
+                    },
                     new Service
                     {
                         Category = "Physician",
@@ -249,7 +250,7 @@ namespace CoreProject.Data
                             300,
                             Service.MaxPayRate.PCY
                         )
-                    }, 
+                    },
                     new Service
                     {
                         Category = "Other",
@@ -288,6 +289,7 @@ namespace CoreProject.Data
             {
                 Id = 2,
                 Type = "Extended",
+                Optional = false,
                 APD = 0,
                 PYMB = 1000000.0,
                 DependentFee = 25.0,
