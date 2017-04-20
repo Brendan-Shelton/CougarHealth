@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\EmployeeControllers\ChangeBenefitsController.cs" />
+    <Compile Include="Controller\EmployeeControllers\CreatePlanController.cs" />
     <Compile Include="Controller\EmployeeControllers\EmployeeLoginController.cs" />
     <Compile Include="Controller\EmployeeControllers\ManageEmployeeController.cs" />
     <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />

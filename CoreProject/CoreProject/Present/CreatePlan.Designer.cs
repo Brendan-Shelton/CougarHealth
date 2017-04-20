@@ -29,9 +29,8 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.planNameTextbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.ServiceListbox = new System.Windows.Forms.ListBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.PYMBNumeric = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,36 +39,43 @@
             this.OPMINumeric = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.DependentChangeNumeric = new System.Windows.Forms.NumericUpDown();
-            this.PrimaryChangeNumeric = new System.Windows.Forms.NumericUpDown();
-            this.DependentNumeric = new System.Windows.Forms.NumericUpDown();
-            this.PrimaryNumeric = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
+            this.dependentChangeNumeric = new System.Windows.Forms.NumericUpDown();
+            this.primaryChangeNumeric = new System.Windows.Forms.NumericUpDown();
+            this.dependentNumeric = new System.Windows.Forms.NumericUpDown();
+            this.primaryNumeric = new System.Windows.Forms.NumericUpDown();
+            this.submitButton = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.maxPayRateComboBox = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.serviceCatTextbox = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.serviceNameTextbox = new System.Windows.Forms.TextBox();
+            this.percentNumeric = new System.Windows.Forms.NumericUpDown();
+            this.maxNumeric = new System.Windows.Forms.NumericUpDown();
+            this.copayNumeric = new System.Windows.Forms.NumericUpDown();
+            this.addServiceButton = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.CopayNumeric = new System.Windows.Forms.NumericUpDown();
-            this.MaxNumeric = new System.Windows.Forms.NumericUpDown();
-            this.PercentNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.serviceListbox = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.PYMBNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.APDNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OPMFNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OPMINumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DependentChangeNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PrimaryChangeNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DependentNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PrimaryNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CopayNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MaxNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PercentNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dependentChangeNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.primaryChangeNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dependentNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.primaryNumeric)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.percentNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.copayNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -81,12 +87,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Plan Name";
             // 
-            // textBox1
+            // planNameTextbox
             // 
-            this.textBox1.Location = new System.Drawing.Point(120, 60);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(166, 22);
-            this.textBox1.TabIndex = 1;
+            this.planNameTextbox.Location = new System.Drawing.Point(145, 62);
+            this.planNameTextbox.Name = "planNameTextbox";
+            this.planNameTextbox.Size = new System.Drawing.Size(166, 22);
+            this.planNameTextbox.TabIndex = 1;
             // 
             // label2
             // 
@@ -97,28 +103,19 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "PYMB";
             // 
-            // ServiceListbox
-            // 
-            this.ServiceListbox.FormattingEnabled = true;
-            this.ServiceListbox.ItemHeight = 16;
-            this.ServiceListbox.Location = new System.Drawing.Point(587, 60);
-            this.ServiceListbox.Name = "ServiceListbox";
-            this.ServiceListbox.Size = new System.Drawing.Size(155, 164);
-            this.ServiceListbox.TabIndex = 3;
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(117, 321);
+            this.checkBox1.Location = new System.Drawing.Point(145, 314);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(144, 21);
+            this.checkBox1.Size = new System.Drawing.Size(141, 21);
             this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "OptionalCheckbox";
+            this.checkBox1.Text = "optionalCheckbox";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // PYMBNumeric
             // 
-            this.PYMBNumeric.Location = new System.Drawing.Point(117, 88);
+            this.PYMBNumeric.Location = new System.Drawing.Point(145, 90);
             this.PYMBNumeric.Name = "PYMBNumeric";
             this.PYMBNumeric.Size = new System.Drawing.Size(166, 22);
             this.PYMBNumeric.TabIndex = 5;
@@ -134,21 +131,21 @@
             // 
             // APDNumeric
             // 
-            this.APDNumeric.Location = new System.Drawing.Point(117, 113);
+            this.APDNumeric.Location = new System.Drawing.Point(145, 118);
             this.APDNumeric.Name = "APDNumeric";
             this.APDNumeric.Size = new System.Drawing.Size(166, 22);
             this.APDNumeric.TabIndex = 7;
             // 
             // OPMFNumeric
             // 
-            this.OPMFNumeric.Location = new System.Drawing.Point(120, 174);
+            this.OPMFNumeric.Location = new System.Drawing.Point(145, 174);
             this.OPMFNumeric.Name = "OPMFNumeric";
             this.OPMFNumeric.Size = new System.Drawing.Size(166, 22);
             this.OPMFNumeric.TabIndex = 8;
             // 
             // OPMINumeric
             // 
-            this.OPMINumeric.Location = new System.Drawing.Point(117, 143);
+            this.OPMINumeric.Location = new System.Drawing.Point(145, 146);
             this.OPMINumeric.Name = "OPMINumeric";
             this.OPMINumeric.Size = new System.Drawing.Size(166, 22);
             this.OPMINumeric.TabIndex = 9;
@@ -171,19 +168,10 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "OPMI";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 306);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 17);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Optional";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 277);
+            this.label7.Location = new System.Drawing.Point(12, 286);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(127, 17);
             this.label7.TabIndex = 13;
@@ -192,7 +180,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 230);
+            this.label8.Location = new System.Drawing.Point(12, 227);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(102, 17);
             this.label8.TabIndex = 14;
@@ -210,148 +198,219 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 250);
+            this.label10.Location = new System.Drawing.Point(12, 258);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(105, 17);
             this.label10.TabIndex = 16;
             this.label10.Text = "PrimaryChange";
             // 
-            // DependentChangeNumeric
+            // dependentChangeNumeric
             // 
-            this.DependentChangeNumeric.Location = new System.Drawing.Point(117, 286);
-            this.DependentChangeNumeric.Name = "DependentChangeNumeric";
-            this.DependentChangeNumeric.Size = new System.Drawing.Size(166, 22);
-            this.DependentChangeNumeric.TabIndex = 17;
+            this.dependentChangeNumeric.Location = new System.Drawing.Point(145, 286);
+            this.dependentChangeNumeric.Name = "dependentChangeNumeric";
+            this.dependentChangeNumeric.Size = new System.Drawing.Size(166, 22);
+            this.dependentChangeNumeric.TabIndex = 17;
             // 
-            // PrimaryChangeNumeric
+            // primaryChangeNumeric
             // 
-            this.PrimaryChangeNumeric.Location = new System.Drawing.Point(117, 258);
-            this.PrimaryChangeNumeric.Name = "PrimaryChangeNumeric";
-            this.PrimaryChangeNumeric.Size = new System.Drawing.Size(166, 22);
-            this.PrimaryChangeNumeric.TabIndex = 18;
+            this.primaryChangeNumeric.Location = new System.Drawing.Point(145, 258);
+            this.primaryChangeNumeric.Name = "primaryChangeNumeric";
+            this.primaryChangeNumeric.Size = new System.Drawing.Size(166, 22);
+            this.primaryChangeNumeric.TabIndex = 18;
             // 
-            // DependentNumeric
+            // dependentNumeric
             // 
-            this.DependentNumeric.Location = new System.Drawing.Point(120, 230);
-            this.DependentNumeric.Name = "DependentNumeric";
-            this.DependentNumeric.Size = new System.Drawing.Size(166, 22);
-            this.DependentNumeric.TabIndex = 19;
+            this.dependentNumeric.Location = new System.Drawing.Point(145, 230);
+            this.dependentNumeric.Name = "dependentNumeric";
+            this.dependentNumeric.Size = new System.Drawing.Size(166, 22);
+            this.dependentNumeric.TabIndex = 19;
             // 
-            // PrimaryNumeric
+            // primaryNumeric
             // 
-            this.PrimaryNumeric.Location = new System.Drawing.Point(120, 202);
-            this.PrimaryNumeric.Name = "PrimaryNumeric";
-            this.PrimaryNumeric.Size = new System.Drawing.Size(166, 22);
-            this.PrimaryNumeric.TabIndex = 20;
+            this.primaryNumeric.Location = new System.Drawing.Point(145, 202);
+            this.primaryNumeric.Name = "primaryNumeric";
+            this.primaryNumeric.Size = new System.Drawing.Size(166, 22);
+            this.primaryNumeric.TabIndex = 20;
             // 
-            // label11
+            // submitButton
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(360, 60);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(96, 17);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "Service Name";
+            this.submitButton.Location = new System.Drawing.Point(680, 333);
+            this.submitButton.Name = "submitButton";
+            this.submitButton.Size = new System.Drawing.Size(88, 32);
+            this.submitButton.TabIndex = 30;
+            this.submitButton.Text = "Submit";
+            this.submitButton.UseVisualStyleBackColor = true;
+            this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
-            // label15
+            // groupBox1
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(391, 171);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(57, 17);
-            this.label15.TabIndex = 25;
-            this.label15.Text = "Percent";
+            this.groupBox1.Controls.Add(this.maxPayRateComboBox);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.serviceCatTextbox);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.serviceNameTextbox);
+            this.groupBox1.Controls.Add(this.percentNumeric);
+            this.groupBox1.Controls.Add(this.maxNumeric);
+            this.groupBox1.Controls.Add(this.copayNumeric);
+            this.groupBox1.Controls.Add(this.addServiceButton);
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.label17);
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.serviceListbox);
+            this.groupBox1.Location = new System.Drawing.Point(329, 37);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(439, 281);
+            this.groupBox1.TabIndex = 42;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Service";
             // 
-            // label16
+            // maxPayRateComboBox
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(391, 143);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(48, 17);
-            this.label16.TabIndex = 26;
-            this.label16.Text = "Copay";
+            this.maxPayRateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.maxPayRateComboBox.FormattingEnabled = true;
+            this.maxPayRateComboBox.Items.AddRange(new object[] {
+            "Day",
+            "PCY",
+            "Session"});
+            this.maxPayRateComboBox.Location = new System.Drawing.Point(130, 192);
+            this.maxPayRateComboBox.Name = "maxPayRateComboBox";
+            this.maxPayRateComboBox.Size = new System.Drawing.Size(121, 24);
+            this.maxPayRateComboBox.TabIndex = 56;
             // 
-            // label17
+            // label13
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(360, 115);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(75, 17);
-            this.label17.TabIndex = 27;
-            this.label17.Text = "In-Network";
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(37, 195);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(87, 17);
+            this.label13.TabIndex = 55;
+            this.label13.Text = "MaxPayRate";
+            // 
+            // serviceCatTextbox
+            // 
+            this.serviceCatTextbox.Location = new System.Drawing.Point(130, 53);
+            this.serviceCatTextbox.Name = "serviceCatTextbox";
+            this.serviceCatTextbox.Size = new System.Drawing.Size(122, 22);
+            this.serviceCatTextbox.TabIndex = 54;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(8, 53);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(116, 17);
+            this.label12.TabIndex = 53;
+            this.label12.Text = "Service Category";
+            // 
+            // serviceNameTextbox
+            // 
+            this.serviceNameTextbox.Location = new System.Drawing.Point(130, 22);
+            this.serviceNameTextbox.Name = "serviceNameTextbox";
+            this.serviceNameTextbox.Size = new System.Drawing.Size(122, 22);
+            this.serviceNameTextbox.TabIndex = 52;
+            // 
+            // percentNumeric
+            // 
+            this.percentNumeric.Location = new System.Drawing.Point(130, 136);
+            this.percentNumeric.Name = "percentNumeric";
+            this.percentNumeric.Size = new System.Drawing.Size(122, 22);
+            this.percentNumeric.TabIndex = 51;
+            // 
+            // maxNumeric
+            // 
+            this.maxNumeric.Location = new System.Drawing.Point(130, 164);
+            this.maxNumeric.Name = "maxNumeric";
+            this.maxNumeric.Size = new System.Drawing.Size(122, 22);
+            this.maxNumeric.TabIndex = 50;
+            // 
+            // copayNumeric
+            // 
+            this.copayNumeric.Location = new System.Drawing.Point(130, 108);
+            this.copayNumeric.Name = "copayNumeric";
+            this.copayNumeric.Size = new System.Drawing.Size(122, 22);
+            this.copayNumeric.TabIndex = 49;
+            // 
+            // addServiceButton
+            // 
+            this.addServiceButton.Location = new System.Drawing.Point(177, 236);
+            this.addServiceButton.Name = "addServiceButton";
+            this.addServiceButton.Size = new System.Drawing.Size(75, 23);
+            this.addServiceButton.TabIndex = 48;
+            this.addServiceButton.Text = "Add";
+            this.addServiceButton.UseVisualStyleBackColor = true;
+            this.addServiceButton.Click += new System.EventHandler(this.addServiceButton_Click);
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(391, 199);
+            this.label19.Location = new System.Drawing.Point(37, 164);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(33, 17);
-            this.label19.TabIndex = 29;
+            this.label19.TabIndex = 47;
             this.label19.Text = "Max";
             // 
-            // button1
+            // label17
             // 
-            this.button1.Location = new System.Drawing.Point(658, 365);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 30;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(8, 78);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(75, 17);
+            this.label17.TabIndex = 46;
+            this.label17.Text = "In-Network";
             // 
-            // button2
+            // label16
             // 
-            this.button2.Location = new System.Drawing.Point(667, 250);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 31;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(37, 108);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(48, 17);
+            this.label16.TabIndex = 45;
+            this.label16.Text = "Copay";
             // 
-            // CopayNumeric
+            // label15
             // 
-            this.CopayNumeric.Location = new System.Drawing.Point(459, 143);
-            this.CopayNumeric.Name = "CopayNumeric";
-            this.CopayNumeric.Size = new System.Drawing.Size(122, 22);
-            this.CopayNumeric.TabIndex = 34;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(37, 136);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(57, 17);
+            this.label15.TabIndex = 44;
+            this.label15.Text = "Percent";
             // 
-            // MaxNumeric
+            // label11
             // 
-            this.MaxNumeric.Location = new System.Drawing.Point(459, 199);
-            this.MaxNumeric.Name = "MaxNumeric";
-            this.MaxNumeric.Size = new System.Drawing.Size(122, 22);
-            this.MaxNumeric.TabIndex = 35;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 22);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(96, 17);
+            this.label11.TabIndex = 43;
+            this.label11.Text = "Service Name";
             // 
-            // PercentNumeric
+            // serviceListbox
             // 
-            this.PercentNumeric.Location = new System.Drawing.Point(459, 171);
-            this.PercentNumeric.Name = "PercentNumeric";
-            this.PercentNumeric.Size = new System.Drawing.Size(122, 22);
-            this.PercentNumeric.TabIndex = 36;
+            this.serviceListbox.FormattingEnabled = true;
+            this.serviceListbox.ItemHeight = 16;
+            this.serviceListbox.Location = new System.Drawing.Point(274, 22);
+            this.serviceListbox.Name = "serviceListbox";
+            this.serviceListbox.Size = new System.Drawing.Size(155, 164);
+            this.serviceListbox.TabIndex = 42;
             // 
             // CreatePlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 400);
-            this.Controls.Add(this.PercentNumeric);
-            this.Controls.Add(this.MaxNumeric);
-            this.Controls.Add(this.CopayNumeric);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.PrimaryNumeric);
-            this.Controls.Add(this.DependentNumeric);
-            this.Controls.Add(this.PrimaryChangeNumeric);
-            this.Controls.Add(this.DependentChangeNumeric);
+            this.ClientSize = new System.Drawing.Size(783, 400);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.submitButton);
+            this.Controls.Add(this.primaryNumeric);
+            this.Controls.Add(this.dependentNumeric);
+            this.Controls.Add(this.primaryChangeNumeric);
+            this.Controls.Add(this.dependentChangeNumeric);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.OPMINumeric);
@@ -360,9 +419,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.PYMBNumeric);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.ServiceListbox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.planNameTextbox);
             this.Controls.Add(this.label1);
             this.Name = "CreatePlan";
             this.Text = "CreatePlan";
@@ -370,13 +428,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.APDNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OPMFNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OPMINumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DependentChangeNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PrimaryChangeNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DependentNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PrimaryNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CopayNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MaxNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PercentNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dependentChangeNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.primaryChangeNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dependentNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.primaryNumeric)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.percentNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maxNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.copayNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -385,9 +445,8 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox planNameTextbox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox ServiceListbox;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.NumericUpDown PYMBNumeric;
         private System.Windows.Forms.Label label3;
@@ -396,24 +455,30 @@
         private System.Windows.Forms.NumericUpDown OPMINumeric;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown DependentChangeNumeric;
-        private System.Windows.Forms.NumericUpDown PrimaryChangeNumeric;
-        private System.Windows.Forms.NumericUpDown DependentNumeric;
-        private System.Windows.Forms.NumericUpDown PrimaryNumeric;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.NumericUpDown dependentChangeNumeric;
+        private System.Windows.Forms.NumericUpDown primaryChangeNumeric;
+        private System.Windows.Forms.NumericUpDown dependentNumeric;
+        private System.Windows.Forms.NumericUpDown primaryNumeric;
+        private System.Windows.Forms.Button submitButton;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox maxPayRateComboBox;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox serviceCatTextbox;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox serviceNameTextbox;
+        private System.Windows.Forms.NumericUpDown percentNumeric;
+        private System.Windows.Forms.NumericUpDown maxNumeric;
+        private System.Windows.Forms.NumericUpDown copayNumeric;
+        private System.Windows.Forms.Button addServiceButton;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.NumericUpDown CopayNumeric;
-        private System.Windows.Forms.NumericUpDown MaxNumeric;
-        private System.Windows.Forms.NumericUpDown PercentNumeric;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ListBox serviceListbox;
     }
 }
