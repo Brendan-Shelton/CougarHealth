@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.planNameTextbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.optionalCheckbox = new System.Windows.Forms.CheckBox();
             this.PYMBNumeric = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.APDNumeric = new System.Windows.Forms.NumericUpDown();
@@ -103,15 +103,15 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "PYMB";
             // 
-            // checkBox1
+            // optionalCheckbox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(145, 314);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(141, 21);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "optionalCheckbox";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.optionalCheckbox.AutoSize = true;
+            this.optionalCheckbox.Location = new System.Drawing.Point(145, 314);
+            this.optionalCheckbox.Name = "optionalCheckbox";
+            this.optionalCheckbox.Size = new System.Drawing.Size(83, 21);
+            this.optionalCheckbox.TabIndex = 4;
+            this.optionalCheckbox.Text = "Optional";
+            this.optionalCheckbox.UseVisualStyleBackColor = true;
             // 
             // PYMBNumeric
             // 
@@ -418,7 +418,7 @@
             this.Controls.Add(this.APDNumeric);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.PYMBNumeric);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.optionalCheckbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.planNameTextbox);
             this.Controls.Add(this.label1);
@@ -447,7 +447,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox planNameTextbox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox optionalCheckbox;
         private System.Windows.Forms.NumericUpDown PYMBNumeric;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown APDNumeric;

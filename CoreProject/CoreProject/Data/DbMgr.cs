@@ -794,5 +794,10 @@ namespace CoreProject.Data
             return employeeResult;
         }
 
+        public void AddPlan(InsurancePlan plan)
+        {
+            Plans.Add(plan);
+        }
+
     }
 }

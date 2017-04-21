@@ -83,7 +83,7 @@ namespace CoreProject.Present
 
         private void CreatePlanButton_Click(object sender, EventArgs e)
         {
-            var createGUI = new CreatePlan(new CreatePlanController());
+            var createGUI = new CreatePlan();
             createGUI.Show();
         }
     }
