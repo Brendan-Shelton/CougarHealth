@@ -17,12 +17,8 @@ namespace CoreProject.Data.Enrollee
         /// </summary>
         public string MobilePhone { get; set; } = null;
 
-        /// <summary>
-        /// Place holder for the database 
-        /// </summary>
-        private static int idCount = 0;
 
-        public int Id { get; }
+        public int Id { get; set; }
         private string _pin;
 
         /// <summary>
@@ -58,7 +54,6 @@ namespace CoreProject.Data.Enrollee
 
         public Enrollee( string pin )
         {
-            this.Id = ++idCount;
             this.changePIN(pin);
         }
 

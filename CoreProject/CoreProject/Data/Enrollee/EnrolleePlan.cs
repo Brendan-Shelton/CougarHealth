@@ -13,6 +13,12 @@ namespace CoreProject.Data.Enrollee
         public PlanController planCtrl { get; private set; }
         public readonly DateTime PCY = new DateTime(1979, 7, 1);
         public int PlanNum { get; set; }
+        public InsurancePlan Plan { get; set; }
+        /// <summary>
+        /// DEPRECATED
+        /// TODO: remove this property as we should be storing actual 
+        /// InsurancePlans.
+        /// </summary>
         public string Type { get; private set; }
         /* 
          * all of the following properties are privately set because they are 
@@ -78,6 +84,26 @@ namespace CoreProject.Data.Enrollee
             this.PYMBRemainder = plan.PYMB;
             this.APDRemainder = plan.APD;
             this.OPMFRemainder = plan.OPMFamily;
+        }
+
+        /// <summary>
+        /// Database constructor 
+        /// </summary>
+        /// <param name="apdRemainder"></param>
+        /// <param name="lastCharge"></param>
+        /// <param name="totalCost"></param>
+        /// <param name="opmRemainder"></param>
+        /// <param name="pymbRemainder"></param>
+        public EnrolleePlan( int id, DateTime lastCharge, 
+                             double totalCost, double opmRemainder, 
+                             double pymbRemainder,  double apdRemainder)
+        {
+            this.APDRemainder = apdRemainder;
+            this.LastChange = lastCharge;
+            this.PYMBRemainder = pymbRemainder;
+            this.APDRemainder = apdRemainder;
+            this.TotalCost = totalCost;
+            this.OPMFRemainder = opmRemainder;
         }
         
         /// <summary>
