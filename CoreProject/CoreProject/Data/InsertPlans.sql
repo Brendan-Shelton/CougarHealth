@@ -1,0 +1,24 @@
+﻿INSERT INTO [dbo].[InsurancePlan] ([Type], [APD], [PYMB], [DependentFee], [PrimaryFee], [DependentChangeFee], [PrimaryChangeFee], [OPMFamily], [OPMIndividual])
+VALUES 
+(
+	'Basic',
+	250.0,
+	250000.0,
+	20.0,
+	45.0, 
+	40.0,
+	150.0,
+	18000.0,
+	9500.0
+),
+(
+	'Extended', 
+	0.0,
+	1000000.0,
+	25.0,
+	65.0,
+	20.0,
+	50.0, 
+	12000.0,
+	6500.0
+);

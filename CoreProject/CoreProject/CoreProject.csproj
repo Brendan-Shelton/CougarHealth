@@ -361,6 +361,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>CougarHealth.mdf</DependentUpon>
     </Content>
+    <Content Include="Data\InsertPlans.sql" />
+    <Content Include="Data\InsertServices.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

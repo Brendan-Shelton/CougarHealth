@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Data.SqlClient;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,10 @@ namespace CoreProject.Data
         private static DbMgr _instance;
 
         private int AdminPassKey = 1234;
-
+        /// <summary>
+        /// Readonly connection to the CougarHealth.mdf embedded database. 
+        /// </summary>
+        private SqlConnection Connection { get; }
         /// <summary>
         /// get the single instance of DbMgr allowed in the application
         /// 
@@ -622,6 +626,14 @@ namespace CoreProject.Data
             DependentEnrolleSet = new HashSet<DependentEnrollee>();
             HspSet = new HashSet<HSP>();
             BillSet = new HashSet<Bill>();
+            this.Connection = new SqlConnection();
+            this.Connection.ConnectionString = @"Data Source =(localDB)\MSSQLLocalDB;
+                                                 AttachDbFilename = |DataDirectory|\CougarHealth.mdf;
+                                                 Integrated Security = True;
+                                                 Connect Timeout = 30";
+            // TODO: this is just test code, remove when database works 
+            this.Connection.Open();
+            this.Connection.Close();
         }
 
         /// <summary>
