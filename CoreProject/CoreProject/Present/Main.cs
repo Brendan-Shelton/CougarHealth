@@ -47,5 +47,11 @@ namespace CoreProject.Present
             var login = new EmployeeLogin();
             login.Show();
         }
+
+        private void searchHSPButton_Click(object sender, EventArgs e)
+        {
+            var search = new SearchHSP();
+            search.Show();
+        }
     }
 }

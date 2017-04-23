@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
 using CoreProject.Data.HealthcareServiceProvider;
 using CoreProject.Data.Employees;
+using System.Collections;
 
 namespace CoreProject.Data
 {
@@ -727,10 +728,16 @@ namespace CoreProject.Data
                      where plan.Type == type
                      select plan ).FirstOrDefault();
         }
-
-        public IEnumerable<InsurancePlan> GetPlans()
+       
+                public IEnumerable<InsurancePlan> GetPlans()
         {
             return Plans;
+        }
+
+        public List<Service> GetServices()
+        //public IEnumerable GetServices()
+        {
+            return Plans.SelectMany(p => p.ServiceCosts).GroupBy(x=>x.Name).Select(g=>g.First()).OrderBy(o => o.Name).ToList();
         }
 
         /// <summary>
