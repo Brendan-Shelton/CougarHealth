@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.create = new System.Windows.Forms.Button();
-            this.bill = new System.Windows.Forms.Button();
+            this.login = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -55,17 +55,17 @@
             this.create.UseVisualStyleBackColor = false;
             this.create.Click += new System.EventHandler(this.create_Click);
             // 
-            // bill
+            // login
             // 
-            this.bill.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.bill.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.bill.Location = new System.Drawing.Point(596, 302);
-            this.bill.Name = "bill";
-            this.bill.Size = new System.Drawing.Size(151, 41);
-            this.bill.TabIndex = 2;
-            this.bill.Text = "Submit Bill";
-            this.bill.UseVisualStyleBackColor = false;
-            this.bill.Click += new System.EventHandler(this.bill_Click);
+            this.login.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.login.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.login.Location = new System.Drawing.Point(597, 321);
+            this.login.Name = "login";
+            this.login.Size = new System.Drawing.Size(151, 41);
+            this.login.TabIndex = 2;
+            this.login.Text = "Log in";
+            this.login.UseVisualStyleBackColor = false;
+            this.login.Click += new System.EventHandler(this.login_Click);
             // 
             // HSPPortal
             // 
@@ -73,7 +73,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(241)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.bill);
+            this.Controls.Add(this.login);
             this.Controls.Add(this.create);
             this.Controls.Add(this.label1);
             this.Name = "HSPPortal";
@@ -87,6 +87,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button create;
-        private System.Windows.Forms.Button bill;
+        private System.Windows.Forms.Button login;
     }
 }

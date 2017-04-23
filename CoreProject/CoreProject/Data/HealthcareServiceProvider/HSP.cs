@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreProject.Data.Employees;
 
 namespace CoreProject.Data.HealthcareServiceProvider
 {
-    public class HSP
+    public class HSP : AuthUser
     {
         //Todo: 
 
@@ -59,7 +60,7 @@ namespace CoreProject.Data.HealthcareServiceProvider
 
         public void ChangePIN(string newPin)
         {
-            this.Pin = newPin;
+            this.Pin = Passwordify(newPin);
         }
 
         public void ChangeNetworkStatus()
@@ -76,6 +77,40 @@ namespace CoreProject.Data.HealthcareServiceProvider
         public override int GetHashCode()
         {
             return this.Name.GetHashCode();
+        }
+
+        /// <summary>
+        /// This method is not used for HSP 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="exception"></param>
+        public override bool ValidPass(string password, string confPass, CreationException exception)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// This method is not used for HSP 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="exception"></param>
+        /// <returns></returns>
+        public override bool ValidUser(string userName, CreationException exception)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// return wether the supplied pin and company name combo matches this 
+        /// HSP's pin and company name 
+        /// </summary>
+        /// <param name="userName">company name</param>
+        /// <param name="password">pin</param>
+        /// <returns></returns>
+        public override bool Login(string userName, string password)
+        {
+            return this.Name.Equals(userName) && 
+                this.ComparePassword(this.Pin, password);
         }
     }
 }

@@ -31,5 +31,11 @@ namespace CoreProject.Present
             var billForm = new Billing(billCtrl);
             billForm.Show();
         }
+
+        private void login_Click(object sender, EventArgs e)
+        {
+            var loginForm = new HSPLogin();
+            loginForm.Show();
+        }
     }
 }

@@ -95,6 +95,7 @@ namespace CoreProject.Present
                     this.button2.Visible = false;
                     this.createEmployee.Visible = false;
                     this.modify.Visible = false;
+                    this.hspSupport.Visible = false;
                     break;
                 case Permission.Accountant:
                     // change benefits
@@ -104,6 +105,7 @@ namespace CoreProject.Present
                     this.removePlan.Visible = false;
                     this.modify.Visible = false;
                     this.createEmployee.Visible = false;
+                    this.hspSupport.Visible = false;
                     break;
                 case Permission.EnrolleeSupport:
                     // date range report
@@ -117,6 +119,7 @@ namespace CoreProject.Present
                     this.removePlan.Visible = false;
                     this.modify.Visible = false;
                     this.createEmployee.Visible = false;
+                    this.hspSupport.Visible = false;
                     break;
                 case Permission.HSPSupport:
                     // date range report
@@ -144,9 +147,17 @@ namespace CoreProject.Present
                     this.removePlan.Visible = false;
                     this.modify.Visible = false;
                     this.createEmployee.Visible = false;
+                    this.hspSupport.Visible = false;
                     break;
 
             }
+        }
+
+        private void hspSupport_Click(object sender, EventArgs e)
+        {
+            var hspLogin = new HSPLogin();
+            hspLogin.Show();
+
         }
     }
 }

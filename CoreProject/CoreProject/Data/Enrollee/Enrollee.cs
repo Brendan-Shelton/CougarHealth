@@ -112,20 +112,9 @@ namespace CoreProject.Data.Enrollee
         /// <returns></returns>
         public override bool Login(string userName, string password)
         {
-            int shaLen = 32;
 
-            // grab the salt from the pin 
-            byte[] pinBytes = Convert.FromBase64String(this.Pin);
-            var salt = new byte[pinBytes.Length - shaLen];
-            for ( int i = 0; i < salt.Length; i++ )
-            {
-                // copy the salt bytes 
-                salt[i] = pinBytes[i + shaLen];
-            }
-
-            var hashed = Passwordify(password, salt);
-
-            return this.Email.Equals(userName) && hashed.Equals(this.Pin);
+            return this.Email.Equals(userName) && 
+                this.ComparePassword(this.Pin, password);
         }
     }
 }

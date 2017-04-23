@@ -67,6 +67,31 @@ namespace CoreProject.Data
             // in order to store as VARCHAR we need to convert to string
             return Convert.ToBase64String(hash);
         }
+
+        /// <summary>
+        /// Compares the hashed password "mine" vs the non-hashed password "theirs"
+        /// </summary>
+        /// <param name="mine"></param>
+        /// <param name="theirs"></param>
+        /// <returns></returns>
+        public bool ComparePassword( string mine, string theirs )
+        {
+            int shaLen = 32;
+
+            // grab the salt from the password 
+            byte[] passBytes = Convert.FromBase64String(mine);
+            var salt = new byte[passBytes.Length - shaLen];
+            for ( int i = 0; i < salt.Length; i++ )
+            {
+                // copy the salt bytes 
+                salt[i] = passBytes[i + shaLen];
+            }
+
+            var hashed = Passwordify(theirs, salt);
+
+            return hashed.Equals(mine);
+
+        }
         public abstract bool ValidPass(
             string password, 
             string confPass, 

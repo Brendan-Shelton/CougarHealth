@@ -44,11 +44,12 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(264, 34);
+            this.label1.Location = new System.Drawing.Point(288, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(259, 33);
+            this.label1.Size = new System.Drawing.Size(171, 33);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Primary Enrollee Login ";
+            this.label1.Text = "Enrollee Login ";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 

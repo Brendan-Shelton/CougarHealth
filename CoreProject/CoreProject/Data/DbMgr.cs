@@ -629,8 +629,14 @@ namespace CoreProject.Data
             PlanSet = new HashSet<EnrolleePlan>
             {
                 new EnrolleePlan(guest, basic)
-            }; 
-            HspSet = new HashSet<HSP>();
+            };
+            HspSet = new HashSet<HSP>
+            {
+                new HSP("1234", true)
+                {
+                    Name = "Michael"
+                }
+            };
             BillSet = new HashSet<Bill>();
         }
 
