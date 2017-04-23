@@ -39,7 +39,7 @@ namespace CoreProject.Present
                 }
                 else
                 {
-                    form = new LoggedInEnrollee(enrollee.Value);
+                    form = new LoggedInEnrollee(enrollee.Id, enrollee.IsPrimary);
                 }
 
                 form.Show();

@@ -145,12 +145,24 @@ namespace CoreProject.Data.Employees
         /// <param name="password"></param>
         /// <param name="exception"></param>
         /// <returns></returns>
-        public override AuthUser Login(
-            string userName, 
-            string password, 
-            AuthenticationException exception )
+        public override bool Login( string userName, string password )
         {
-            throw new NotImplementedException();
+            int shaLen = 32;
+
+            // grab the salt from the password 
+            byte[] passBytes = Convert.FromBase64String(this.Password);
+            var salt = new byte[passBytes.Length - shaLen];
+            for ( int i = 0; i < salt.Length; i++ )
+            {
+                // copy the salt bytes 
+                salt[i] = passBytes[i + shaLen];
+            }
+
+            var hashed = Passwordify(password, salt);
+
+            return this.UserName.Equals(userName) && 
+                hashed.Equals(this.Password);
+
         }
 
         // override object.Equals

@@ -139,7 +139,7 @@ namespace CoreProject.Data.Enrollee
 
         public void AddCharge(DateTime date, HSP hsp, Service service, int enrolleeId, double totalBillAmount, double enrolleeBillAmount)
         {
-            this.planCtrl = new PlanController((int)PrimaryEnrollee);
+            this.planCtrl = new PlanController((int)PrimaryEnrollee, true);
             var bill = new Bill(date, hsp, service, enrolleeId, totalBillAmount, enrolleeBillAmount);
             Charges.Add(bill);
             APDRemainder -= enrolleeBillAmount;

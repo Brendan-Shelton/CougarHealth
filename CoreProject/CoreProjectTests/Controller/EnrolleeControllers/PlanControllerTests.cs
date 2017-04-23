@@ -48,7 +48,7 @@ namespace CoreProjectTests.Controller.EnrolleeControllers
         [TestMethod()]
         public void findBillTest()
         {
-            PlanController plnCtrl = new PlanController(1);
+            PlanController plnCtrl = new PlanController(1, true);
             DbMgr dbMgr = DbMgr.Instance;
             DateTime date = DateTime.Now;
             var hsp = new HSP("1234", true);

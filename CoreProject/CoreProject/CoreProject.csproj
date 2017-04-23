@@ -73,7 +73,7 @@
     <Compile Include="Controller\EnrolleeControllers\ModifyPlanController.cs" />
     <Compile Include="Data\AuthenticationException.cs" />
     <Compile Include="Data\HealthcareServiceProvider\Bill.cs" />
-    <Compile Include="Data\IAuthUser.cs" />
+    <Compile Include="Data\AuthUser.cs" />
     <Compile Include="Data\DbMgr.cs" />
     <Compile Include="Data\CreationException.cs" />
     <Compile Include="Data\Employees\Employee.cs" />

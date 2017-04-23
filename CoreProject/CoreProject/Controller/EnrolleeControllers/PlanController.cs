@@ -14,12 +14,14 @@ namespace CoreProject.Controller.EnrolleeControllers
     public class PlanController
     {
         public DbMgr dbmgr { get; private set; }
+        private bool _isPrimary;
         private int _primaryId;
 
 
-        public PlanController(int primary)
+        public PlanController(int primary, bool isPrimary)
         {
             this._primaryId = primary;
+            this._isPrimary = isPrimary;
             this.dbmgr = DbMgr.Instance;
         }
 
@@ -30,6 +32,11 @@ namespace CoreProject.Controller.EnrolleeControllers
 
         public void update(EnrolleeCosts costs)
         {
+            if ( !_isPrimary )
+            {
+                // TODO: have Zach fix this 
+                return; 
+            }
             var enrolleePlan = dbmgr.GetPlanByPrimary(_primaryId);
             var plan = dbmgr.GetPlanByType(enrolleePlan.Type);
 

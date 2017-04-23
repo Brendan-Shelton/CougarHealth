@@ -76,9 +76,77 @@ namespace CoreProject.Present
             removeGUI.Show();
         }
 
+        /// <summary>
+        /// Display what the employee can do based on it's permission
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EmployeePortal_Load(object sender, EventArgs e)
         {
+            switch ( employee.Permission )
+            {
+                case Permission.Manager:
+                    // manager can do anything homie
+                    break;
+                case Permission.PlanAdmin:
+                    // date range report
+                    this.button1.Visible = false;
+                    // Monthly report
+                    this.button2.Visible = false;
+                    this.createEmployee.Visible = false;
+                    this.modify.Visible = false;
+                    break;
+                case Permission.Accountant:
+                    // change benefits
+                    this.button4.Visible = false;
+                    // cougar costs
+                    this.button3.Visible = false;
+                    this.removePlan.Visible = false;
+                    this.modify.Visible = false;
+                    this.createEmployee.Visible = false;
+                    break;
+                case Permission.EnrolleeSupport:
+                    // date range report
+                    this.button1.Visible = false;
+                    // Monthly report
+                    this.button2.Visible = false;
+                    // cougar costs
+                    this.button3.Visible = false;
+                    // change benefits
+                    this.button4.Visible = false;
+                    this.removePlan.Visible = false;
+                    this.modify.Visible = false;
+                    this.createEmployee.Visible = false;
+                    break;
+                case Permission.HSPSupport:
+                    // date range report
+                    this.button1.Visible = false;
+                    // Monthly report
+                    this.button2.Visible = false;
+                    // cougar costs
+                    this.button3.Visible = false;
+                    // change benefits
+                    this.button4.Visible = false;
+                    this.removePlan.Visible = false;
+                    this.modify.Visible = false;
+                    this.createEmployee.Visible = false;
+                    break;
+                default:
+                    // you have access to nothing homie.
+                    // date range report
+                    this.button1.Visible = false;
+                    // Monthly report
+                    this.button2.Visible = false;
+                    // cougar costs
+                    this.button3.Visible = false;
+                    // change benefits
+                    this.button4.Visible = false;
+                    this.removePlan.Visible = false;
+                    this.modify.Visible = false;
+                    this.createEmployee.Visible = false;
+                    break;
 
+            }
         }
     }
 }

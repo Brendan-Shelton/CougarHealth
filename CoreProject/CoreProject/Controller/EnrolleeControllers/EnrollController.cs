@@ -224,16 +224,18 @@ namespace CoreProject.Controller.EnrolleeControllers
             else throw new DataException("Enrollee doesn't have primary permission");
         }
 
-        public Enrollee LoginEnrollee( string email, string pin )
-        {
+        /// <summary>
+        /// Checks if an enrollee with the given email and pin is in the
+        /// database and that the pin is correct. 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pin"></param>
+        /// <returns></returns>
+        public Enrollee LoginEnrollee( string email, string pin ) {
             Enrollee enrollee = Mgr.EnrolleeByEmail(email);
-            var except = new AuthenticationException();
-            enrollee.Login(email, pin, except);
-            if ( except.IsProblem )
-            {
-                throw except;
-            }
-            return enrollee;
+            // since enrollee can be null we need to check if it is equal to true
+            return ( enrollee?.Login(email, pin) == true) ? enrollee: null;
+
         }
 
         /// <summary>
@@ -259,7 +261,7 @@ namespace CoreProject.Controller.EnrolleeControllers
         )
         {
             var enrolleePlan = Mgr.GetPlanByPrimary(primaryId);
-            enrolleePlan.AddDependent(new DependentEnrollee (pin)
+            var dep = new DependentEnrollee(pin)
             {
                 Email = contact.email,
                 FirstName = firstName,
@@ -268,7 +270,10 @@ namespace CoreProject.Controller.EnrolleeControllers
                 MobilePhone = contact.mobilePhone,
                 Relationship = relationship,
                 SSN = ssn
-            });
+            };
+            enrolleePlan.AddDependent(dep);
+            Mgr.SaveEnrolleePlan(enrolleePlan);
+            Mgr.SaveEnrollee(dep);
 
             return enrolleePlan.PlanNum;
         }

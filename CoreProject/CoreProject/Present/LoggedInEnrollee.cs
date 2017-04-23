@@ -16,29 +16,41 @@ namespace CoreProject.Present
 
         public PlanController planCtrl { get; private set; }
         private int _primaryId;
-        public LoggedInEnrollee(int primary)
+        private bool _isPrimary;
+        public LoggedInEnrollee(int primary, bool isPrimary)
         {
             this._primaryId = primary;
+            this._isPrimary = isPrimary;
             InitializeComponent();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var dependentForm = new DependentEnroll(_primaryId);
+            var dependentForm = new DependentEnroll(this._primaryId, this._isPrimary);
             dependentForm.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var enrollPlanCtrl = new PlanController(_primaryId);
+            var enrollPlanCtrl = new PlanController(_primaryId, this._isPrimary);
             var enrolleeCostsGUI = new EnrolleeCosts(enrollPlanCtrl);
             enrolleeCostsGUI.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form form = new ModifyPlan(_primaryId);
+            Form form = new ModifyPlan(_primaryId, _isPrimary);
             form.Show();
+        }
+
+        private void LoggedInEnrollee_Load(object sender, EventArgs e)
+        {
+            if ( !_isPrimary )
+            {
+                // disable all primary actions Modify plan and add dependent 
+                this.button2.Visible = false;
+                this.button3.Visible = false;
+            }
         }
     }
 }

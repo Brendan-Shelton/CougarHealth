@@ -45,8 +45,8 @@ namespace CoreProject.Data
         /// A fake DB set for primary enrollees that we create
         /// </summary>
         public HashSet<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; } = new HashSet<PrimaryEnrollee>();
-        public HashSet<Enrollee.Enrollee> EnrolleeSet { get; set; }
-        public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
+        public HashSet<Enrollee.Enrollee> EnrolleeSet { get; set; } = new HashSet<Enrollee.Enrollee>();
+        public HashSet<DependentEnrollee> DependentEnrolleeSet { get; set; }
 
         public HashSet<Bill> BillSet { get; set; }
 
@@ -604,7 +604,24 @@ namespace CoreProject.Data
                 MailingAddr = "666 Avenue St.",
                 SSN = "123456789"
             };
+            // temp test dependent 
+            var guestDep = new DependentEnrollee("1234")
+            {
+                Email = "guestDep@guest",
+                FirstName = "Guest",
+                LastName = "Guest",
+                HomePhone = "5555555555",
+                MobilePhone = "5555555555",
+                SSN = "123456788",
+                Relationship = "brosky"
+            };
+            DependentEnrolleeSet = new HashSet<DependentEnrollee>();
             this.SaveEnrollee(guest);
+            this.SaveEnrollee(guestDep);
+            // hash the password of the guest employee because reasons
+            var guestEmp = EmployeeSet.Where(e => e.UserName == "Guest").First();
+            guestEmp.Password = guestEmp.Passwordify(guestEmp.Password);
+
             var basic = ( from insurance in Plans
                           where insurance.Type == "Basic"
                           select insurance ).FirstOrDefault();
@@ -613,7 +630,6 @@ namespace CoreProject.Data
             {
                 new EnrolleePlan(guest, basic)
             }; 
-            DependentEnrolleSet = new HashSet<DependentEnrollee>();
             HspSet = new HashSet<HSP>();
             BillSet = new HashSet<Bill>();
         }
@@ -635,9 +651,11 @@ namespace CoreProject.Data
                 throw new DataException($"{enrollee.FirstName} was already" + 
                     " in our system as primary enrollee");
             }
-            else
+            if ( enrollee is DependentEnrollee && 
+                !DependentEnrolleeSet.Add((DependentEnrollee)enrollee) )
             {
-                DependentEnrolleSet.Add((DependentEnrollee)enrollee);
+                throw new DataException($"{enrollee.FirstName} was already" + 
+                    " in our system as dependent");
             }
         }
 
@@ -796,6 +814,7 @@ namespace CoreProject.Data
             }
         }
         /// <summary>
+        /// DEPRECATED
         /// Search for the user name and password of the employee 
         /// provided through the database
         /// </summary>

@@ -74,8 +74,6 @@ namespace CoreProject.Data
         public abstract bool ValidUser(
             string userName,
             CreationException exception );
-        public abstract AuthUser Login(string userName,
-            string password,
-            AuthenticationException exception);
+        public abstract bool Login(string userName, string password);
     }
 }
