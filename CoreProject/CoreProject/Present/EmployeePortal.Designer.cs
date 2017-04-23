@@ -34,18 +34,20 @@
             this.button2 = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.button3 = new System.Windows.Forms.Button();
+            this.removePlan = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.createEmployee = new System.Windows.Forms.Button();
             this.modify = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.DimGray;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Rockwell", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(91, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(195, 39);
@@ -55,8 +57,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.DimGray;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.label2.Font = new System.Drawing.Font("Rockwell", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(349, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(332, 39);
@@ -68,7 +71,7 @@
             this.button1.BackColor = System.Drawing.Color.Silver;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(137, 301);
+            this.button1.Location = new System.Drawing.Point(126, 300);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(119, 41);
             this.button1.TabIndex = 4;
@@ -98,7 +101,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(413, 184);
+            this.button3.Location = new System.Drawing.Point(413, 177);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(174, 50);
             this.button3.TabIndex = 7;
@@ -106,11 +109,23 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // removePlan
+            // 
+            this.removePlan.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removePlan.Location = new System.Drawing.Point(413, 252);
+            this.removePlan.Name = "removePlan";
+            this.removePlan.Size = new System.Drawing.Size(174, 50);
+            this.removePlan.TabIndex = 8;
+            this.removePlan.Text = "Remove Plan";
+            this.removePlan.UseVisualStyleBackColor = true;
+            this.removePlan.Click += new System.EventHandler(this.removePlan_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.DimGray;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.label3.Font = new System.Drawing.Font("Rockwell", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(741, 28);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(227, 39);
@@ -139,13 +154,26 @@
             this.modify.UseVisualStyleBackColor = true;
             this.modify.Click += new System.EventHandler(this.modify_Click);
             // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(413, 102);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(174, 50);
+            this.button4.TabIndex = 11;
+            this.button4.Text = "Change Benefits";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // EmployeePortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Firebrick;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.removePlan);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.modify);
             this.Controls.Add(this.createEmployee);
             this.Controls.Add(this.label3);
@@ -156,7 +184,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EmployeePortal";
-            this.Text = "EmployeePortal";
+            this.Text = "Employee Portal";
+            this.Load += new System.EventHandler(this.EmployeePortal_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,8 +199,10 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button removePlan;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button createEmployee;
         private System.Windows.Forms.Button modify;
+        private System.Windows.Forms.Button button4;
     }
 }

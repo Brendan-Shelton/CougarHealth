@@ -39,14 +39,13 @@ namespace CoreProject.Present
                 }
                 else
                 {
-                    this.errMsg.Text = @"You don't not have permissions to access this form";
-                    this.errMsg.Visible = true;
-                    return;
+                    form = new LoggedInEnrollee(enrollee.Value);
                 }
 
                 form.Show();
                 form.Closed += (source, args) => this.Close();
                 this.Hide();
+
             }
             else
             {

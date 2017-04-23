@@ -138,6 +138,12 @@ namespace CoreProject.Present
             try
             {
                 this.Ctrl.ChangeCurrent(this.ComparedPlan);
+                DialogResult result = MessageBox.Show(
+                    $"Your plan has been changed to \"{this.ComparedPlan.Type}\"",
+                    "Plan changed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
                 this.Close();
             }
             catch ( ArgumentException )

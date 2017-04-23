@@ -17,10 +17,6 @@ namespace CoreProject.Data
 
         private int AdminPassKey = 1234;
 
-
-
-
-
         /// <summary>
         /// get the single instance of DbMgr allowed in the application
         /// 
@@ -30,7 +26,20 @@ namespace CoreProject.Data
         /// is not null (that is what the '??' operator is for). If it is null
         /// it instantiates the _instance field and then returns it 
         /// </summary>
-        public static DbMgr Instance => _instance ?? (_instance = new DbMgr());
+        //public static DbMgr Instance => _instance ?? (_instance = new DbMgr());
+
+        public static DbMgr Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new DbMgr();
+                }
+                return _instance;
+            }
+        }
+
         public HashSet<EnrolleePlan> PlanSet { get; set; }
         /// <summary>
         /// A fake DB set for primary enrollees that we create
@@ -38,6 +47,8 @@ namespace CoreProject.Data
         public HashSet<PrimaryEnrollee> PrimaryEnrolleeSet { get; set; } = new HashSet<PrimaryEnrollee>();
         public HashSet<Enrollee.Enrollee> EnrolleeSet { get; set; }
         public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
+
+        public HashSet<Bill> BillSet { get; set; }
 
 
         public HashSet<HSP> HspSet { get; }
@@ -62,12 +73,51 @@ namespace CoreProject.Data
                      select employee )?.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Allows an addition to the BillSet. Takes in a Bill as a parameter, Void.
+        /// </summary>
+        /// <param name="bill"></param>
+        public void addBill(Bill bill)
+        {
+            BillSet.Add(bill);
+            
+        }
+        public Bill[] getBillsById(int id)
+        {
+            //from Bill in BillSet
+            //       where Bill.enrolleeId == id
+            //       select Bill);
+
+            // var bill = from Bill in BillSet where Bill.enrolleeId == id select Bill;
+            var bills = new Bill[BillSet.Count];
+            int billCount = 0;
+            var enumerator = BillSet.GetEnumerator();
+            while(enumerator.MoveNext())
+            {
+                if (enumerator.Current.enrolleeId == id)
+                {
+                    bills[billCount] = enumerator.Current;
+                    billCount++;
+                }
+            }
+
+            var finalBills = new Bill[billCount];
+
+            for (int i = 0; i < finalBills.Length; i++)
+            {
+                finalBills[i] = bills[i];
+            }
+
+            return finalBills;
+
+        }
+
 
         /// <summary>
         /// a fake DB set for the different types of insurance plans and their 
         /// services 
         /// </summary>
-        public List<InsurancePlan> Plans => new List<InsurancePlan>()
+        public List<InsurancePlan> Plans = new List<InsurancePlan>()
         {
             new InsurancePlan()
             {
@@ -81,7 +131,7 @@ namespace CoreProject.Data
                 PrimaryChangeFee = 150.0,
                 OPMFamily = 18000,
                 OPMIndividual = 9500,
-                ServiceCosts = new[]
+                ServiceCosts = new List<Service>
                 {
                     new Service
                     {
@@ -229,7 +279,9 @@ namespace CoreProject.Data
                 PrimaryFee = 65.0,
                 DependentChangeFee = 20.0,
                 PrimaryChangeFee = 50.0,
-                ServiceCosts = new[]
+                OPMFamily = 12000,
+                OPMIndividual = 6500,
+                ServiceCosts = new List<Service>
                 {
                     new Service
                     {
@@ -446,11 +498,11 @@ namespace CoreProject.Data
         }
 
         public void adminUpdateVerify(int passkey, int planType, String category,
-            String name, Boolean percent, double val)
+            String name, Boolean percent, Boolean max, double val)
         {
             if (passkey == AdminPassKey)
             {
-                adminUpdatePlan(planType, category, name, percent, val);
+                adminUpdatePlan(planType, category, name, percent, max, val);
             }
         }
 
@@ -465,7 +517,7 @@ namespace CoreProject.Data
         /// <param name="percent"></param>
         /// <param name="val"></param>
         
-        private void adminUpdatePlan(int planType, String category, String name, Boolean percent, double val)
+        private void adminUpdatePlan(int planType, String category, String name, Boolean percent, Boolean max, double val)
         {
 
             //APD = 250.0,
@@ -508,14 +560,18 @@ namespace CoreProject.Data
                     }
                     else
                     {
-                        for (int j = 0; j < Plans[i].ServiceCosts.Length; j++)
+                        for (int j = 0; j < Plans[i].ServiceCosts.Count(); j++)
                         {
-                            if (Plans[i].ServiceCosts[j].Category.Equals(category) &&
-                                Plans[i].ServiceCosts[j].Name.Equals(name))
+                            Tuple<double, Service.MaxPayRate> temp = Plans[i].ServiceCosts[j].InNetMax;
+                            if (Plans[i].ServiceCosts[j].Name.Equals(name))
                             {
                                 if (percent == true)
                                 {
                                     Plans[i].ServiceCosts[j].PercentCoverage = val;
+                                }
+                                else if (max)
+                                {
+                                    Plans[i].ServiceCosts[j].InNetMax = new Tuple<double, Service.MaxPayRate>(val, temp.Item2);
                                 }
                                 else
                                 {
@@ -559,6 +615,7 @@ namespace CoreProject.Data
             }; 
             DependentEnrolleSet = new HashSet<DependentEnrollee>();
             HspSet = new HashSet<HSP>();
+            BillSet = new HashSet<Bill>();
         }
 
         /// <summary>
@@ -728,6 +785,16 @@ namespace CoreProject.Data
             return r;
         }
 
+        public void RemovePlan(string name)
+        {
+            for (int i = 0; i < Plans.Count; i++)
+            {
+                if (Plans[i].Type.Equals(name))
+                {
+                    Plans.RemoveAt(i);
+                }
+            }
+        }
         /// <summary>
         /// Search for the user name and password of the employee 
         /// provided through the database

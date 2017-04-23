@@ -35,14 +35,15 @@
             this.pinLogin = new System.Windows.Forms.TextBox();
             this.loginSubmit = new System.Windows.Forms.Button();
             this.errMsg = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.LightCoral;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(264, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(259, 33);
@@ -52,9 +53,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.LightCoral;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(135, 106);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 29);
@@ -64,9 +65,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.LightCoral;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(150, 183);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 29);
@@ -103,7 +104,7 @@
             // 
             this.errMsg.AutoSize = true;
             this.errMsg.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.errMsg.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.errMsg.ForeColor = System.Drawing.Color.White;
             this.errMsg.Location = new System.Drawing.Point(324, 330);
             this.errMsg.Name = "errMsg";
             this.errMsg.Size = new System.Drawing.Size(51, 20);
@@ -111,12 +112,23 @@
             this.errMsg.Text = "errMsg";
             this.errMsg.Visible = false;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(243, 277);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(270, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Dr Mayer: Login as email: guest@guest password: 1234";
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightCoral;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.ClientSize = new System.Drawing.Size(771, 420);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.errMsg);
             this.Controls.Add(this.loginSubmit);
             this.Controls.Add(this.pinLogin);
@@ -140,5 +152,6 @@
         private System.Windows.Forms.TextBox pinLogin;
         private System.Windows.Forms.Button loginSubmit;
         private System.Windows.Forms.Label errMsg;
+        private System.Windows.Forms.Label label4;
     }
 }

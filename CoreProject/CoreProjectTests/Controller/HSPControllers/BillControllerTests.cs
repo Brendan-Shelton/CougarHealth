@@ -84,7 +84,7 @@ namespace CoreProject.Controller.HSPControllers.Tests
             bill.CheckPolicy(1);
             
             String[,] returnArr = new String[2,4];
-            returnArr = bill.HSPCalculate(s, c);
+            returnArr = bill.HSPCalculate(s, c, DateTime.Now);
 
             Assert.AreEqual("2000", returnArr[0, 1]);
             Assert.AreEqual("560", returnArr[0, 2]);
@@ -121,7 +121,7 @@ namespace CoreProject.Controller.HSPControllers.Tests
             bill.CheckPolicy(1);
 
             String[,] returnArr = new String[2, 4];
-            returnArr = bill.OHSPCalculate(s, c);
+            returnArr = bill.OHSPCalculate(s, c, DateTime.Now);
 
             Assert.AreEqual("2500", returnArr[0, 1]);
             Assert.AreEqual("1060", returnArr[0, 2]);

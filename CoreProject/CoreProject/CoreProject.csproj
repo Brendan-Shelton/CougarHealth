@@ -12,6 +12,21 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,7 +54,9 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
@@ -47,18 +64,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\EmployeeControllers\ChangeBenefitsController.cs" />
     <Compile Include="Controller\EmployeeControllers\EmployeeLoginController.cs" />
     <Compile Include="Controller\EmployeeControllers\ManageEmployeeController.cs" />
     <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
     <Compile Include="Controller\EmployeeControllers\RangeReportController.cs" />
+    <Compile Include="Controller\EmployeeControllers\RemovePlanController.cs" />
     <Compile Include="Controller\EnrolleeControllers\ModifyPlanController.cs" />
     <Compile Include="Data\AuthenticationException.cs" />
+    <Compile Include="Data\HealthcareServiceProvider\Bill.cs" />
     <Compile Include="Data\IAuthUser.cs" />
     <Compile Include="Data\DbMgr.cs" />
     <Compile Include="Data\CreationException.cs" />
     <Compile Include="Data\Employees\Employee.cs" />
     <Compile Include="Data\Employees\Permission.cs" />
     <Compile Include="Data\Enrollee\Service.cs" />
+    <Compile Include="Present\ChangeCosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\ChangeCosts.Designer.cs">
+      <DependentUpon>ChangeCosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\ChangeCostsSuccess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\ChangeCostsSuccess.Designer.cs">
+      <DependentUpon>ChangeCostsSuccess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\ChangeBenefits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\ChangeBenefits.Designer.cs">
+      <DependentUpon>ChangeBenefits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\CreateEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +143,12 @@
     <Compile Include="Present\EmployeePortal.Designer.cs">
       <DependentUpon>EmployeePortal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\EnrolleeCosts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\EnrolleeCosts.Designer.cs">
+      <DependentUpon>EnrolleeCosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\EnrolleePortal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +160,12 @@
     </Compile>
     <Compile Include="Present\HSPPortal.Designer.cs">
       <DependentUpon>HSPPortal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\LoggedInEnrollee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\LoggedInEnrollee.Designer.cs">
+      <DependentUpon>LoggedInEnrollee.cs</DependentUpon>
     </Compile>
     <Compile Include="Present\Login.cs">
       <SubType>Form</SubType>
@@ -183,6 +233,12 @@
     <Compile Include="Present\PrimaryEnroll.Designer.cs">
       <DependentUpon>PrimaryEnroll.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\RemovePlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\RemovePlan.Designer.cs">
+      <DependentUpon>RemovePlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\ViewServices.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +262,15 @@
     <EmbeddedResource Include="Present\Billing.resx">
       <DependentUpon>Billing.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Present\ChangeCosts.resx">
+      <DependentUpon>ChangeCosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\ChangeCostsSuccess.resx">
+      <DependentUpon>ChangeCostsSuccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\ChangeBenefits.resx">
+      <DependentUpon>ChangeBenefits.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\CougarCosts.resx">
       <DependentUpon>CougarCosts.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,6 +286,9 @@
     <EmbeddedResource Include="Present\EmployeePortal.resx">
       <DependentUpon>EmployeePortal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Present\EnrolleeCosts.resx">
+      <DependentUpon>EnrolleeCosts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\EnrolleePortal.resx">
       <DependentUpon>EnrolleePortal.cs</DependentUpon>
     </EmbeddedResource>
@@ -229,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\HSPPortal.resx">
       <DependentUpon>HSPPortal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\LoggedInEnrollee.resx">
+      <DependentUpon>LoggedInEnrollee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -248,8 +319,14 @@
     <EmbeddedResource Include="Present\ModifyPlan.resx">
       <DependentUpon>ModifyPlan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Present\MonthlyReport.resx">
+      <DependentUpon>MonthlyReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\PrimaryEnroll.resx">
       <DependentUpon>PrimaryEnroll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\RemovePlan.resx">
+      <DependentUpon>RemovePlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\ViewServices.resx">
       <DependentUpon>ViewServices.cs</DependentUpon>
@@ -276,7 +353,27 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="CougarHealth.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CougarHealth_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>CougarHealth.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

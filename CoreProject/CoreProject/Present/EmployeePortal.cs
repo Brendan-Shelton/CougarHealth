@@ -46,7 +46,7 @@ namespace CoreProject.Present
         private void button3_Click(object sender, EventArgs e)
         {
             var cougarCostsCtrl = new CougarCostsController();
-            var cougCostGUI = new CougarCosts(cougarCostsCtrl);
+            var cougCostGUI = new ChangeCosts(cougarCostsCtrl);
             cougCostGUI.Show();
         }
 
@@ -61,6 +61,24 @@ namespace CoreProject.Present
         {
             var manage = new ManageEmployee();
             manage.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var changeBenefits = new ChangeBenefits(new ChangeBenefitsController());
+            changeBenefits.Show();
+        }
+
+        private void removePlan_Click(object sender, EventArgs e)
+        {
+            var removeCtrl = new RemovePlanController();
+            var removeGUI = new RemovePlan(removeCtrl);
+            removeGUI.Show();
+        }
+
+        private void EmployeePortal_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

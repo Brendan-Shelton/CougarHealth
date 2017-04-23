@@ -39,8 +39,7 @@ namespace CoreProject.Present
         {
             var portal = new HSPPortal();
             portal.Show();
-            portal.Closed += (source, args) => this.Close();
-            this.Hide();
+            
         }
 
         private void button2_Click(object sender, EventArgs e)

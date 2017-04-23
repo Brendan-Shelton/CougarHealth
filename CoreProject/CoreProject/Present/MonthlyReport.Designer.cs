@@ -81,6 +81,7 @@
             // 
             this.MonthReportLabel.AutoSize = true;
             this.MonthReportLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MonthReportLabel.ForeColor = System.Drawing.Color.White;
             this.MonthReportLabel.Location = new System.Drawing.Point(231, 47);
             this.MonthReportLabel.Name = "MonthReportLabel";
             this.MonthReportLabel.Size = new System.Drawing.Size(212, 31);
@@ -91,6 +92,7 @@
             // 
             this.NumEnrolleesLabel.AutoSize = true;
             this.NumEnrolleesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NumEnrolleesLabel.ForeColor = System.Drawing.Color.White;
             this.NumEnrolleesLabel.Location = new System.Drawing.Point(65, 102);
             this.NumEnrolleesLabel.Name = "NumEnrolleesLabel";
             this.NumEnrolleesLabel.Size = new System.Drawing.Size(130, 16);
@@ -100,6 +102,7 @@
             // EnrolleesDivideLineLabel
             // 
             this.EnrolleesDivideLineLabel.AutoSize = true;
+            this.EnrolleesDivideLineLabel.ForeColor = System.Drawing.Color.White;
             this.EnrolleesDivideLineLabel.Location = new System.Drawing.Point(65, 118);
             this.EnrolleesDivideLineLabel.Name = "EnrolleesDivideLineLabel";
             this.EnrolleesDivideLineLabel.Size = new System.Drawing.Size(535, 13);
@@ -111,6 +114,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(130, 145);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(357, 13);
@@ -122,6 +126,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(130, 171);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(358, 13);
@@ -133,6 +138,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(65, 220);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 16);
@@ -142,6 +148,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(65, 236);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(535, 13);
@@ -151,6 +158,7 @@
             // 
             // basicNumEnrolleesLabel
             // 
+            this.basicNumEnrolleesLabel.ForeColor = System.Drawing.Color.White;
             this.basicNumEnrolleesLabel.Location = new System.Drawing.Point(484, 140);
             this.basicNumEnrolleesLabel.Name = "basicNumEnrolleesLabel";
             this.basicNumEnrolleesLabel.Size = new System.Drawing.Size(84, 23);
@@ -160,6 +168,7 @@
             // 
             // ExtendedNumEnrolleesLabel
             // 
+            this.ExtendedNumEnrolleesLabel.ForeColor = System.Drawing.Color.White;
             this.ExtendedNumEnrolleesLabel.Location = new System.Drawing.Point(487, 166);
             this.ExtendedNumEnrolleesLabel.Name = "ExtendedNumEnrolleesLabel";
             this.ExtendedNumEnrolleesLabel.Size = new System.Drawing.Size(81, 23);
@@ -171,6 +180,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(131, 268);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(357, 13);
@@ -182,6 +192,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(130, 297);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(358, 13);
@@ -191,6 +202,7 @@
             // 
             // BasicTotalIncomeLabel
             // 
+            this.BasicTotalIncomeLabel.ForeColor = System.Drawing.Color.White;
             this.BasicTotalIncomeLabel.Location = new System.Drawing.Point(490, 263);
             this.BasicTotalIncomeLabel.Name = "BasicTotalIncomeLabel";
             this.BasicTotalIncomeLabel.Size = new System.Drawing.Size(78, 23);
@@ -200,6 +212,7 @@
             // 
             // ExtendedTotalIncomeLabel
             // 
+            this.ExtendedTotalIncomeLabel.ForeColor = System.Drawing.Color.White;
             this.ExtendedTotalIncomeLabel.Location = new System.Drawing.Point(495, 292);
             this.ExtendedTotalIncomeLabel.Name = "ExtendedTotalIncomeLabel";
             this.ExtendedTotalIncomeLabel.Size = new System.Drawing.Size(73, 23);
@@ -211,6 +224,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(130, 327);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(206, 13);
@@ -219,6 +233,7 @@
             // 
             // TotalNumEnrolleePaymentsLabel
             // 
+            this.TotalNumEnrolleePaymentsLabel.ForeColor = System.Drawing.Color.White;
             this.TotalNumEnrolleePaymentsLabel.Location = new System.Drawing.Point(495, 322);
             this.TotalNumEnrolleePaymentsLabel.Name = "TotalNumEnrolleePaymentsLabel";
             this.TotalNumEnrolleePaymentsLabel.Size = new System.Drawing.Size(73, 23);
@@ -230,6 +245,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.White;
             this.label13.Location = new System.Drawing.Point(65, 368);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(68, 16);
@@ -239,6 +255,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.White;
             this.label14.Location = new System.Drawing.Point(65, 384);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(535, 13);
@@ -250,6 +267,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.White;
             this.label15.Location = new System.Drawing.Point(175, 412);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(125, 13);
@@ -258,6 +276,7 @@
             // 
             // IHSPPhysicianNumBills
             // 
+            this.IHSPPhysicianNumBills.ForeColor = System.Drawing.Color.White;
             this.IHSPPhysicianNumBills.Location = new System.Drawing.Point(247, 490);
             this.IHSPPhysicianNumBills.Name = "IHSPPhysicianNumBills";
             this.IHSPPhysicianNumBills.Size = new System.Drawing.Size(53, 23);
@@ -269,6 +288,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.White;
             this.label17.Location = new System.Drawing.Point(143, 10);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(396, 37);
@@ -277,6 +297,7 @@
             // 
             // MonthLabel
             // 
+            this.MonthLabel.ForeColor = System.Drawing.Color.White;
             this.MonthLabel.Location = new System.Drawing.Point(468, 75);
             this.MonthLabel.Name = "MonthLabel";
             this.MonthLabel.Size = new System.Drawing.Size(100, 23);
@@ -288,6 +309,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.White;
             this.label18.Location = new System.Drawing.Point(93, 601);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(266, 13);
@@ -296,6 +318,7 @@
             // 
             // amountOwedOHSP
             // 
+            this.amountOwedOHSP.ForeColor = System.Drawing.Color.White;
             this.amountOwedOHSP.Location = new System.Drawing.Point(516, 596);
             this.amountOwedOHSP.Name = "amountOwedOHSP";
             this.amountOwedOHSP.Size = new System.Drawing.Size(81, 23);
@@ -306,6 +329,7 @@
             // label20
             // 
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.White;
             this.label20.Location = new System.Drawing.Point(495, 406);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(102, 23);
@@ -316,6 +340,7 @@
             // label21
             // 
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.White;
             this.label21.Location = new System.Drawing.Point(306, 406);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(87, 23);
@@ -325,6 +350,7 @@
             // 
             // ISHPHospitalNumBills
             // 
+            this.ISHPHospitalNumBills.ForeColor = System.Drawing.Color.White;
             this.ISHPHospitalNumBills.Location = new System.Drawing.Point(237, 446);
             this.ISHPHospitalNumBills.Name = "ISHPHospitalNumBills";
             this.ISHPHospitalNumBills.Size = new System.Drawing.Size(63, 23);
@@ -334,6 +360,7 @@
             // 
             // amountOwedIHSP
             // 
+            this.amountOwedIHSP.ForeColor = System.Drawing.Color.White;
             this.amountOwedIHSP.Location = new System.Drawing.Point(308, 596);
             this.amountOwedIHSP.Name = "amountOwedIHSP";
             this.amountOwedIHSP.Size = new System.Drawing.Size(85, 23);
@@ -345,6 +372,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.White;
             this.label24.Location = new System.Drawing.Point(124, 451);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(45, 13);
@@ -355,6 +383,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.White;
             this.label25.Location = new System.Drawing.Point(65, 412);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(104, 13);
@@ -363,6 +392,7 @@
             // 
             // HospitalIHSP
             // 
+            this.HospitalIHSP.ForeColor = System.Drawing.Color.White;
             this.HospitalIHSP.Location = new System.Drawing.Point(319, 446);
             this.HospitalIHSP.Name = "HospitalIHSP";
             this.HospitalIHSP.Size = new System.Drawing.Size(74, 23);
@@ -372,6 +402,7 @@
             // 
             // HospitalOHSP
             // 
+            this.HospitalOHSP.ForeColor = System.Drawing.Color.White;
             this.HospitalOHSP.Location = new System.Drawing.Point(504, 446);
             this.HospitalOHSP.Name = "HospitalOHSP";
             this.HospitalOHSP.Size = new System.Drawing.Size(93, 23);
@@ -384,6 +415,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.Color.White;
             this.label28.Location = new System.Drawing.Point(117, 495);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(52, 13);
@@ -394,6 +426,7 @@
             // 
             // physicianIHSP
             // 
+            this.physicianIHSP.ForeColor = System.Drawing.Color.White;
             this.physicianIHSP.Location = new System.Drawing.Point(322, 490);
             this.physicianIHSP.Name = "physicianIHSP";
             this.physicianIHSP.Size = new System.Drawing.Size(71, 23);
@@ -403,6 +436,7 @@
             // 
             // PhysicanOHSP
             // 
+            this.PhysicanOHSP.ForeColor = System.Drawing.Color.White;
             this.PhysicanOHSP.Location = new System.Drawing.Point(501, 490);
             this.PhysicanOHSP.Name = "PhysicanOHSP";
             this.PhysicanOHSP.Size = new System.Drawing.Size(96, 23);
@@ -414,6 +448,7 @@
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.ForeColor = System.Drawing.Color.White;
             this.label31.Location = new System.Drawing.Point(136, 542);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(33, 13);
@@ -423,6 +458,7 @@
             // 
             // categoryOtherIHSP
             // 
+            this.categoryOtherIHSP.ForeColor = System.Drawing.Color.White;
             this.categoryOtherIHSP.Location = new System.Drawing.Point(325, 537);
             this.categoryOtherIHSP.Name = "categoryOtherIHSP";
             this.categoryOtherIHSP.Size = new System.Drawing.Size(68, 23);
@@ -432,6 +468,7 @@
             // 
             // categoryOtherOHSP
             // 
+            this.categoryOtherOHSP.ForeColor = System.Drawing.Color.White;
             this.categoryOtherOHSP.Location = new System.Drawing.Point(498, 537);
             this.categoryOtherOHSP.Name = "categoryOtherOHSP";
             this.categoryOtherOHSP.Size = new System.Drawing.Size(99, 23);
@@ -443,6 +480,7 @@
             // 
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.Color.White;
             this.label34.Location = new System.Drawing.Point(336, 677);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(71, 13);
@@ -451,6 +489,7 @@
             // 
             // totalCharges
             // 
+            this.totalCharges.ForeColor = System.Drawing.Color.White;
             this.totalCharges.Location = new System.Drawing.Point(504, 672);
             this.totalCharges.Name = "totalCharges";
             this.totalCharges.Size = new System.Drawing.Size(93, 23);
@@ -461,6 +500,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
+            this.label36.ForeColor = System.Drawing.Color.White;
             this.label36.Location = new System.Drawing.Point(65, 654);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(535, 13);
@@ -472,6 +512,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(94, 627);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(265, 13);
@@ -481,6 +522,7 @@
             // 
             // PercentMaxChargeLabel
             // 
+            this.PercentMaxChargeLabel.ForeColor = System.Drawing.Color.White;
             this.PercentMaxChargeLabel.Location = new System.Drawing.Point(309, 624);
             this.PercentMaxChargeLabel.Name = "PercentMaxChargeLabel";
             this.PercentMaxChargeLabel.Size = new System.Drawing.Size(84, 18);
@@ -491,6 +533,7 @@
             // 
             // IHSPOtherNumBills
             // 
+            this.IHSPOtherNumBills.ForeColor = System.Drawing.Color.White;
             this.IHSPOtherNumBills.Location = new System.Drawing.Point(200, 537);
             this.IHSPOtherNumBills.Name = "IHSPOtherNumBills";
             this.IHSPOtherNumBills.Size = new System.Drawing.Size(100, 23);
@@ -501,6 +544,7 @@
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(401, 400);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(91, 36);
@@ -510,6 +554,7 @@
             // 
             // OHSPHospitalNumBills
             // 
+            this.OHSPHospitalNumBills.ForeColor = System.Drawing.Color.White;
             this.OHSPHospitalNumBills.Location = new System.Drawing.Point(408, 446);
             this.OHSPHospitalNumBills.Name = "OHSPHospitalNumBills";
             this.OHSPHospitalNumBills.Size = new System.Drawing.Size(84, 23);
@@ -519,6 +564,7 @@
             // 
             // OHSPPhysicianNumBills
             // 
+            this.OHSPPhysicianNumBills.ForeColor = System.Drawing.Color.White;
             this.OHSPPhysicianNumBills.Location = new System.Drawing.Point(404, 490);
             this.OHSPPhysicianNumBills.Name = "OHSPPhysicianNumBills";
             this.OHSPPhysicianNumBills.Size = new System.Drawing.Size(88, 23);
@@ -528,6 +574,7 @@
             // 
             // OHSPOtherNumBills
             // 
+            this.OHSPOtherNumBills.ForeColor = System.Drawing.Color.White;
             this.OHSPOtherNumBills.Location = new System.Drawing.Point(404, 537);
             this.OHSPOtherNumBills.Name = "OHSPOtherNumBills";
             this.OHSPOtherNumBills.Size = new System.Drawing.Size(88, 23);
@@ -539,7 +586,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightCoral;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.ClientSize = new System.Drawing.Size(667, 732);
             this.Controls.Add(this.OHSPOtherNumBills);
             this.Controls.Add(this.OHSPPhysicianNumBills);
@@ -589,7 +636,7 @@
             this.Controls.Add(this.NumEnrolleesLabel);
             this.Controls.Add(this.MonthReportLabel);
             this.Name = "MonthlyReport";
-            this.Text = "MonthlyReport";
+            this.Text = "Monthly Report";
             this.ResumeLayout(false);
             this.PerformLayout();
 

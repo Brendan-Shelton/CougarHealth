@@ -45,7 +45,7 @@
             // 
             // create
             // 
-            this.create.BackColor = System.Drawing.Color.Cornsilk;
+            this.create.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.create.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.create.Location = new System.Drawing.Point(597, 245);
             this.create.Name = "create";
@@ -57,7 +57,7 @@
             // 
             // bill
             // 
-            this.bill.BackColor = System.Drawing.Color.Cornsilk;
+            this.bill.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.bill.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.bill.Location = new System.Drawing.Point(596, 302);
             this.bill.Name = "bill";
@@ -71,7 +71,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Coral;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(241)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.bill);
             this.Controls.Add(this.create);

@@ -47,7 +47,7 @@
             this.RequiredCopayment,
             this.InNetMax});
             this.ServicesDisplayed.Location = new System.Drawing.Point(89, 58);
-            this.ServicesDisplayed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ServicesDisplayed.Margin = new System.Windows.Forms.Padding(4);
             this.ServicesDisplayed.Name = "ServicesDisplayed";
             this.ServicesDisplayed.Size = new System.Drawing.Size(545, 462);
             this.ServicesDisplayed.TabIndex = 2;
@@ -85,12 +85,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightCoral;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.ClientSize = new System.Drawing.Size(771, 691);
             this.Controls.Add(this.ServicesDisplayed);
             this.Font = new System.Drawing.Font("Arial", 12F);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ViewServices";
             this.Text = "View Services";
             this.Load += new System.EventHandler(this.ViewServices_Load);
