@@ -53,25 +53,18 @@ namespace CoreProject.Controller.HSPControllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public bool CheckEnrollee(String name)
+        public bool CheckEnrollee(String email)
         {
-            String[] nameArr = new String[2];
-            nameArr = name.Split();
-            if (nameArr.Length == 2)
-            {
-                if (Mgr.GetEnrolleeByName(nameArr[0], nameArr[1]) == null)
+            
+                if (Mgr.GetEnrolleeByEmail(email) == null)
                 {
                     return false;
                 }
                 else
                 {
-                    enrollee = Mgr.GetEnrolleeByName(nameArr[0], nameArr[1]);
+                    enrollee = Mgr.GetEnrolleeByEmail(email);
                     return true;
                 }
-
-            }
-            else
-                return false;
 
         }
 

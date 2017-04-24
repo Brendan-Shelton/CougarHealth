@@ -118,28 +118,28 @@ namespace CoreProject.Controller.EmployeeControllers
                 switch (name)
                 {
                     case "Plan Year Max Benefit":
-                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PYMB", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Type, "Benefits", "PYMB", percent, max, val);
                         break;
                     case "Out of Pocket Maximum Per Enrollee":
-                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMIndividual", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Type, "Benefits", "OPMIndividual", percent, max, val);
                         break;
                     case "Out of Pocket Maximum Per Family":
-                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "OPMFamily", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Type, "Benefits", "OPMFamily", percent, max, val);
                         break;
                     case "Annual Plan Deductible":
-                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "APD", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Type, "Benefits", "APD", percent, max, val);
                         break;
                     case "Primary Enrollee Fee":
-                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryFee", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Type, "Benefits", "PrimaryFee", percent, max, val);
                         break;
                     case "Primary Enrollee Change Fee":
-                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "PrimaryChangeFee", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Type, "Benefits", "PrimaryChangeFee", percent, max, val);
                         break;
                     case "Dependent Enrollee Fee":
-                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentFee", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Type, "Benefits", "DependentFee", percent, max, val);
                         break;
                     case "Dependent Enrollee Change Fee":
-                        Mgr.adminUpdateVerify(1234, plan.Id, "Benefits", "DependentChangeFee", percent, max, val);
+                        Mgr.adminUpdateVerify(1234, plan.Type, "Benefits", "DependentChangeFee", percent, max, val);
                         break;
                     default:
                         for (int i = 0; i < plan.ServiceCosts.Count(); i++)
@@ -151,15 +151,15 @@ namespace CoreProject.Controller.EmployeeControllers
                                 {
                                     // check for percent greater than 100%
                                     if(val <= 1)
-                                    Mgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                    Mgr.adminUpdateVerify(1234, plan.Type, "", plan.ServiceCosts[i].Name, percent, max, val);
                                 }
                                 else if (max)
                                 {
-                                    Mgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                    Mgr.adminUpdateVerify(1234, plan.Type, "", plan.ServiceCosts[i].Name, percent, max, val);
                                 }
                                 else
                                 {
-                                    Mgr.adminUpdateVerify(1234, plan.Id, "", plan.ServiceCosts[i].Name, percent, max, val);
+                                    Mgr.adminUpdateVerify(1234, plan.Type, "", plan.ServiceCosts[i].Name, percent, max, val);
                                 }
                             }
                         }

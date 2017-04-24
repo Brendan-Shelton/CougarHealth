@@ -244,7 +244,7 @@ namespace CoreProject.Data
             return result;
         }
 
-        public void adminUpdateVerify(int passkey, int planType, String category,
+        public void adminUpdateVerify(int passkey, string planType, String category,
             String name, Boolean percent, Boolean max, double val)
         {
             if (passkey == AdminPassKey)
@@ -264,7 +264,7 @@ namespace CoreProject.Data
         /// <param name="percent"></param>
         /// <param name="val"></param>
 
-        public int? AdminUpdatePlan(int planType, String category, String name, Boolean percent, Boolean max, double val)
+        public int? AdminUpdatePlan(String planType, String category, String name, Boolean percent, Boolean max, double val)
         {
 
             //    APD = 250.0,
@@ -886,24 +886,21 @@ namespace CoreProject.Data
         //public void SaveEnrollee(Enrollee.Enrollee enrollee) { }
 
         /// <summary>
-        /// 
+        /// Gets enrollee by email
         /// </summary>
-        /// <param name="f"></param>
-        /// <param name="l"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
-        public Enrollee.Enrollee GetEnrolleeByName(string f, string l)
+        public Enrollee.Enrollee GetEnrolleeByEmail(string email)
         {
             // look through both the primary enrollee table and the dependent 
             // enrollee table get back what are not duplicates 
             string selEnrollee = @"SELECT Id, Email, Pin, SSN, HomePhone, MobilePhone, FirstName, LastName
                                    FROM PrimaryEnrollee 
-                                   WHERE FirstName = @first 
-                                   AND LastName = @last
+                                   WHERE Email = @email
                                    UNION 
                                    SELECT Id, Email, Pin, SSN, HomePhone, MobilePhone, FirstName, LastName 
                                    FROM DependentEnrollee
-                                   WHERE FirstName = @first 
-                                   AND LastName = @last";
+                                   WHERE Email = @email";
             Enrollee.Enrollee enrollee = null;
 
             try
@@ -912,8 +909,7 @@ namespace CoreProject.Data
                 using (var cmd = new SqlCommand(selEnrollee, this.Connection))
                 {
                     // command is parameterized to prevent SQL injection
-                    cmd.Parameters.AddWithValue("@first", f);
-                    cmd.Parameters.AddWithValue("@last", l);
+                    cmd.Parameters.AddWithValue("@email", email);
                     var rdr = cmd.ExecuteReader();
                     // I should only get one result back 
                     enrollee = rdr.Single(p => new Enrollee.Enrollee(Convert.ToString(p["Pin"]))

@@ -66,14 +66,13 @@ namespace CoreProject.Data.Tests
         //}
 
         [TestMethod()]
-        public void GetEnrolleeByNameTest()
+        public void GetEnrolleeByEmailTest()
         {
             // the guest account is put into the Primary Enrollee table 
             // that is where I am looking 
-            var f = "Guest";
-            var l = "Guest";
+            var email = "guest@guest";
 
-            var enrollee = mgr.GetEnrolleeByName(f, l);
+            var enrollee = mgr.GetEnrolleeByEmail(email);
 
             Assert.IsNotNull(enrollee);
             Assert.AreEqual(enrollee.Email, "guest@guest");
@@ -113,10 +112,19 @@ namespace CoreProject.Data.Tests
             Assert.AreEqual(newDude, saved);
         }
 
+        /// <summary>
+        /// Updates the plan information that the Admin entered
+        /// </summary>
         [TestMethod()]
         public void AdminUpdatePlanTest()
         {
-            Assert.Fail();
+            
+            // Update APD
+            var ret = mgr.AdminUpdatePlan("Basic", "Benefits", "APD", false, false, 50);
+            var Plan = mgr.GetPlanByType("Basic");
+
+            Assert.IsNotNull(ret);
+            Assert.AreEqual(50, Plan.APD);
         }
 
         /// <summary>
