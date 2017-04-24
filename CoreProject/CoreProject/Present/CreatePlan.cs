@@ -27,12 +27,15 @@ namespace CoreProject.Present
             // Add the service to the listbox and refresh the listbox
             Service s = CreateCtrl.AddService(serviceNameTextbox.Text, serviceCatTextbox.Text, Convert.ToDouble(copayNumeric.Value),
                                   Convert.ToDouble(percentNumeric.Value), Convert.ToDouble(maxNumeric.Value), maxPayRateComboBox.SelectedItem.ToString());
+
+            // if name is not ERROR, add to list and listbox
             if (!s.Name.Equals("ERROR"))
             {
                 services.Add(s);
                 serviceListbox.Items.Add(s.Name.ToString());
                 serviceListbox.Refresh();
             }
+            // Name has been set to ERROR meaning the service was not successfully created
             else
             {
                 MessageBox.Show("Error adding service!");
@@ -42,7 +45,7 @@ namespace CoreProject.Present
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            // submit all of the information for processing/checking
+            // submit all of the information for processing/checking, returns a bool
             if(CreateCtrl.CreatePlan(planNameTextbox.Text, Convert.ToDouble(PYMBNumeric.Value), Convert.ToDouble(APDNumeric.Value), Convert.ToDouble(OPMINumeric.Value), Convert.ToDouble(OPMFNumeric.Value),
                                   Convert.ToDouble(primaryNumeric.Value), Convert.ToDouble(dependentNumeric.Value), Convert.ToDouble(primaryChangeNumeric.Value), Convert.ToDouble(dependentChangeNumeric.Value),
                                   optionalCheckbox.Checked, services))
@@ -53,6 +56,11 @@ namespace CoreProject.Present
             {
                 MessageBox.Show("Error adding plan!");
             }
+        }
+
+        private void CreatePlan_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

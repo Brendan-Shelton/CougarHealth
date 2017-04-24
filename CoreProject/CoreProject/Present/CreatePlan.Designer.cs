@@ -81,7 +81,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 60);
+            this.label1.Location = new System.Drawing.Point(0, 62);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 17);
             this.label1.TabIndex = 0;
@@ -89,7 +89,7 @@
             // 
             // planNameTextbox
             // 
-            this.planNameTextbox.Location = new System.Drawing.Point(145, 62);
+            this.planNameTextbox.Location = new System.Drawing.Point(157, 62);
             this.planNameTextbox.Name = "planNameTextbox";
             this.planNameTextbox.Size = new System.Drawing.Size(166, 22);
             this.planNameTextbox.TabIndex = 1;
@@ -97,7 +97,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 88);
+            this.label2.Location = new System.Drawing.Point(0, 90);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 17);
             this.label2.TabIndex = 2;
@@ -106,7 +106,7 @@
             // optionalCheckbox
             // 
             this.optionalCheckbox.AutoSize = true;
-            this.optionalCheckbox.Location = new System.Drawing.Point(145, 314);
+            this.optionalCheckbox.Location = new System.Drawing.Point(157, 314);
             this.optionalCheckbox.Name = "optionalCheckbox";
             this.optionalCheckbox.Size = new System.Drawing.Size(83, 21);
             this.optionalCheckbox.TabIndex = 4;
@@ -115,7 +115,12 @@
             // 
             // PYMBNumeric
             // 
-            this.PYMBNumeric.Location = new System.Drawing.Point(145, 90);
+            this.PYMBNumeric.Location = new System.Drawing.Point(157, 90);
+            this.PYMBNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.PYMBNumeric.Name = "PYMBNumeric";
             this.PYMBNumeric.Size = new System.Drawing.Size(166, 22);
             this.PYMBNumeric.TabIndex = 5;
@@ -123,7 +128,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 115);
+            this.label3.Location = new System.Drawing.Point(0, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(36, 17);
             this.label3.TabIndex = 6;
@@ -131,21 +136,36 @@
             // 
             // APDNumeric
             // 
-            this.APDNumeric.Location = new System.Drawing.Point(145, 118);
+            this.APDNumeric.Location = new System.Drawing.Point(157, 118);
+            this.APDNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.APDNumeric.Name = "APDNumeric";
             this.APDNumeric.Size = new System.Drawing.Size(166, 22);
             this.APDNumeric.TabIndex = 7;
             // 
             // OPMFNumeric
             // 
-            this.OPMFNumeric.Location = new System.Drawing.Point(145, 174);
+            this.OPMFNumeric.Location = new System.Drawing.Point(157, 174);
+            this.OPMFNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.OPMFNumeric.Name = "OPMFNumeric";
             this.OPMFNumeric.Size = new System.Drawing.Size(166, 22);
             this.OPMFNumeric.TabIndex = 8;
             // 
             // OPMINumeric
             // 
-            this.OPMINumeric.Location = new System.Drawing.Point(145, 146);
+            this.OPMINumeric.Location = new System.Drawing.Point(157, 146);
+            this.OPMINumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.OPMINumeric.Name = "OPMINumeric";
             this.OPMINumeric.Size = new System.Drawing.Size(166, 22);
             this.OPMINumeric.TabIndex = 9;
@@ -153,7 +173,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 173);
+            this.label4.Location = new System.Drawing.Point(0, 175);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 17);
             this.label4.TabIndex = 10;
@@ -162,7 +182,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 143);
+            this.label5.Location = new System.Drawing.Point(0, 145);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 17);
             this.label5.TabIndex = 11;
@@ -171,63 +191,83 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 286);
+            this.label7.Location = new System.Drawing.Point(0, 288);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(127, 17);
+            this.label7.Size = new System.Drawing.Size(159, 17);
             this.label7.TabIndex = 13;
-            this.label7.Text = "DependentChange";
+            this.label7.Text = "Dependent Change Fee";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 227);
+            this.label8.Location = new System.Drawing.Point(0, 229);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(102, 17);
+            this.label8.Size = new System.Drawing.Size(106, 17);
             this.label8.TabIndex = 14;
-            this.label8.Text = "DependentFee";
+            this.label8.Text = "Dependent Fee";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 202);
+            this.label9.Location = new System.Drawing.Point(0, 204);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(80, 17);
+            this.label9.Size = new System.Drawing.Size(84, 17);
             this.label9.TabIndex = 15;
-            this.label9.Text = "PrimaryFee";
+            this.label9.Text = "Primary Fee";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 258);
+            this.label10.Location = new System.Drawing.Point(0, 260);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(105, 17);
+            this.label10.Size = new System.Drawing.Size(137, 17);
             this.label10.TabIndex = 16;
-            this.label10.Text = "PrimaryChange";
+            this.label10.Text = "Primary Change Fee";
             // 
             // dependentChangeNumeric
             // 
-            this.dependentChangeNumeric.Location = new System.Drawing.Point(145, 286);
+            this.dependentChangeNumeric.Location = new System.Drawing.Point(157, 286);
+            this.dependentChangeNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.dependentChangeNumeric.Name = "dependentChangeNumeric";
             this.dependentChangeNumeric.Size = new System.Drawing.Size(166, 22);
             this.dependentChangeNumeric.TabIndex = 17;
             // 
             // primaryChangeNumeric
             // 
-            this.primaryChangeNumeric.Location = new System.Drawing.Point(145, 258);
+            this.primaryChangeNumeric.Location = new System.Drawing.Point(157, 258);
+            this.primaryChangeNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.primaryChangeNumeric.Name = "primaryChangeNumeric";
             this.primaryChangeNumeric.Size = new System.Drawing.Size(166, 22);
             this.primaryChangeNumeric.TabIndex = 18;
             // 
             // dependentNumeric
             // 
-            this.dependentNumeric.Location = new System.Drawing.Point(145, 230);
+            this.dependentNumeric.Location = new System.Drawing.Point(157, 230);
+            this.dependentNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.dependentNumeric.Name = "dependentNumeric";
             this.dependentNumeric.Size = new System.Drawing.Size(166, 22);
             this.dependentNumeric.TabIndex = 19;
             // 
             // primaryNumeric
             // 
-            this.primaryNumeric.Location = new System.Drawing.Point(145, 202);
+            this.primaryNumeric.Location = new System.Drawing.Point(157, 202);
+            this.primaryNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.primaryNumeric.Name = "primaryNumeric";
             this.primaryNumeric.Size = new System.Drawing.Size(166, 22);
             this.primaryNumeric.TabIndex = 20;
@@ -321,6 +361,11 @@
             // maxNumeric
             // 
             this.maxNumeric.Location = new System.Drawing.Point(130, 164);
+            this.maxNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.maxNumeric.Name = "maxNumeric";
             this.maxNumeric.Size = new System.Drawing.Size(122, 22);
             this.maxNumeric.TabIndex = 50;
@@ -328,6 +373,11 @@
             // copayNumeric
             // 
             this.copayNumeric.Location = new System.Drawing.Point(130, 108);
+            this.copayNumeric.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.copayNumeric.Name = "copayNumeric";
             this.copayNumeric.Size = new System.Drawing.Size(122, 22);
             this.copayNumeric.TabIndex = 49;
@@ -424,6 +474,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CreatePlan";
             this.Text = "CreatePlan";
+            this.Load += new System.EventHandler(this.CreatePlan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PYMBNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.APDNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OPMFNumeric)).EndInit();

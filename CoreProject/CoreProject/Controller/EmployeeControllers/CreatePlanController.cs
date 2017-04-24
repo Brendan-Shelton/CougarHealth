@@ -103,6 +103,7 @@ namespace CoreProject.Controller.EmployeeControllers
                     InNetMax = new Tuple<double, Service.MaxPayRate>(max, maxPayEnum)
                 };
             }
+            // if there is an issue found, return a service named error which will be read and display an error in the GUI
             else
             {
                 return new Service
