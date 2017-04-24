@@ -44,16 +44,19 @@
             // 
             // searchHSPResult
             // 
+            this.searchHSPResult.AllowUserToAddRows = false;
             this.searchHSPResult.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.searchHSPResult.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.searchHSPResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.searchHSPResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.HSP,
             this.Address});
-            this.searchHSPResult.Location = new System.Drawing.Point(461, 50);
+            this.searchHSPResult.Location = new System.Drawing.Point(515, 50);
             this.searchHSPResult.Name = "searchHSPResult";
+            this.searchHSPResult.RowHeadersVisible = false;
             this.searchHSPResult.RowTemplate.Height = 24;
-            this.searchHSPResult.Size = new System.Drawing.Size(656, 444);
+            this.searchHSPResult.ShowEditingIcon = false;
+            this.searchHSPResult.Size = new System.Drawing.Size(602, 444);
             this.searchHSPResult.TabIndex = 0;
             // 
             // HSP
@@ -110,9 +113,9 @@
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(268, 157);
+            this.searchButton.Location = new System.Drawing.Point(268, 100);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(149, 55);
+            this.searchButton.Size = new System.Drawing.Size(149, 84);
             this.searchButton.TabIndex = 7;
             this.searchButton.Text = "Search Healthcare Service Providers";
             this.searchButton.UseVisualStyleBackColor = true;
