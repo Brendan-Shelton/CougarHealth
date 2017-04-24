@@ -193,7 +193,6 @@
             this.benefitList.Name = "benefitList";
             this.benefitList.Size = new System.Drawing.Size(120, 148);
             this.benefitList.TabIndex = 11;
-            this.benefitList.SelectedIndexChanged += new System.EventHandler(this.benefitList_SelectedIndexChanged);
             // 
             // planList
             // 

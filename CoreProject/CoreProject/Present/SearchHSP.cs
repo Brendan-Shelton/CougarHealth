@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreProject.Controller.EnrolleeControllers;
 using CoreProject.Data.Enrollee;
+using CoreProject.Data.HealthcareServiceProvider;
 
 namespace CoreProject.Present
 {
@@ -18,91 +19,63 @@ namespace CoreProject.Present
         public SearchHSP()
         {
             InitializeComponent();
-            List<Service> service = searchCntrl.GetServices();
-            populateBenefitList(service);
-        }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dentalPlan_CheckedChanged(object sender, EventArgs e)
-        {
-
-            if (dentalCheck.Checked)
+            var plans = searchCntrl.GetPlans();
+            foreach (var item in plans)
             {
-                //benefitListBox.Items.Clear();
-                List<Service> service = new List<Service>();
-
-                Service ser1 = new Service();
-                ser1.Name = "Dental Benefit 1";
-                Service ser2 = new Service();
-                ser2.Name = "Dental Benefit 2";
-                Service ser3 = new Service();
-                ser3.Name = "Dental Benefit 3";
-
-                service.Add(ser1);
-                service.Add(ser2);
-                service.Add(ser3);
-
-                populateBenefitList(service);
+                planList.Items.Add(item.Type);
             }
-            else if (!dentalCheck.Checked)
-            {
-                //benefitListBox.Items.Clear();
-                List<Service> service = searchCntrl.GetServices();
-                populateBenefitList(service);
-            }
-        }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void populateBenefitList(List<Service> service)
-        {
-            ((ListBox)benefitListBox).DataSource = null;
             benefitListBox.Items.Clear();
-
-            ((ListBox)benefitListBox).DataSource = service;
-            ((ListBox)benefitListBox).DisplayMember = "Name";
-            //foreach (var item in service)
-            //{
-            //    benefitListBox.Items.Add(item);
-
-                
-
-
-            //}
         }
-
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-
+            searchHSPResult.Rows.Clear();
+            searchHSPResult.Refresh();
+            string[] selected = new string[benefitListBox.CheckedIndices.Count];
             for (int i = 0; i < benefitListBox.CheckedIndices.Count; i++)
             {
-                int index = benefitListBox.CheckedIndices[i];
-
-                string aaa = benefitListBox.CheckedItems[index].ToString();
+                selected[i] = benefitListBox.CheckedItems[i].ToString();
             }
+
+            foreach (string service in selected)
+            {
+                IEnumerable<HSP> result =  searchCntrl.GetProviders(service);
+                foreach (HSP found in result)
+                {
+                    Boolean isIn = false;
+                    foreach (DataGridViewRow row in searchHSPResult.Rows)
+                    {
+                        if (row.Cells[0].Value != null)
+                        {
+                            if (row.Cells[0].Value.ToString() == found.Name)
+                            {
+                                isIn = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isIn)
+                    {
+                        searchHSPResult.Rows.Add(found.Name, found.Address);
+                    }
+                    //                   searchHSPResult.Rows.Add(found.Name, found.Address);
+                }
+            }
+
+
+        }
+
+        private void planList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var plan = searchCntrl.GetPlan(planList.SelectedItem.ToString());
+            benefitListBox.Items.Clear();
+            foreach (var item in plan.ServiceCosts)
+            {
+                benefitListBox.Items.Add(item.Name);
+            }
+            benefitListBox.Visible = true;
         }
     }
 }

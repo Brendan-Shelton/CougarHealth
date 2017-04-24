@@ -28,32 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.searchHSPResult = new System.Windows.Forms.DataGridView();
             this.HSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleLabel = new System.Windows.Forms.Label();
             this.subtitleLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dentalCheck = new System.Windows.Forms.CheckBox();
             this.benefitListBox = new System.Windows.Forms.CheckedListBox();
             this.searchButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.planList = new System.Windows.Forms.ListBox();
+            this.planSelectTitle = new System.Windows.Forms.Label();
+            this.benefitsTitle = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.searchHSPResult)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // searchHSPResult
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.HSP});
-            this.dataGridView1.Location = new System.Drawing.Point(621, 53);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(500, 444);
-            this.dataGridView1.TabIndex = 0;
+            this.searchHSPResult.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.searchHSPResult.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.searchHSPResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.searchHSPResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.HSP,
+            this.Address});
+            this.searchHSPResult.Location = new System.Drawing.Point(617, 50);
+            this.searchHSPResult.Name = "searchHSPResult";
+            this.searchHSPResult.RowTemplate.Height = 24;
+            this.searchHSPResult.Size = new System.Drawing.Size(500, 444);
+            this.searchHSPResult.TabIndex = 0;
             // 
             // HSP
             // 
             this.HSP.HeaderText = "Service Provider";
             this.HSP.Name = "HSP";
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Address";
+            this.Address.Name = "Address";
             // 
             // titleLabel
             // 
@@ -64,7 +75,6 @@
             this.titleLabel.Size = new System.Drawing.Size(177, 32);
             this.titleLabel.TabIndex = 1;
             this.titleLabel.Text = "Search Form";
-            this.titleLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // subtitleLabel
             // 
@@ -75,7 +85,6 @@
             this.subtitleLabel.Size = new System.Drawing.Size(440, 20);
             this.subtitleLabel.TabIndex = 2;
             this.subtitleLabel.Text = "Check boxes to select the benefits you wish to search for.";
-            this.subtitleLabel.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // label2
             // 
@@ -84,18 +93,6 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 17);
             this.label2.TabIndex = 4;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // dentalCheck
-            // 
-            this.dentalCheck.AutoSize = true;
-            this.dentalCheck.Location = new System.Drawing.Point(19, 75);
-            this.dentalCheck.Name = "dentalCheck";
-            this.dentalCheck.Size = new System.Drawing.Size(112, 21);
-            this.dentalCheck.TabIndex = 5;
-            this.dentalCheck.Text = "- Dental Plan";
-            this.dentalCheck.UseVisualStyleBackColor = true;
-            this.dentalCheck.CheckedChanged += new System.EventHandler(this.dentalPlan_CheckedChanged);
             // 
             // benefitListBox
             // 
@@ -105,15 +102,15 @@
             "benefit 1",
             "benefit 2",
             "benefit 3"});
-            this.benefitListBox.Location = new System.Drawing.Point(19, 102);
+            this.benefitListBox.Location = new System.Drawing.Point(22, 218);
             this.benefitListBox.Name = "benefitListBox";
-            this.benefitListBox.Size = new System.Drawing.Size(395, 395);
+            this.benefitListBox.Size = new System.Drawing.Size(395, 276);
             this.benefitListBox.TabIndex = 6;
-            this.benefitListBox.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
+            this.benefitListBox.Visible = false;
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(431, 442);
+            this.searchButton.Location = new System.Drawing.Point(423, 439);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(149, 55);
             this.searchButton.TabIndex = 7;
@@ -121,21 +118,52 @@
             this.searchButton.UseVisualStyleBackColor = true;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
+            // planList
+            // 
+            this.planList.FormattingEnabled = true;
+            this.planList.ItemHeight = 16;
+            this.planList.Location = new System.Drawing.Point(22, 100);
+            this.planList.Name = "planList";
+            this.planList.Size = new System.Drawing.Size(237, 84);
+            this.planList.TabIndex = 8;
+            this.planList.SelectedIndexChanged += new System.EventHandler(this.planList_SelectedIndexChanged);
+            // 
+            // planSelectTitle
+            // 
+            this.planSelectTitle.AutoSize = true;
+            this.planSelectTitle.Location = new System.Drawing.Point(22, 77);
+            this.planSelectTitle.Name = "planSelectTitle";
+            this.planSelectTitle.Size = new System.Drawing.Size(91, 17);
+            this.planSelectTitle.TabIndex = 9;
+            this.planSelectTitle.Text = "Select a Plan";
+            // 
+            // benefitsTitle
+            // 
+            this.benefitsTitle.AutoSize = true;
+            this.benefitsTitle.Location = new System.Drawing.Point(22, 198);
+            this.benefitsTitle.Name = "benefitsTitle";
+            this.benefitsTitle.Size = new System.Drawing.Size(102, 17);
+            this.benefitsTitle.TabIndex = 10;
+            this.benefitsTitle.Text = "Select Benefits";
+            // 
             // SearchHSP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(76)))), ((int)(((byte)(56)))));
             this.ClientSize = new System.Drawing.Size(1129, 503);
+            this.Controls.Add(this.benefitsTitle);
+            this.Controls.Add(this.planSelectTitle);
+            this.Controls.Add(this.planList);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.benefitListBox);
-            this.Controls.Add(this.dentalCheck);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.subtitleLabel);
             this.Controls.Add(this.titleLabel);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.searchHSPResult);
             this.Name = "SearchHSP";
             this.Text = "Search Healthcare Service Providers";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchHSPResult)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,13 +171,16 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView searchHSPResult;
         private System.Windows.Forms.DataGridViewTextBoxColumn HSP;
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Label subtitleLabel;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox dentalCheck;
         private System.Windows.Forms.CheckedListBox benefitListBox;
         private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.ListBox planList;
+        private System.Windows.Forms.Label planSelectTitle;
+        private System.Windows.Forms.Label benefitsTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
     }
 }

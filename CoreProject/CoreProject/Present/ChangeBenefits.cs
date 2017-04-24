@@ -76,10 +76,5 @@ namespace CoreProject.Present
                 benefitList.Items.Add(item.Name);
             }
         }
-
-        private void benefitList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

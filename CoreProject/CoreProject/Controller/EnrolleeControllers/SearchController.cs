@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data;
 using CoreProject.Data.Enrollee;
+using CoreProject.Data.HealthcareServiceProvider;
 
 namespace CoreProject.Controller.EnrolleeControllers
 {
@@ -12,15 +13,43 @@ namespace CoreProject.Controller.EnrolleeControllers
     {
         DbMgr Mgr = DbMgr.Instance;
 
-        public List<Service> GetServices() {
+        private InsurancePlan localPlan;
+
+        public InsurancePlan getLocalPlan() { return localPlan; }
+        public void setLocalPlan(InsurancePlan plan) { localPlan = plan; }
+
+        public IEnumerable<Service> GetServices() {
             return Mgr.GetServices();
         }
 
-        public void defaultLayout() {
-
+        public InsurancePlan GetPlan(String name)
+        {
+            var plan = Mgr.GetPlanByType(name);
+            setLocalPlan(plan);
+            return plan;
         }
 
-        public void dentalPlanClicked() {
+        public IEnumerable<InsurancePlan> GetPlans()
+        {
+            return Mgr.GetPlans();
+        }
+
+        public IEnumerable<HSP> GetProviders(string name)
+        {
+            Service serviceFound = null;
+
+            foreach ( var service in localPlan.ServiceCosts)
+            {
+                if (service.Name.Equals(name))
+                {
+                    serviceFound = service;
+                }
+            }
+
+            return Mgr.GetProviders(serviceFound);
+        }
+
+        public void defaultLayout() {
 
         }
     }
