@@ -80,22 +80,37 @@ namespace CoreProject.Controller.EmployeeControllers
             // error check here
 
             Service.MaxPayRate maxPayEnum;
-
-            if (maxPayRate.Equals("Day"))
-                maxPayEnum = Service.MaxPayRate.Day;
-            else if (maxPayRate.Equals("Session"))
-                maxPayEnum = Service.MaxPayRate.Session;
-            else
-                maxPayEnum = Service.MaxPayRate.PCY;
-
-            return new Service
+            if (name != null && name != "" && category != null && category != "" && percent <= 100 
+                && percent >= 0 && copay >= 0 && max >= 0 && maxPayRate != "" && maxPayRate != null)
             {
-                Name = name,
-                Category = category,
-                PercentCoverage = percent,
-                RequiredCopayment = copay,
-                InNetMax = new Tuple<double, Service.MaxPayRate>(max, maxPayEnum)
-            };
+                if (maxPayRate.Equals("Day"))
+                    maxPayEnum = Service.MaxPayRate.Day;
+                else if (maxPayRate.Equals("Session"))
+                    maxPayEnum = Service.MaxPayRate.Session;
+                else
+                    maxPayEnum = Service.MaxPayRate.PCY;
+
+                if (percent > 1)
+                    percent = percent / 100;
+
+
+                return new Service
+                {
+                    Name = name,
+                    Category = category,
+                    PercentCoverage = percent,
+                    RequiredCopayment = copay,
+                    InNetMax = new Tuple<double, Service.MaxPayRate>(max, maxPayEnum)
+                };
+            }
+            else
+            {
+                return new Service
+                {
+                    Name = "ERROR"
+                };
+            }
+            
         }
     }
 }
