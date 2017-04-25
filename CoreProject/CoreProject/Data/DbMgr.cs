@@ -73,6 +73,10 @@ namespace CoreProject.Data
                      select employee )?.FirstOrDefault();
         }
 
+
+       
+
+
         /// <summary>
         /// Allows an addition to the BillSet. Takes in a Bill as a parameter, Void.
         /// </summary>
@@ -82,13 +86,50 @@ namespace CoreProject.Data
             BillSet.Add(bill);
             
         }
-        public Bill[] getBillsById(int id)
+        /// <summary>
+        /// Allows to search for all bills attached to a certain email. This is to find Dependent-specific bills.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Bill[] GetBillsByEmail(String email)
+        {
+            var bills = new Bill[BillSet.Count];
+            int billCount = 0;
+            var enumerator = BillSet.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current.enrolleeEmail.Equals(email))
+                {
+                    bills[billCount] = enumerator.Current;
+                    billCount++;
+                }
+            }
+
+            var finalBills = new Bill[billCount];
+
+            for (int i = 0; i < finalBills.Length; i++)
+            {
+                finalBills[i] = bills[i];
+            }
+
+            return finalBills;
+        }
+        /// <summary>
+        /// This finds all of the Bills associated with a Primary Id. Used to display primary Enrollee's Bills for everyone on Plan. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Bill[] GetBillsById(int id)
         {
             //from Bill in BillSet
             //       where Bill.enrolleeId == id
             //       select Bill);
 
             // var bill = from Bill in BillSet where Bill.enrolleeId == id select Bill;
+
+            var plan = GetPlanByPrimary(id);
+            var enrollee = FindPrimaryById(id);
             var bills = new Bill[BillSet.Count];
             int billCount = 0;
             var enumerator = BillSet.GetEnumerator();
@@ -99,7 +140,21 @@ namespace CoreProject.Data
                     bills[billCount] = enumerator.Current;
                     billCount++;
                 }
+
+                if (enrollee.IsPrimary)
+                {
+                    for (int i = 0; i < plan.Dependents.Count; i++)
+                    {
+                        if (enumerator.Current.enrolleeId == plan.Dependents.ElementAt(i))
+                        {
+                            bills[billCount] = enumerator.Current;
+                            billCount++;
+                        }
+                    }
+                }
             }
+            
+            
 
             var finalBills = new Bill[billCount];
 
@@ -608,13 +663,14 @@ namespace CoreProject.Data
             var guestDep = new DependentEnrollee("1234")
             {
                 Email = "guestDep@guest",
-                FirstName = "Guest",
+                FirstName = "Guestdep",
                 LastName = "Guest",
                 HomePhone = "5555555555",
                 MobilePhone = "5555555555",
                 SSN = "123456788",
                 Relationship = "brosky"
             };
+            
             DependentEnrolleeSet = new HashSet<DependentEnrollee>();
             this.SaveEnrollee(guest);
             this.SaveEnrollee(guestDep);
@@ -637,6 +693,8 @@ namespace CoreProject.Data
                     Name = "Michael"
                 }
             };
+
+            PlanSet.ElementAt(0).AddDependent(guestDep);
             BillSet = new HashSet<Bill>();
         }
 
@@ -780,6 +838,13 @@ namespace CoreProject.Data
                      select enrollee ).FirstOrDefault();
         }
 
+        public DependentEnrollee FindDependentById(int primaryId)
+        {
+            return (from enrollee in DependentEnrolleeSet
+                    where enrollee.Id == primaryId
+                    select enrollee).FirstOrDefault();
+        }
+
         /// <summary>
         /// Gets the EnrolleePlan object for the primary enrollee corresponding
         /// to the given primary id 
@@ -788,14 +853,36 @@ namespace CoreProject.Data
         /// <returns></returns>
         public EnrolleePlan GetPlanByPrimary(int primaryId)
         {
-            return ( from plan in PlanSet
-                     where plan.PrimaryEnrollee == primaryId
-                     select plan ).FirstOrDefault();
+            var enrollee = FindPrimaryById(primaryId);
+            if (enrollee == null)
+            {
+                var depEnrollee = FindDependentById(primaryId);
+                return GetDependentPlan(primaryId);
+            }
+          
+            return (from plan in PlanSet
+                    where (plan.PrimaryEnrollee == primaryId)
+                    select plan).FirstOrDefault();
+        }
+
+        private EnrolleePlan GetDependentPlan(int primaryId)
+        {
+
+            for (int i = 0; i < PlanSet.Count; i++)
+            {
+                for (int j = 0; j < PlanSet.ElementAt(i).Dependents.Count; j++)
+                {
+                    if (PlanSet.ElementAt(i).Dependents.ElementAt(j) == primaryId)
+                        return PlanSet.ElementAt(i);
+                }
+            }
+
+            return PlanSet.FirstOrDefault();
         }
 
         public Enrollee.Enrollee GetEnrolleeByName(String f, String l)
         {
-            var primary = ( from enrollee in this.PrimaryEnrolleeSet
+            var primary = ( from enrollee in this.EnrolleeSet
                             where f == enrollee.FirstName && l == enrollee.LastName
                             select enrollee ).FirstOrDefault();
             return primary;

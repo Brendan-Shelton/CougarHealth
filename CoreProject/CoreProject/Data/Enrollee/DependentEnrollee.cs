@@ -10,11 +10,12 @@ namespace CoreProject.Data.Enrollee
     {
         public string Relationship { get; set; }
 
+
         public override bool IsPrimary => false;
 
-        public DependentEnrollee( string pin ): base(pin)
+        public DependentEnrollee( string pin): base(pin)
         {
-            
+
         }
     }
 }

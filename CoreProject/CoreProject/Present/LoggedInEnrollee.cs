@@ -17,10 +17,12 @@ namespace CoreProject.Present
         public PlanController planCtrl { get; private set; }
         private int _primaryId;
         private bool _isPrimary;
-        public LoggedInEnrollee(int primary, bool isPrimary)
+        private String _email;
+        public LoggedInEnrollee(int primary, String email, bool isPrimary)
         {
             this._primaryId = primary;
             this._isPrimary = isPrimary;
+            this._email = email;
             InitializeComponent();
         }
 
@@ -32,7 +34,7 @@ namespace CoreProject.Present
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var enrollPlanCtrl = new PlanController(_primaryId, this._isPrimary);
+            var enrollPlanCtrl = new PlanController(_primaryId, _email, this._isPrimary);
             var enrolleeCostsGUI = new EnrolleeCosts(enrollPlanCtrl);
             enrolleeCostsGUI.Show();
         }
