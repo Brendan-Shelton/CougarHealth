@@ -16,6 +16,7 @@ namespace CoreProject.Controller.EnrolleeControllers
     {
         public DbMgr dbmgr { get; private set; }
         public readonly int _primaryId;
+        private bool _isPrimary; 
         private IEnumerable<EnrolleePlan> AvailablePlans { get; set; }
         public bool MultiplePlans {
             get
@@ -24,10 +25,13 @@ namespace CoreProject.Controller.EnrolleeControllers
             }
         }
 
+        private String _email;
 
-        public PlanController(int primary)
+
+        public PlanController(int primary, String email, bool isPrimary)
         {
             this._primaryId = primary;
+            this._isPrimary = isPrimary;
             this.dbmgr = DbMgr.Instance;
             this.AvailablePlans = this.dbmgr.GetPlanByPrimary(this._primaryId);
         }
@@ -43,7 +47,6 @@ namespace CoreProject.Controller.EnrolleeControllers
             var plan = dbmgr.GetPlanByType(enrolleePlan.Type);
 
             costs.setPolicyNumber(_primaryId);
-
             costs.setTotalCharges(enrolleePlan.TotalCost);
             costs.setPlanYearMaxBen(plan.PYMB);
             costs.setPlanYearMaxRemain(plan.PYMB - enrolleePlan.TotalCost);
@@ -71,12 +74,30 @@ namespace CoreProject.Controller.EnrolleeControllers
                 }
             }
 
-            var bills = dbmgr.getBillsById(_primaryId);
+            double totalCharges = 0;
 
-            for (int i = 0; i < bills.Length; i++)
+            if (_isPrimary)
             {
-                costs.addBillRow(bills[i]);
+                var bills = dbmgr.GetBillsById(_primaryId);
+
+
+                for (int i = 0; i < bills.Length; i++)
+                {
+                    costs.addBillRow(bills[i]);
+                    totalCharges += bills[i].enrolleeBillAmount;
+                }
+            } else
+            {
+                var depBills = dbmgr.GetBillsByEmail(_email);
+
+                for (int i = 0; i < depBills.Length; i++)
+                {
+                    costs.addBillRow(depBills[i]);
+                    totalCharges += depBills[i].enrolleeBillAmount;
+                }
             }
+
+            costs.setTotalCharges(totalCharges);
 
             }
         }

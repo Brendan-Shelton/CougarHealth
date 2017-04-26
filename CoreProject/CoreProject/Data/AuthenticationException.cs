@@ -8,6 +8,7 @@ namespace CoreProject.Data
 {
     public class AuthenticationException : Exception
     {
+        public bool IsProblem { get; set; }
         public AuthenticationException() : base()
         {
 

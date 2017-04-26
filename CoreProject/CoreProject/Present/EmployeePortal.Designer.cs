@@ -39,6 +39,8 @@
             this.createEmployee = new System.Windows.Forms.Button();
             this.modify = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.hspSupport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -165,6 +167,29 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
+            this.label4.Font = new System.Drawing.Font("Rockwell", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(1059, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(137, 39);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Support";
+            // 
+            // hspSupport
+            // 
+            this.hspSupport.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hspSupport.Location = new System.Drawing.Point(1035, 94);
+            this.hspSupport.Name = "hspSupport";
+            this.hspSupport.Size = new System.Drawing.Size(174, 66);
+            this.hspSupport.TabIndex = 13;
+            this.hspSupport.Text = "HSP Support";
+            this.hspSupport.UseVisualStyleBackColor = true;
+            this.hspSupport.Click += new System.EventHandler(this.hspSupport_Click);
+            // 
             // EmployeePortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -172,6 +197,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.hspSupport);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.removePlan);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.modify);
@@ -204,5 +231,7 @@
         private System.Windows.Forms.Button createEmployee;
         private System.Windows.Forms.Button modify;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button hspSupport;
     }
 }

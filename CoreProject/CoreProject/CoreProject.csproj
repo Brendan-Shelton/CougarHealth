@@ -71,9 +71,10 @@
     <Compile Include="Controller\EmployeeControllers\RangeReportController.cs" />
     <Compile Include="Controller\EmployeeControllers\RemovePlanController.cs" />
     <Compile Include="Controller\EnrolleeControllers\ModifyPlanController.cs" />
+    <Compile Include="Controller\HSPControllers\HSPLoginController.cs" />
     <Compile Include="Data\AuthenticationException.cs" />
     <Compile Include="Data\HealthcareServiceProvider\Bill.cs" />
-    <Compile Include="Data\IAuthUser.cs" />
+    <Compile Include="Data\AuthUser.cs" />
     <Compile Include="Data\DbMgr.cs" />
     <Compile Include="Data\CreationException.cs" />
     <Compile Include="Data\Employees\Employee.cs" />
@@ -154,6 +155,12 @@
     </Compile>
     <Compile Include="Present\EnrolleePortal.Designer.cs">
       <DependentUpon>EnrolleePortal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\HSPLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\HSPLogin.Designer.cs">
+      <DependentUpon>HSPLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Present\HSPPortal.cs">
       <SubType>Form</SubType>
@@ -302,6 +309,9 @@
     <EmbeddedResource Include="Present\ExpenseReport.resx">
       <DependentUpon>ExpenseReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Present\HSPLogin.resx">
+      <DependentUpon>HSPLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Present\HSPPortal.resx">
       <DependentUpon>HSPPortal.cs</DependentUpon>
     </EmbeddedResource>
@@ -364,13 +374,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CougarHealth.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="CougarHealth_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>CougarHealth.mdf</DependentUpon>
-    </Content>
     <Content Include="Data\InsertPlans.sql" />
     <Content Include="Data\InsertServices.sql" />
   </ItemGroup>

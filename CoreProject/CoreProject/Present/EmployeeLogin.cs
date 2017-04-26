@@ -35,15 +35,16 @@ namespace CoreProject.Present
         /// <param name="e"></param>
         private void Submit_Click(object sender, EventArgs e)
         {
-            try
+            var employee = this.Ctrl.Login(this.Username.Text, this.Password.Text);
+            if ( employee != null )
             {
-                var employee = this.Ctrl.Login(this.Username.Text, this.Password.Text);
                 var employGUI = new EmployeePortal(employee);
                 employGUI.Show();
                 this.Hide();
                 employGUI.FormClosed += (source, args) => this.Close();
-            } 
-            catch ( DataException )
+
+            }
+            else
             {
                 this.ErrMsg.Visible = true;
                 this.ErrMsg.Text = "Error: Credentials invalid";

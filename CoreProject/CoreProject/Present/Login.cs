@@ -24,18 +24,22 @@ namespace CoreProject.Present
 
         private void loginSubmit_Click(object sender, EventArgs e)
         {
-            var enrollee = EnrollCtrl.LoginPrimary(this.emailLogin.Text, this.pinLogin.Text);
+            var enrollee = EnrollCtrl.LoginEnrollee(this.emailLogin.Text, this.pinLogin.Text);
             if (enrollee != null)
             {
                 Form form;
-                if ( LoginFor == typeof(DependentEnroll) )
+                if ( LoginFor == typeof(DependentEnroll) && enrollee.IsPrimary )
                 {
-                    form = new DependentEnroll(enrollee.Value);
+                    form = new DependentEnroll(enrollee.Id, enrollee.IsPrimary);
 
+                }
+                else if ( LoginFor == typeof(ModifyPlan) && enrollee.IsPrimary)
+                {
+                    form = new ModifyPlan(enrollee.Id, enrollee.IsPrimary);
                 }
                 else
                 {
-                    form = new LoggedInEnrollee(enrollee.Value);
+                    form = new LoggedInEnrollee(enrollee.Id, enrollee.Email, enrollee.IsPrimary);
                 }
 
                 form.Show();
@@ -50,5 +54,9 @@ namespace CoreProject.Present
             }
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -17,8 +17,9 @@ namespace CoreProject.Data.HealthcareServiceProvider
         public int enrolleeId { get; private set; }
         public double totalBillAmount { get; private set; }
         public double enrolleeBillAmount { get; private set; }
+        public String enrolleeEmail { get; private set; }
 
-        public Bill(DateTime date, HSP hsp, Service service, int enrolleeId, double totalBillAmount, double enrolleeBillAmount)
+        public Bill(DateTime date, HSP hsp, Service service, int enrolleeId, String enrolleeEmail, double totalBillAmount, double enrolleeBillAmount)
         {
 
             this.date = date;
@@ -27,6 +28,7 @@ namespace CoreProject.Data.HealthcareServiceProvider
             this.enrolleeId = enrolleeId;
             this.totalBillAmount = totalBillAmount;
             this.enrolleeBillAmount = enrolleeBillAmount;
+            this.enrolleeEmail = enrolleeEmail;
         }
 
         public Bill(

@@ -58,6 +58,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Enrollee = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Service = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AmountBilled = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,13 +84,14 @@
             this.BillsListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BillsListView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Date,
+            this.Enrollee,
             this.HSP,
             this.Service,
             this.AmountBilled,
             this.TotalBillAmount});
-            this.BillsListView.Location = new System.Drawing.Point(534, 107);
+            this.BillsListView.Location = new System.Drawing.Point(534, 96);
             this.BillsListView.Name = "BillsListView";
-            this.BillsListView.Size = new System.Drawing.Size(543, 593);
+            this.BillsListView.Size = new System.Drawing.Size(639, 593);
             this.BillsListView.TabIndex = 1;
             this.BillsListView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
@@ -116,7 +118,7 @@
             // totalChargesLabel
             // 
             this.totalChargesLabel.AutoSize = true;
-            this.totalChargesLabel.Location = new System.Drawing.Point(432, 90);
+            this.totalChargesLabel.Location = new System.Drawing.Point(394, 90);
             this.totalChargesLabel.Name = "totalChargesLabel";
             this.totalChargesLabel.Size = new System.Drawing.Size(29, 13);
             this.totalChargesLabel.TabIndex = 4;
@@ -136,7 +138,7 @@
             // PYMBLabel
             // 
             this.PYMBLabel.AutoSize = true;
-            this.PYMBLabel.Location = new System.Drawing.Point(432, 135);
+            this.PYMBLabel.Location = new System.Drawing.Point(394, 135);
             this.PYMBLabel.Name = "PYMBLabel";
             this.PYMBLabel.Size = new System.Drawing.Size(29, 13);
             this.PYMBLabel.TabIndex = 6;
@@ -155,7 +157,7 @@
             // OPMILabel
             // 
             this.OPMILabel.AutoSize = true;
-            this.OPMILabel.Location = new System.Drawing.Point(432, 188);
+            this.OPMILabel.Location = new System.Drawing.Point(394, 188);
             this.OPMILabel.Name = "OPMILabel";
             this.OPMILabel.Size = new System.Drawing.Size(29, 13);
             this.OPMILabel.TabIndex = 8;
@@ -184,7 +186,7 @@
             // OPMFLabel
             // 
             this.OPMFLabel.AutoSize = true;
-            this.OPMFLabel.Location = new System.Drawing.Point(432, 205);
+            this.OPMFLabel.Location = new System.Drawing.Point(394, 205);
             this.OPMFLabel.Name = "OPMFLabel";
             this.OPMFLabel.Size = new System.Drawing.Size(29, 13);
             this.OPMFLabel.TabIndex = 11;
@@ -204,7 +206,7 @@
             // APDLabel
             // 
             this.APDLabel.AutoSize = true;
-            this.APDLabel.Location = new System.Drawing.Point(432, 254);
+            this.APDLabel.Location = new System.Drawing.Point(394, 254);
             this.APDLabel.Name = "APDLabel";
             this.APDLabel.Size = new System.Drawing.Size(29, 13);
             this.APDLabel.TabIndex = 13;
@@ -224,7 +226,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(398, 135);
+            this.label9.Location = new System.Drawing.Point(365, 135);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(12, 13);
             this.label9.TabIndex = 15;
@@ -233,7 +235,7 @@
             // PYMBRlabel
             // 
             this.PYMBRlabel.AutoSize = true;
-            this.PYMBRlabel.Location = new System.Drawing.Point(304, 135);
+            this.PYMBRlabel.Location = new System.Drawing.Point(284, 135);
             this.PYMBRlabel.Name = "PYMBRlabel";
             this.PYMBRlabel.Size = new System.Drawing.Size(35, 13);
             this.PYMBRlabel.TabIndex = 16;
@@ -273,7 +275,7 @@
             // OPMRemainingLabel
             // 
             this.OPMRemainingLabel.AutoSize = true;
-            this.OPMRemainingLabel.Location = new System.Drawing.Point(432, 227);
+            this.OPMRemainingLabel.Location = new System.Drawing.Point(394, 227);
             this.OPMRemainingLabel.Name = "OPMRemainingLabel";
             this.OPMRemainingLabel.Size = new System.Drawing.Size(29, 13);
             this.OPMRemainingLabel.TabIndex = 64;
@@ -293,7 +295,7 @@
             // APDRemLabel
             // 
             this.APDRemLabel.AutoSize = true;
-            this.APDRemLabel.Location = new System.Drawing.Point(432, 270);
+            this.APDRemLabel.Location = new System.Drawing.Point(394, 270);
             this.APDRemLabel.Name = "APDRemLabel";
             this.APDRemLabel.Size = new System.Drawing.Size(29, 13);
             this.APDRemLabel.TabIndex = 66;
@@ -363,6 +365,11 @@
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             // 
+            // Enrollee
+            // 
+            this.Enrollee.HeaderText = "Enrollee";
+            this.Enrollee.Name = "Enrollee";
+            // 
             // HSP
             // 
             this.HSP.DataPropertyName = "HSP";
@@ -389,7 +396,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCoral;
-            this.ClientSize = new System.Drawing.Size(1108, 790);
+            this.ClientSize = new System.Drawing.Size(1195, 790);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -457,11 +464,12 @@
         private System.Windows.Forms.ListBox OtherListBox;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Enrollee;
         private System.Windows.Forms.DataGridViewTextBoxColumn HSP;
         private System.Windows.Forms.DataGridViewTextBoxColumn Service;
         private System.Windows.Forms.DataGridViewTextBoxColumn AmountBilled;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalBillAmount;
-        private System.Windows.Forms.Label label13;
     }
 }

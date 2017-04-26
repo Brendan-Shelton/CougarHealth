@@ -31,11 +31,12 @@ namespace CoreProjectTests.Controller.EnrolleeControllers
                         )
             };
             int enrolleeId = 1;
+            String email = "me@me";
             double totalBillAmount = 1000;
             double enrolleeBillAmount = 460;
 
 
-            var bill = new Bill(date, hsp, service, enrolleeId, totalBillAmount, enrolleeBillAmount);
+            var bill = new Bill(date, hsp, service, enrolleeId, email, totalBillAmount, enrolleeBillAmount);
 
             Assert.AreEqual((double)1000, bill.totalBillAmount);
             Assert.AreEqual((double)460, bill.enrolleeBillAmount);
@@ -48,7 +49,7 @@ namespace CoreProjectTests.Controller.EnrolleeControllers
         [TestMethod()]
         public void findBillTest()
         {
-            PlanController plnCtrl = new PlanController(1);
+            PlanController plnCtrl = new PlanController(1, "me@me", true);
             DbMgr dbMgr = DbMgr.Instance;
             DateTime date = DateTime.Now;
             var hsp = new HSP("1234", true);
@@ -64,15 +65,16 @@ namespace CoreProjectTests.Controller.EnrolleeControllers
                         )
             };
             int enrolleeId = 1;
+            String email = "me@me";
             double totalBillAmount = 1000;
             double enrolleeBillAmount = 460;
 
 
-            var bill = new Bill(date, hsp, service, enrolleeId, totalBillAmount, enrolleeBillAmount);
+            var bill = new Bill(date, hsp, service, enrolleeId, email, totalBillAmount, enrolleeBillAmount);
 
             plnCtrl.addBill(bill);
 
-            var retBill = dbMgr.getBillsById(1);
+            var retBill = dbMgr.GetBillsById(1);
 
             Assert.AreEqual((double)1000, retBill[0].totalBillAmount);
             Assert.AreEqual((double)460, retBill[0].enrolleeBillAmount);

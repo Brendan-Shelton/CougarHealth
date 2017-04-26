@@ -104,7 +104,7 @@ namespace CoreProject.Data
 
         //};
 
-        public HashSet<DependentEnrollee> DependentEnrolleSet { get; set; }
+        public HashSet<DependentEnrollee> DependentEnrolleeSet { get; set; }
 
         public HashSet<Bill> BillSet { get; set; }
 
@@ -132,6 +132,10 @@ namespace CoreProject.Data
                     select employee)?.FirstOrDefault();
         }
 
+
+       
+
+
         /// <summary>
         /// Allows an addition to the BillSet. Takes in a Bill as a parameter, Void.
         /// </summary>
@@ -141,19 +145,20 @@ namespace CoreProject.Data
             BillSet.Add(bill);
 
         }
-        public Bill[] getBillsById(int id)
+        /// <summary>
+        /// Allows to search for all bills attached to a certain email. This is to find Dependent-specific bills.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Bill[] GetBillsByEmail(String email)
         {
-            //from Bill in BillSet
-            //       where Bill.enrolleeId == id
-            //       select Bill);
-
-            // var bill = from Bill in BillSet where Bill.enrolleeId == id select Bill;
             var bills = new Bill[BillSet.Count];
             int billCount = 0;
             var enumerator = BillSet.GetEnumerator();
+
             while (enumerator.MoveNext())
             {
-                if (enumerator.Current.enrolleeId == id)
+                if (enumerator.Current.enrolleeEmail.Equals(email))
                 {
                     bills[billCount] = enumerator.Current;
                     billCount++;
@@ -168,6 +173,60 @@ namespace CoreProject.Data
             }
 
             return finalBills;
+        }
+        /// <summary>
+        /// This finds all of the Bills associated with a Primary Id. Used to display primary Enrollee's Bills for everyone on Plan. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Bill[] GetBillsById(int id)
+        {
+            //from Bill in BillSet
+            //       where Bill.enrolleeId == id
+            //       select Bill);
+
+            // var bill = from Bill in BillSet where Bill.enrolleeId == id select Bill;
+
+            //var plan = GetPlanByPrimary(id);
+            //var enrollee = FindPrimaryById(id);
+            //var bills = new Bill[BillSet.Count];
+            //int billCount = 0;
+            //var enumerator = BillSet.GetEnumerator();
+            //while (enumerator.MoveNext())
+            //{
+            //    if (enumerator.Current.enrolleeId == id)
+            //    {
+            //        bills[billCount] = enumerator.Current;
+            //        billCount++;
+            //    }
+
+            //    if (enrollee.IsPrimary)
+            //    {
+            //        for (int i = 0; i < plan.Dependents.Count; i++)
+            //        {
+            //            if (enumerator.Current.enrolleeId == plan.Dependents.ElementAt(i))
+            //            {
+            //                bills[billCount] = enumerator.Current;
+            //                billCount++;
+            //            }
+            //        }
+            //    }
+
+
+            //}
+
+
+
+            //var finalBills = new Bill[billCount];
+
+            //for (int i = 0; i < finalBills.Length; i++)
+            //{
+            //    finalBills[i] = bills[i];
+            //}
+
+            //return finalBills;
+
+            throw new NotImplementedException();
 
         }
 
@@ -447,7 +506,7 @@ namespace CoreProject.Data
         private DbMgr()
         {
 
-            DependentEnrolleSet = new HashSet<DependentEnrollee>();
+            DependentEnrolleeSet = new HashSet<DependentEnrollee>();
             HspSet = new HashSet<HSP>();
             BillSet = new HashSet<Bill>();
             this.Connection = new SqlConnection();
@@ -891,6 +950,7 @@ namespace CoreProject.Data
 
         }
 
+      
         /// <summary>
         /// get the primary enrollee object corresponding to the id provided
         /// </summary>
@@ -966,6 +1026,13 @@ namespace CoreProject.Data
             public object PrimaryId;
             public object DependentId;
             public object IsPrimary;
+        }
+
+        public DependentEnrollee FindDependentById(int primaryId)
+        {
+            return (from enrollee in DependentEnrolleeSet
+                    where enrollee.Id == primaryId
+                    select enrollee).FirstOrDefault();
         }
 
         /// <summary>
@@ -1209,7 +1276,21 @@ namespace CoreProject.Data
                     cmd.Parameters.AddWithValue("@email", email);
                     var rdr = cmd.ExecuteReader();
                     // I should only get one result back 
-                    enrollee = rdr.Single(p => new Enrollee.Enrollee(Convert.ToString(p["Pin"]))
+                    if (Convert.ToBoolean(rdr["IsPrimary"]))
+                    {
+                        enrollee = rdr.Single(p => new PrimaryEnrollee(Convert.ToString(p["Pin"]))
+                        {
+                            Id = Convert.ToInt32(p["Id"]),
+                            Email = Convert.ToString(p["Email"]),
+                            SSN = Convert.ToString(p["SSN"]),
+                            HomePhone = Convert.ToString(p["HomePhone"]),
+                            MobilePhone = Convert.ToString(p["MobilePhone"]),
+                            FirstName = Convert.ToString(p["FirstName"]),
+                            LastName = Convert.ToString(p["LastName"]),
+                        });
+                    }
+                    else 
+                    enrollee = rdr.Single(p => new DependentEnrollee(Convert.ToString(p["Pin"]))
                     {
                         Id = Convert.ToInt32(p["Id"]),
                         Email = Convert.ToString(p["Email"]),

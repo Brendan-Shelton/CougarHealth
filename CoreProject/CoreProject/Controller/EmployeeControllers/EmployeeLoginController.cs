@@ -16,11 +16,9 @@ namespace CoreProject.Controller.EmployeeControllers
     public class EmployeeLoginController
     {
         private DbMgr Mgr { get; set; }
-        public Employee ToLogin { get; set; }
         public EmployeeLoginController()
         {
             this.Mgr = DbMgr.Instance;
-            this.ToLogin = new Employee();
         }
 
         /// <summary>
@@ -33,16 +31,12 @@ namespace CoreProject.Controller.EmployeeControllers
         /// <returns></returns>
         public Employee Login ( string user, string passwd )
         {
-            this.ToLogin.Password = passwd;
-            this.ToLogin.UserName = user;
-            Employee logged = this.Mgr.EmployeeLogin(this.ToLogin);
+            Employee toLogin = Mgr.GetEmployeeByName(user);
+            bool? logged = toLogin?.Login(user, passwd);
             
-            if ( logged == null )
-            {
-                throw new DataException("Invalid login credentials");
-            }
 
-            return logged;
+            // since logged could be null we need to check if it is true
+            return (logged == true) ? toLogin : null;
         }
     }
 }

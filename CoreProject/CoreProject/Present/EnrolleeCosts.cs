@@ -65,7 +65,14 @@ namespace CoreProject.Present
 
         public void addBillRow(Bill bill)
         {
-            BillsListView.Rows.Add(bill.date.ToShortDateString(), bill.hsp.Name, bill.service.Name, bill.enrolleeBillAmount, bill.totalBillAmount);
+            var enrollee = planCtrl.dbmgr.FindPrimaryById(bill.enrolleeId);
+            if (enrollee == null)
+            {
+                var depEnrollee = planCtrl.dbmgr.FindDependentById(bill.enrolleeId);
+                BillsListView.Rows.Add(bill.date.ToShortDateString(), (depEnrollee.FirstName + " " + depEnrollee.LastName), bill.hsp.Name, bill.service.Name, bill.enrolleeBillAmount, bill.totalBillAmount);
+                return;
+            }
+            BillsListView.Rows.Add(bill.date.ToShortDateString(), (enrollee.FirstName + " " + enrollee.LastName), bill.hsp.Name, bill.service.Name, bill.enrolleeBillAmount, bill.totalBillAmount);
         }
 
         public void setPolicyNumber(int amount)

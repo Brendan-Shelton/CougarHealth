@@ -77,6 +77,7 @@
             this.Controls.Add(this.button1);
             this.Name = "LoggedInEnrollee";
             this.Text = "LoggedInEnrollee";
+            this.Load += new System.EventHandler(this.LoggedInEnrollee_Load);
             this.ResumeLayout(false);
 
         }
