@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CoreProject.Data;
 using CoreProject.Present;
 using CoreProject.Data.HealthcareServiceProvider;
+using CoreProject.Data.Enrollee;
 
 namespace CoreProject.Controller.EnrolleeControllers
 {
@@ -14,13 +15,21 @@ namespace CoreProject.Controller.EnrolleeControllers
     public class PlanController
     {
         public DbMgr dbmgr { get; private set; }
-        private int _primaryId;
+        public readonly int _primaryId;
+        private IEnumerable<EnrolleePlan> AvailablePlans { get; set; }
+        public bool MultiplePlans {
+            get
+            {
+                return AvailablePlans == null || AvailablePlans.Count() > 1;
+            }
+        }
 
 
         public PlanController(int primary)
         {
             this._primaryId = primary;
             this.dbmgr = DbMgr.Instance;
+            this.AvailablePlans = this.dbmgr.GetPlanByPrimary(this._primaryId);
         }
 
         public void addBill(Bill bill)
@@ -28,9 +37,9 @@ namespace CoreProject.Controller.EnrolleeControllers
             dbmgr.addBill(bill);
         }
 
-        public void update(EnrolleeCosts costs)
+        public void update( EnrolleeCosts costs, int planNum )
         {
-            var enrolleePlan = dbmgr.GetPlanByPrimary(_primaryId);
+            var enrolleePlan = dbmgr.GetPolicyByID(planNum);
             var plan = dbmgr.GetPlanByType(enrolleePlan.Type);
 
             costs.setPolicyNumber(_primaryId);

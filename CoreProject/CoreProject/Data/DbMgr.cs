@@ -630,7 +630,7 @@ namespace CoreProject.Data
                                      @planid,
                                      @opm
                                  );";
-                using ( var primaryCmd = new SqlCommand(insertPri, this.Connection) )
+                using (var primaryCmd = new SqlCommand(insertPri, this.Connection))
                 {
                     primaryCmd.Parameters.AddWithValue("@priId", plan.PrimaryEnrollee);
                     // retrieved from last insert 
@@ -651,7 +651,7 @@ namespace CoreProject.Data
                                       @planId, 
                                       @opm
                                   );";
-                using ( var depCmd = new SqlCommand(insertDep) )
+                using (var depCmd = new SqlCommand(insertDep))
                 {
                     foreach (var dependent in plan.Dependents)
                     {
@@ -697,9 +697,72 @@ namespace CoreProject.Data
         /// <returns></returns>
         public HSP GrabHspById(int hspId)
         {
-            return (from hsp in HspSet
-                    where hsp.Id == hspId
-                    select hsp).FirstOrDefault();
+            HSP hsp = null;            
+            try
+            {
+                if ( this.Connection.State != ConnectionState.Open )
+                {
+                    this.Connection.Open();
+                }
+                string pullHSP = @"SELECT * FROM HSP 
+                                   WHERE Id = @id";
+                using (var cmd = new SqlCommand(pullHSP, this.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@id", hspId);
+                    var rdr = cmd.ExecuteReader();
+                    hsp = rdr.Single(h => new HSP(
+                        id: Convert.ToInt32(h["Id"]),
+                        routingNum: Convert.ToInt32(h["RoutingNum"]),
+                        accountNum: Convert.ToInt32(h["AccountNum"]),
+                        pin: Convert.ToString(h["Pin"]),
+                        bankName: Convert.ToString(h["BankName"]),
+                        personelContact: Convert.ToString(h["personelContact"]),
+                        name: Convert.ToString(h["Name"]),
+                        address: Convert.ToString(h["Address"]),
+                        isInNetwork: Convert.ToBoolean(h["IsInNetwork"])
+                    ));
+                    rdr.Close();
+                }
+
+                string pullServId = @"SELECT * 
+                                      FROM ServiceHSP 
+                                      WHERE HSPId = @hid";
+                var sids = new List<int>();
+
+                using ( var cmd = new SqlCommand(pullServId, this.Connection) )
+                {
+                    cmd.Parameters.AddWithValue("@hid", hspId);
+                    var rdr = cmd.ExecuteReader();
+                    
+                    while (rdr.Read())
+                    {
+                        sids.Add(Convert.ToInt32(rdr["ServiceId"]));
+                    }
+
+                    rdr.Close();
+                }
+
+                string pullServices = @"SELECT Name FROM Service WHERE Id = @id";
+                foreach( var sid in sids )
+                {
+
+                    using ( var cmd = new SqlCommand(pullServices, this.Connection) )
+                    {
+                        cmd.Parameters.AddWithValue("@id", sid);
+                        var rdr = cmd.ExecuteReader();
+
+                        // hsp could be null, so we want to make sure an 
+                        //exception isn't thrown if that is the case.
+                        hsp?.ServicesOffered.Add(rdr.Single(s => Convert.ToString(rdr["Name"])));
+                    }
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+            return hsp;
         }
 
         /// <summary>
@@ -871,18 +934,252 @@ namespace CoreProject.Data
         }
 
         /// <summary>
-        /// Gets the EnrolleePlan object for the primary enrollee corresponding
+        /// Cache what is returned by a reader in the instantiation of the 
+        /// EnrolleePlan so we can use the database method GetPlanById
+        /// </summary>
+        private struct CachedPlan
+        {
+            public object plan;
+            public int pid;
+            public object planNum;
+            public object lastCharge;
+            public object totalCost;
+            public object opmRemainder;
+            public object pymbRemainder;
+            public object apdRemainder;
+
+        }
+
+        /// <summary>
+        /// Cache what is returned by a reader in the instantiation of the 
+        /// Bill so we can use the database method GetServicesByPlan
+        /// </summary>
+        public struct CachedService
+        {
+            public object Id;
+            public object Date;
+            public object TotalBillAmount;
+            public object EnrolleeBillAmount;
+            public object ServiceId;
+            public object PlanNum;
+            public object HSPId;
+            public object PrimaryId;
+            public object DependentId;
+            public object IsPrimary;
+        }
+
+        /// <summary>
+        /// Gets the EnrolleePlan objects for the primary enrollee corresponding
         /// to the given primary id 
         /// </summary>
         /// <param name="primaryId"></param>
         /// <returns></returns>
-        public EnrolleePlan GetPlanByPrimary(int primaryId)
+        public IEnumerable<EnrolleePlan> GetPlanByPrimary(int primaryId)
         {
-            throw new NotImplementedException();
+            var plans = new List<EnrolleePlan>();
+            try
+            {
+                this.Connection.Open();
+                // select primary plan 
+                var selPrimaryPlan = @"SELECT * 
+                                       FROM PrimaryPlan AS pp
+                                       WHERE pp.PrimaryEnrolleeId = @pid";
+                int? epId = null;
+                using ( var cmd = new SqlCommand(selPrimaryPlan, this.Connection) )
+                {
+                    cmd.Parameters.AddWithValue("@pid", primaryId);
+                    var rdr = cmd.ExecuteReader();
+                    epId = rdr.Single(ep => Convert.ToInt32(ep["EnrolleePlanId"]));
+                    rdr.Close();
+                }
+                // select the enrolleeplan
+                var selEP = @"SELECT *  
+                              FROM EnrolleePlan AS ep
+                              WHERE ep.PlanNum = @epId";
+                // zero is the default value for ints 
+                if (epId != 0)
+                {
+                    var cachedPlans = new List<CachedPlan>();
+                    // Find the plan itself 
+                    using (var cmd = new SqlCommand(selEP, this.Connection))
+                    {
+                        cmd.Parameters.AddWithValue("@epId", epId);
+                        var rdr = cmd.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            cachedPlans.Add(new CachedPlan
+                            {
+                                plan = rdr["InsurancePlanId"],
+                                pid = primaryId,
+                                planNum = rdr["PlanNum"],
+                                lastCharge = rdr["LastCharge"],
+                                totalCost = rdr["TotalCost"],
+                                opmRemainder = rdr["OPMRemainder"],
+                                pymbRemainder = rdr["PYMBRemainder"],
+                                apdRemainder = rdr["apdRemainder"],
+                            });
+                        } // while 
+                        rdr.Close();
+                    } // using 
+                    foreach (var cachedPlan in cachedPlans)
+                    {
+                        InsurancePlan iplan = this.GetPLanById(Convert.ToInt32(cachedPlan.plan));
+                        plans.Add(new EnrolleePlan(
+                                pid: cachedPlan.pid,
+                                plan: iplan,
+                                planNum: Convert.ToInt32(cachedPlan.planNum),
+                                lastCharge: Convert.ToDateTime(cachedPlan.lastCharge),
+                                totalCost: Convert.ToDouble(cachedPlan.totalCost),
+                                opmRemainder: Convert.ToDouble(cachedPlan.opmRemainder),
+                                pymbRemainder: Convert.ToDouble(cachedPlan.pymbRemainder),
+                                apdRemainder: Convert.ToDouble(cachedPlan.apdRemainder)
+                        )); // plans.Add 
+
+                    }
+                    if ( this.Connection.State == ConnectionState.Closed )
+                    {
+                        // GetPlanById may clsoe the connection to the database 
+                        this.Connection.Open();
+                    }
+                } // if 
+
+                // get all dependents foreach plan 
+                foreach ( var plan in plans )
+                {
+                    var selDep = @"SELECT DependentEnrolleeId FROM DependentPlan
+                                   WHERE EnrolleePlanId = @pid";
+
+                    using (var cmd = new SqlCommand(selDep, this.Connection))
+                    {
+                        cmd.Parameters.AddWithValue("@pid", plan.PlanNum);
+                        var rdr = cmd.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            plan.Dependents.Add(Convert.ToInt32(rdr["DependentEnrolleeId"]));
+                        } // while 
+                        rdr.Close();
+                    } // using 
+                } // foreach 
+
+                // finally get all the bills 
+                foreach ( var plan in plans )
+                {
+                    var selBills = @"SELECT * FROM Bill WHERE PlanNum = @thisNum";
+                    var cachedServices = new List<CachedService>();
+
+                    using (var cmd = new SqlCommand(selBills, this.Connection))
+                    {
+                        cmd.Parameters.AddWithValue("@thisNum", plan.PlanNum);
+                        var rdr = cmd.ExecuteReader();
+
+                        while (rdr.Read())
+                        {
+                            cachedServices.Add(new CachedService
+                            {
+                                Id = rdr["Id"],
+                                PrimaryId = rdr["PrimaryId"],
+                                HSPId = rdr["HSPId"],
+                                ServiceId = rdr["ServiceId"],
+                                Date = rdr["Date"],
+                                TotalBillAmount = rdr["TotalBillAmount"],
+                                EnrolleeBillAmount = rdr["EnrolleeBillAmount"],
+                                PlanNum = rdr["PlanNum"],
+                                DependentId = rdr["DependentId"],
+                                IsPrimary = rdr["IsPrimary"]
+                            });
+                        } // while 
+                        rdr.Close();
+
+                    } // using 
+                    foreach ( var serv in cachedServices )
+                    {
+
+                        HSP billingHSP = this.GrabHspById(Convert.ToInt32(serv.HSPId));
+                        IEnumerable<Service> services = this.GetServicesByPlan(plan.Type);
+                        Service billedService = services.Where(s => 
+                        {
+                            return s.Id == Convert.ToInt32(serv.ServiceId);
+                        }).SingleOrDefault();
+
+                        int? enrollee = null;
+                        var isPrimary = Convert.ToBoolean(serv.IsPrimary);
+                        if ( Convert.ToBoolean(serv.IsPrimary) )
+                        {
+                            enrollee = Convert.ToInt32(serv.PrimaryId);
+                        }
+                        else
+                        {
+                            enrollee = Convert.ToInt32(serv.DependentId);
+                        }
+                        plan.Charges.Add(new Bill(
+                            id: Convert.ToInt32(serv.Id),
+                            date: Convert.ToDateTime(serv.Date),
+                            hsp: billingHSP,
+                            service: billedService,
+                            enrolleeId: enrollee.Value,
+                            isPrimary: isPrimary,
+                            totalBillAmount: Convert.ToDouble(serv.TotalBillAmount),
+                            enrolleeBillAmount: Convert.ToDouble(serv.EnrolleeBillAmount)
+
+                        )); // plan 
+                        }
+                } // foreach  
+            } // try
+            finally
+            {
+                this.Connection.Close();
+            } // finally 
+
+            return plans;
             //return (from plan in PlanSet
             //        where plan.PrimaryEnrollee == primaryId
             //        select plan).FirstOrDefault();
         }
+
+        /// <summary>
+        /// Gets the InsurancePlan object corresponding to this id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private InsurancePlan GetPLanById(int id)
+        {
+            var selPlan = "SELECT * FROM InsurancePlan WHERE Id = @id";
+            InsurancePlan plan = null;
+
+            try
+            {
+                if ( this.Connection.State == ConnectionState.Closed)
+                {
+                    this.Connection.Open();
+                }
+
+                using (var cmd = new SqlCommand(selPlan, this.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    var rdr = cmd.ExecuteReader();
+                    plan = rdr.Single(iplan => new InsurancePlan()
+                    {
+                        Id = Convert.ToInt32(iplan["id"]),
+                        Type = Convert.ToString(iplan["Type"]),
+                        PYMB = Convert.ToDouble(iplan["PYMB"]),
+                        APD = Convert.ToDouble(iplan["APD"]),
+                        OPMIndividual = Convert.ToDouble(iplan["OPMIndividual"]),
+                        OPMFamily = Convert.ToDouble(iplan["OPMFamily"]),
+                        PrimaryFee = Convert.ToDouble(iplan["PrimaryFee"]),
+                        DependentFee = Convert.ToDouble(iplan["DependentFee"]),
+                        PrimaryChangeFee = Convert.ToDouble(iplan["PrimaryChangeFee"]),
+                        DependentChangeFee = Convert.ToDouble(iplan["DependentChangeFee"])
+                    });
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+            return plan;
+        }
+
         //public void SaveEnrollee(Enrollee.Enrollee enrollee) { }
 
         /// <summary>
@@ -945,7 +1242,8 @@ namespace CoreProject.Data
 
         /// <summary>
         /// Remove a plan from the InsurancePlan table, based on it's Type. 
-        /// This method also removes all services in the Service Table 
+        /// This method also removes all services in the Service Table, and all 
+        /// enrolleplans that are based on this InsuracePlan 
         /// </summary>
         /// <param name="name"></param>
         public void RemovePlan(string name)
@@ -1009,6 +1307,48 @@ namespace CoreProject.Data
                                         checkEmployee.Password == employee.Password
                                   select employee)?.FirstOrDefault();
             return employeeResult;
+        }
+
+
+        public IEnumerable<Service> GetServicesByPlan ( string type )
+        {
+            var services = new List<Service>();
+            try
+            {
+                if ( this.Connection.State == ConnectionState.Closed )
+                {
+                    this.Connection.Open();
+                }
+                var pullService = @"SELECT s.* FROM Service AS s 
+                                    INNER JOIN InsurancePlan AS i 
+                                        ON i.Type = @type
+                                    WHERE i.Id = s.InsurancePlanId";
+                using ( var cmd = new SqlCommand(pullService, this.Connection) )
+                {
+                    cmd.Parameters.AddWithValue("@type", type);
+                    var rdr = cmd.ExecuteReader();
+
+                    while ( rdr.Read() )
+                    {
+                        services.Add(new Service(
+                            id: Convert.ToInt32(rdr["Id"]),
+                            name: Convert.ToString(rdr["Name"]),
+                            category: Convert.ToString(rdr["Category"]),
+                            coverage: Convert.ToDouble(rdr["PercentCoverage"]),
+                            maxPayRate: Convert.ToString(rdr["MaxPayRate"]),
+                            inNetworkMax: Convert.ToDouble(rdr["InNetworkMax"]),
+                            insurancePlan: Convert.ToInt32(rdr["InsurancePlanId"]),
+                            reqCopay: Convert.ToDouble(rdr["RequiredCopayment"])
+                        ));
+                    }
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+            return services;
         }
 
     }

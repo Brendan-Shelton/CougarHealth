@@ -14,11 +14,15 @@ namespace CoreProject.Present
     public partial class DependentEnroll : Form
     {
         public EnrollController EnrollCtrl { get; set; }
+        public int PlanNum { get; private set; } = -1;
         private int _primaryId;
         public DependentEnroll( int primary )
         {
             this._primaryId = primary;
-            EnrollCtrl = new EnrollController();
+            this.EnrollCtrl = new EnrollController();
+            var pickPlan = new PickPlan(this._primaryId);
+            pickPlan.Show();
+            this.Hide();
             InitializeComponent();
         }
 
@@ -26,6 +30,17 @@ namespace CoreProject.Present
         {
             this.errMsg.Text = failMsg;
             this.errMsg.Visible = true;
+        }
+
+        
+        /// <summary>
+        /// A plan has been picked, so we can show the current one 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        public void PlanPicked( object source, ChoiceArgs e )
+        {
+            this.PlanNum = e.PlanNum;  
         }
 
         private void personNext_Click(object sender, EventArgs e)
@@ -71,9 +86,10 @@ namespace CoreProject.Present
 
             var contactCheck = this.EnrollCtrl.VerifyContact(ref contact);
 
-            if ( contactCheck && this.pin.Text != "" )
+            if ( contactCheck && this.pin.Text != "" && this.PlanNum != -1 )
             {
                 var planNum = this.EnrollCtrl.CreateDependent(
+                    this.PlanNum,
                     this._primaryId,
                     this.firstName.Text,
                     this.lastName.Text,

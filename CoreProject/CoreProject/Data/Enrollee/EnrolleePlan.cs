@@ -19,7 +19,7 @@ namespace CoreProject.Data.Enrollee
         /// TODO: remove this property as we should be storing actual 
         /// InsurancePlans.
         /// </summary>
-        public string Type { get; private set; }
+        public string Type { get; set; }
         /* 
          * all of the following properties are privately set because they are 
          * set on charge
@@ -35,11 +35,10 @@ namespace CoreProject.Data.Enrollee
         /// changed
         /// </summary>
         public DateTime? LastChange { get; private set; }
-        public List<Bill> Charges { get; private set; }
+        public List<Bill> Charges { get; set; }
         public double TotalCost { get; private set; }
         private List<int> _dependents;
         private List<double> _dependentOPMs;
-        private int primary;
         /// <summary>
         /// list of primary keys of the dependent enrollees
         /// </summary>
@@ -65,7 +64,6 @@ namespace CoreProject.Data.Enrollee
             }
         }
 
-        private static int idCount = 0;
 
         /// <summary>
         /// the primary key of the primary enrollee
@@ -77,7 +75,6 @@ namespace CoreProject.Data.Enrollee
             // identifiers
             this.PrimaryEnrollee = primary.Id;
             this.Type = plan.Type;
-            this.PlanNum = ++idCount;
             this.Dependents = new List<int>();
             this.Charges = new List<Bill>();
             // start at the top of the plan 
@@ -94,16 +91,23 @@ namespace CoreProject.Data.Enrollee
         /// <param name="totalCost"></param>
         /// <param name="opmRemainder"></param>
         /// <param name="pymbRemainder"></param>
-        public EnrolleePlan( int id, DateTime lastCharge, 
+        public EnrolleePlan( int pid, InsurancePlan plan,  
+                             DateTime lastCharge, int planNum,
                              double totalCost, double opmRemainder, 
                              double pymbRemainder,  double apdRemainder)
         {
+            this.Plan = plan;
+            this.Type = plan.Type;
+            this.PrimaryEnrollee = pid;
+            this.PlanNum = planNum;
             this.APDRemainder = apdRemainder;
             this.LastChange = lastCharge;
             this.PYMBRemainder = pymbRemainder;
             this.APDRemainder = apdRemainder;
             this.TotalCost = totalCost;
             this.OPMFRemainder = opmRemainder;
+            this.Charges = new List<Bill>();
+            this.Dependents = new List<int>();
         }
         
         /// <summary>

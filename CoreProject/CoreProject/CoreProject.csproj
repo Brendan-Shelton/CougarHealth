@@ -221,6 +221,13 @@
     <Compile Include="Present\MonthlyReport.Designer.cs">
       <DependentUpon>MonthlyReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\PickPlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\PickPlan.Designer.cs">
+      <DependentUpon>PickPlan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\EnrolleeControllers\PickPlanController.cs" />
     <Compile Include="Present\PlanManagement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\MonthlyReport.resx">
       <DependentUpon>MonthlyReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\PickPlan.resx">
+      <DependentUpon>PickPlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\PrimaryEnroll.resx">
       <DependentUpon>PrimaryEnroll.cs</DependentUpon>

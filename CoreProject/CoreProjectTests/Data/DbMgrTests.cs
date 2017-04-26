@@ -30,17 +30,16 @@ namespace CoreProject.Data.Tests
         [TestMethod()]
         public void GetPlanByPrimaryTest()
         {
-            //var plan = mgr.Plans.ElementAt(0);
+            int defaultPrimary = 1;
 
-            //mgr.PlanSet.Add(new EnrolleePlan(this.primary, plan));
+            var enrolleePlan = mgr.GetPlanByPrimary(defaultPrimary);
 
-            //var enrolleePlan = mgr.GetPlanByPrimary(this.primary.Id);
-            //var badPlan = mgr.GetPlanByPrimary(12);
-
-            //Assert.IsNull(badPlan);
-            //Assert.IsNotNull(enrolleePlan);
-            //Assert.AreEqual(this.primary.Id, enrolleePlan.PrimaryEnrollee.Value);
-            Assert.AreEqual(true, true);
+            // make sure pulling a normal enrollee plan works 
+            Assert.AreEqual(250000.0000, enrolleePlan.ElementAt(0).PYMBRemainder);
+            // make sure we are pulling the bills
+            Assert.AreEqual(enrolleePlan.ElementAt(0).Charges[0].Id, 3);
+            // check if we are pulling the dependents from
+            Assert.AreEqual(enrolleePlan.ElementAt(0).Dependents[0], 1);
         }
 
         [TestMethod()]
@@ -118,7 +117,7 @@ namespace CoreProject.Data.Tests
         [TestMethod()]
         public void AdminUpdatePlanTest()
         {
-            
+
             // Update APD
             var ret = mgr.AdminUpdatePlan("Basic", "Benefits", "APD", false, false, 50);
             var Plan = mgr.GetPlanByType("Basic");

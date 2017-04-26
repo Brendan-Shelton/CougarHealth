@@ -22,6 +22,48 @@ namespace CoreProject.Present
         public DataTable Src { get; set; }
         public InsurancePlan CurrentPlan { get; set; }
         public InsurancePlan ComparedPlan { get; set; }
+
+        /// <summary>
+        /// A plan has been picked, so we can show the current one 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        public void PlanPicked( object source, ChoiceArgs e )
+        {
+            this.Ctrl.PickPlan(e.PlanNum);
+            this.DisplayCurrent();
+        }
+
+        /// <summary>
+        /// When we only have one plan, we display it's details 
+        /// </summary>
+        public void DisplayCurrent ()
+        {
+            if (this.Ctrl.MultiplePlans) throw new ArgumentException("To many plans");
+
+            this.CurrentPlan = Ctrl.CurrentDetails();
+            var benefitName = "Benefits";
+            var currName = "Current";
+            this.Src.Columns.Add(new DataColumn(benefitName, typeof(string)));
+            // current plan values 
+            this.Src.Columns.Add(new DataColumn(currName, typeof(string)));
+            // the data source for the datagrid view 
+            foreach ( string type in this.Ctrl.PlanOptions() )
+            {
+                this.PlanType.Items.Add(type);
+            }
+            string[] benefits = this.Ctrl.BenfitsCompared();
+            string[] currentBenefits = this.Ctrl.PrintPlanValues(this.CurrentPlan);
+            for (int i = 0; i < benefits.Length; i++)
+            {
+                this.Src.Rows.Add(benefits[i], currentBenefits[i]);
+            }
+            this.PlanComparison.DataSource = this.Src;
+            this.PlanComparison.AutoResizeColumns();
+
+
+        }
+
         public ModifyPlan()
         {
             InitializeComponent();
@@ -46,25 +88,16 @@ namespace CoreProject.Present
         /// <param name="e"></param>
         private void ModifyPlan_Load(object sender, EventArgs e)
         {
-            this.CurrentPlan = Ctrl.CurrentDetails();
-            var benefitName = "Benefits";
-            var currName = "Current";
-            this.Src.Columns.Add(new DataColumn(benefitName, typeof(string)));
-            // current plan values 
-            this.Src.Columns.Add(new DataColumn(currName, typeof(string)));
-            // the data source for the datagrid view 
-            foreach ( string type in this.Ctrl.PlanOptions() )
+            if ( this.Ctrl.MultiplePlans )
             {
-                this.PlanType.Items.Add(type);
+                var picked = new PickPlan();
+                picked.Show();
+                picked.OnChoice += new ChoiceHandler(this.PlanPicked);
             }
-            string[] benefits = this.Ctrl.BenfitsCompared();
-            string[] currentBenefits = this.Ctrl.PrintPlanValues(this.CurrentPlan);
-            for (int i = 0; i < benefits.Length; i++)
+            else
             {
-                this.Src.Rows.Add(benefits[i], currentBenefits[i]);
+                this.DisplayCurrent();
             }
-            this.PlanComparison.DataSource = this.Src;
-            this.PlanComparison.AutoResizeColumns();
         }
 
         /// <summary>

@@ -25,7 +25,6 @@ namespace CoreProject.Data.HealthcareServiceProvider
         public int AccountNum { get; set; }
         public int RoutingNum { get; set; }
 
-        private static int idCount = 0;
 
         /// <summary>
         /// Unique to each HSP/OHSP
@@ -50,12 +49,34 @@ namespace CoreProject.Data.HealthcareServiceProvider
 
         public HSP(string pin, bool isNetwork)
         {
-            this.Id = ++idCount;
             this.InNetwork = isNetwork;
             this.ChangePIN(pin);
         }
 
-
+        /// <summary>
+        /// Database ctor 
+        /// </summary>
+        internal HSP(
+            int id, 
+            int routingNum, 
+            int accountNum, 
+            string pin, 
+            string bankName, 
+            string personelContact, 
+            string name, 
+            string address, 
+            bool isInNetwork )
+        {
+            this.Id = id;
+            this.RoutingNum = routingNum;
+            this.AccountNum = accountNum;
+            this.BankName = bankName;
+            this.Pin = pin;
+            this.Personnel = personelContact;
+            this.Name = name;
+            this.Address = address;
+            this.InNetwork = isInNetwork; 
+        }
 
         public void ChangePIN(string newPin)
         {

@@ -12,6 +12,12 @@ namespace CoreProject.Controller.EnrolleeControllers
     {
         public DbMgr Mgr { get; set; } = DbMgr.Instance;
         public EnrolleePlan CurrentPlan { get; set; }
+        /// <summary>
+        /// the plans given by the database. Previously we identified by primary
+        /// enrollee id, but since a primary enrollee can have multiple plans 
+        /// we have to have them pick one. 
+        /// </summary>
+        public IEnumerable<EnrolleePlan> AvailablePlans { get; private set; } = null;
 
         /// <summary>
         /// Array of columns in data row with the corresponding field names 
@@ -30,9 +36,27 @@ namespace CoreProject.Controller.EnrolleeControllers
             Tuple.Create("Dependent Change to Fee", "DependentChangeFee")
         };
 
+        /// <summary>
+        /// Whether the enrollee has multiple plans 
+        /// </summary>
+        public bool MultiplePlans {
+            get
+            {
+                return this.AvailablePlans == null ||
+                    this.AvailablePlans.Count() > 0;
+            }
+        }
+
         public ModifyPlanController( int EnrolleeId)
         {
-            this.CurrentPlan = Mgr.GetPlanByPrimary(EnrolleeId);
+            this.AvailablePlans = Mgr.GetPlanByPrimary(EnrolleeId);
+        }
+
+        public void PickPlan( int planNum )
+        {
+            this.CurrentPlan = this.AvailablePlans
+                .Where(p => p.PlanNum == planNum)
+                .SingleOrDefault();
         }
 
         /// <summary>
@@ -98,7 +122,14 @@ namespace CoreProject.Controller.EnrolleeControllers
 
         public InsurancePlan CurrentDetails()
         {
-            return Mgr.GetPlanByType(CurrentPlan.Type);
+            if ( !this.MultiplePlans )
+            {
+                return Mgr.GetPlanByType(CurrentPlan.Type);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -107,8 +138,11 @@ namespace CoreProject.Controller.EnrolleeControllers
         /// <param name="change"></param>
         public void ChangeCurrent ( InsurancePlan change )
         {
-            this.CurrentPlan.ChangeTo(change);
-            Mgr.SaveEnrolleePlan(this.CurrentPlan);
+            if ( !MultiplePlans )
+            {
+                this.CurrentPlan.ChangeTo(change);
+                Mgr.SaveEnrolleePlan(this.CurrentPlan);
+            }
         }
     }
 }

@@ -37,6 +37,7 @@ namespace CoreProject.Controller.EnrolleeControllers
 
         public PrimaryEnrollee PrimaryEnrollee { get; set; }
         public DependentEnrollee DependentEnrollee { get; set; }
+
         /// <summary>
         /// Uses regex to verify if the social security number is correct 
         /// TODO: in database implementation we need to check ssn in the database
@@ -235,6 +236,7 @@ namespace CoreProject.Controller.EnrolleeControllers
         /// <param name="contact"></param>
         /// <returns></returns>
         public int CreateDependent(
+            int planNum,
             int primaryId,
             string firstName, 
             string lastName, 
@@ -244,7 +246,9 @@ namespace CoreProject.Controller.EnrolleeControllers
             Contact contact
         )
         {
-            var enrolleePlan = Mgr.GetPlanByPrimary(primaryId);
+            var enrolleePlan = Mgr.GetPlanByPrimary(primaryId)
+                .Where(e => e.PlanNum == planNum)
+                .SingleOrDefault();
             enrolleePlan.AddDependent(new DependentEnrollee (pin)
             {
                 Email = contact.email,

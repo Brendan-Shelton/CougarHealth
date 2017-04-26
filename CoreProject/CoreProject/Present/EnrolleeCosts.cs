@@ -17,16 +17,26 @@ namespace CoreProject.Present
     {
 
         public PlanController planCtrl { get; private set; }
+
+        public void PlanPicked ( object source, ChoiceArgs e )
+        {
+            myInitialize(e.PlanNum);
+        }
         public EnrolleeCosts(PlanController ctrl)
         {
             this.planCtrl = ctrl;
             InitializeComponent();
-            myInitialize();
+            if ( planCtrl.MultiplePlans )
+            {
+                var pick = new PickPlan(ctrl._primaryId);
+                pick.OnChoice += new ChoiceHandler(PlanPicked);
+                pick.Show();
+            }
         }
 
-        private void myInitialize()
+        private void myInitialize( int planNum )
         {
-            planCtrl.update(this);
+            planCtrl.update(this, planNum);
         }
 
         public void addHospitalService(Service service)
