@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
+using CoreProject.Data.HealthcareServiceProvider;
+using System.Collections;
 
 namespace CoreProject.Controller.EnrolleeControllers.Tests
 {
@@ -504,7 +506,61 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
             //Assert
 
             Assert.AreEqual(testPlans.ToString(), results.ToString());
-//        Assert.Fail();
+            //        Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void GetProvidersTest()
+        {
+            //Arange
+            var ctrl = new SearchController();
+            var plan = ctrl.GetPlan("Basic");
+
+            string service = "Inpatient";
+
+            List<HSP> results;
+
+            List<HSP> testHSP = new List<HSP>
+            {
+                new HSP("1234", true)
+                {
+                    Name = "Jones Hospital",
+                    ServicesOffered = null/*{ "Inpatient", "Inpatient (Behavioral Health",
+                                        "Emergency Room", "Outpatient Surgery", "Diagnostic Lab and x-ray",
+                                        "Office Visit", "Specialist Visit", "Preventive Services", "Baby Services",
+                                        "Durable Medical Equipment", "Nursing Facility", "Physical Therapy" }*/,
+                    Address = "123 North Elm, Anytown, New York"
+
+                },
+                new HSP("2345", true)
+                {
+                    Name = "Mercy Hospital",
+                    ServicesOffered = null/*{ "Inpatient", "Inpatient (Behavioral Health",
+                                        "Emergency Room", "Outpatient Surgery", "Diagnostic Lab and x-ray",
+                                        "Office Visit", "Specialist Visit", "Preventive Services", "Baby Services",
+                                        "Durable Medical Equipment"}*/,
+                    Address = "555 West Madison, Nowhere, Kansas"
+                },
+                new HSP("5555", true)
+                {
+                    Name = "St John's University Hospital",
+                    ServicesOffered = null/*{ "Inpatient", "Inpatient (Behavioral Health",
+                                        "Emergency Room", "Diagnostic Lab and x-ray",
+                                        "Office Visit", "Specialist Visit", "Preventive Services", "Baby Services",
+                                        "Durable Medical Equipment", "Physical Therapy" }*/,
+                    Address = "420 Baker Street, High Town, Washington"
+                }
+            };
+
+            //Act
+
+            results = (List<HSP>)ctrl.GetProviders(service);
+
+            //Assert
+
+            Assert.AreEqual(testHSP[0].Name, results[0].Name);
+
+//            Assert.Fail();
         }
     }
 }

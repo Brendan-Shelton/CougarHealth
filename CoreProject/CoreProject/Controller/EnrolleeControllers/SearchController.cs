@@ -34,14 +34,19 @@ namespace CoreProject.Controller.EnrolleeControllers
         {
             Service serviceFound = null;
 
-            foreach (var service in localPlan.ServiceCosts)
+            if (localPlan != null)
             {
-                if (service.Name.Equals(name))
+
+                foreach (var service in localPlan.ServiceCosts)
                 {
-                    serviceFound = service;
+                    if (service.Name.Equals(name))
+                    {
+                        serviceFound = service;
+                    }
                 }
+                return Mgr.GetProviders(serviceFound);
             }
-            return Mgr.GetProviders(serviceFound);
+            return null;
         }
     }
 }
