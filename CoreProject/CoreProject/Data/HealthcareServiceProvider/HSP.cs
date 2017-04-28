@@ -30,7 +30,7 @@ namespace CoreProject.Data.HealthcareServiceProvider
         /// <summary>
         /// Unique to each HSP/OHSP
         /// </summary>
-        public int Id { get; }
+        public int Id { get; internal set; }
         private string _pin;
 
         /// <summary>
