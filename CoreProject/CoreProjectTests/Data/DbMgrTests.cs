@@ -188,5 +188,36 @@ namespace CoreProject.Data.Tests
             Assert.IsTrue(plan.Dependents.Any());
             Assert.IsNull(notPlan);
         }
+
+        [TestMethod()]
+        public void GrabHspByNameTest()
+        {
+            string validName = "Name";
+            string notValid = "michael";
+
+            var hsp = mgr.GrabHspByName(validName);
+            var notHsp = mgr.GrabHspByName(notValid);
+
+            Assert.IsNotNull(hsp);
+            Assert.AreEqual(hsp.Personnel, "Contact");
+            Assert.IsTrue(hsp.ServicesOffered.Any());
+            Assert.IsNull(notHsp);
+
+        }
+
+        [TestMethod()]
+        public void GrabHspByIdTest()
+        {
+            int validId = 2;
+            int notValid = 0;
+
+            var hsp = mgr.GrabHspById(validId);
+            var notHsp = mgr.GrabHspById(notValid);
+
+            Assert.IsNotNull(hsp);
+            Assert.AreEqual(hsp.Personnel, "Contact");
+            Assert.IsTrue(hsp.ServicesOffered.Any());
+            Assert.IsNull(notHsp);
+        }
     }
 }

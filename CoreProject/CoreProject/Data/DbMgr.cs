@@ -325,6 +325,7 @@ namespace CoreProject.Data
 
         public int? AdminUpdatePlan(String planType, String category, String name, Boolean percent, Boolean max, double val)
         {
+            //TODO: Fix this method 
 
             //    APD = 250.0,
             //    PYMB = 250000.0,
@@ -783,38 +784,11 @@ namespace CoreProject.Data
                     rdr.Close();
                 }
 
-                string pullServId = @"SELECT * 
-                                      FROM ServiceHSP 
-                                      WHERE HSPId = @hid";
-                var sids = new List<int>();
-
-                using ( var cmd = new SqlCommand(pullServId, this.Connection) )
+                if (hsp != null)
                 {
-                    cmd.Parameters.AddWithValue("@hid", hspId);
-                    var rdr = cmd.ExecuteReader();
-                    
-                    while (rdr.Read())
-                    {
-                        sids.Add(Convert.ToInt32(rdr["ServiceId"]));
-                    }
-
-                    rdr.Close();
+                    this.AddHSPServices(hsp); 
                 }
 
-                string pullServices = @"SELECT Name FROM Service WHERE Id = @id";
-                foreach( var sid in sids )
-                {
-
-                    using ( var cmd = new SqlCommand(pullServices, this.Connection) )
-                    {
-                        cmd.Parameters.AddWithValue("@id", sid);
-                        var rdr = cmd.ExecuteReader();
-
-                        // hsp could be null, so we want to make sure an 
-                        //exception isn't thrown if that is the case.
-                        hsp?.ServicesOffered.Add(rdr.Single(s => Convert.ToString(rdr["Name"])));
-                    }
-                }
             }
             finally
             {
@@ -831,9 +805,91 @@ namespace CoreProject.Data
         /// <returns></returns>
         public HSP GrabHspByName(string hspName)
         {
-            return (from hsp in HspSet
-                    where hsp.Name == hspName
-                    select hsp).FirstOrDefault();
+            var selHsp = @"SELECT * FROM HSP WHERE Name = @name";
+            HSP hsp = null;
+
+            try
+            {
+                this.Connection.Open();
+
+                using (var cmd = new SqlCommand(selHsp, this.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@name", hspName);
+                    var rdr = cmd.ExecuteReader();
+                    hsp = rdr.Single(h => new HSP(
+                        id: Convert.ToInt32(h["Id"]),
+                        routingNum: Convert.ToInt32(h["RoutingNum"]),
+                        accountNum: Convert.ToInt32(h["AccountNum"]),
+                        pin: Convert.ToString(h["Pin"]),
+                        bankName: Convert.ToString(h["BankName"]),
+                        personelContact: Convert.ToString(h["PersonelContact"]),
+                        name: Convert.ToString(h["Name"]),
+                        address: Convert.ToString(h["Address"]),
+                        isInNetwork: Convert.ToBoolean(h["IsInNetwork"])
+                    ));
+
+                    rdr.Close();
+                }
+
+                // time to grab the services 
+                if (hsp != null)
+                {
+                    this.AddHSPServices(hsp);
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+            return hsp;
+            //return (from hsp in HspSet
+            //        where hsp.Name == hspName
+            //        select hsp).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Attaches the list of services offered by the HSP 
+        /// </summary>
+        /// <param name="hsp"></param>
+        private void AddHSPServices( HSP hsp )
+        {
+            if ( this.Connection.State != ConnectionState.Open )
+            {
+                this.Connection.Open(); 
+            }
+            string pullServId = @"SELECT * 
+                                  FROM ServiceHSP 
+                                  WHERE HSPId = @hid";
+            var sids = new List<int>();
+
+            using ( var cmd = new SqlCommand(pullServId, this.Connection) )
+            {
+                cmd.Parameters.AddWithValue("@hid", hsp.Id);
+                var rdr = cmd.ExecuteReader();
+                
+                while (rdr.Read())
+                {
+                    sids.Add(Convert.ToInt32(rdr["ServiceId"]));
+                }
+
+                rdr.Close();
+            }
+
+            string pullServices = @"SELECT Name FROM Service WHERE Id = @id";
+            foreach( var sid in sids )
+            {
+
+                using ( var cmd = new SqlCommand(pullServices, this.Connection) )
+                {
+                    cmd.Parameters.AddWithValue("@id", sid);
+                    var rdr = cmd.ExecuteReader();
+
+                    // hsp could be null, so we want to make sure an 
+                    //exception isn't thrown if that is the case.
+                    hsp?.ServicesOffered.Add(rdr.Single(s => Convert.ToString(rdr["Name"])));
+                }
+            }
         }
 
         public Enrollee.InsurancePlan GetPlanByType(string type)
@@ -1137,7 +1193,7 @@ namespace CoreProject.Data
         /// the database) to EnrolleePlan object plan 
         /// </summary>
         /// <param name="plan"></param>
-        public void AddPlanDependents( EnrolleePlan plan )
+        private void AddPlanDependents( EnrolleePlan plan )
         {
             if ( this.Connection.State != ConnectionState.Open )
             {
@@ -1163,7 +1219,7 @@ namespace CoreProject.Data
         /// the database) to EnrolleePlan object plan 
         /// </summary>
         /// <param name="plan"></param>
-        public void AddPlanBills( EnrolleePlan plan )
+        private void AddPlanBills( EnrolleePlan plan )
         {
             if ( this.Connection.State != ConnectionState.Open )
             {
@@ -1512,6 +1568,12 @@ namespace CoreProject.Data
         }
 
 
+        /// <summary>
+        /// Get all the services attached to the InsurancePlan table entry 
+        /// corresponding to the given type 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public IEnumerable<Service> GetServicesByPlan ( string type )
         {
             var services = new List<Service>();
@@ -1551,7 +1613,6 @@ namespace CoreProject.Data
             }
 
             return services;
-        }
-
-    }
-}
+        } // get services 
+    } // class 
+} // namespace 

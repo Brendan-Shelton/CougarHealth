@@ -77,6 +77,7 @@ namespace CoreProject.Data.HealthcareServiceProvider
             this.Name = name;
             this.Address = address;
             this.InNetwork = isInNetwork; 
+            this.ServicesOffered = new List<string>();
         }
 
         public void ChangePIN(string newPin)
