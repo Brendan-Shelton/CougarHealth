@@ -18,10 +18,6 @@ namespace CoreProject.Controller.EnrolleeControllers
         public InsurancePlan getLocalPlan() { return localPlan; }
         public void setLocalPlan(InsurancePlan plan) { localPlan = plan; }
 
-        public IEnumerable<Service> GetServices() {
-            return Mgr.GetServices();
-        }
-
         public InsurancePlan GetPlan(String name)
         {
             var plan = Mgr.GetPlanByType(name);
@@ -38,19 +34,14 @@ namespace CoreProject.Controller.EnrolleeControllers
         {
             Service serviceFound = null;
 
-            foreach ( var service in localPlan.ServiceCosts)
+            foreach (var service in localPlan.ServiceCosts)
             {
                 if (service.Name.Equals(name))
                 {
                     serviceFound = service;
                 }
             }
-
             return Mgr.GetProviders(serviceFound);
-        }
-
-        public void defaultLayout() {
-
         }
     }
 }

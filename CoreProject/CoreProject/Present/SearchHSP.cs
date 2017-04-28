@@ -60,11 +60,8 @@ namespace CoreProject.Present
                     {
                         searchHSPResult.Rows.Add(found.Name, found.Address);
                     }
-                    //                   searchHSPResult.Rows.Add(found.Name, found.Address);
                 }
             }
-
-
         }
 
         private void planList_SelectedIndexChanged(object sender, EventArgs e)
