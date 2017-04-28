@@ -70,11 +70,18 @@ namespace CoreProject.Data.Tests
             // the guest account is put into the Primary Enrollee table 
             // that is where I am looking 
             var email = "guest@guest";
+            var depEmail = "dude@mcguy";
+            var not = "this@doesnotexist.com";
 
             var enrollee = mgr.GetEnrolleeByEmail(email);
+            var depEnrollee = mgr.GetEnrolleeByEmail(depEmail);
+            var notEnrollee = mgr.GetEnrolleeByEmail(not);
 
             Assert.IsNotNull(enrollee);
             Assert.AreEqual(enrollee.Email, "guest@guest");
+            Assert.IsInstanceOfType(enrollee, typeof(PrimaryEnrollee));
+            Assert.IsInstanceOfType(depEnrollee, typeof(DependentEnrollee));
+            Assert.IsNull(notEnrollee);
         }
 
         /// <summary>
@@ -163,7 +170,23 @@ namespace CoreProject.Data.Tests
 
             Assert.IsNotNull(plans);
             Assert.IsInstanceOfType(plans, typeof(List<InsurancePlan>));
-            Assert.IsTrue(plans.Count() > 0);
+            Assert.IsTrue(plans.Any());
+        }
+
+        [TestMethod()]
+        public void GetPolicyByIDTest()
+        {
+            int goodid = 1;
+            int badid = 0;
+
+            var plan = mgr.GetPolicyByID(goodid);
+            var notPlan = mgr.GetPolicyByID(badid);
+
+            Assert.IsNotNull(plan);
+            Assert.AreEqual(plan.TotalCost, 0);
+            Assert.AreEqual(plan.Type, "Basic");
+            Assert.IsTrue(plan.Dependents.Any());
+            Assert.IsNull(notPlan);
         }
     }
 }

@@ -999,15 +999,14 @@ namespace CoreProject.Data
         /// </summary>
         private struct CachedPlan
         {
-            public object plan;
-            public int pid;
-            public object planNum;
-            public object lastCharge;
-            public object totalCost;
-            public object opmRemainder;
-            public object pymbRemainder;
-            public object apdRemainder;
-
+            public object Plan;
+            public int Pid;
+            public object PlanNum;
+            public object LastCharge;
+            public object TotalCost;
+            public object OpmRemainder;
+            public object PymbRemainder;
+            public object ApdRemainder;
         }
 
         /// <summary>
@@ -1076,30 +1075,30 @@ namespace CoreProject.Data
                         {
                             cachedPlans.Add(new CachedPlan
                             {
-                                plan = rdr["InsurancePlanId"],
-                                pid = primaryId,
-                                planNum = rdr["PlanNum"],
-                                lastCharge = rdr["LastCharge"],
-                                totalCost = rdr["TotalCost"],
-                                opmRemainder = rdr["OPMRemainder"],
-                                pymbRemainder = rdr["PYMBRemainder"],
-                                apdRemainder = rdr["apdRemainder"],
+                                Plan = rdr["InsurancePlanId"],
+                                Pid = primaryId,
+                                PlanNum = rdr["PlanNum"],
+                                LastCharge = rdr["LastCharge"],
+                                TotalCost = rdr["TotalCost"],
+                                OpmRemainder = rdr["OPMRemainder"],
+                                PymbRemainder = rdr["PYMBRemainder"],
+                                ApdRemainder = rdr["apdRemainder"],
                             });
                         } // while 
                         rdr.Close();
                     } // using 
                     foreach (var cachedPlan in cachedPlans)
                     {
-                        InsurancePlan iplan = this.GetPLanById(Convert.ToInt32(cachedPlan.plan));
+                        InsurancePlan iplan = this.GetPLanById(Convert.ToInt32(cachedPlan.Plan));
                         plans.Add(new EnrolleePlan(
-                                pid: cachedPlan.pid,
+                                pid: cachedPlan.Pid,
                                 plan: iplan,
-                                planNum: Convert.ToInt32(cachedPlan.planNum),
-                                lastCharge: Convert.ToDateTime(cachedPlan.lastCharge),
-                                totalCost: Convert.ToDouble(cachedPlan.totalCost),
-                                opmRemainder: Convert.ToDouble(cachedPlan.opmRemainder),
-                                pymbRemainder: Convert.ToDouble(cachedPlan.pymbRemainder),
-                                apdRemainder: Convert.ToDouble(cachedPlan.apdRemainder)
+                                planNum: Convert.ToInt32(cachedPlan.PlanNum),
+                                lastCharge: Convert.ToDateTime(cachedPlan.LastCharge),
+                                totalCost: Convert.ToDouble(cachedPlan.TotalCost),
+                                opmRemainder: Convert.ToDouble(cachedPlan.OpmRemainder),
+                                pymbRemainder: Convert.ToDouble(cachedPlan.PymbRemainder),
+                                apdRemainder: Convert.ToDouble(cachedPlan.ApdRemainder)
                         )); // plans.Add 
 
                     }
@@ -1113,83 +1112,13 @@ namespace CoreProject.Data
                 // get all dependents foreach plan 
                 foreach ( var plan in plans )
                 {
-                    var selDep = @"SELECT DependentEnrolleeId FROM DependentPlan
-                                   WHERE EnrolleePlanId = @pid";
-
-                    using (var cmd = new SqlCommand(selDep, this.Connection))
-                    {
-                        cmd.Parameters.AddWithValue("@pid", plan.PlanNum);
-                        var rdr = cmd.ExecuteReader();
-                        while (rdr.Read())
-                        {
-                            plan.Dependents.Add(Convert.ToInt32(rdr["DependentEnrolleeId"]));
-                        } // while 
-                        rdr.Close();
-                    } // using 
+                    this.AddPlanDependents(plan);
                 } // foreach 
 
                 // finally get all the bills 
                 foreach ( var plan in plans )
                 {
-                    var selBills = @"SELECT * FROM Bill WHERE PlanNum = @thisNum";
-                    var cachedServices = new List<CachedService>();
-
-                    using (var cmd = new SqlCommand(selBills, this.Connection))
-                    {
-                        cmd.Parameters.AddWithValue("@thisNum", plan.PlanNum);
-                        var rdr = cmd.ExecuteReader();
-
-                        while (rdr.Read())
-                        {
-                            cachedServices.Add(new CachedService
-                            {
-                                Id = rdr["Id"],
-                                PrimaryId = rdr["PrimaryId"],
-                                HSPId = rdr["HSPId"],
-                                ServiceId = rdr["ServiceId"],
-                                Date = rdr["Date"],
-                                TotalBillAmount = rdr["TotalBillAmount"],
-                                EnrolleeBillAmount = rdr["EnrolleeBillAmount"],
-                                PlanNum = rdr["PlanNum"],
-                                DependentId = rdr["DependentId"],
-                                IsPrimary = rdr["IsPrimary"]
-                            });
-                        } // while 
-                        rdr.Close();
-
-                    } // using 
-                    foreach ( var serv in cachedServices )
-                    {
-
-                        HSP billingHSP = this.GrabHspById(Convert.ToInt32(serv.HSPId));
-                        IEnumerable<Service> services = this.GetServicesByPlan(plan.Type);
-                        Service billedService = services.Where(s => 
-                        {
-                            return s.Id == Convert.ToInt32(serv.ServiceId);
-                        }).SingleOrDefault();
-
-                        int? enrollee = null;
-                        var isPrimary = Convert.ToBoolean(serv.IsPrimary);
-                        if ( Convert.ToBoolean(serv.IsPrimary) )
-                        {
-                            enrollee = Convert.ToInt32(serv.PrimaryId);
-                        }
-                        else
-                        {
-                            enrollee = Convert.ToInt32(serv.DependentId);
-                        }
-                        plan.Charges.Add(new Bill(
-                            id: Convert.ToInt32(serv.Id),
-                            date: Convert.ToDateTime(serv.Date),
-                            hsp: billingHSP,
-                            service: billedService,
-                            enrolleeId: enrollee.Value,
-                            isPrimary: isPrimary,
-                            totalBillAmount: Convert.ToDouble(serv.TotalBillAmount),
-                            enrolleeBillAmount: Convert.ToDouble(serv.EnrolleeBillAmount)
-
-                        )); // plan 
-                        }
+                    this.AddPlanBills(plan);
                 } // foreach  
             } // try
             finally
@@ -1202,6 +1131,102 @@ namespace CoreProject.Data
             //        where plan.PrimaryEnrollee == primaryId
             //        select plan).FirstOrDefault();
         }
+
+        /// <summary>
+        /// Attach all the dependents of the plan (most likely retrieved from 
+        /// the database) to EnrolleePlan object plan 
+        /// </summary>
+        /// <param name="plan"></param>
+        public void AddPlanDependents( EnrolleePlan plan )
+        {
+            if ( this.Connection.State != ConnectionState.Open )
+            {
+                this.Connection.Open(); 
+            }
+            var selDep = @"SELECT DependentEnrolleeId FROM DependentPlan
+                           WHERE EnrolleePlanId = @pid";
+
+            using ( var cmd = new SqlCommand(selDep, this.Connection) )
+            {
+                cmd.Parameters.AddWithValue("@pid", plan.PlanNum);
+                var rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    plan.Dependents.Add(Convert.ToInt32(rdr["DependentEnrolleeId"]));
+                } // while 
+                rdr.Close();
+            } // using 
+        } // attach dependents 
+
+        /// <summary>
+        /// Attach all the bills of the plan (most likely retrieved from 
+        /// the database) to EnrolleePlan object plan 
+        /// </summary>
+        /// <param name="plan"></param>
+        public void AddPlanBills( EnrolleePlan plan )
+        {
+            if ( this.Connection.State != ConnectionState.Open )
+            {
+                this.Connection.Open(); 
+            }
+            var selBills = @"SELECT * FROM Bill WHERE PlanNum = @thisNum";
+            var cachedServices = new List<CachedService>();
+
+            using (var cmd = new SqlCommand(selBills, this.Connection))
+            {
+                cmd.Parameters.AddWithValue("@thisNum", plan.PlanNum);
+                var rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    cachedServices.Add(new CachedService
+                    {
+                        Id = rdr["Id"],
+                        PrimaryId = rdr["PrimaryId"],
+                        HSPId = rdr["HSPId"],
+                        ServiceId = rdr["ServiceId"],
+                        Date = rdr["Date"],
+                        TotalBillAmount = rdr["TotalBillAmount"],
+                        EnrolleeBillAmount = rdr["EnrolleeBillAmount"],
+                        PlanNum = rdr["PlanNum"],
+                        DependentId = rdr["DependentId"],
+                        IsPrimary = rdr["IsPrimary"]
+                    });
+                } // while 
+                rdr.Close();
+
+            } // using 
+            foreach ( var serv in cachedServices )
+            {
+
+                HSP billingHSP = this.GrabHspById(Convert.ToInt32(serv.HSPId));
+                IEnumerable<Service> services = this.GetServicesByPlan(plan.Type);
+                Service billedService = services
+                    .SingleOrDefault(s => s.Id == Convert.ToInt32(serv.ServiceId));
+
+                int? enrollee = null;
+                var isPrimary = Convert.ToBoolean(serv.IsPrimary);
+                if ( Convert.ToBoolean(serv.IsPrimary) )
+                {
+                    enrollee = Convert.ToInt32(serv.PrimaryId);
+                }
+                else
+                {
+                    enrollee = Convert.ToInt32(serv.DependentId);
+                }
+                plan.Charges.Add(new Bill(
+                    id: Convert.ToInt32(serv.Id),
+                    date: Convert.ToDateTime(serv.Date),
+                    hsp: billingHSP,
+                    service: billedService,
+                    enrolleeId: enrollee.Value,
+                    isPrimary: isPrimary,
+                    totalBillAmount: Convert.ToDouble(serv.TotalBillAmount),
+                    enrolleeBillAmount: Convert.ToDouble(serv.EnrolleeBillAmount)
+
+                )); // plan 
+            } // using 
+        } // bills 
 
         /// <summary>
         /// Gets the InsurancePlan object corresponding to this id 
@@ -1256,13 +1281,17 @@ namespace CoreProject.Data
         /// <returns></returns>
         public Enrollee.Enrollee GetEnrolleeByEmail(string email)
         {
-            // look through both the primary enrollee table and the dependent 
-            // enrollee table get back what are not duplicates 
-            string selEnrollee = @"SELECT Id, Email, Pin, SSN, HomePhone, MobilePhone, FirstName, LastName
+            /*
+             * look through both the primary enrollee table and the dependent 
+             * enrollee table get back what are not duplicates. I added 0 as a 
+             * constant "IsPrimary" column, so I can determine which results 
+             * are primary or not 
+             */
+            string selEnrollee = @"SELECT Id, Email, Pin, SSN, HomePhone, MobilePhone, FirstName, LastName, 1 AS IsPrimary
                                    FROM PrimaryEnrollee 
                                    WHERE Email = @email
                                    UNION 
-                                   SELECT Id, Email, Pin, SSN, HomePhone, MobilePhone, FirstName, LastName 
+                                   SELECT Id, Email, Pin, SSN, HomePhone, MobilePhone, FirstName, LastName, 0 AS IsPrimary
                                    FROM DependentEnrollee
                                    WHERE Email = @email";
             Enrollee.Enrollee enrollee = null;
@@ -1276,32 +1305,38 @@ namespace CoreProject.Data
                     cmd.Parameters.AddWithValue("@email", email);
                     var rdr = cmd.ExecuteReader();
                     // I should only get one result back 
-                    if (Convert.ToBoolean(rdr["IsPrimary"]))
+                    if (rdr.Read())
                     {
-                        enrollee = rdr.Single(p => new PrimaryEnrollee(Convert.ToString(p["Pin"]))
+                        if (Convert.ToBoolean(rdr["IsPrimary"]))
                         {
-                            Id = Convert.ToInt32(p["Id"]),
-                            Email = Convert.ToString(p["Email"]),
-                            SSN = Convert.ToString(p["SSN"]),
-                            HomePhone = Convert.ToString(p["HomePhone"]),
-                            MobilePhone = Convert.ToString(p["MobilePhone"]),
-                            FirstName = Convert.ToString(p["FirstName"]),
-                            LastName = Convert.ToString(p["LastName"]),
-                        });
-                    }
-                    else 
-                    enrollee = rdr.Single(p => new DependentEnrollee(Convert.ToString(p["Pin"]))
-                    {
-                        Id = Convert.ToInt32(p["Id"]),
-                        Email = Convert.ToString(p["Email"]),
-                        SSN = Convert.ToString(p["SSN"]),
-                        HomePhone = Convert.ToString(p["HomePhone"]),
-                        MobilePhone = Convert.ToString(p["MobilePhone"]),
-                        FirstName = Convert.ToString(p["FirstName"]),
-                        LastName = Convert.ToString(p["LastName"]),
-                    });
-                }
-            }
+                            enrollee = new PrimaryEnrollee(Convert.ToString(rdr["Pin"]))
+                            {
+                                Id = Convert.ToInt32(rdr["Id"]),
+                                Email = Convert.ToString(rdr["Email"]),
+                                SSN = Convert.ToString(rdr["SSN"]),
+                                HomePhone = Convert.ToString(rdr["HomePhone"]),
+                                MobilePhone = Convert.ToString(rdr["MobilePhone"]),
+                                FirstName = Convert.ToString(rdr["FirstName"]),
+                                LastName = Convert.ToString(rdr["LastName"]),
+                            }; // new 
+                        } // if 
+                        else
+                        {
+
+                            enrollee = new DependentEnrollee(Convert.ToString(rdr["Pin"]))
+                            {
+                                Id = Convert.ToInt32(rdr["Id"]),
+                                Email = Convert.ToString(rdr["Email"]),
+                                SSN = Convert.ToString(rdr["SSN"]),
+                                HomePhone = Convert.ToString(rdr["HomePhone"]),
+                                MobilePhone = Convert.ToString(rdr["MobilePhone"]),
+                                FirstName = Convert.ToString(rdr["FirstName"]),
+                                LastName = Convert.ToString(rdr["LastName"]),
+                            }; // new 
+                        } // else 
+                    } // if 
+                } // using 
+            } // try 
             finally
             {
                 // always close connection
@@ -1311,14 +1346,100 @@ namespace CoreProject.Data
             return enrollee;
         }
 
-        public Enrollee.EnrolleePlan GetPolicyByID(int ID)
+        /// <summary>
+        /// Get an EnrolleePlan based on it's PlanNum
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public EnrolleePlan GetPolicyByID(int ID)
         {
-            throw new NotImplementedException();
-            //return (from plan in PlanSet
-            //var r = (from plan in PlanSet
-            //         where plan.PlanNum == ID
-            //         select plan).FirstOrDefault();
-            //return r;
+            string selPlan = @"SELECT * FROM EnrolleePlan WHERE PlanNum = @id";
+            EnrolleePlan plan = null;
+
+            try
+            {
+                this.Connection.Open();
+                CachedPlan cached;
+
+                using (var cmd = new SqlCommand(selPlan, this.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@id", ID);
+                    var rdr = cmd.ExecuteReader();
+
+                    // save response from database so that we can query for 
+                    // insurance plan later in the method 
+                    cached = rdr.Single(p => new CachedPlan()
+                    {
+                        // we don't actually have the primary yet so we set it 
+                        // to an invalid Id
+                        Pid = -1,
+                        Plan = rdr["InsurancePlanID"],
+                        PlanNum = rdr["PlanNum"],
+                        LastCharge = rdr["LastCharge"],
+                        TotalCost = rdr["TotalCost"],
+                        OpmRemainder = rdr["OPMRemainder"],
+                        PymbRemainder = rdr["PYMBRemainder"],
+                        ApdRemainder = rdr["APDRemainder"]
+                    });
+
+                    rdr.Close();
+                }
+
+                // if we didn't get something back (the struct is zeroed out 
+                // by default, so plan will be null in the default() case)
+                if (cached.Plan == null)
+                {
+                    return null;
+                }
+
+                // get it's respective InsurancePlan
+                InsurancePlan iplan = GetPLanById(Convert.ToInt32(cached.Plan));
+
+                // reopen connection if iplan already closed it 
+                if ( this.Connection.State != ConnectionState.Open )
+                {
+                    this.Connection.Open();                    
+                }
+
+                var selPrimary = @"SELECT PrimaryEnrolleeId 
+                                   FROM PrimaryPlan 
+                                   WHERE EnrolleePlanId = @planNum";
+                int pri = 0;
+
+                using (var cmd = new SqlCommand(selPrimary, this.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@planNum", ID);
+                    var rdr = cmd.ExecuteReader();
+                    pri = rdr.Single(p => Convert.ToInt32(p["PrimaryEnrolleeId"]));
+                    rdr.Close();
+                }
+
+                // default value of pri is 0, so if we didn't get anything 
+                // back then pri will be 0
+                if ( pri != 0 )
+                {
+                    plan = new EnrolleePlan(
+                        pid: pri,
+                        plan: iplan,
+                        lastCharge: Convert.ToDateTime(cached.LastCharge),
+                        planNum: ID,
+                        totalCost: Convert.ToDouble(cached.TotalCost),
+                        opmRemainder: Convert.ToDouble(cached.OpmRemainder),
+                        pymbRemainder: Convert.ToDouble(cached.PymbRemainder),
+                        apdRemainder: Convert.ToDouble(cached.ApdRemainder)
+                    );
+                }
+
+                // pull the user's dependents 
+                this.AddPlanDependents(plan);
+                this.AddPlanBills(plan);
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+            return plan;
         }
 
         /// <summary>
