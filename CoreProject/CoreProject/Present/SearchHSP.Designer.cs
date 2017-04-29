@@ -45,6 +45,9 @@
             // searchHSPResult
             // 
             this.searchHSPResult.AllowUserToAddRows = false;
+            this.searchHSPResult.AllowUserToDeleteRows = false;
+            this.searchHSPResult.AllowUserToResizeColumns = false;
+            this.searchHSPResult.AllowUserToResizeRows = false;
             this.searchHSPResult.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.searchHSPResult.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.searchHSPResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -52,7 +55,9 @@
             this.HSP,
             this.Address});
             this.searchHSPResult.Location = new System.Drawing.Point(515, 50);
+            this.searchHSPResult.MultiSelect = false;
             this.searchHSPResult.Name = "searchHSPResult";
+            this.searchHSPResult.ReadOnly = true;
             this.searchHSPResult.RowHeadersVisible = false;
             this.searchHSPResult.RowTemplate.Height = 24;
             this.searchHSPResult.ShowEditingIcon = false;
@@ -63,11 +68,13 @@
             // 
             this.HSP.HeaderText = "Service Provider";
             this.HSP.Name = "HSP";
+            this.HSP.ReadOnly = true;
             // 
             // Address
             // 
             this.Address.HeaderText = "Address";
             this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
             // 
             // titleLabel
             // 

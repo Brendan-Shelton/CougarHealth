@@ -66,13 +66,16 @@ namespace CoreProject.Present
 
         private void planList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var plan = searchCntrl.GetPlan(planList.SelectedItem.ToString());
-            benefitListBox.Items.Clear();
-            foreach (var item in plan.ServiceCosts)
+            if (planList.SelectedItem != null)
             {
-                benefitListBox.Items.Add(item.Name);
+                var plan = searchCntrl.GetPlan(planList.SelectedItem.ToString());
+                benefitListBox.Items.Clear();
+                foreach (var item in plan.ServiceCosts)
+                {
+                    benefitListBox.Items.Add(item.Name);
+                }
+                benefitListBox.Visible = true;
             }
-            benefitListBox.Visible = true;
         }
     }
 }

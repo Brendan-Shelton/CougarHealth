@@ -896,6 +896,7 @@ namespace CoreProject.Data
         public Enrollee.InsurancePlan GetPlanByType(string type)
         {
             InsurancePlan plan = null;
+            var services = new List<Service>(); 
             try
             {
                 this.Connection.Open();
@@ -918,6 +919,32 @@ namespace CoreProject.Data
                         PrimaryChangeFee = Convert.ToDouble(p["PrimaryChangeFee"]),
                         DependentChangeFee = Convert.ToDouble(p["DependentChangeFee"])
                     });
+                    rdr.Close();
+                }
+                if (plan != null) {
+                    var pullServices = @"Select * FROM Service
+                                        WHERE InsurancePlanId = @planId";
+                    using (var cmd = new SqlCommand(pullServices, this.Connection))
+                    {
+                        cmd.Parameters.AddWithValue("@planId", plan.Id);
+                        var rdr = cmd.ExecuteReader();
+
+                        while (rdr.Read())
+                        {
+                            services.Add(new Service(
+                                id: Convert.ToInt32(rdr["Id"]),
+                                name: Convert.ToString(rdr["Name"]),
+                                category: Convert.ToString(rdr["Category"]),
+                                coverage: Convert.ToDouble(rdr["PercentCoverage"]),
+                                maxPayRate: Convert.ToString(rdr["MaxPayRate"]),
+                                inNetworkMax: Convert.ToDouble(rdr["InNetworkMax"]),
+                                insurancePlan: Convert.ToInt32(rdr["InsurancePlanId"]),
+                                reqCopay: Convert.ToDouble(rdr["RequiredCopayment"])
+                                ));
+                        }
+                        rdr.Close();
+                        plan.ServiceCosts = services;
+                    }
                 }
             }
             finally
@@ -968,13 +995,6 @@ namespace CoreProject.Data
             }
             return plans;
         }
-
-        //public List<Service> GetServices()
-        public IEnumerable<Service> GetServices()
-        {
-            return Plans.SelectMany(p => p.ServiceCosts).GroupBy(x=>x.Name).Select(g=>g.First()).OrderBy(o => o.Name).ToList();
-        }
-
         /// <summary>
         /// Find the enrollee with the matching email and password. If no 
         /// enrollee exists then the query will return 0 and in which case 
@@ -1621,42 +1641,47 @@ namespace CoreProject.Data
 
             return services;
         } // get services 
-    } // class 
-} // namespace 
+
         public IEnumerable<HSP> GetProviders(Service service) {
 
-            return new List<HSP>
+            var providers = new List<HSP>();
+
+            try
             {
-                new HSP("1234", true)
+                if (this.Connection.State == ConnectionState.Closed)
                 {
-                    Name = "Jones Hospital",
-                    ServicesOffered = null/*{ "Inpatient", "Inpatient (Behavioral Health",
-                                        "Emergency Room", "Outpatient Surgery", "Diagnostic Lab and x-ray",
-                                        "Office Visit", "Specialist Visit", "Preventive Services", "Baby Services",
-                                        "Durable Medical Equipment", "Nursing Facility", "Physical Therapy" }*/,
-                    Address = "123 North Elm, Anytown, New York"
-
-                },
-                new HSP("2345", true)
-                {
-                    Name = "Mercy Hospital",
-                    ServicesOffered = null/*{ "Inpatient", "Inpatient (Behavioral Health",
-                                        "Emergency Room", "Outpatient Surgery", "Diagnostic Lab and x-ray",
-                                        "Office Visit", "Specialist Visit", "Preventive Services", "Baby Services",
-                                        "Durable Medical Equipment"}*/,
-                    Address = "555 West Madison, Nowhere, Kansas"
-                },
-                new HSP("5555", true)
-                {
-                    Name = "St John's University Hospital",
-                    ServicesOffered = null/*{ "Inpatient", "Inpatient (Behavioral Health",
-                                        "Emergency Room", "Diagnostic Lab and x-ray",
-                                        "Office Visit", "Specialist Visit", "Preventive Services", "Baby Services",
-                                        "Durable Medical Equipment", "Physical Therapy"}*/,
-                    Address = "420 Baker Street, High Town, Washington"
+                    this.Connection.Open();
                 }
-            };
-        }
+                var pullHSP = @"Select * FROM HSP AS HSP
+                                INNER JOIN ServiceHSP AS SHSP
+                                    ON SHSP.ServiceID = @serviceID
+                                WHERE SHSP.HSPId = HSP.Id";
+                using (var cmd = new SqlCommand(pullHSP, this.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@serviceID", service.Id);
+                    var rdr = cmd.ExecuteReader();
 
+                    while (rdr.Read())
+                    {
+                        providers.Add(new HSP(
+                            id: Convert.ToInt32(rdr["Id"]),
+                            routingNum: Convert.ToInt32(rdr["RoutingNum"]),
+                            accountNum: Convert.ToInt32(rdr["AccountNum"]),
+                            pin: Convert.ToString(rdr["Pin"]),
+                            bankName: Convert.ToString(rdr["BankName"]),
+                            personelContact: Convert.ToString(rdr["PersonelContact"]),
+                            name: Convert.ToString(rdr["Name"]),
+                            address: Convert.ToString(rdr["Address"]),
+                            isInNetwork: Convert.ToBoolean(rdr["IsInNetwork"])
+                            ));
+                    }
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+            return providers;
+        }
     }
 }

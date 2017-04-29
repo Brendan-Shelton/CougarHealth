@@ -387,6 +387,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="CougarHealth_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>CougarHealth.mdf</DependentUpon>
     </Content>
     <Content Include="Data\InsertPlans.sql" />
