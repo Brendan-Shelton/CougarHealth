@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
+using CoreProject.Data.HealthcareServiceProvider;
 using CoreProject.Data.Employees;
 
 namespace CoreProject.Data.Tests
@@ -288,6 +289,36 @@ namespace CoreProject.Data.Tests
             Assert.IsNotNull(employees);
             Assert.IsInstanceOfType(employees, typeof(List<Employee>));
             Assert.IsTrue(employees.Any());
+        }
+
+        [TestMethod()]
+        public void SaveHspTest()
+        {
+            var serviceName = "Inpatient";
+            HSP hsp = new HSP("1234", true)
+            {
+                Name = "michael",
+                ServicesOffered = new List<string>() { serviceName },
+                Address = "Address",
+                BankName = "Name",
+                Personnel = "Contact",
+                RoutingNum = 123456,
+                AccountNum = 123456
+            };
+
+            HSP dbHsp = null;
+
+            mgr.SaveHsp(hsp);
+            if ( hsp.Id > 0 )
+            {
+                dbHsp = mgr.GrabHspById(hsp.Id);
+            }
+
+            // zero is default value for int, so make sure the id is updated 
+            Assert.IsTrue(hsp.Id > 0);
+            Assert.IsNotNull(dbHsp);
+            Assert.AreEqual(hsp.Name, dbHsp.Name);
+            Assert.AreEqual(dbHsp.ServicesOffered[0], serviceName);
         }
     }
 }

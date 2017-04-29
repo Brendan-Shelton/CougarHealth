@@ -31,6 +31,17 @@ namespace CoreProject.Data.HealthcareServiceProvider
             this.enrolleeEmail = enrolleeEmail;
         }
 
+        /// <summary>
+        /// Database ctor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="date"></param>
+        /// <param name="hsp"></param>
+        /// <param name="service"></param>
+        /// <param name="enrolleeId"></param>
+        /// <param name="isPrimary"></param>
+        /// <param name="totalBillAmount"></param>
+        /// <param name="enrolleeBillAmount"></param>
         public Bill(
             int id, 
             DateTime date, 

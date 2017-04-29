@@ -48,7 +48,7 @@ namespace CoreProject.Data
             object lastId = cmd.ExecuteScalar();
             if (lastId == DBNull.Value)
             {
-                throw new DataException("I tried to insert your enrollee, but nothing got inserted");
+                throw new DataException("I tried to insert your thing, but nothing got inserted");
             }
 
             return Convert.ToInt32(lastId);
@@ -962,7 +962,7 @@ namespace CoreProject.Data
                 }
 
                 // next create an PrimaryPlan entry 
-                var insertPri = @"INSERT INTO PrimaryPlan 
+                var insertPri = @"INSERT INTOSELECT CAST(scope_identity() AS int) PrimaryPlan 
                                  (
                                      PrimaryEnrolleeId, 
                                      EnrolleePlanId, 
@@ -1028,10 +1028,99 @@ namespace CoreProject.Data
         /// <param name="hsp"></param>
         public void SaveHsp(HSP hsp)
         {
-            if (!HspSet.Add(hsp))
+            //if (!HspSet.Add(hsp))
+            //{
+            //    throw new DataException("Hsp already exists in the database");
+            //}
+
+            var insertHsp = @"INSERT INTO HSP (
+                                  RoutingNum, 
+                                  AccountNum, 
+                                  Pin,
+                                  BankName,
+                                  PersonelContact,
+                                  Name,
+                                  Address,
+                                  IsInNetwork
+                              ) 
+                              VALUES (
+                                  @RoutingNum,
+                                  @AccountNum,
+                                  @Pin,
+                                  @BankName,
+                                  @PersonelContact,
+                                  @Name,
+                                  @Address,
+                                  @IsInNetwork
+                              );";
+
+            try
             {
-                throw new DataException("Hsp already exists in the database");
+                this.Connection.Open();
+                int hspId = 0;
+                // insert the hsp itself 
+                using (var cmd = new SqlCommand(insertHsp, this.Connection))
+                {
+                    SqlTransaction transaction = this.Connection.BeginTransaction("test");
+                    cmd.Parameters.AddWithValue("@Pin", hsp.Pin);
+                    cmd.Transaction = transaction;
+                    // add the optional columns 
+                    if ( hsp.BankName == null || hsp.RoutingNum == 0 || hsp.AccountNum == 0)
+                    {
+                        cmd.Parameters.AddWithValue("@BankName",DBNull.Value);
+                        cmd.Parameters.AddWithValue("@RoutingNum",DBNull.Value);
+                        cmd.Parameters.AddWithValue("@AccountNum",DBNull.Value);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@BankName", hsp.BankName);
+                        cmd.Parameters.AddWithValue("@RoutingNum", hsp.RoutingNum);
+                        cmd.Parameters.AddWithValue("@AccountNum", hsp.AccountNum);
+                    }
+                    cmd.Parameters.AddWithValue("@PersonelContact", hsp.Personnel);
+                    cmd.Parameters.AddWithValue("@Name", hsp.Name);
+                    cmd.Parameters.AddWithValue("@Address", hsp.Address);
+                    cmd.Parameters.AddWithValue("@IsInNetwork", hsp.InNetwork);
+                    hspId = cmd.CommandWithId();
+                    hsp.Id = hspId;
+                    transaction.Commit();
+                }
+
+                if (hspId != 0)
+                {
+                    var services = hsp.ServicesOffered.Select(s => "'" + s + "'");
+                    var sqlServiceList = $"({string.Join(",", services.ToArray())})";
+                    var selService = "SELECT Id FROM Service " + 
+                                    $"WHERE Name IN {sqlServiceList}";
+                    var serviceIds = new List<int>();
+                    using ( var cmd = new SqlCommand(selService, this.Connection) )
+                    {
+                        var rdr = cmd.ExecuteReader();
+
+                        while ( rdr.Read() )
+                        {
+                            serviceIds.Add(Convert.ToInt32(rdr["Id"]));
+                        }
+                        rdr.Close();
+                    }
+
+                    var valuesList = serviceIds.Select(id => 
+                    {
+                        return "(" + id + ", " + hsp.Id + ")";
+                    });
+                    var attachService = "INSERT INTO ServiceHSP(ServiceId, HSPId) " +
+                                       $"VALUES {string.Join(", ", valuesList.ToArray())}";
+                    using ( var cmd = new SqlCommand(attachService, this.Connection) )
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
+            finally
+            {
+                this.Connection.Close();
+            }
+
         }
 
         /// <summary>
@@ -1172,6 +1261,7 @@ namespace CoreProject.Data
                     // hsp could be null, so we want to make sure an 
                     //exception isn't thrown if that is the case.
                     hsp?.ServicesOffered.Add(rdr.Single(s => Convert.ToString(rdr["Name"])));
+                    rdr.Close();
                 }
             }
         }
