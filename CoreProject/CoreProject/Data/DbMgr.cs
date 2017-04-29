@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
 using CoreProject.Data.HealthcareServiceProvider;
 using CoreProject.Data.Employees;
+using System.Collections;
 
 namespace CoreProject.Data
 {
@@ -968,6 +969,12 @@ namespace CoreProject.Data
             return plans;
         }
 
+        //public List<Service> GetServices()
+        public IEnumerable<Service> GetServices()
+        {
+            return Plans.SelectMany(p => p.ServiceCosts).GroupBy(x=>x.Name).Select(g=>g.First()).OrderBy(o => o.Name).ToList();
+        }
+
         /// <summary>
         /// Find the enrollee with the matching email and password. If no 
         /// enrollee exists then the query will return 0 and in which case 
@@ -1616,3 +1623,40 @@ namespace CoreProject.Data
         } // get services 
     } // class 
 } // namespace 
+        public IEnumerable<HSP> GetProviders(Service service) {
+
+            return new List<HSP>
+            {
+                new HSP("1234", true)
+                {
+                    Name = "Jones Hospital",
+                    ServicesOffered = null/*{ "Inpatient", "Inpatient (Behavioral Health",
+                                        "Emergency Room", "Outpatient Surgery", "Diagnostic Lab and x-ray",
+                                        "Office Visit", "Specialist Visit", "Preventive Services", "Baby Services",
+                                        "Durable Medical Equipment", "Nursing Facility", "Physical Therapy" }*/,
+                    Address = "123 North Elm, Anytown, New York"
+
+                },
+                new HSP("2345", true)
+                {
+                    Name = "Mercy Hospital",
+                    ServicesOffered = null/*{ "Inpatient", "Inpatient (Behavioral Health",
+                                        "Emergency Room", "Outpatient Surgery", "Diagnostic Lab and x-ray",
+                                        "Office Visit", "Specialist Visit", "Preventive Services", "Baby Services",
+                                        "Durable Medical Equipment"}*/,
+                    Address = "555 West Madison, Nowhere, Kansas"
+                },
+                new HSP("5555", true)
+                {
+                    Name = "St John's University Hospital",
+                    ServicesOffered = null/*{ "Inpatient", "Inpatient (Behavioral Health",
+                                        "Emergency Room", "Diagnostic Lab and x-ray",
+                                        "Office Visit", "Specialist Visit", "Preventive Services", "Baby Services",
+                                        "Durable Medical Equipment", "Physical Therapy"}*/,
+                    Address = "420 Baker Street, High Town, Washington"
+                }
+            };
+        }
+
+    }
+}

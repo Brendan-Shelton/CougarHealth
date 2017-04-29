@@ -253,6 +253,12 @@
     <Compile Include="Present\RemovePlan.Designer.cs">
       <DependentUpon>RemovePlan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\SearchHSP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\SearchHSP.Designer.cs">
+      <DependentUpon>SearchHSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\ViewServices.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\RemovePlan.resx">
       <DependentUpon>RemovePlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\SearchHSP.resx">
+      <DependentUpon>SearchHSP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\ViewServices.resx">
       <DependentUpon>ViewServices.cs</DependentUpon>
