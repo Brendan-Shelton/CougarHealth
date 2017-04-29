@@ -18,11 +18,15 @@ namespace CoreProject.Controller.EnrolleeControllers
         public InsurancePlan getLocalPlan() { return localPlan; }
         public void setLocalPlan(InsurancePlan plan) { localPlan = plan; }
 
-        public InsurancePlan GetPlan(String name)
+        public InsurancePlan GetPlan(string name)
         {
-            var plan = Mgr.GetPlanByType(name);
-            setLocalPlan(plan);
-            return plan;
+            if (name != null || !name.Equals(""))
+            {
+                var plan = Mgr.GetPlanByType(name);
+                setLocalPlan(plan);
+                return plan;
+            }
+            return null;
         }
 
         public IEnumerable<InsurancePlan> GetPlans()
