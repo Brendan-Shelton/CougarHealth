@@ -34,12 +34,19 @@ namespace CoreProject.Controller.EmployeeControllers
                             double primaryChange, double dependentChange, bool optional,
                             List<Service> serviceList)
         {
+            List<InsurancePlan> plans = (List<InsurancePlan>)Mgr.GetPlans();
+           
             //error checking here
             if (name != null && name != "" && PYMB >= 0 && APD >= 0 && OPMI >= 0 && OPMF >= 0
                && primaryChange >= 0 && dependentChange >= 0)
             {
+                foreach(var item in plans)
+                {
+                    if (name.Equals(item.Type))
+                        return false;
+                }
                 // create a new insurance plan
-                InsurancePlan plan = new InsurancePlan
+               InsurancePlan plan = new InsurancePlan
                 {
                     Type = name,
                     PYMB = PYMB,
@@ -78,7 +85,7 @@ namespace CoreProject.Controller.EmployeeControllers
                                double percent, double max, string maxPayRate)
         {
             // error check here
-
+            Service service = null;
             Service.MaxPayRate maxPayEnum;
             if (name != null && name != "" && category != null && category != "" && percent <= 100 
                 && percent >= 0 && copay >= 0 && max >= 0 && maxPayRate != "" && maxPayRate != null)
@@ -94,7 +101,7 @@ namespace CoreProject.Controller.EmployeeControllers
                     percent = percent / 100;
 
 
-                return new Service
+                service = new Service
                 {
                     Name = name,
                     Category = category,
@@ -103,14 +110,8 @@ namespace CoreProject.Controller.EmployeeControllers
                     InNetMax = new Tuple<double, Service.MaxPayRate>(max, maxPayEnum)
                 };
             }
-            // if there is an issue found, return a service named error which will be read and display an error in the GUI
-            else
-            {
-                return new Service
-                {
-                    Name = "ERROR"
-                };
-            }
+
+            return service;
             
         }
     }

@@ -29,7 +29,7 @@ namespace CoreProject.Present
                                   Convert.ToDouble(percentNumeric.Value), Convert.ToDouble(maxNumeric.Value), maxPayRateComboBox.SelectedItem.ToString());
 
             // if name is not ERROR, add to list and listbox
-            if (!s.Name.Equals("ERROR"))
+            if (s != null)
             {
                 services.Add(s);
                 serviceListbox.Items.Add(s.Name.ToString());

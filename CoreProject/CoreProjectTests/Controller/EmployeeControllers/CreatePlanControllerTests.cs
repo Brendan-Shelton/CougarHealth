@@ -93,12 +93,12 @@ namespace CoreProject.Controller.EmployeeControllers.Tests
                                                        servicesNull);
 
             // BVA testing
-            bool testZero = CreatePlanCtrl.CreatePlan(nameCorrect, PYMBZero, APDZero, OPMIZero,
+            bool testZero = CreatePlanCtrl.CreatePlan(nameCorrect + "1", PYMBZero, APDZero, OPMIZero,
                                                        OPMFZero, primaryFeeZero, dependentFeeZero,
                                                        primaryChangeZero, dependentChangeZero, optionalTrue,
                                                        servicesValid);
 
-            bool testNeg = CreatePlanCtrl.CreatePlan(nameCorrect, PYMBNeg, APDNeg, OPMINeg,
+            bool testNeg = CreatePlanCtrl.CreatePlan(nameCorrect + "2", PYMBNeg, APDNeg, OPMINeg,
                                                        OPMFNeg, primaryFeeNeg, dependentFeeNeg,
                                                        primaryChangeNeg, dependentChangeNeg, optionalTrue,
                                                        servicesValid);
