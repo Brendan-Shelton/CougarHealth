@@ -1055,7 +1055,7 @@ namespace CoreProject.Data
                 // try to insert into database 
                 this.Connection.Open();
                 // first insert the EnrolleePlan
-                var insertPlan = @"INSERT INTO EnrollePlan
+                var insertPlan = @"INSERT INTO EnrolleePlan
                                    (
                                        APDRemainder, 
                                        OPMRemainder,
@@ -1079,7 +1079,10 @@ namespace CoreProject.Data
                     planCmd.Parameters.AddWithValue("@opmRemainder", plan.OPMFRemainder);
                     planCmd.Parameters.AddWithValue("@pymbRemainder", plan.PYMBRemainder);
                     planCmd.Parameters.AddWithValue("@totalCost", plan.TotalCost);
-                    planCmd.Parameters.AddWithValue("@lastCharge", plan.LastChange);
+                    if (plan.LastChange != null)
+                        planCmd.Parameters.AddWithValue("@lastCharge", plan.LastChange);
+                    else
+                        planCmd.Parameters.AddWithValue("@lastCharge", DBNull.Value);
                     planCmd.Parameters.AddWithValue("@insurancePlanId", plan.Plan.Id);
                     planNum = planCmd.CommandWithId();
                 }
@@ -1118,18 +1121,22 @@ namespace CoreProject.Data
                                       @planId, 
                                       @opm
                                   );";
-                using (var depCmd = new SqlCommand(insertDep))
+                using (var depCmd = new SqlCommand(insertDep, this.Connection))
                 {
                     foreach (var dependent in plan.Dependents)
                     {
-                        depCmd.Parameters.Clear();
-                        depCmd.Parameters.AddWithValue("@enrolleeId", dependent);
-                        depCmd.Parameters.AddWithValue("@planId", planNum);
-                        depCmd.Parameters.AddWithValue("@opm", plan.OPMIRemainder);
-                        depCmd.ExecuteNonQuery();
+                        if (dependent != 0)
+                        {
+                            depCmd.Parameters.Clear();
+                            depCmd.Parameters.AddWithValue("@enrolleeId", dependent);
+                            depCmd.Parameters.AddWithValue("@planId", planNum);
+                            depCmd.Parameters.AddWithValue("@opm", plan.OPMIRemainder);
+                            depCmd.ExecuteNonQuery();
+                        }
                     }
                 }
             }
+            /*
             catch (SqlException)
             {
                 var updateSql = @"UPDATE EnrolleePlan 
@@ -1148,12 +1155,15 @@ namespace CoreProject.Data
                     cmd.Parameters.AddWithValue("@opm", plan.OPMFRemainder);
                     cmd.Parameters.AddWithValue("@pymb", plan.PYMBRemainder);
                     cmd.Parameters.AddWithValue("@cost", plan.TotalCost);
-                    cmd.Parameters.AddWithValue("@charge", plan.LastChange);
+                    if (plan.LastChange != null)
+                        cmd.Parameters.AddWithValue("@charge", plan.LastChange);
+                    else
+                        cmd.Parameters.AddWithValue("@charge", DBNull.Value);
                     cmd.Parameters.AddWithValue("@plan", plan.Plan.Id);
                     cmd.Parameters.AddWithValue("@planNum", plan.PlanNum);
                     cmd.ExecuteNonQuery();
-                }
-            }
+                }*/
+            //}
             finally
             {
                 this.Connection.Close();
@@ -1673,9 +1683,10 @@ namespace CoreProject.Data
                 {
                     var cachedPlans = new List<CachedPlan>();
                     // Find the plan itself 
-                    using (var cmd = new SqlCommand(selEP, this.Connection))
-                    {
+                    
                         foreach ( int id in epIds )
+                        {
+                        using (var cmd = new SqlCommand(selEP, this.Connection))
                         {
                             cmd.Parameters.AddWithValue("@epId", id);
                             var rdr = cmd.ExecuteReader();
@@ -1694,12 +1705,14 @@ namespace CoreProject.Data
                                 });
                             } // while 
                             rdr.Close();
-                        }
-                    } // using 
+                        }// using 
+                    } 
                     foreach (var cachedPlan in cachedPlans)
                     {
                         InsurancePlan iplan = this.GetPLanById(Convert.ToInt32(cachedPlan.Plan));
-                        plans.Add(new EnrolleePlan(
+                        if(cachedPlan.LastCharge != DBNull.Value)
+                        {
+                            plans.Add(new EnrolleePlan(
                                 pid: cachedPlan.Pid,
                                 plan: iplan,
                                 planNum: Convert.ToInt32(cachedPlan.PlanNum),
@@ -1709,6 +1722,22 @@ namespace CoreProject.Data
                                 pymbRemainder: Convert.ToDouble(cachedPlan.PymbRemainder),
                                 apdRemainder: Convert.ToDouble(cachedPlan.ApdRemainder)
                         )); // plans.Add 
+                        }
+
+                        else
+                        {
+                            plans.Add(new EnrolleePlan(
+                                pid: cachedPlan.Pid,
+                                plan: iplan,
+                                planNum: Convert.ToInt32(cachedPlan.PlanNum),
+                                lastCharge: Convert.ToDateTime(null),
+                                totalCost: Convert.ToDouble(cachedPlan.TotalCost),
+                                opmRemainder: Convert.ToDouble(cachedPlan.OpmRemainder),
+                                pymbRemainder: Convert.ToDouble(cachedPlan.PymbRemainder),
+                                apdRemainder: Convert.ToDouble(cachedPlan.ApdRemainder)
+                        )); // plans.Add 
+                        }
+                        
 
                     }
                     if (this.Connection.State == ConnectionState.Closed)

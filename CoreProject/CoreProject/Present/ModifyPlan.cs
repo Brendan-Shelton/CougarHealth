@@ -90,7 +90,7 @@ namespace CoreProject.Present
         {
             if ( this.Ctrl.MultiplePlans )
             {
-                var picked = new PickPlan();
+                var picked = new PickPlan(_primaryId);
                 picked.Show();
                 picked.OnChoice += new ChoiceHandler(this.PlanPicked);
             }
