@@ -162,6 +162,7 @@ namespace CoreProject.Data
                                     )
                                     VALUES
                                     (
+                                        @date,
                                         @totalBillAmount,
                                         @enrolleeBillAmount,
                                         @serviceId,
@@ -174,19 +175,28 @@ namespace CoreProject.Data
 
                 using (var planCmd = new SqlCommand(insertBill, this.Connection))
                 {
-                    object lastId = planCmd.ExecuteScalar();
-                    if (lastId == DBNull.Value)
-                    {
-                        throw new DataException("I tried to insert your enrollee, but nothing got inserted");
-                    }
+                    //object lastId = planCmd.ExecuteScalar();
+                    //if (lastId == DBNull.Value)
+                    //{
+                    //    throw new DataException("I tried to insert your enrollee, but nothing got inserted");
+                    // }
+                    planCmd.Parameters.AddWithValue("@date", "20000101");
                     planCmd.Parameters.AddWithValue("@totalBillAmount", bill.totalBillAmount);
                     planCmd.Parameters.AddWithValue("@enrolleeBillAmount", bill.enrolleeBillAmount);
                     planCmd.Parameters.AddWithValue("@serviceId", bill.serviceId);
                     planCmd.Parameters.AddWithValue("@hspId", bill.hspId);
                     if (bill.IsPrimary)
+                    {
                         planCmd.Parameters.AddWithValue("@primaryId", bill.enrolleeId);
+                        planCmd.Parameters.AddWithValue("@dependentId", DBNull.Value);
+                    }
+
                     else
+                    {
+                        planCmd.Parameters.AddWithValue("@primaryId", DBNull.Value);
                         planCmd.Parameters.AddWithValue("@dependentId", bill.enrolleeId);
+                    }
+                        
                     planCmd.Parameters.AddWithValue("@isPrimary", bill.IsPrimary);
                     planNum = planCmd.CommandWithId();
                 }
@@ -1419,7 +1429,8 @@ namespace CoreProject.Data
                         PrimaryFee = Convert.ToDouble(p["PrimaryFee"]),
                         DependentFee = Convert.ToDouble(p["DependentFee"]),
                         PrimaryChangeFee = Convert.ToDouble(p["PrimaryChangeFee"]),
-                        DependentChangeFee = Convert.ToDouble(p["DependentChangeFee"])
+                        DependentChangeFee = Convert.ToDouble(p["DependentChangeFee"]),
+                        ServiceCosts = new List<Service>()
                     });
                     rdr.Close();
                 }
@@ -2285,7 +2296,6 @@ namespace CoreProject.Data
                     
                 }
                 int serviceVal;
-                    // TODO: Finish adding services
                 foreach(var service in plan.ServiceCosts)
                 {
                     using (var addServiceCmd = new SqlCommand(addService, this.Connection))
@@ -2300,6 +2310,56 @@ namespace CoreProject.Data
 
                         serviceVal = addServiceCmd.CommandWithId();
                     }
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+        }
+
+        public void AddService(Service service)
+        {
+            var addService = @"INSERT INTO Service (PercentCoverage, Category, Name, MaxPayRate, InNetworkMax, InsurancePlanId, RequiredCopayment)
+                                                VALUES (@percent, @category, @name, @maxRate, @inNet, @planId, @copay);";
+
+            try
+            {
+                this.Connection.Open();
+
+                int serviceVal;
+                using (var addServiceCmd = new SqlCommand(addService, this.Connection))
+                {
+                    addServiceCmd.Parameters.AddWithValue("@percent", service.PercentCoverage);
+                    addServiceCmd.Parameters.AddWithValue("@category", service.Category);
+                    addServiceCmd.Parameters.AddWithValue("@name", service.Name);
+                    addServiceCmd.Parameters.AddWithValue("@maxRate", Enum.GetName(typeof(Service.MaxPayRate), service.InNetMax.Item2).ToString());
+                    addServiceCmd.Parameters.AddWithValue("@inNet", service.InNetMax.Item1);
+                    addServiceCmd.Parameters.AddWithValue("@planId", service.insurancePlanId);
+                    addServiceCmd.Parameters.AddWithValue("@copay", service.RequiredCopayment);
+
+                    serviceVal = addServiceCmd.CommandWithId();
+                }
+
+
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+        }
+
+        public void RemoveService(Service service)
+        {
+            try
+            {
+                this.Connection.Open();
+                var deleteServices = $"DELETE FROM Service " +
+                                     $"WHERE InsurancePlanId = {service.Id};";
+
+                using (var servCmd = new SqlCommand(deleteServices, this.Connection))
+                {
+                    servCmd.ExecuteNonQuery();
                 }
             }
             finally

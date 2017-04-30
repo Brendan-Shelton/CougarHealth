@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreProject.Controller.HSPControllers;
+using CoreProject.Data.HealthcareServiceProvider;
 
 namespace CoreProject.Present
 {
@@ -30,17 +31,17 @@ namespace CoreProject.Present
         {
             string name = this.companyName.Text;
             string pwd = this.pin.Text;
+            HSP hsp;
+            hsp = Ctrl.Login(name, pwd);
 
-            int? hspId = Ctrl.Login(name, pwd);
-
-            if ( hspId == null )
+            if ( hsp == null )
             {
                 MessageBox.Show("Login failed: invalid credentials");
             }
             else
             {
                 var billCtrl = new BillController();
-                var billing = new Billing(billCtrl);
+                var billing = new Billing(billCtrl, hsp);
                 billing.Show();
                 billing.Closed += (source, args) => this.Close();
                 this.Hide();

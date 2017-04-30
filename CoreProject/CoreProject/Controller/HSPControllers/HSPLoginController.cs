@@ -19,7 +19,7 @@ namespace CoreProject.Controller.HSPControllers
         /// <param name="companyName"></param>
         /// <param name="pin"></param>
         /// <returns></returns>
-        public int? Login( string companyName, string pin )
+        public HSP Login( string companyName, string pin )
         {
             HSP hsp = Mgr.GrabHspByName(companyName);
             // we could have not recieved an HSP back, so we need to use the 
@@ -27,7 +27,7 @@ namespace CoreProject.Controller.HSPControllers
             bool? isLogged = hsp?.Login(companyName, pin);
 
             // isLogged could be null so we need to compare it with true
-            return (isLogged == true) ? hsp?.Id : null;
+            return (isLogged == true) ? hsp : null;
         }
     }
 }

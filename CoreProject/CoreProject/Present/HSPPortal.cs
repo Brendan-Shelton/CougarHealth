@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreProject.Controller.HSPControllers;
-
+using CoreProject.Data.HealthcareServiceProvider;
 namespace CoreProject.Present
 {
     public partial class HSPPortal : Form
@@ -28,8 +28,8 @@ namespace CoreProject.Present
         private void bill_Click(object sender, EventArgs e)
         {
             var billCtrl = new BillController();
-            var billForm = new Billing(billCtrl);
-            billForm.Show();
+            //var billForm = new Billing(billCtrl);
+            //billForm.Show();
         }
 
         private void login_Click(object sender, EventArgs e)

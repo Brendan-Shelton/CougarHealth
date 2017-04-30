@@ -49,12 +49,13 @@ namespace CoreProject.Controller.EmployeeControllers
             else
             {
                 // add benefit to services
-                plan.ServiceCosts.Add(new Service
+                Mgr.AddService(new Service
                 {
                     Category = cat,
                     Name = name,
                     PercentCoverage = (percent / 100),
                     RequiredCopayment = copay,
+                    insurancePlanId = plan.Id,
                     InNetMax = new Tuple<double, Service.MaxPayRate>(maxPay, Service.MaxPayRate.PCY)
                 });
 
@@ -76,7 +77,7 @@ namespace CoreProject.Controller.EmployeeControllers
                 {
                     if (plan.ServiceCosts[i].Name.Equals(name))
                     {
-                        plan.ServiceCosts.Remove(plan.ServiceCosts[i]);
+                        Mgr.RemoveService(plan.ServiceCosts[i]);
                     }
 
                 }

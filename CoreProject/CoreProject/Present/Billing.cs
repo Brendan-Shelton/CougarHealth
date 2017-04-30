@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CoreProject.Controller.HSPControllers;
+using CoreProject.Data.HealthcareServiceProvider;
 
 namespace CoreProject.Present
 {
@@ -16,13 +17,16 @@ namespace CoreProject.Present
         public BillController billControl { get; }
         private List<String> services = new List<String>();
         private List<int> charges = new List<int>();
+        private HSP hsp;
         /// <summary>
         /// This is the default constructor for the Billing GUI.
         /// </summary>
         /// <param name="billControl"></param>
-        public Billing(BillController billControl)
+        public Billing(BillController billControl, HSP hsp)
         {
+            this.hsp = hsp;
             this.billControl = billControl;
+            billControl.setHSP(hsp);
             InitializeComponent();
             this.errMsg.Hide();
         }
