@@ -159,5 +159,11 @@ namespace CoreProject.Present
             hspLogin.Show();
 
         }
+
+        private void CreatePlanButton_Click(object sender, EventArgs e)
+        {
+            var createGUI = new CreatePlan();
+            createGUI.Show();
+        }
     }
 }

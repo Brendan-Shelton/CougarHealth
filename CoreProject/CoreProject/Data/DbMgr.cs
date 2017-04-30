@@ -2070,5 +2070,10 @@ namespace CoreProject.Data
             }
             return providers;
         }
+        public void AddPlan(InsurancePlan plan)
+        {
+            Plans.Add(plan);
+        }
+
     }
 }
