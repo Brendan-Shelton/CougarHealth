@@ -68,6 +68,10 @@ namespace CoreProject.Controller.HSPControllers
                 Name = name,
                 ServicesOffered = services,
                 Address = address,
+                Personnel = phone, 
+                RoutingNum = info.Value.Routing,
+                AccountNum = info.Value.Account,
+                BankName  = info.Value.Name
             };
 
             this._mgr.SaveHsp(this.Hsp);
