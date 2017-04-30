@@ -167,10 +167,10 @@ namespace CoreProject.Data.Enrollee
             Dependents.Add(enrollee.Id);
         }
 
-        public void AddCharge(DateTime date, HSP hsp, Service service, int enrolleeId, String enrolleeEmail, double totalBillAmount, double enrolleeBillAmount)
+        public void AddCharge(DateTime date, HSP hsp, int planNum, Service service, int enrolleeId, String enrolleeEmail, double totalBillAmount, double enrolleeBillAmount)
         {
             this.planCtrl = new PlanController((int)PrimaryEnrollee, enrolleeEmail, true);
-            var bill = new Bill(date, hsp.Id, service.Id, enrolleeId, enrolleeEmail, totalBillAmount, enrolleeBillAmount);
+            var bill = new Bill(date, hsp.Id, planNum, service.Id, enrolleeId, enrolleeEmail, totalBillAmount, enrolleeBillAmount);
             Charges.Add(bill);
             APDRemainder -= enrolleeBillAmount;
             if (APDRemainder < 0)

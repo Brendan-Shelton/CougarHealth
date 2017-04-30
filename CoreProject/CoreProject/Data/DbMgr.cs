@@ -170,8 +170,7 @@ namespace CoreProject.Data
                                         @primaryId,
                                         @dependentId,
                                         @isPrimary
-                                    );
-                                     SELECT CAST(scope_identity() AS int)";
+                                    );";
 
                 using (var planCmd = new SqlCommand(insertBill, this.Connection))
                 {
@@ -243,12 +242,12 @@ namespace CoreProject.Data
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public HashSet<Bill> GetBillsById(int id)
+        public List<Bill> GetBillsById(int id)
         {
             string selBill = @"SELECT Id, Date, TotalBillAmount, EnrolleeBillAmount, ServiceId, PlanNum, HSPId, PrimaryId, DependentId, IsPrimary
                                FROM Bill 
                                WHERE PrimaryId = @id";
-            HashSet<Bill> bills = new HashSet<Bill>();
+            List<Bill> bills = new List<Bill>();
 
             try
             {
@@ -271,6 +270,7 @@ namespace CoreProject.Data
                             enrolleeId = Convert.ToInt32(rdr["PrimaryId"]);
                         else
                             enrolleeId = Convert.ToInt32(rdr["DependentId"]);
+                        int planNum = Convert.ToInt32(rdr["PlanNum"]);
                         string enrolleeEmail = Convert.ToString(rdr["EnrolleeEmail"]);
                         double totalBill = Convert.ToDouble(rdr["TotalBillAmount"]);
                         double enrolleeBill = Convert.ToDouble(rdr["EnrolleeBillAmount"]);
@@ -278,6 +278,7 @@ namespace CoreProject.Data
                         bills.Add(new Bill(
                                                 date,
                                                 hsp.Id,
+                                                planNum,
                                                 service,
                                                 enrolleeId,
                                                 enrolleeEmail,
@@ -1028,6 +1029,7 @@ namespace CoreProject.Data
                     }
                     resultId = Convert.ToInt32(lastId);
                 }
+                enrollee.Id = resultId.Value;
 
             }
             finally
@@ -1035,7 +1037,7 @@ namespace CoreProject.Data
                 this.Connection.Close();
                 cmd?.Dispose();
             }
-
+            
             return resultId;
         }
 
@@ -1739,6 +1741,10 @@ namespace CoreProject.Data
             //        select plan).FirstOrDefault();
         }
 
+
+       
+
+
         /// <summary>
         /// Attach all the dependents of the plan (most likely retrieved from 
         /// the database) to EnrolleePlan object plan 
@@ -1824,6 +1830,7 @@ namespace CoreProject.Data
                 plan.Charges.Add(new Bill(
                     id: Convert.ToInt32(serv.Id),
                     date: Convert.ToDateTime(serv.Date),
+                    planNum: GetPlanByPrimary(Convert.ToInt32(serv.Id)).ElementAt(0).PlanNum,
                     hsp: billingHSP,
                     serviceId: billedService.Id,
                     enrolleeId: enrollee.Value,
@@ -1834,6 +1841,9 @@ namespace CoreProject.Data
                 )); // plan 
             } // using 
         } // bills 
+
+
+
 
         /// <summary>
         /// Gets the InsurancePlan object corresponding to this id 
@@ -1955,6 +1965,81 @@ namespace CoreProject.Data
 
             return enrollee;
         }
+
+        public EnrolleePlan GetPlanByEmail(string email)
+        {
+            var enrollee = GetEnrolleeByEmail(email);
+            var plan = new CachedPlan();
+            var plans = new List<EnrolleePlan>();
+
+
+            string selPlan;
+
+            if (enrollee.IsPrimary)
+            {
+                    selPlan = @"SELECT * FROM PrimaryPlan
+                               WHERE PrimaryEnrolleeId = @id";
+            } else
+            {
+                selPlan = @"SELECT * FROM DependentPlan
+                            WHERE DependentEnrolleeId = @id";
+            }
+
+            try
+            {
+                this.Connection.Open();
+                using (var cmd = new SqlCommand(selPlan, this.Connection))
+                {
+                    // command is parameterized to prevent SQL injection
+                    cmd.Parameters.AddWithValue("@id", enrollee.Id);
+                    var rdr = cmd.ExecuteReader();
+
+                    // I should only get one result back 
+                    if (rdr.Read())
+                    {
+                        if (Convert.ToBoolean(rdr["IsPrimary"]))
+                        {
+                            plan.Pid = Convert.ToInt32(rdr["PrimaryEnrolleeId"]);
+                         
+                        } // if 
+                        else
+                        {
+                            plan.Pid = Convert.ToInt32(rdr["DependentEnrolleeId"]);
+                           
+                        }
+                        plan.PlanNum = rdr["EnrolleePlanId"];
+                        plan.TotalCost = rdr["TotalCost"];
+                        plan.LastCharge = rdr["LastCharge"];
+                        plan.ApdRemainder = rdr["APDRemainder"];
+                        plan.OpmRemainder = rdr["OPMRemainder"];
+                        plan.PymbRemainder = rdr["PYMBRemainder"];
+                        plan.Plan = rdr["InsurancePlanId"];
+
+
+                        InsurancePlan iplan = this.GetPLanById(Convert.ToInt32(plan.Plan));
+                         plans.Add(new EnrolleePlan(
+                                pid: plan.Pid,
+                                plan: iplan,
+                                planNum: Convert.ToInt32(plan.PlanNum),
+                                lastCharge: Convert.ToDateTime(plan.LastCharge),
+                                totalCost: Convert.ToDouble(plan.TotalCost),
+                                opmRemainder: Convert.ToDouble(plan.OpmRemainder),
+                                pymbRemainder: Convert.ToDouble(plan.PymbRemainder),
+                                apdRemainder: Convert.ToDouble(plan.ApdRemainder)
+                        ));
+                        
+                    } 
+                }  
+            } 
+            finally
+            {
+                // always close connection
+                this.Connection.Close();
+            }
+
+            return plans.ElementAt(0);
+        }
+
 
         /// <summary>
         /// Get an EnrolleePlan based on it's PlanNum

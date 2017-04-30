@@ -18,10 +18,11 @@ namespace CoreProject.Data.HealthcareServiceProvider
         public double totalBillAmount { get; private set; }
         public double enrolleeBillAmount { get; private set; }
         public String enrolleeEmail { get; private set; }
+        public int planNum { get; private set; }
 
-        public Bill(DateTime date, int hspId, int serviceId, int enrolleeId, String enrolleeEmail, double totalBillAmount, double enrolleeBillAmount)
+        public Bill(DateTime date, int hspId, int planNum, int serviceId, int enrolleeId, String enrolleeEmail, double totalBillAmount, double enrolleeBillAmount)
         {
-
+            this.planNum = planNum;
             this.date = date;
             this.hspId = hspId;
             this.serviceId = serviceId;
@@ -45,13 +46,15 @@ namespace CoreProject.Data.HealthcareServiceProvider
         public Bill(
             int id, 
             DateTime date, 
-            HSP hsp, 
+            HSP hsp,
+            int planNum,
             int serviceId, 
             int enrolleeId, 
             bool isPrimary, 
             double totalBillAmount, 
             double enrolleeBillAmount )
         {
+            this.planNum = planNum;
             this.Id = id;
             this.date = date;
             this.hspId = hsp.Id;

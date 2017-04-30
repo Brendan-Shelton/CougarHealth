@@ -39,11 +39,11 @@ namespace CoreProjectTests.Controller.EnrolleeControllers
             double enrolleeBillAmount = 460;
 
 
-            var bill = new Bill(date, hsp.Id, service.Id, enrolleeId, email, totalBillAmount, enrolleeBillAmount);
+            var bill = new Bill(date, hsp.Id, dbmgr.GetPlanByPrimary(enrolleeId).ElementAt(0).PlanNum, service.Id, enrolleeId, email, totalBillAmount, enrolleeBillAmount);
 
             plnCtrl.addBill(bill);
 
-            var retBill = dbmgr.GetBillsById(1);
+            var retBill = dbmgr.GetBillsById(0);
 
             Assert.AreEqual((double)1000, retBill.ElementAt(0).totalBillAmount);
             Assert.AreEqual((double)460, retBill.ElementAt(0).enrolleeBillAmount);

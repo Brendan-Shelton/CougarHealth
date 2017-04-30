@@ -165,7 +165,7 @@ namespace CoreProject.Controller.HSPControllers
                 returnArr[i, 1] = adjustedCharge.ToString();
                 returnArr[i, 2] = enrolleeCharge.ToString();
                 returnArr[i, 3] = HSPCharge.ToString();
-                enrolleePlan.AddCharge(date, hsp, plan.ServiceCosts[serviceID], enrollee.Id, enrollee.Email, adjustedCharge, enrolleeCharge);
+                enrolleePlan.AddCharge(date, hsp, plan.Id, plan.ServiceCosts[serviceID], enrollee.Id, enrollee.Email, adjustedCharge, enrolleeCharge);
             }
 
             return returnArr;
@@ -217,7 +217,7 @@ namespace CoreProject.Controller.HSPControllers
                 returnArr[i, 2] = enrolleeCharge.ToString();
                
                 returnArr[i, 3] = HSPCharge.ToString();
-                enrolleePlan.AddCharge(date, hsp, plan.ServiceCosts[serviceID], enrollee.Id, enrollee.Email, adjustedCharge, enrolleeCharge);
+                enrolleePlan.AddCharge(date, hsp, plan.Id, plan.ServiceCosts[serviceID], enrollee.Id, enrollee.Email, adjustedCharge, enrolleeCharge);
             }
             return returnArr;
         }

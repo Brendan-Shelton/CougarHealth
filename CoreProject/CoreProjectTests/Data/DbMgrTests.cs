@@ -309,7 +309,7 @@ namespace CoreProject.Data.Tests
 
             var guest = new PrimaryEnrollee("1234")
             {
-                Email = "me@aol.com",
+                Email = "me812@aol.com",
                 FirstName = "Zach",
                 LastName = "Auer",
                 HomePhone = "5555555555",
@@ -326,6 +326,7 @@ namespace CoreProject.Data.Tests
             var bill = new Bill(
                                 DateTime.Now,
                                 hsp.Id,
+                                mgr.GetPlanByEmail(guest.Email).PlanNum,
                                 plan.ElementAt(0).Id,
                                 guest.Id,
                                 guest.Email,
@@ -334,7 +335,7 @@ namespace CoreProject.Data.Tests
                                 );
 
 
-            //mgr.addBill(bill);
+            mgr.addBill(bill);
             Bill dbBill = null;
 
             dbBill = mgr.GetBillsById(guest.Id).ElementAt(0);
