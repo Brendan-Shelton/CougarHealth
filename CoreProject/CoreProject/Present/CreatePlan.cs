@@ -25,10 +25,14 @@ namespace CoreProject.Present
         private void addServiceButton_Click(object sender, EventArgs e)
         {
             // Add the service to the listbox and refresh the listbox
-            Service s = CreateCtrl.AddService(serviceNameTextbox.Text, serviceCatTextbox.Text, Convert.ToDouble(copayNumeric.Value),
+            Service s = null;
+            if(maxPayRateComboBox.SelectedItem != null)
+            {
+                s = CreateCtrl.AddService(serviceNameTextbox.Text, serviceCatTextbox.Text, Convert.ToDouble(copayNumeric.Value),
                                   Convert.ToDouble(percentNumeric.Value), Convert.ToDouble(maxNumeric.Value), maxPayRateComboBox.SelectedItem.ToString());
-
-            // if name is not ERROR, add to list and listbox
+            }
+            
+            
             if (s != null)
             {
                 services.Add(s);

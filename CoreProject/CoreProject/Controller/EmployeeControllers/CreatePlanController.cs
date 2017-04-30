@@ -97,7 +97,7 @@ namespace CoreProject.Controller.EmployeeControllers
                 else
                     maxPayEnum = Service.MaxPayRate.PCY;
 
-                if (percent > 1)
+                if (percent >= 1)
                     percent = percent / 100;
 
 

@@ -28,7 +28,10 @@ namespace CoreProject.Controller.HSPControllers
             this.Plans = (List<InsurancePlan>)Mgr.GetPlans();
         }
 
-
+        public void setHSP(HSP hsp)
+        {
+            this.hsp = hsp;
+        }
 
         /// <summary>
         /// Checks to see if the policy is valid.
@@ -88,10 +91,24 @@ namespace CoreProject.Controller.HSPControllers
         // Not sure if this is needed
         public void getPlan()
         {
-            if (enrolleePlan.Type.Equals(Plans[0].Type))
-                plan = Plans[0];
-            else
-                plan = Plans[1];
+            List<EnrolleePlan> ePlan = (List<EnrolleePlan>)Mgr.GetPlanByPrimary(enrollee.Id);
+
+            List<Service> services;
+            foreach(var item in ePlan)
+            {
+                services = (List<Service>)Mgr.GetServicesByPlan(item.Plan.Type);
+                Service service = services.ElementAt(0);
+                plan = Mgr.GetPlanByType(item.Type);
+                if (service.insurancePlanId == item.Plan.Id)
+                {
+                    break;
+                }
+
+                
+                
+
+            }
+            
         }
 
 

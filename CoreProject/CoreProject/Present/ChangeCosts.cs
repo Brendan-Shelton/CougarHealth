@@ -38,34 +38,28 @@ namespace CoreProject.Present
             var percent = Percent.Checked;
             var maxPay = MaxPay.Checked;
 
-            foreach (var plan in Plans)
-            {
                 bool percentValid = false;
-                if(PlanList.SelectedItem != null)
+            if (PlanList.SelectedItem != null)
+            {
+                var plan = CostCtrl.GetPlan(PlanList.SelectedItem.ToString());
+
+
+                if (PlanQueries.SelectedItem != null)
                 {
-                    if (plan == CostCtrl.GetPlan(PlanList.SelectedItem.ToString()))
-                    {
-
-                        if (PlanQueries.SelectedItem != null)
-                        {
-                            percentValid = (CostCtrl.GetNum(PlanQueries.SelectedItem.ToString(), plan.Type, percent, maxPay) <= 1);
-                        }
-                        if (percent && percentValid)
-                        {
-                            Cost.Text = (100 * CostCtrl.GetNum(PlanQueries.SelectedItem.ToString(), plan.Type, percent, maxPay)).ToString();
-                            DollarLabel.Hide();
-                            PercentLabel.Show();
-                        }
-                        else
-                        {
-                            if (PlanQueries.SelectedItem != null)
-                                Cost.Text = CostCtrl.GetNum(PlanQueries.SelectedItem.ToString(), plan.Type, percent, maxPay).ToString();
-                            DollarLabel.Show();
-                            PercentLabel.Hide();
-                        }
-                    }
-                
-
+                    percentValid = (CostCtrl.GetNum(PlanQueries.SelectedItem.ToString(), plan.Type, percent, maxPay) <= 1);
+                }
+                if (percent && percentValid)
+                {
+                    Cost.Text = (100 * CostCtrl.GetNum(PlanQueries.SelectedItem.ToString(), plan.Type, percent, maxPay)).ToString();
+                    DollarLabel.Hide();
+                    PercentLabel.Show();
+                }
+                else
+                {
+                    if (PlanQueries.SelectedItem != null)
+                        Cost.Text = CostCtrl.GetNum(PlanQueries.SelectedItem.ToString(), plan.Type, percent, maxPay).ToString();
+                    DollarLabel.Show();
+                    PercentLabel.Hide();
                 }
             }
         }
@@ -77,9 +71,10 @@ namespace CoreProject.Present
         private void PlanList_SelectedIndexChanged(object sender, EventArgs e)
         {
             var Plans = CostCtrl.GetPlans();
-            foreach (var plan in Plans)
-            {
-                if (plan == CostCtrl.GetPlan(PlanList.SelectedItem.ToString()))
+            //foreach (var plan in Plans)
+            //{
+            var plan = CostCtrl.GetPlan(PlanList.SelectedItem.ToString());
+                //if (plan.Type.Equals(CostCtrl.GetPlan(PlanList.SelectedItem.ToString()).Type))
                 {
                     PlanQueries.Items.Add("Plan Year Max Benefit");
                     PlanQueries.Items.Add("Out of Pocket Maximum Per Enrollee");
@@ -95,7 +90,7 @@ namespace CoreProject.Present
                         PlanQueries.Items.Add(plan.ServiceCosts[i].Name);
                     }
                 }
-            }
+            //}
             UpdateTextBox();
         }
 
