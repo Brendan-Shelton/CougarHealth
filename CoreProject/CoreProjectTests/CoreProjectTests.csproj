@@ -55,12 +55,14 @@
     <Compile Include="Controller\EmployeeControllers\CougarCostsControllerTests.cs" />
     <Compile Include="Controller\EmployeeControllers\ChangeBenefitsControllerTests.cs" />
     <Compile Include="Controller\EmployeeControllers\CreateEmployeeControllerTests.cs" />
+    <Compile Include="Controller\EmployeeControllers\CreatePlanControllerTests.cs" />
     <Compile Include="Controller\EmployeeControllers\ManageEmployeeControllerTests.cs" />
     <Compile Include="Controller\EmployeeControllers\MonthReportControllerTests.cs" />
     <Compile Include="Controller\EmployeeControllers\RangeReportControllerTests.cs" />
     <Compile Include="Controller\EmployeeControllers\RemovePlanControllerTests.cs" />
     <Compile Include="Controller\EnrolleeControllers\EnrollControllerTests.cs" />
     <Compile Include="Controller\EnrolleeControllers\PlanControllerTests.cs" />
+    <Compile Include="Controller\EnrolleeControllers\SearchControllerTests.cs" />
     <Compile Include="Controller\HSPControllers\BillControllerTests.cs" />
     <Compile Include="Controller\HSPControllers\CreateHSPControllerTests.cs" />
     <Compile Include="Data\DbMgrTests.cs" />

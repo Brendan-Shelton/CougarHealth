@@ -12,19 +12,19 @@ namespace CoreProject.Data.HealthcareServiceProvider
         public int Id { get; private set; }
         public bool IsPrimary { get; set; }
         public DateTime date { get; private set; }
-        public HSP hsp { get; private set; }
-        public Service service { get; private set; }
+        public int hspId { get; private set; }
+        public int serviceId { get; private set; }
         public int enrolleeId { get; private set; }
         public double totalBillAmount { get; private set; }
         public double enrolleeBillAmount { get; private set; }
         public String enrolleeEmail { get; private set; }
 
-        public Bill(DateTime date, HSP hsp, Service service, int enrolleeId, String enrolleeEmail, double totalBillAmount, double enrolleeBillAmount)
+        public Bill(DateTime date, int hspId, int serviceId, int enrolleeId, String enrolleeEmail, double totalBillAmount, double enrolleeBillAmount)
         {
 
             this.date = date;
-            this.hsp = hsp;
-            this.service = service;
+            this.hspId = hspId;
+            this.serviceId = serviceId;
             this.enrolleeId = enrolleeId;
             this.totalBillAmount = totalBillAmount;
             this.enrolleeBillAmount = enrolleeBillAmount;
@@ -46,7 +46,7 @@ namespace CoreProject.Data.HealthcareServiceProvider
             int id, 
             DateTime date, 
             HSP hsp, 
-            Service service, 
+            int serviceId, 
             int enrolleeId, 
             bool isPrimary, 
             double totalBillAmount, 
@@ -54,8 +54,8 @@ namespace CoreProject.Data.HealthcareServiceProvider
         {
             this.Id = id;
             this.date = date;
-            this.hsp = hsp;
-            this.service = service;
+            this.hspId = hsp.Id;
+            this.serviceId = serviceId;
             this.enrolleeId = enrolleeId;
             this.totalBillAmount = totalBillAmount;
             this.enrolleeBillAmount = enrolleeBillAmount;

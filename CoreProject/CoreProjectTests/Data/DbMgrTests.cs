@@ -7,12 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
 using CoreProject.Data.HealthcareServiceProvider;
+using CoreProject.Data.Employees;
 
 namespace CoreProject.Data.Tests
 {
     [TestClass()]
     public class DbMgrTests
     {
+        private DbMgr mgr = DbMgr.Instance;
 
         private PrimaryEnrollee guest = new PrimaryEnrollee("1234")
         {
@@ -25,8 +27,6 @@ namespace CoreProject.Data.Tests
             MobilePhone = "1234567890",
             SSN = "123456789"
         };
-
-        private DbMgr mgr = DbMgr.Instance;
 
         [TestMethod()]
         public void GetPlanByPrimaryTest()
@@ -97,7 +97,7 @@ namespace CoreProject.Data.Tests
             {
                 MailingAddr = "805 N Guest",
                 BillingAddr = "805 N Guest",
-                Email = "new@dude.com",
+                Email = "new@dudee.com",
                 FirstName = "Guest",
                 LastName = "Guest",
                 HomePhone = "1234567890",
@@ -131,6 +131,7 @@ namespace CoreProject.Data.Tests
             var Plan = mgr.GetPlanByType("Basic");
 
             Assert.IsNotNull(ret);
+            Assert.AreEqual(Plan.Id, ret);
             Assert.AreEqual(50, Plan.APD);
         }
 
@@ -220,6 +221,130 @@ namespace CoreProject.Data.Tests
             Assert.IsTrue(hsp.ServicesOffered.Any());
             Assert.IsNull(notHsp);
         }
+        /// <summary>
+        /// Gets a test employee by Name
+        /// </summary>
+        [TestMethod()]
+        public void GetEmployeeByNameTest()
+        {
+            var employee = mgr.GetEmployeeByName("Guest");
+            var employee2 = mgr.GetEmployeeByName("");
+
+
+            Assert.AreEqual("Guest", employee.UserName);
+            Assert.IsNull(employee2);
+        }
+        /// <summary>
+        /// Gets a test employee by Id
+        /// </summary>
+        [TestMethod()]
+        public void GetEmployeeByIdTest()
+        {
+            var employee = mgr.GetEmployeeById(1);
+            var employee2 = mgr.GetEmployeeById(-1);
+
+            Assert.AreEqual("Guest", employee.UserName);
+            Assert.IsNull(employee2);
+        }
+        /// <summary>
+        /// Save a new test Employee
+        /// </summary>
+        [TestMethod()]
+        public void SaveEmployeeTest()
+        {
+            Employee employee = new Employee()
+            {
+                UserName = "GuestTest",
+                Password = "NotTelling",
+                Permission = Permission.Manager
+            };
+            int insertId = mgr.SaveEmployee(employee);
+
+            Assert.AreEqual(2, insertId);
+        }
+        /// <summary>
+        /// Update a test employee
+        /// </summary>
+        [TestMethod()]
+        public void UpdateEmployeeTest()
+        {
+            var employee = mgr.GetEmployeeByName("Guest");
+            employee.NewName = "Changed";
+            employee.Permission = Permission.Accountant;
+            employee.Password = "Password";
+            var updated = mgr.UpdateEmployee(employee);
+            employee = mgr.GetEmployeeById(1);
+            Assert.AreEqual(1, updated);
+            Assert.AreEqual("Changed", employee.UserName);
+        }
+        /// <summary>
+        /// Get a list of all Employees
+        /// </summary>
+        [TestMethod()]
+        public void GetAllEmployeesTest()
+        {
+            var employees = mgr.GetAllEmployees();
+
+            Assert.IsNotNull(employees);
+            Assert.IsInstanceOfType(employees, typeof(List<Employee>));
+            Assert.IsTrue(employees.Any());
+        }
+
+        [TestMethod()]
+        public void SaveBillTest()
+        {
+
+            HSP hsp = new HSP("1234", true)
+            {
+                Name = "zach",
+                ServicesOffered = new List<string>() { "Inpatient" },
+                Address = "Address",
+                BankName = "Name",
+                Personnel = "Contact",
+                RoutingNum = 123456,
+                AccountNum = 123456
+            };
+
+            mgr.SaveHsp(hsp);
+
+            var guest = new PrimaryEnrollee("1234")
+            {
+                Email = "me@aol.com",
+                FirstName = "Zach",
+                LastName = "Auer",
+                HomePhone = "5555555555",
+                MobilePhone = "5555555555",
+                BillingAddr = "666 Avenue St.",
+                MailingAddr = "666 Avenue St.",
+                SSN = "123456789"
+            };
+
+            mgr.SaveEnrollee(guest);
+
+            var plan = mgr.GetServicesByPlan("Basic");
+
+            var bill = new Bill(
+                                DateTime.Now,
+                                hsp.Id,
+                                plan.ElementAt(0).Id,
+                                guest.Id,
+                                guest.Email,
+                                1000,
+                                500
+                                );
+
+
+            //mgr.addBill(bill);
+            Bill dbBill = null;
+
+            dbBill = mgr.GetBillsById(guest.Id).ElementAt(0);
+
+            Assert.IsNotNull(dbBill);
+            Assert.AreEqual(dbBill.Id, bill.Id);
+            Assert.AreEqual(dbBill.enrolleeEmail, bill.enrolleeEmail);
+
+        }
+
 
         [TestMethod()]
         public void SaveHspTest()
@@ -239,7 +364,7 @@ namespace CoreProject.Data.Tests
             HSP dbHsp = null;
 
             mgr.SaveHsp(hsp);
-            if ( hsp.Id > 0 )
+            if (hsp.Id > 0)
             {
                 dbHsp = mgr.GrabHspById(hsp.Id);
             }
@@ -249,6 +374,75 @@ namespace CoreProject.Data.Tests
             Assert.IsNotNull(dbHsp);
             Assert.AreEqual(hsp.Name, dbHsp.Name);
             Assert.AreEqual(dbHsp.ServicesOffered[0], serviceName);
+        }
+
+        [TestMethod()]
+        public void GetProvidersTest()
+        {
+            //Arrange
+
+            string hspTestName = "Name";
+            string hspTestAddress = "Address";
+
+            Service trueService = new Service(
+                id: 2,
+                name: "Inpatient",
+                category: "Hospital",
+                coverage: 1.0,
+                maxPayRate: "Day",
+                inNetworkMax: 2000.0000,
+                insurancePlan: 5,
+                reqCopay: 400.0000
+                );
+            Service nullService = null;
+            Service emptyService = new Service();
+            Service randomService = new Service(
+                id: 1000,
+                name: "RUbber Baby Buggy Bumpers",
+                category: "Fun Zone",
+                coverage: 0.5,
+                maxPayRate: "Day",
+                inNetworkMax: 1234.56,
+                insurancePlan: 1000,
+                reqCopay: 3000000.00
+                );
+
+            List<HSP> trueProviders = null;
+            List<HSP> nullProviders = null;
+            List<HSP> emptyProviders = null;
+            List<HSP> randomProviders = null;
+
+            //Act
+
+            trueProviders = (List<HSP>)mgr.GetProviders(trueService);
+            nullProviders = (List<HSP>)mgr.GetProviders(nullService);
+            emptyProviders = (List<HSP>)mgr.GetProviders(emptyService);
+            randomProviders = (List<HSP>)mgr.GetProviders(randomService);
+
+            //Assert
+
+            Assert.IsNotNull(trueProviders);
+            Assert.AreEqual(hspTestName, trueProviders[0].Name);
+            Assert.AreEqual(hspTestAddress, trueProviders[0].Address);
+            Assert.IsNull(nullProviders);
+            Assert.IsNull(emptyProviders);
+            Assert.IsNull(randomProviders);
+
+        }
+
+        [TestMethod()]
+        public void AddPlanTest()
+        {
+            InsurancePlan plan = mgr.GetPlanByType("Basic");
+
+            plan.Type = "NewType";
+
+            mgr.AddPlan(plan);
+
+            plan = mgr.GetPlanByType("NewType");
+
+            Assert.IsNotNull(plan);
+            Assert.AreEqual("NewType", plan.Type);
         }
     }
 }

@@ -39,6 +39,7 @@
             this.createEmployee = new System.Windows.Forms.Button();
             this.modify = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.CreatePlanButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.hspSupport = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -50,9 +51,10 @@
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Rockwell", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(91, 28);
+            this.label1.Location = new System.Drawing.Point(121, 34);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 39);
+            this.label1.Size = new System.Drawing.Size(247, 50);
             this.label1.TabIndex = 2;
             this.label1.Text = "Accounting";
             // 
@@ -62,9 +64,10 @@
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.label2.Font = new System.Drawing.Font("Rockwell", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(349, 28);
+            this.label2.Location = new System.Drawing.Point(465, 34);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(332, 39);
+            this.label2.Size = new System.Drawing.Size(418, 50);
             this.label2.TabIndex = 3;
             this.label2.Text = "Plan Administration";
             // 
@@ -73,9 +76,10 @@
             this.button1.BackColor = System.Drawing.Color.Silver;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(126, 300);
+            this.button1.Location = new System.Drawing.Point(168, 369);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 41);
+            this.button1.Size = new System.Drawing.Size(159, 50);
             this.button1.TabIndex = 4;
             this.button1.Text = "Date Range Report";
             this.button1.UseVisualStyleBackColor = false;
@@ -84,9 +88,10 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Rockwell", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(137, 138);
+            this.button2.Location = new System.Drawing.Point(183, 170);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 38);
+            this.button2.Size = new System.Drawing.Size(144, 47);
             this.button2.TabIndex = 5;
             this.button2.Text = "Monthly Report";
             this.button2.UseVisualStyleBackColor = true;
@@ -95,17 +100,19 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Font = new System.Drawing.Font("Rockwell", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(90, 102);
+            this.dateTimePicker1.Location = new System.Drawing.Point(120, 126);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(207, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(275, 24);
             this.dateTimePicker1.TabIndex = 6;
             // 
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(413, 177);
+            this.button3.Location = new System.Drawing.Point(551, 218);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(174, 50);
+            this.button3.Size = new System.Drawing.Size(232, 62);
             this.button3.TabIndex = 7;
             this.button3.Text = "Cougar Costs";
             this.button3.UseVisualStyleBackColor = true;
@@ -114,9 +121,10 @@
             // removePlan
             // 
             this.removePlan.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.removePlan.Location = new System.Drawing.Point(413, 252);
+            this.removePlan.Location = new System.Drawing.Point(551, 310);
+            this.removePlan.Margin = new System.Windows.Forms.Padding(4);
             this.removePlan.Name = "removePlan";
-            this.removePlan.Size = new System.Drawing.Size(174, 50);
+            this.removePlan.Size = new System.Drawing.Size(232, 62);
             this.removePlan.TabIndex = 8;
             this.removePlan.Text = "Remove Plan";
             this.removePlan.UseVisualStyleBackColor = true;
@@ -128,18 +136,20 @@
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.label3.Font = new System.Drawing.Font("Rockwell", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(741, 28);
+            this.label3.Location = new System.Drawing.Point(988, 34);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(227, 39);
+            this.label3.Size = new System.Drawing.Size(285, 50);
             this.label3.TabIndex = 8;
             this.label3.Text = "Management";
             // 
             // createEmployee
             // 
             this.createEmployee.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createEmployee.Location = new System.Drawing.Point(765, 102);
+            this.createEmployee.Location = new System.Drawing.Point(1020, 126);
+            this.createEmployee.Margin = new System.Windows.Forms.Padding(4);
             this.createEmployee.Name = "createEmployee";
-            this.createEmployee.Size = new System.Drawing.Size(174, 66);
+            this.createEmployee.Size = new System.Drawing.Size(232, 81);
             this.createEmployee.TabIndex = 9;
             this.createEmployee.Text = "Create Employee";
             this.createEmployee.UseVisualStyleBackColor = true;
@@ -148,9 +158,10 @@
             // modify
             // 
             this.modify.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.modify.Location = new System.Drawing.Point(765, 206);
+            this.modify.Location = new System.Drawing.Point(1020, 254);
+            this.modify.Margin = new System.Windows.Forms.Padding(4);
             this.modify.Name = "modify";
-            this.modify.Size = new System.Drawing.Size(174, 66);
+            this.modify.Size = new System.Drawing.Size(232, 81);
             this.modify.TabIndex = 10;
             this.modify.Text = "Modify Employee";
             this.modify.UseVisualStyleBackColor = true;
@@ -159,13 +170,26 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(413, 102);
+            this.button4.Location = new System.Drawing.Point(551, 126);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(174, 50);
+            this.button4.Size = new System.Drawing.Size(232, 62);
             this.button4.TabIndex = 11;
             this.button4.Text = "Change Benefits";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // CreatePlanButton
+            // 
+            this.CreatePlanButton.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CreatePlanButton.Location = new System.Drawing.Point(551, 400);
+            this.CreatePlanButton.Margin = new System.Windows.Forms.Padding(4);
+            this.CreatePlanButton.Name = "CreatePlanButton";
+            this.CreatePlanButton.Size = new System.Drawing.Size(232, 62);
+            this.CreatePlanButton.TabIndex = 12;
+            this.CreatePlanButton.Text = "Create Plan";
+            this.CreatePlanButton.UseVisualStyleBackColor = true;
+            this.CreatePlanButton.Click += new System.EventHandler(this.CreatePlanButton_Click);
             // 
             // label4
             // 
@@ -173,18 +197,18 @@
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.label4.Font = new System.Drawing.Font("Rockwell", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(1059, 28);
+            this.label4.Location = new System.Drawing.Point(1376, 34);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(137, 39);
+            this.label4.Size = new System.Drawing.Size(173, 50);
             this.label4.TabIndex = 12;
             this.label4.Text = "Support";
             // 
             // hspSupport
             // 
             this.hspSupport.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hspSupport.Location = new System.Drawing.Point(1035, 94);
+            this.hspSupport.Location = new System.Drawing.Point(1370, 122);
             this.hspSupport.Name = "hspSupport";
-            this.hspSupport.Size = new System.Drawing.Size(174, 66);
+            this.hspSupport.Size = new System.Drawing.Size(179, 85);
             this.hspSupport.TabIndex = 13;
             this.hspSupport.Text = "HSP Support";
             this.hspSupport.UseVisualStyleBackColor = true;
@@ -192,11 +216,12 @@
             // 
             // EmployeePortal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(73)))), ((int)(((byte)(85)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.ClientSize = new System.Drawing.Size(1633, 681);
+            this.Controls.Add(this.CreatePlanButton);
             this.Controls.Add(this.hspSupport);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.removePlan);
@@ -210,6 +235,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EmployeePortal";
             this.Text = "Employee Portal";
             this.Load += new System.EventHandler(this.EmployeePortal_Load);
@@ -231,6 +257,7 @@
         private System.Windows.Forms.Button createEmployee;
         private System.Windows.Forms.Button modify;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button CreatePlanButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button hspSupport;
     }

@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\EmployeeControllers\ChangeBenefitsController.cs" />
+    <Compile Include="Controller\EmployeeControllers\CreatePlanController.cs" />
     <Compile Include="Controller\EmployeeControllers\EmployeeLoginController.cs" />
     <Compile Include="Controller\EmployeeControllers\ManageEmployeeController.cs" />
     <Compile Include="Controller\EmployeeControllers\MonthReportController.cs" />
@@ -125,6 +126,12 @@
     </Compile>
     <Compile Include="Present\CougarCosts.Designer.cs">
       <DependentUpon>CougarCosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Present\CreatePlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\CreatePlan.Designer.cs">
+      <DependentUpon>CreatePlan.cs</DependentUpon>
     </Compile>
     <Compile Include="Present\DependentEnroll.cs">
       <SubType>Form</SubType>
@@ -253,6 +260,12 @@
     <Compile Include="Present\RemovePlan.Designer.cs">
       <DependentUpon>RemovePlan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Present\SearchHSP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Present\SearchHSP.Designer.cs">
+      <DependentUpon>SearchHSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Present\ViewServices.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,6 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\CreateEmployee.resx">
       <DependentUpon>CreateEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\CreatePlan.resx">
+      <DependentUpon>CreatePlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\DependentEnroll.resx">
       <DependentUpon>DependentEnroll.cs</DependentUpon>
@@ -347,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Present\RemovePlan.resx">
       <DependentUpon>RemovePlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Present\SearchHSP.resx">
+      <DependentUpon>SearchHSP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Present\ViewServices.resx">
       <DependentUpon>ViewServices.cs</DependentUpon>

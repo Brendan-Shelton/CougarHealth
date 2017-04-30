@@ -81,10 +81,10 @@ namespace CoreProject.Controller.EnrolleeControllers
                 var bills = dbmgr.GetBillsById(_primaryId);
 
 
-                for (int i = 0; i < bills.Length; i++)
+                for (int i = 0; i < bills.Count; i++)
                 {
-                    costs.addBillRow(bills[i]);
-                    totalCharges += bills[i].enrolleeBillAmount;
+                    costs.addBillRow(bills.ElementAt(i));
+                    totalCharges += bills.ElementAt(i).enrolleeBillAmount;
                 }
             } else
             {
