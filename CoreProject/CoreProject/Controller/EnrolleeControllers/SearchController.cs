@@ -20,13 +20,20 @@ namespace CoreProject.Controller.EnrolleeControllers
 
         public InsurancePlan GetPlan(string name)
         {
-            if (name != null || !name.Equals(""))
+            if (name == null)
+            {
+                return null;
+            }
+            else if (name.Equals(""))
+            {
+                return null;
+            }
+            else
             {
                 var plan = Mgr.GetPlanByType(name);
                 setLocalPlan(plan);
                 return plan;
             }
-            return null;
         }
 
         public IEnumerable<InsurancePlan> GetPlans()
@@ -36,21 +43,35 @@ namespace CoreProject.Controller.EnrolleeControllers
 
         public IEnumerable<HSP> GetProviders(string name)
         {
-            Service serviceFound = null;
-
-            if (localPlan != null)
+            if (name == null)
             {
+                return null;
+            }
+            else if (name.Equals(""))
+            {
+                return null;
+            }
+            else
+            {
+                Service serviceFound = null;
 
-                foreach (var service in localPlan.ServiceCosts)
+                if (localPlan != null)
                 {
-                    if (service.Name.Equals(name))
+
+                    foreach (var service in localPlan.ServiceCosts)
                     {
-                        serviceFound = service;
+                        if (service.Name.Equals(name))
+                        {
+                            serviceFound = service;
+                        }
+                    }
+                    if (serviceFound != null)
+                    {
+                        return Mgr.GetProviders(serviceFound);
                     }
                 }
-                return Mgr.GetProviders(serviceFound);
+                return null;
             }
-            return null;
         }
     }
 }
