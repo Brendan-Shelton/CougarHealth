@@ -2017,6 +2017,11 @@ namespace CoreProject.Data
             return services;
         } // get services 
 
+
+        //This Method was developed By Phil Atkins
+        //It's purpose is to return a list of all HSPs that match 
+        //The given service. It returns null for anything that isn't 
+        //A valid service
         public IEnumerable<HSP> GetProviders(Service service)
         {
 

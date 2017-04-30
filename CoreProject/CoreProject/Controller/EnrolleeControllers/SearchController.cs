@@ -18,8 +18,8 @@ namespace CoreProject.Controller.EnrolleeControllers
         public InsurancePlan getLocalPlan() { return localPlan; }
         public void setLocalPlan(InsurancePlan plan) { localPlan = plan; }
 
-        public InsurancePlan GetPlan(string name)
-        {
+        public InsurancePlan GetPlan(string name)               //queries the DB for a given plan
+        {                                                       //returns null if name is not valid
             if (name == null)
             {
                 return null;
@@ -36,12 +36,12 @@ namespace CoreProject.Controller.EnrolleeControllers
             }
         }
 
-        public IEnumerable<InsurancePlan> GetPlans()
+        public IEnumerable<InsurancePlan> GetPlans()       //queries the db for all plans
         {
             return Mgr.GetPlans();
         }
 
-        public IEnumerable<HSP> GetProviders(string name)
+        public IEnumerable<HSP> GetProviders(string name)       //Returns all providers that provie a given service
         {
             if (name == null)
             {
@@ -56,8 +56,7 @@ namespace CoreProject.Controller.EnrolleeControllers
                 Service serviceFound = null;
 
                 if (localPlan != null)
-                {
-
+                { 
                     foreach (var service in localPlan.ServiceCosts)
                     {
                         if (service.Name.Equals(name))
