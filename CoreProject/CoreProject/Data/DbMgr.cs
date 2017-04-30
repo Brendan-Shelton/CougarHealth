@@ -229,6 +229,34 @@ namespace CoreProject.Data
         /// <returns></returns>
         public Bill[] GetBillsById(int id)
         {
+            string selBill = @"SELECT Id, Date, TotalBillAmount, EnrolleeBillAmount, ServiceId, PlanNum, HSPId, PrimaryId, DependentId, IsPrimary
+                               FROM Bill 
+                               WHERE Id = @id";
+            Bill[] bills = null;
+
+            try
+            {
+                this.Connection.Open();
+                using (var cmd = new SqlCommand(selBill, this.Connection))
+                {
+
+                    cmd.Parameters.AddWithValue("@id", id);
+                    var rdr = cmd.ExecuteReader();
+
+                    if (rdr.Read())
+                    {
+                        
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
             //from Bill in BillSet
             //       where Bill.enrolleeId == id
             //       select Bill);

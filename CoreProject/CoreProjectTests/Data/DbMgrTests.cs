@@ -310,9 +310,9 @@ namespace CoreProject.Data.Tests
 
             var guest = new PrimaryEnrollee("1234")
             {
-                Email = "guest@guest",
-                FirstName = "Guest",
-                LastName = "Guest",
+                Email = "zach@guest",
+                FirstName = "Zach",
+                LastName = "Auer",
                 HomePhone = "5555555555",
                 MobilePhone = "5555555555",
                 BillingAddr = "666 Avenue St.",
@@ -322,21 +322,28 @@ namespace CoreProject.Data.Tests
 
             mgr.SaveEnrollee(guest);
 
-            var plan = mgr.GetServicesByPlan
+            var plan = mgr.GetServicesByPlan("Basic");
 
             var bill = new Bill(
                                 DateTime.Now,
                                 hsp,
-                                ,
+                                plan.ElementAt(0),
                                 guest.Id,
                                 guest.Email,
-                                2000,
+                                1000,
                                 500
                                 );
 
             Bill dbBill = null;
 
             mgr.addBill(bill);
+
+            dbBill = mgr.GetBillsById(guest.Id)[0];
+
+            Assert.IsNotNull(dbBill);
+            Assert.AreEqual(dbBill.Id, bill.Id);
+            Assert.AreEqual(dbBill.enrolleeEmail, bill.enrolleeEmail);
+
         }
 
 
