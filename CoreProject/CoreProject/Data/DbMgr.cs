@@ -142,8 +142,55 @@ namespace CoreProject.Data
         /// <param name="bill"></param>
         public void addBill(Bill bill)
         {
-            BillSet.Add(bill);
-
+            // BillSet.Add(bill);
+            int? planNum = null;
+           try
+            {
+                //Try to insert into database
+                this.Connection.Open();
+                var insertBill = @"INSERT INTO Bill
+                                   (
+                                        Id,
+                                        Date,
+                                        TotalBillAmount,
+                                        EnrolleeBillAmount,
+                                        ServiceId,
+                                        HSPId,
+                                        PrimaryId,
+                                        DependentId,
+                                        IsPrimary
+                                    )
+                                    VALUES
+                                    (
+                                        @id,
+                                        @totalBillAmount,
+                                        @enrolleeBillAmount,
+                                        @serviceId,
+                                        @hspId,
+                                        @primaryId,
+                                        @dependentId,
+                                        @isPrimary
+                                    );";
+                using (var planCmd = new SqlCommand(insertBill, this.Connection))
+                {
+                    planCmd.Parameters.AddWithValue("@id", bill.Id);
+                    planCmd.Parameters.AddWithValue("@totalBillAmount", bill.totalBillAmount);
+                    planCmd.Parameters.AddWithValue("@enrolleeBillAmount", bill.enrolleeBillAmount);
+                    planCmd.Parameters.AddWithValue("@serviceId", bill.service);
+                    planCmd.Parameters.AddWithValue("@hspId", bill.hsp);
+                    if (bill.IsPrimary)
+                        planCmd.Parameters.AddWithValue("@primaryId", bill.enrolleeId);
+                    else
+                        planCmd.Parameters.AddWithValue("@dependentId", bill.enrolleeId);
+                    planCmd.Parameters.AddWithValue("@isPrimary", bill.IsPrimary);
+                    planNum = planCmd.CommandWithId();
+                }
+            }
+            
+            finally
+            {
+                this.Connection.Close();
+            }
         }
         /// <summary>
         /// Allows to search for all bills attached to a certain email. This is to find Dependent-specific bills.

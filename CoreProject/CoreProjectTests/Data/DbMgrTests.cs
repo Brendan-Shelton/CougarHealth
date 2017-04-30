@@ -222,6 +222,55 @@ namespace CoreProject.Data.Tests
         }
 
         [TestMethod()]
+        public void SaveBillTest()
+        {
+
+            HSP hsp = new HSP("1234", true)
+            {
+                Name = "zach",
+                ServicesOffered = new List<string>() { "Inpatient" },
+                Address = "Address",
+                BankName = "Name",
+                Personnel = "Contact",
+                RoutingNum = 123456,
+                AccountNum = 123456
+            };
+
+            mgr.SaveHsp(hsp);
+
+            var guest = new PrimaryEnrollee("1234")
+            {
+                Email = "guest@guest",
+                FirstName = "Guest",
+                LastName = "Guest",
+                HomePhone = "5555555555",
+                MobilePhone = "5555555555",
+                BillingAddr = "666 Avenue St.",
+                MailingAddr = "666 Avenue St.",
+                SSN = "123456789"
+            };
+
+            mgr.SaveEnrollee(guest);
+
+            var plan = mgr.GetServicesByPlan
+
+            var bill = new Bill(
+                                DateTime.Now,
+                                hsp,
+                                ,
+                                guest.Id,
+                                guest.Email,
+                                2000,
+                                500
+                                );
+
+            Bill dbBill = null;
+
+            mgr.addBill(bill);
+        }
+
+
+        [TestMethod()]
         public void SaveHspTest()
         {
             var serviceName = "Inpatient";
