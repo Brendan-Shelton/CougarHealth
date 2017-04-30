@@ -17,66 +17,78 @@ namespace CoreProject.Controller.EnrolleeControllers.Tests
         [TestMethod()]
         public void GetPlanTest()
         {
-            ////Arrange
-            //string typeTest = "Basic";
-            //string idTest = "1";
-            //var ctrl = new SearchController();
-            //InsurancePlan ctrlResult = null;
+            //Arrange
+            var ctrl = new SearchController();
+            string nullName = null;
+            string emptyName = "";
+            string isName = "Basic";
+            string random = "aaaaaaa";
 
-            
+            //Act
+            InsurancePlan nullPlan = ctrl.GetPlan(nullName);
+            InsurancePlan emptyPlan = ctrl.GetPlan(emptyName);
+            InsurancePlan truePlan = ctrl.GetPlan(isName);
+            InsurancePlan randomPlan = ctrl.GetPlan(random);
 
-            ////Act
-
-            //ctrlResult = ctrl.GetPlan(typeTest);
-
-            ////Assert
-
-            //Assert.AreEqual(testPlan.Id, ctrlResult.Id);
-            //Assert.AreEqual(testPlan.Type, ctrlResult.Type);
-            ////            Assert.Fail();
+            //Assert
+            Assert.IsNull(nullPlan);
+            Assert.IsNull(emptyPlan);
+            Assert.IsNotNull(truePlan);
+            Assert.AreEqual("Basic", truePlan.Type);
+            Assert.IsNull(randomPlan);
         }
 
         [TestMethod()]
         public void GetPlansTest()
         {
-            ////Arrange
-            //var ctrl = new SearchController();
+            //Arrange
+            var ctrl = new SearchController();
 
 
-            //List<InsurancePlan> results;
+            List<InsurancePlan> results = null;
 
-            ////Act
+            //Act
 
-            //results = (List<InsurancePlan>)ctrl.GetPlans();
+            results = (List<InsurancePlan>)ctrl.GetPlans();
 
-            ////Assert
+            //Assert
 
-            //Assert.AreEqual(testPlans.ToString(), results.ToString());
-            ////        Assert.Fail();
+            Assert.IsNotNull(results);
         }
 
         [TestMethod()]
         public void GetProvidersTest()
         {
-//            //Arange
-//            var ctrl = new SearchController();
-//            var plan = ctrl.GetPlan("Basic");
+            //Arange
+            var ctrl = new SearchController();
+            var plan = ctrl.GetPlan("Basic");
+            string testName = "Name";
 
-//            string service = "Inpatient";
+            string trueService = "Inpatient";
+            string nullService = null;
+            string emptyService = "";
+            string randomService = "BlahBlah";
 
-//            List<HSP> results;
+            List<HSP> trueResults = null;
+            List<HSP> nullResults = null;
+            List<HSP> emptyResults = null;
+            List<HSP> randomResults = null;
 
-            
+            //Act
 
-//            //Act
+            trueResults = (List<HSP>)ctrl.GetProviders(trueService);
+            nullResults = (List<HSP>)ctrl.GetProviders(nullService);
+            emptyResults = (List<HSP>)ctrl.GetProviders(emptyService);
+            randomResults = (List<HSP>)ctrl.GetProviders(randomService);
 
-//            results = (List<HSP>)ctrl.GetProviders(service);
+            //Assert
 
-//            //Assert
+            Assert.IsNotNull(trueResults);
+            Assert.AreEqual(testName, trueResults[0].Name);
+            Assert.IsNull(nullResults);
+            Assert.IsNull(emptyResults);
+            Assert.IsNull(randomResults);
 
-//            Assert.AreEqual(testHSP[0].Name, results[0].Name);
-
-////            Assert.Fail();
         }
     }
 }

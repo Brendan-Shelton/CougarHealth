@@ -134,7 +134,7 @@ namespace CoreProject.Data
         }
 
 
-       
+
 
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace CoreProject.Data
                                   @pass,
                                   @PermissionId
                                  )";
-            
+
             try
             {
                 this.Connection.Open();
@@ -427,39 +427,39 @@ namespace CoreProject.Data
                     }
                     rdr.Close();
                 }
-                    
-                    foreach(var employee in employees)
-                    {
-                        using (var getPermissionCmd = new SqlCommand(getPermission, this.Connection))
-                        {
-                            getPermissionCmd.Parameters.AddWithValue("@name", employee.UserName);
-                            var res = (string)getPermissionCmd.ExecuteScalar();
 
-                            switch (res)
-                            {
-                                case "None":
-                                    employee.Permission = Permission.None;
-                                    break;
-                                case "PlanAdmin":
-                                    employee.Permission = Permission.PlanAdmin;
-                                    break;
-                                case "EnrolleeSupport":
-                                    employee.Permission = Permission.EnrolleeSupport;
-                                    break;
-                                case "HSPSupport":
-                                    employee.Permission = Permission.HSPSupport;
-                                    break;
-                                case "Accountant":
-                                    employee.Permission = Permission.Accountant;
-                                    break;
-                                case "Manager":
-                                    employee.Permission = Permission.Manager;
-                                    break;
-                                default:
-                                    break;
-                            }
+                foreach (var employee in employees)
+                {
+                    using (var getPermissionCmd = new SqlCommand(getPermission, this.Connection))
+                    {
+                        getPermissionCmd.Parameters.AddWithValue("@name", employee.UserName);
+                        var res = (string)getPermissionCmd.ExecuteScalar();
+
+                        switch (res)
+                        {
+                            case "None":
+                                employee.Permission = Permission.None;
+                                break;
+                            case "PlanAdmin":
+                                employee.Permission = Permission.PlanAdmin;
+                                break;
+                            case "EnrolleeSupport":
+                                employee.Permission = Permission.EnrolleeSupport;
+                                break;
+                            case "HSPSupport":
+                                employee.Permission = Permission.HSPSupport;
+                                break;
+                            case "Accountant":
+                                employee.Permission = Permission.Accountant;
+                                break;
+                            case "Manager":
+                                employee.Permission = Permission.Manager;
+                                break;
+                            default:
+                                break;
                         }
                     }
+                }
             }
             finally
             {
@@ -497,7 +497,7 @@ namespace CoreProject.Data
 
                 using (var updateEmployeeCmd = new SqlCommand(updateEmployee, this.Connection))
                 {
-                    if(emp.NewName != null)
+                    if (emp.NewName != null)
                     {
                         updateEmployeeCmd.Parameters.AddWithValue("@name", emp.NewName);
                     }
@@ -505,7 +505,7 @@ namespace CoreProject.Data
                     {
                         updateEmployeeCmd.Parameters.AddWithValue("@name", emp.UserName);
                     }
-                    
+
                     updateEmployeeCmd.Parameters.AddWithValue("@pass", emp.Password);
                     updateEmployeeCmd.Parameters.AddWithValue("@permissionId", permissionId);
                     updateEmployeeCmd.Parameters.AddWithValue("@id", emp.Id);
@@ -559,7 +559,7 @@ namespace CoreProject.Data
             var getPermission = @"SELECT Name FROM Permission 
                                 WHERE Permission.Id = 
                                 (SELECT PermissionId FROM Employee WHERE Employee.UserName = @name);";
-            
+
             try
             {
                 this.Connection.Open();
@@ -685,8 +685,8 @@ namespace CoreProject.Data
             }
 
             //var result = (from employee in EmployeeSet
-             //             where employee.Id == id
-              //            select employee)?.FirstOrDefault();
+            //             where employee.Id == id
+            //            select employee)?.FirstOrDefault();
 
             return employee;
         }
@@ -1169,11 +1169,11 @@ namespace CoreProject.Data
                     cmd.Parameters.AddWithValue("@Pin", hsp.Pin);
                     cmd.Transaction = transaction;
                     // add the optional columns 
-                    if ( hsp.BankName == null || hsp.RoutingNum == 0 || hsp.AccountNum == 0)
+                    if (hsp.BankName == null || hsp.RoutingNum == 0 || hsp.AccountNum == 0)
                     {
-                        cmd.Parameters.AddWithValue("@BankName",DBNull.Value);
-                        cmd.Parameters.AddWithValue("@RoutingNum",DBNull.Value);
-                        cmd.Parameters.AddWithValue("@AccountNum",DBNull.Value);
+                        cmd.Parameters.AddWithValue("@BankName", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@RoutingNum", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@AccountNum", DBNull.Value);
                     }
                     else
                     {
@@ -1194,27 +1194,27 @@ namespace CoreProject.Data
                 {
                     var services = hsp.ServicesOffered.Select(s => "'" + s + "'");
                     var sqlServiceList = $"({string.Join(",", services.ToArray())})";
-                    var selService = "SELECT Id FROM Service " + 
+                    var selService = "SELECT Id FROM Service " +
                                     $"WHERE Name IN {sqlServiceList}";
                     var serviceIds = new List<int>();
-                    using ( var cmd = new SqlCommand(selService, this.Connection) )
+                    using (var cmd = new SqlCommand(selService, this.Connection))
                     {
                         var rdr = cmd.ExecuteReader();
 
-                        while ( rdr.Read() )
+                        while (rdr.Read())
                         {
                             serviceIds.Add(Convert.ToInt32(rdr["Id"]));
                         }
                         rdr.Close();
                     }
 
-                    var valuesList = serviceIds.Select(id => 
+                    var valuesList = serviceIds.Select(id =>
                     {
                         return "(" + id + ", " + hsp.Id + ")";
                     });
                     var attachService = "INSERT INTO ServiceHSP(ServiceId, HSPId) " +
                                        $"VALUES {string.Join(", ", valuesList.ToArray())}";
-                    using ( var cmd = new SqlCommand(attachService, this.Connection) )
+                    using (var cmd = new SqlCommand(attachService, this.Connection))
                     {
                         cmd.ExecuteNonQuery();
                     }
@@ -1234,10 +1234,10 @@ namespace CoreProject.Data
         /// <returns></returns>
         public HSP GrabHspById(int hspId)
         {
-            HSP hsp = null;            
+            HSP hsp = null;
             try
             {
-                if ( this.Connection.State != ConnectionState.Open )
+                if (this.Connection.State != ConnectionState.Open)
                 {
                     this.Connection.Open();
                 }
@@ -1263,7 +1263,7 @@ namespace CoreProject.Data
 
                 if (hsp != null)
                 {
-                    this.AddHSPServices(hsp); 
+                    this.AddHSPServices(hsp);
                 }
 
             }
@@ -1329,22 +1329,22 @@ namespace CoreProject.Data
         /// Attaches the list of services offered by the HSP 
         /// </summary>
         /// <param name="hsp"></param>
-        private void AddHSPServices( HSP hsp )
+        private void AddHSPServices(HSP hsp)
         {
-            if ( this.Connection.State != ConnectionState.Open )
+            if (this.Connection.State != ConnectionState.Open)
             {
-                this.Connection.Open(); 
+                this.Connection.Open();
             }
             string pullServId = @"SELECT * 
                                   FROM ServiceHSP 
                                   WHERE HSPId = @hid";
             var sids = new List<int>();
 
-            using ( var cmd = new SqlCommand(pullServId, this.Connection) )
+            using (var cmd = new SqlCommand(pullServId, this.Connection))
             {
                 cmd.Parameters.AddWithValue("@hid", hsp.Id);
                 var rdr = cmd.ExecuteReader();
-                
+
                 while (rdr.Read())
                 {
                     sids.Add(Convert.ToInt32(rdr["ServiceId"]));
@@ -1354,10 +1354,10 @@ namespace CoreProject.Data
             }
 
             string pullServices = @"SELECT Name FROM Service WHERE Id = @id";
-            foreach( var sid in sids )
+            foreach (var sid in sids)
             {
 
-                using ( var cmd = new SqlCommand(pullServices, this.Connection) )
+                using (var cmd = new SqlCommand(pullServices, this.Connection))
                 {
                     cmd.Parameters.AddWithValue("@id", sid);
                     var rdr = cmd.ExecuteReader();
@@ -1373,7 +1373,7 @@ namespace CoreProject.Data
         public Enrollee.InsurancePlan GetPlanByType(string type)
         {
             InsurancePlan plan = null;
-            var services = new List<Service>(); 
+            var services = new List<Service>();
             try
             {
                 this.Connection.Open();
@@ -1398,7 +1398,8 @@ namespace CoreProject.Data
                     });
                     rdr.Close();
                 }
-                if (plan != null) {
+                if (plan != null)
+                {
                     var pullServices = @"Select * FROM Service
                                         WHERE InsurancePlanId = @planId";
                     using (var cmd = new SqlCommand(pullServices, this.Connection))
@@ -1510,7 +1511,7 @@ namespace CoreProject.Data
 
         }
 
-      
+
         /// <summary>
         /// get the primary enrollee object corresponding to the id provided
         /// </summary>
@@ -1611,7 +1612,7 @@ namespace CoreProject.Data
                                        FROM PrimaryPlan AS pp
                                        WHERE pp.PrimaryEnrolleeId = @pid";
                 int? epId = null;
-                using ( var cmd = new SqlCommand(selPrimaryPlan, this.Connection) )
+                using (var cmd = new SqlCommand(selPrimaryPlan, this.Connection))
                 {
                     cmd.Parameters.AddWithValue("@pid", primaryId);
                     var rdr = cmd.ExecuteReader();
@@ -1662,7 +1663,7 @@ namespace CoreProject.Data
                         )); // plans.Add 
 
                     }
-                    if ( this.Connection.State == ConnectionState.Closed )
+                    if (this.Connection.State == ConnectionState.Closed)
                     {
                         // GetPlanById may clsoe the connection to the database 
                         this.Connection.Open();
@@ -1670,13 +1671,13 @@ namespace CoreProject.Data
                 } // if 
 
                 // get all dependents foreach plan 
-                foreach ( var plan in plans )
+                foreach (var plan in plans)
                 {
                     this.AddPlanDependents(plan);
                 } // foreach 
 
                 // finally get all the bills 
-                foreach ( var plan in plans )
+                foreach (var plan in plans)
                 {
                     this.AddPlanBills(plan);
                 } // foreach  
@@ -1697,16 +1698,16 @@ namespace CoreProject.Data
         /// the database) to EnrolleePlan object plan 
         /// </summary>
         /// <param name="plan"></param>
-        private void AddPlanDependents( EnrolleePlan plan )
+        private void AddPlanDependents(EnrolleePlan plan)
         {
-            if ( this.Connection.State != ConnectionState.Open )
+            if (this.Connection.State != ConnectionState.Open)
             {
-                this.Connection.Open(); 
+                this.Connection.Open();
             }
             var selDep = @"SELECT DependentEnrolleeId FROM DependentPlan
                            WHERE EnrolleePlanId = @pid";
 
-            using ( var cmd = new SqlCommand(selDep, this.Connection) )
+            using (var cmd = new SqlCommand(selDep, this.Connection))
             {
                 cmd.Parameters.AddWithValue("@pid", plan.PlanNum);
                 var rdr = cmd.ExecuteReader();
@@ -1723,11 +1724,11 @@ namespace CoreProject.Data
         /// the database) to EnrolleePlan object plan 
         /// </summary>
         /// <param name="plan"></param>
-        private void AddPlanBills( EnrolleePlan plan )
+        private void AddPlanBills(EnrolleePlan plan)
         {
-            if ( this.Connection.State != ConnectionState.Open )
+            if (this.Connection.State != ConnectionState.Open)
             {
-                this.Connection.Open(); 
+                this.Connection.Open();
             }
             var selBills = @"SELECT * FROM Bill WHERE PlanNum = @thisNum";
             var cachedServices = new List<CachedService>();
@@ -1756,7 +1757,7 @@ namespace CoreProject.Data
                 rdr.Close();
 
             } // using 
-            foreach ( var serv in cachedServices )
+            foreach (var serv in cachedServices)
             {
 
                 HSP billingHSP = this.GrabHspById(Convert.ToInt32(serv.HSPId));
@@ -1766,7 +1767,7 @@ namespace CoreProject.Data
 
                 int? enrollee = null;
                 var isPrimary = Convert.ToBoolean(serv.IsPrimary);
-                if ( Convert.ToBoolean(serv.IsPrimary) )
+                if (Convert.ToBoolean(serv.IsPrimary))
                 {
                     enrollee = Convert.ToInt32(serv.PrimaryId);
                 }
@@ -1800,7 +1801,7 @@ namespace CoreProject.Data
 
             try
             {
-                if ( this.Connection.State == ConnectionState.Closed)
+                if (this.Connection.State == ConnectionState.Closed)
                 {
                     this.Connection.Open();
                 }
@@ -1956,9 +1957,9 @@ namespace CoreProject.Data
                 InsurancePlan iplan = GetPLanById(Convert.ToInt32(cached.Plan));
 
                 // reopen connection if iplan already closed it 
-                if ( this.Connection.State != ConnectionState.Open )
+                if (this.Connection.State != ConnectionState.Open)
                 {
-                    this.Connection.Open();                    
+                    this.Connection.Open();
                 }
 
                 var selPrimary = @"SELECT PrimaryEnrolleeId 
@@ -1976,7 +1977,7 @@ namespace CoreProject.Data
 
                 // default value of pri is 0, so if we didn't get anything 
                 // back then pri will be 0
-                if ( pri != 0 )
+                if (pri != 0)
                 {
                     plan = new EnrolleePlan(
                         pid: pri,
@@ -2124,12 +2125,12 @@ namespace CoreProject.Data
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public IEnumerable<Service> GetServicesByPlan ( string type )
+        public IEnumerable<Service> GetServicesByPlan(string type)
         {
             var services = new List<Service>();
             try
             {
-                if ( this.Connection.State == ConnectionState.Closed )
+                if (this.Connection.State == ConnectionState.Closed)
                 {
                     this.Connection.Open();
                 }
@@ -2137,12 +2138,12 @@ namespace CoreProject.Data
                                     INNER JOIN InsurancePlan AS i 
                                         ON i.Type = @type
                                     WHERE i.Id = s.InsurancePlanId";
-                using ( var cmd = new SqlCommand(pullService, this.Connection) )
+                using (var cmd = new SqlCommand(pullService, this.Connection))
                 {
                     cmd.Parameters.AddWithValue("@type", type);
                     var rdr = cmd.ExecuteReader();
 
-                    while ( rdr.Read() )
+                    while (rdr.Read())
                     {
                         services.Add(new Service(
                             id: Convert.ToInt32(rdr["Id"]),
@@ -2165,44 +2166,56 @@ namespace CoreProject.Data
             return services;
         } // get services 
 
-        public IEnumerable<HSP> GetProviders(Service service) {
 
-            var providers = new List<HSP>();
+        //This Method was developed By Phil Atkins
+        //It's purpose is to return a list of all HSPs that match 
+        //The given service. It returns null for anything that isn't 
+        //A valid service
+        public IEnumerable<HSP> GetProviders(Service service)
+        {
 
-            try
+            List<HSP> providers = null;
+
+            if (service != null)
             {
-                if (this.Connection.State == ConnectionState.Closed)
+                try
                 {
-                    this.Connection.Open();
-                }
-                var pullHSP = @"Select * FROM HSP AS HSP
+                    if (this.Connection.State == ConnectionState.Closed)
+                    {
+                        this.Connection.Open();
+                    }
+                    var pullHSP = @"Select * FROM HSP AS HSP
                                 INNER JOIN ServiceHSP AS SHSP
                                     ON SHSP.ServiceID = @serviceID
                                 WHERE SHSP.HSPId = HSP.Id";
-                using (var cmd = new SqlCommand(pullHSP, this.Connection))
-                {
-                    cmd.Parameters.AddWithValue("@serviceID", service.Id);
-                    var rdr = cmd.ExecuteReader();
-
-                    while (rdr.Read())
+                    using (var cmd = new SqlCommand(pullHSP, this.Connection))
                     {
-                        providers.Add(new HSP(
-                            id: Convert.ToInt32(rdr["Id"]),
-                            routingNum: Convert.ToInt32(rdr["RoutingNum"]),
-                            accountNum: Convert.ToInt32(rdr["AccountNum"]),
-                            pin: Convert.ToString(rdr["Pin"]),
-                            bankName: Convert.ToString(rdr["BankName"]),
-                            personelContact: Convert.ToString(rdr["PersonelContact"]),
-                            name: Convert.ToString(rdr["Name"]),
-                            address: Convert.ToString(rdr["Address"]),
-                            isInNetwork: Convert.ToBoolean(rdr["IsInNetwork"])
-                            ));
+                        cmd.Parameters.AddWithValue("@serviceID", service.Id);
+                        var rdr = cmd.ExecuteReader();
+
+                        while (rdr.Read())
+                        {
+                            providers = new List<HSP>();
+
+                            providers.Add(new HSP(
+                                id: Convert.ToInt32(rdr["Id"]),
+                                routingNum: Convert.ToInt32(rdr["RoutingNum"]),
+                                accountNum: Convert.ToInt32(rdr["AccountNum"]),
+                                pin: Convert.ToString(rdr["Pin"]),
+                                bankName: Convert.ToString(rdr["BankName"]),
+                                personelContact: Convert.ToString(rdr["PersonelContact"]),
+                                name: Convert.ToString(rdr["Name"]),
+                                address: Convert.ToString(rdr["Address"]),
+                                isInNetwork: Convert.ToBoolean(rdr["IsInNetwork"])
+                                ));
+                        }
                     }
                 }
-            }
-            finally
-            {
-                this.Connection.Close();
+                finally
+                {
+                    this.Connection.Close();
+                }
+                return providers;
             }
             return providers;
         }

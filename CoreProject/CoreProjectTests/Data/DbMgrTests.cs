@@ -14,6 +14,7 @@ namespace CoreProject.Data.Tests
     [TestClass()]
     public class DbMgrTests
     {
+        private DbMgr mgr = DbMgr.Instance;
 
         private PrimaryEnrollee guest = new PrimaryEnrollee("1234")
         {
@@ -26,8 +27,6 @@ namespace CoreProject.Data.Tests
             MobilePhone = "1234567890",
             SSN = "123456789"
         };
-
-        private DbMgr mgr = DbMgr.Instance;
 
         [TestMethod()]
         public void GetPlanByPrimaryTest()
@@ -365,7 +364,7 @@ namespace CoreProject.Data.Tests
             HSP dbHsp = null;
 
             mgr.SaveHsp(hsp);
-            if ( hsp.Id > 0 )
+            if (hsp.Id > 0)
             {
                 dbHsp = mgr.GrabHspById(hsp.Id);
             }
@@ -375,6 +374,60 @@ namespace CoreProject.Data.Tests
             Assert.IsNotNull(dbHsp);
             Assert.AreEqual(hsp.Name, dbHsp.Name);
             Assert.AreEqual(dbHsp.ServicesOffered[0], serviceName);
+        }
+
+        [TestMethod()]
+        public void GetProvidersTest()
+        {
+            //Arrange
+
+            string hspTestName = "Name";
+            string hspTestAddress = "Address";
+
+            Service trueService = new Service(
+                id: 2,
+                name: "Inpatient",
+                category: "Hospital",
+                coverage: 1.0,
+                maxPayRate: "Day",
+                inNetworkMax: 2000.0000,
+                insurancePlan: 5,
+                reqCopay: 400.0000
+                );
+            Service nullService = null;
+            Service emptyService = new Service();
+            Service randomService = new Service(
+                id: 1000,
+                name: "RUbber Baby Buggy Bumpers",
+                category: "Fun Zone",
+                coverage: 0.5,
+                maxPayRate: "Day",
+                inNetworkMax: 1234.56,
+                insurancePlan: 1000,
+                reqCopay: 3000000.00
+                );
+
+            List<HSP> trueProviders = null;
+            List<HSP> nullProviders = null;
+            List<HSP> emptyProviders = null;
+            List<HSP> randomProviders = null;
+
+            //Act
+
+            trueProviders = (List<HSP>)mgr.GetProviders(trueService);
+            nullProviders = (List<HSP>)mgr.GetProviders(nullService);
+            emptyProviders = (List<HSP>)mgr.GetProviders(emptyService);
+            randomProviders = (List<HSP>)mgr.GetProviders(randomService);
+
+            //Assert
+
+            Assert.IsNotNull(trueProviders);
+            Assert.AreEqual(hspTestName, trueProviders[0].Name);
+            Assert.AreEqual(hspTestAddress, trueProviders[0].Address);
+            Assert.IsNull(nullProviders);
+            Assert.IsNull(emptyProviders);
+            Assert.IsNull(randomProviders);
+
         }
     }
 }
