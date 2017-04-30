@@ -310,7 +310,7 @@ namespace CoreProject.Data.Tests
 
             var guest = new PrimaryEnrollee("1234")
             {
-                Email = "zach@guest",
+                Email = "guest@guest",
                 FirstName = "Zach",
                 LastName = "Auer",
                 HomePhone = "5555555555",
@@ -327,7 +327,7 @@ namespace CoreProject.Data.Tests
             var bill = new Bill(
                                 DateTime.Now,
                                 hsp,
-                                plan.ElementAt(0),
+                                plan.ElementAt(0).Id,
                                 guest.Id,
                                 guest.Email,
                                 1000,

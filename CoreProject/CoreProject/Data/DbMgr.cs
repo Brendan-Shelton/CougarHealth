@@ -177,7 +177,7 @@ namespace CoreProject.Data
                     planCmd.Parameters.AddWithValue("@id", bill.Id);
                     planCmd.Parameters.AddWithValue("@totalBillAmount", bill.totalBillAmount);
                     planCmd.Parameters.AddWithValue("@enrolleeBillAmount", bill.enrolleeBillAmount);
-                    planCmd.Parameters.AddWithValue("@serviceId", bill.service);
+                    planCmd.Parameters.AddWithValue("@serviceId", bill.serviceId);
                     planCmd.Parameters.AddWithValue("@hspId", bill.hsp);
                     if (bill.IsPrimary)
                         planCmd.Parameters.AddWithValue("@primaryId", bill.enrolleeId);
@@ -232,7 +232,7 @@ namespace CoreProject.Data
             string selBill = @"SELECT Id, Date, TotalBillAmount, EnrolleeBillAmount, ServiceId, PlanNum, HSPId, PrimaryId, DependentId, IsPrimary
                                FROM Bill 
                                WHERE Id = @id";
-            Bill[] bills = null;
+            HashSet<Bill> bills = new HashSet<Bill>();
 
             try
             {
@@ -243,11 +243,39 @@ namespace CoreProject.Data
                     cmd.Parameters.AddWithValue("@id", id);
                     var rdr = cmd.ExecuteReader();
 
-                    if (rdr.Read())
+                    
+
+                    while (rdr.Read())
                     {
+                        DateTime date = Convert.ToDateTime(rdr["Date"]);
+                        HSP hsp = GrabHspById(Convert.ToInt32(rdr["HSPId"]));
+                        int service = Convert.ToInt32(rdr["ServiceId"]);
+                        int enrolleeId;
+                        if (Convert.ToBoolean(rdr["IsPrimary"]))
+                            enrolleeId = Convert.ToInt32(rdr["PrimaryId"]);
+                        else
+                            enrolleeId = Convert.ToInt32(rdr["DependentId"]);
+                        string enrolleeEmail = Convert.ToString(rdr["EnrolleeEmail"]);
+                        double totalBill = Convert.ToDouble(rdr["TotalBillAmount"]);
+                        double enrolleeBill = Convert.ToDouble(rdr["EnrolleeBillAmount"]);
                         
+                        if (Convert.ToBoolean(rdr["IsPrimary"]))
+                            bills.Add(new Bill(
+                                                date,
+                                                hsp,
+                                                service,
+                                                enrolleeId,
+                                                enrolleeEmail,
+                                                totalBill,
+                                                enrolleeBill 
+                                               ));
                     }
                 }
+            }
+
+            finally
+            {
+                this.Connection.Close();
             }
 
 
@@ -1750,7 +1778,7 @@ namespace CoreProject.Data
                     id: Convert.ToInt32(serv.Id),
                     date: Convert.ToDateTime(serv.Date),
                     hsp: billingHSP,
-                    service: billedService,
+                    serviceId: billedService.Id,
                     enrolleeId: enrollee.Value,
                     isPrimary: isPrimary,
                     totalBillAmount: Convert.ToDouble(serv.TotalBillAmount),
@@ -2042,6 +2070,52 @@ namespace CoreProject.Data
                                   select employee)?.FirstOrDefault();
             return employeeResult;
         }
+
+
+
+        public Service GetServiceById (int id)
+        {
+            var service = new Service();
+            service = null;
+
+            try
+            {
+                if (this.Connection.State == ConnectionState.Closed )
+                {
+                    this.Connection.Open();
+                }
+                var pullService = @"SELECT Id, PercentCoverage, Category, Name, MaxPayRate, InNetworkMax, InsurancePlanId, RequiredCopayment
+                                    FROM Service 
+                                    WHERE Id = @id";
+
+                using (var cmd = new SqlCommand(pullService, this.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    var rdr = cmd.ExecuteReader();
+
+                    if ( rdr.Read() )
+                    {
+                        service = new Service(
+                            id: Convert.ToInt32(rdr["Id"]),
+                            name: Convert.ToString(rdr["Name"]),
+                            category: Convert.ToString(rdr["Category"]),
+                            coverage: Convert.ToDouble(rdr["PercentCoverage"]),
+                            maxPayRate: Convert.ToString(rdr["MaxPayRate"]),
+                            inNetworkMax: Convert.ToDouble(rdr["InNetworkMax"]),
+                            insurancePlan: Convert.ToInt32(rdr["InsurancePlanId"]),
+                            reqCopay: Convert.ToDouble(rdr["RequiredCopayment"])
+                            );
+                    }
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+            return service;
+        }
+
+
 
 
         /// <summary>
