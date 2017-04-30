@@ -1411,6 +1411,7 @@ namespace CoreProject.Data
                     {
                         Id = Convert.ToInt32(p["Id"]),
                         Type = Convert.ToString(p["Type"]),
+                        Optional = Convert.ToBoolean(p["Optional"]),
                         PYMB = Convert.ToDouble(p["PYMB"]),
                         APD = Convert.ToDouble(p["APD"]),
                         OPMFamily = Convert.ToDouble(p["OPMFamily"]),
@@ -1477,6 +1478,7 @@ namespace CoreProject.Data
                         {
                             Id = Convert.ToInt32(rdr["Id"]),
                             Type = Convert.ToString(rdr["Type"]),
+                            Optional = Convert.ToBoolean(rdr["Optional"]),
                             PYMB = Convert.ToDouble(rdr["PYMB"]),
                             APD = Convert.ToDouble(rdr["APD"]),
                             OPMFamily = Convert.ToDouble(rdr["OPMFamily"]),
@@ -1845,6 +1847,7 @@ namespace CoreProject.Data
                     {
                         Id = Convert.ToInt32(iplan["id"]),
                         Type = Convert.ToString(iplan["Type"]),
+                        Optional = Convert.ToBoolean(rdr["Optional"]),
                         PYMB = Convert.ToDouble(iplan["PYMB"]),
                         APD = Convert.ToDouble(iplan["APD"]),
                         OPMIndividual = Convert.ToDouble(iplan["OPMIndividual"]),
@@ -2259,16 +2262,15 @@ namespace CoreProject.Data
             {
                 this.Connection.Open();
 
-                var addPlan = @"INSERT INTO InsurancePlan (Type, PYMB, APD, OPMIndividual, OPMFamily, PrimaryFee, DependentFee, PrimaryChangeFee, DependentChangeFee)
-                                                   VALUES (@type, @PYMB, @APD, @OPMI, @OPMF, @PrimaryFee, @DependentFee, @PrimaryChangeFee, @DependentChangeFee);";
+                var addPlan = @"INSERT INTO InsurancePlan (Type, Optional, PYMB, APD, OPMIndividual, OPMFamily, PrimaryFee, DependentFee, PrimaryChangeFee, DependentChangeFee)
+                                                   VALUES (@type, @optional, @PYMB, @APD, @OPMI, @OPMF, @PrimaryFee, @DependentFee, @PrimaryChangeFee, @DependentChangeFee);";
                 var addService = @"INSERT INTO Service (PercentCoverage, Category, Name, MaxPayRate, InNetworkMax, InsurancePlanId, RequiredCopayment)
                                                 VALUES (@percent, @category, @name, @maxRate, @inNet, @planId, @copay);";
 
                 using (var addPlanCmd = new SqlCommand(addPlan, this.Connection))
                 {
                     addPlanCmd.Parameters.AddWithValue("@type", plan.Type);
-                    // TODO update database to use optional bool
-                    //addPlanCmd.Parameters.AddWithValue("@optional", plan.Optional);
+                    addPlanCmd.Parameters.AddWithValue("@optional", plan.Optional);
                     addPlanCmd.Parameters.AddWithValue("@PYMB", plan.PYMB);
                     addPlanCmd.Parameters.AddWithValue("@APD", plan.APD);
                     addPlanCmd.Parameters.AddWithValue("@OPMI", plan.OPMIndividual);
