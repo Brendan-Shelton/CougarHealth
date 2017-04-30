@@ -373,5 +373,20 @@ namespace CoreProject.Data.Tests
             Assert.IsNull(randomProviders);
 
         }
+
+        [TestMethod()]
+        public void AddPlanTest()
+        {
+            InsurancePlan plan = mgr.GetPlanByType("Basic");
+
+            plan.Type = "NewType";
+
+            mgr.AddPlan(plan);
+
+            plan = mgr.GetPlanByType("NewType");
+
+            Assert.IsNotNull(plan);
+            Assert.AreEqual("NewType", plan.Type);
+        }
     }
 }

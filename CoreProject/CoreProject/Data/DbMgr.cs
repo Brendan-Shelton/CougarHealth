@@ -2072,7 +2072,56 @@ namespace CoreProject.Data
         }
         public void AddPlan(InsurancePlan plan)
         {
-            Plans.Add(plan);
+            int result;
+            try
+            {
+                this.Connection.Open();
+
+                var addPlan = @"INSERT INTO InsurancePlan (Type, PYMB, APD, OPMIndividual, OPMFamily, PrimaryFee, DependentFee, PrimaryChangeFee, DependentChangeFee)
+                                                   VALUES (@type, @PYMB, @APD, @OPMI, @OPMF, @PrimaryFee, @DependentFee, @PrimaryChangeFee, @DependentChangeFee);";
+                var addService = @"INSERT INTO Service (PercentCoverage, Category, Name, MaxPayRate, InNetworkMax, InsurancePlanId, RequiredCopayment)
+                                                VALUES (@percent, @category, @name, @maxRate, @inNet, @planId, @copay);";
+
+                using (var addPlanCmd = new SqlCommand(addPlan, this.Connection))
+                {
+                    addPlanCmd.Parameters.AddWithValue("@type", plan.Type);
+                    // TODO update database to use optional bool
+                    //addPlanCmd.Parameters.AddWithValue("@optional", plan.Optional);
+                    addPlanCmd.Parameters.AddWithValue("@PYMB", plan.PYMB);
+                    addPlanCmd.Parameters.AddWithValue("@APD", plan.APD);
+                    addPlanCmd.Parameters.AddWithValue("@OPMI", plan.OPMIndividual);
+                    addPlanCmd.Parameters.AddWithValue("@OPMF", plan.OPMFamily);
+                    addPlanCmd.Parameters.AddWithValue("@PrimaryFee", plan.PrimaryFee);
+                    addPlanCmd.Parameters.AddWithValue("@DependentFee", plan.DependentFee);
+                    addPlanCmd.Parameters.AddWithValue("@PrimaryChangeFee", plan.PrimaryChangeFee);
+                    addPlanCmd.Parameters.AddWithValue("@DependentChangeFee", plan.DependentChangeFee);
+
+                    result = addPlanCmd.CommandWithId();
+
+                    
+                }
+                int serviceVal;
+                    // TODO: Finish adding services
+                foreach(var service in plan.ServiceCosts)
+                {
+                    using (var addServiceCmd = new SqlCommand(addService, this.Connection))
+                    {
+                        addServiceCmd.Parameters.AddWithValue("@percent", service.PercentCoverage);
+                        addServiceCmd.Parameters.AddWithValue("@category", service.Category);
+                        addServiceCmd.Parameters.AddWithValue("@name", service.Name);
+                        addServiceCmd.Parameters.AddWithValue("@maxRate", Enum.GetName(typeof(Service.MaxPayRate), service.InNetMax.Item2).ToString());
+                        addServiceCmd.Parameters.AddWithValue("@inNet", service.InNetMax.Item1);
+                        addServiceCmd.Parameters.AddWithValue("@planId", result);
+                        addServiceCmd.Parameters.AddWithValue("@copay", service.RequiredCopayment);
+
+                        serviceVal = addServiceCmd.CommandWithId();
+                    }
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
         }
 
     }
