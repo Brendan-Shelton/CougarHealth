@@ -8,6 +8,10 @@ namespace CoreProject.Data.Enrollee
 {
     public class PrimaryEnrollee: Enrollee
     {
+        public PrimaryEnrollee() : base()
+        {
+
+        }
         public PrimaryEnrollee(string pin) : base(pin)
         {
         }

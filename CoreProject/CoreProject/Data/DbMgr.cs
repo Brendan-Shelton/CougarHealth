@@ -979,7 +979,7 @@ namespace CoreProject.Data
                     // the enrollee is a dependent enrollee so we are saving it 
                     // into the dependent table 
                     var toInsert = (DependentEnrollee)enrollee;
-                    insertEnrollee = @"INSERT INTO dbo.PrimaryEnrollee
+                    insertEnrollee = @"INSERT INTO dbo.DependentEnrollee
                                        (
                                            Email, 
                                            Pin, 
@@ -1002,6 +1002,7 @@ namespace CoreProject.Data
                                            @lastname
                                        );
                                        SELECT CAST(scope_identity() AS int)";
+                    cmd.CommandText = insertEnrollee;
                     cmd.Parameters.AddWithValue("@email", toInsert.Email);
                     cmd.Parameters.AddWithValue("@pin", toInsert.Pin);
                     cmd.Parameters.AddWithValue("@ssn", toInsert.SSN);
@@ -1137,6 +1138,7 @@ namespace CoreProject.Data
                     cmd.Parameters.AddWithValue("@cost", plan.TotalCost);
                     cmd.Parameters.AddWithValue("@charge", plan.LastChange);
                     cmd.Parameters.AddWithValue("@plan", plan.Plan.Id);
+                    cmd.Parameters.AddWithValue("@planNum", plan.PlanNum);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -1901,8 +1903,9 @@ namespace CoreProject.Data
                     {
                         if (Convert.ToBoolean(rdr["IsPrimary"]))
                         {
-                            enrollee = new PrimaryEnrollee(Convert.ToString(rdr["Pin"]))
+                            enrollee = new PrimaryEnrollee()
                             {
+                                Pin = Convert.ToString(rdr["Pin"]),
                                 Id = Convert.ToInt32(rdr["Id"]),
                                 Email = Convert.ToString(rdr["Email"]),
                                 SSN = Convert.ToString(rdr["SSN"]),
@@ -1915,8 +1918,9 @@ namespace CoreProject.Data
                         else
                         {
 
-                            enrollee = new DependentEnrollee(Convert.ToString(rdr["Pin"]))
+                            enrollee = new DependentEnrollee()
                             {
+                                Pin = Convert.ToString(rdr["Pin"]),
                                 Id = Convert.ToInt32(rdr["Id"]),
                                 Email = Convert.ToString(rdr["Email"]),
                                 SSN = Convert.ToString(rdr["SSN"]),

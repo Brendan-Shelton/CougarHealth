@@ -29,14 +29,12 @@ namespace CoreProject.Present
         private void button2_Click(object sender, EventArgs e)
         {
             var dependentForm = new DependentEnroll(this._primaryId, this._isPrimary);
-            dependentForm.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             var enrollPlanCtrl = new PlanController(_primaryId, _email, this._isPrimary);
             var enrolleeCostsGUI = new EnrolleeCosts(enrollPlanCtrl);
-            enrolleeCostsGUI.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)

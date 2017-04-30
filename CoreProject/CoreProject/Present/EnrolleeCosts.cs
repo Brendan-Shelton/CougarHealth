@@ -21,6 +21,7 @@ namespace CoreProject.Present
         public void PlanPicked ( object source, ChoiceArgs e )
         {
             myInitialize(e.PlanNum);
+            this.Show();
         }
         public EnrolleeCosts(PlanController ctrl)
         {
@@ -31,6 +32,11 @@ namespace CoreProject.Present
                 var pick = new PickPlan(ctrl._primaryId);
                 pick.OnChoice += new ChoiceHandler(PlanPicked);
                 pick.Show();
+            }
+            else
+            {
+                myInitialize(this.planCtrl.AvailablePlans.ElementAt(0).PlanNum);
+                this.Show();
             }
         }
 

@@ -43,13 +43,18 @@ namespace CoreProject.Controller.EnrolleeControllers
             get
             {
                 return this.AvailablePlans == null ||
-                    this.AvailablePlans.Count() > 0;
+                    this.AvailablePlans.Count() > 1;
             }
         }
 
         public ModifyPlanController( int EnrolleeId)
         {
             this.AvailablePlans = Mgr.GetPlanByPrimary(EnrolleeId);
+
+            if ( this.AvailablePlans.Count() == 1)
+            {
+                this.CurrentPlan = this.AvailablePlans.ElementAt(0);
+            }
         }
 
         public void PickPlan( int planNum )

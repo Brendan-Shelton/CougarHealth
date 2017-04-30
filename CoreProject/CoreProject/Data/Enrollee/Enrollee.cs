@@ -31,7 +31,7 @@ namespace CoreProject.Data.Enrollee
         public string Pin
         {
             get { return _pin; }
-            private set
+            set
             {
                 if ( _pin == value )
                     throw new ArgumentException("Pin can't be the same as previous");
@@ -58,6 +58,11 @@ namespace CoreProject.Data.Enrollee
                 _ssn = value;
             }
             get { return _ssn; }
+        }
+
+        public Enrollee()
+        {
+
         }
 
         public Enrollee( string pin )

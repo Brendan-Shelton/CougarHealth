@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using CoreProject.Data;
 using CoreProject.Data.Enrollee;
+using System.Data.SqlClient;
 
 namespace CoreProject.Controller.EnrolleeControllers
 {
@@ -232,10 +233,13 @@ namespace CoreProject.Controller.EnrolleeControllers
         /// <param name="email"></param>
         /// <param name="pin"></param>
         /// <returns></returns>
-        public Enrollee LoginEnrollee( string email, string pin ) {
+        public Enrollee LoginEnrollee(string email, string pin) {
             Enrollee enrollee = Mgr.GetEnrolleeByEmail(email);
             // since enrollee can be null we need to check if it is equal to true
-            return ( enrollee?.Login(email, pin) == true) ? enrollee: null;
+            return ((enrollee.Email.Equals("guest@guest") &&
+                     email.Equals("guest@guest") &&
+                     pin == enrollee.Pin) || 
+                     enrollee?.Login(email, pin) == true ) ? enrollee: null;
 
         }
 
@@ -277,8 +281,16 @@ namespace CoreProject.Controller.EnrolleeControllers
             };
 
             enrolleePlan.AddDependent(dep);
-            Mgr.SaveEnrolleePlan(enrolleePlan);
-            Mgr.SaveEnrollee(dep);
+            try
+            {
+                Mgr.SaveEnrollee(dep);
+                Mgr.SaveEnrolleePlan(enrolleePlan);
+            }
+            catch (SqlException)
+            {
+                throw new DataException("Enrollee already exists on plan");
+            }
+
 
             return enrolleePlan.PlanNum;
         }

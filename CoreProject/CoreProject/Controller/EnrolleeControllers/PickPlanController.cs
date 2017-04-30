@@ -19,7 +19,8 @@ namespace CoreProject.Present
         public int PickPlan ( string planStr )
         {
             int hashStart = planStr.IndexOf('#');
-            return Convert.ToInt32(planStr.Substring(hashStart));
+            string hashValue = planStr.Substring(hashStart + 1);
+            return Convert.ToInt32(hashValue);
         }
     }
 }

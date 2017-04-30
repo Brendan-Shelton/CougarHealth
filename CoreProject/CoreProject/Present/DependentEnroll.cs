@@ -20,10 +20,11 @@ namespace CoreProject.Present
         {
             this._primaryId = primary;
             this.EnrollCtrl = new EnrollController();
+            InitializeComponent();
             var pickPlan = new PickPlan(this._primaryId);
+            pickPlan.OnChoice += PlanPicked;
             pickPlan.Show();
             this.Hide();
-            InitializeComponent();
         }
 
         private DependentEnroll(EnrollController enrollCtrl, string failMsg)
@@ -40,7 +41,8 @@ namespace CoreProject.Present
         /// <param name="e"></param>
         public void PlanPicked( object source, ChoiceArgs e )
         {
-            this.PlanNum = e.PlanNum;  
+            this.PlanNum = e.PlanNum;
+            this.Show();
         }
 
         private void personNext_Click(object sender, EventArgs e)
@@ -88,21 +90,29 @@ namespace CoreProject.Present
 
             if ( contactCheck && this.pin.Text != "" && this.PlanNum != -1 )
             {
-                var planNum = this.EnrollCtrl.CreateDependent(
-                    this.PlanNum,
-                    this._primaryId,
-                    this.firstName.Text,
-                    this.lastName.Text,
-                    this.ssn.Text,
-                    this.relationship.SelectedText,
-                    this.pin.Text,
-                    contact
-                );
+                try
+                {
+                    var planNum = this.EnrollCtrl.CreateDependent(
+                        this.PlanNum,
+                        this._primaryId,
+                        this.firstName.Text,
+                        this.lastName.Text,
+                        this.ssn.Text,
+                        this.relationship.SelectedText,
+                        this.pin.Text,
+                        contact
+                    );
 
-                var success = $"You have added ${this.firstName.Text} to ${planNum}";
-                successMsg.Text = success;
-                successMsg.Visible = true;
-                this.confirmPane.Visible = true;
+                    var success = $"You have added ${this.firstName.Text} to ${planNum}";
+                    successMsg.Text = success;
+                    successMsg.Visible = true;
+                    this.confirmPane.Visible = true;
+                }
+                catch ( DataException )
+                {
+                    this.errMsg.Text = @"Error: dependent already exists";
+                    this.errMsg.Visible = true;
+                }
             }
             else
             {

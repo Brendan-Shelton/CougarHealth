@@ -17,7 +17,7 @@ namespace CoreProject.Controller.EnrolleeControllers
         public DbMgr dbmgr { get; private set; }
         public readonly int _primaryId;
         private bool _isPrimary; 
-        private IEnumerable<EnrolleePlan> AvailablePlans { get; set; }
+        public IEnumerable<EnrolleePlan> AvailablePlans { get; set; }
         public bool MultiplePlans {
             get
             {

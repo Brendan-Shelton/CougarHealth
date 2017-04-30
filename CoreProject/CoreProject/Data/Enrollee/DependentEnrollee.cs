@@ -12,6 +12,10 @@ namespace CoreProject.Data.Enrollee
 
 
         public override bool IsPrimary => false;
+        public DependentEnrollee(): base()
+        {
+
+        }
 
         public DependentEnrollee( string pin): base(pin)
         {

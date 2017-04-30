@@ -16,15 +16,16 @@ namespace CoreProject.Present
         /// An enrollee has picked a plan 
         /// </summary>
         public event ChoiceHandler OnChoice;
-        public PickPlanController Ctrl { get; set; }
+        public PickPlanController Ctrl { get; set; } 
 
         public PickPlan()
         {
             InitializeComponent();
         }
 
-        public PickPlan( int enrolleeId )
+        public PickPlan( int enrolleeId ) : this()
         {
+            this.Ctrl = new PickPlanController();
             var choices = Ctrl.GetPlans(enrolleeId);
             this.plans.Items.AddRange(choices.ToArray());
         }
@@ -36,7 +37,7 @@ namespace CoreProject.Present
         /// <param name="e"></param>
         private void submit_Click(object sender, EventArgs e)
         {
-            int planNum = this.Ctrl.PickPlan((string)this.plans.SelectedValue);
+            int planNum = this.Ctrl.PickPlan((string)this.plans.SelectedItem);
             if ( OnChoice != null )
             {
                 OnChoice.Invoke(this, new ChoiceArgs(planNum));
@@ -52,7 +53,7 @@ namespace CoreProject.Present
         public int PlanNum { get; set; }
         public ChoiceArgs( int planNum )
         {
-
+            this.PlanNum = planNum;
         }
     }
 }
