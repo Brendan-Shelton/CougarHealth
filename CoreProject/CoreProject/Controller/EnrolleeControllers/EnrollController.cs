@@ -39,6 +39,8 @@ namespace CoreProject.Controller.EnrolleeControllers
         public PrimaryEnrollee PrimaryEnrollee { get; set; }
         public DependentEnrollee DependentEnrollee { get; set; }
 
+        public int? insertId;
+
         /// <summary>
         /// Uses regex to verify if the social security number is correct 
         /// TODO: in database implementation we need to check ssn in the database
@@ -156,7 +158,7 @@ namespace CoreProject.Controller.EnrolleeControllers
                 MobilePhone = transformedMobile,
                 SSN = transformedSSN
             };
-            Mgr.SaveEnrollee(this.PrimaryEnrollee);
+            insertId = Mgr.SaveEnrollee(this.PrimaryEnrollee);
         }
 
         /// <summary>
@@ -170,7 +172,9 @@ namespace CoreProject.Controller.EnrolleeControllers
             if (planPicked != null)
             {
                 var enrolleePlan = new EnrolleePlan(this.PrimaryEnrollee, planPicked);
-                Mgr.SaveEnrolleePlan(enrolleePlan);
+                enrolleePlan.Plan = planPicked;
+                enrolleePlan.PrimaryEnrollee = insertId;
+                enrolleePlan.PlanNum = (int)Mgr.SaveEnrolleePlan(enrolleePlan);
                 return enrolleePlan.PlanNum;
             }
             else
@@ -281,15 +285,16 @@ namespace CoreProject.Controller.EnrolleeControllers
             };
 
             enrolleePlan.AddDependent(dep);
-            try
-            {
-                Mgr.SaveEnrollee(dep);
+            //try
+            //{
+                int insertId = (int)Mgr.SaveEnrollee(dep);
+            enrolleePlan.Dependents.Add(insertId);
                 Mgr.SaveEnrolleePlan(enrolleePlan);
-            }
-            catch (SqlException)
+            //}
+            /*catch (SqlException)
             {
                 throw new DataException("Enrollee already exists on plan");
-            }
+            }*/
 
 
             return enrolleePlan.PlanNum;

@@ -68,7 +68,7 @@ namespace CoreProject.Data.Enrollee
         /// <summary>
         /// the primary key of the primary enrollee
         /// </summary>
-        public int? PrimaryEnrollee { get; } = null;
+        public int? PrimaryEnrollee { get; set; } = null;
 
         public EnrolleePlan( PrimaryEnrollee primary, InsurancePlan plan )
         {
