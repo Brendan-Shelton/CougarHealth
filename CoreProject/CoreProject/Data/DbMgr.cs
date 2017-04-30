@@ -678,7 +678,7 @@ namespace CoreProject.Data
                 }
 
                 // next create an PrimaryPlan entry 
-                var insertPri = @"INSERT INTOSELECT CAST(scope_identity() AS int) PrimaryPlan 
+                var insertPri = @"INSERT INTO PrimaryPlan 
                                  (
                                      PrimaryEnrolleeId, 
                                      EnrolleePlanId, 
@@ -725,8 +725,26 @@ namespace CoreProject.Data
             }
             catch (SqlException)
             {
-                // I need to update the enrollee Plan 
+                var updateSql = @"UPDATE EnrolleePlan 
+                                  SET  APDRemainder = @apd, 
+                                       OPMRemainder = @opm,
+                                       PYMBRemainder = @pymb, 
+                                       TotalCost = @cost, 
+                                       LastCharge = @charge, 
+                                       InsurancePlanId = @plan
+                                  WHERE PlanNum = @planNum
+                                 ";
 
+                using ( var cmd = new SqlCommand(updateSql, this.Connection) )
+                {
+                    cmd.Parameters.AddWithValue("@apd", plan.APDRemainder);
+                    cmd.Parameters.AddWithValue("@opm", plan.OPMFRemainder);
+                    cmd.Parameters.AddWithValue("@pymb", plan.PYMBRemainder);
+                    cmd.Parameters.AddWithValue("@cost", plan.TotalCost);
+                    cmd.Parameters.AddWithValue("@charge", plan.LastChange);
+                    cmd.Parameters.AddWithValue("@plan", plan.Plan.Id);
+                    cmd.ExecuteNonQuery();
+                }
             }
             finally
             {
@@ -1196,12 +1214,16 @@ namespace CoreProject.Data
                 var selPrimaryPlan = @"SELECT * 
                                        FROM PrimaryPlan AS pp
                                        WHERE pp.PrimaryEnrolleeId = @pid";
-                int? epId = null;
+                List<int> epIds = new List<int>();
                 using ( var cmd = new SqlCommand(selPrimaryPlan, this.Connection) )
                 {
                     cmd.Parameters.AddWithValue("@pid", primaryId);
                     var rdr = cmd.ExecuteReader();
-                    epId = rdr.Single(ep => Convert.ToInt32(ep["EnrolleePlanId"]));
+                    // there can be multiple plans per a primary 
+                    while ( rdr.Read() )
+                    {
+                        epIds.Add(Convert.ToInt32(rdr["EnrolleePlanId"]));
+                    }
                     rdr.Close();
                 }
                 // select the enrolleeplan
@@ -1209,29 +1231,32 @@ namespace CoreProject.Data
                               FROM EnrolleePlan AS ep
                               WHERE ep.PlanNum = @epId";
                 // zero is the default value for ints 
-                if (epId != 0)
+                if (epIds.Count() != 0)
                 {
                     var cachedPlans = new List<CachedPlan>();
                     // Find the plan itself 
                     using (var cmd = new SqlCommand(selEP, this.Connection))
                     {
-                        cmd.Parameters.AddWithValue("@epId", epId);
-                        var rdr = cmd.ExecuteReader();
-                        while (rdr.Read())
+                        foreach ( int id in epIds )
                         {
-                            cachedPlans.Add(new CachedPlan
+                            cmd.Parameters.AddWithValue("@epId", id);
+                            var rdr = cmd.ExecuteReader();
+                            while (rdr.Read())
                             {
-                                Plan = rdr["InsurancePlanId"],
-                                Pid = primaryId,
-                                PlanNum = rdr["PlanNum"],
-                                LastCharge = rdr["LastCharge"],
-                                TotalCost = rdr["TotalCost"],
-                                OpmRemainder = rdr["OPMRemainder"],
-                                PymbRemainder = rdr["PYMBRemainder"],
-                                ApdRemainder = rdr["apdRemainder"],
-                            });
-                        } // while 
-                        rdr.Close();
+                                cachedPlans.Add(new CachedPlan
+                                {
+                                    Plan = rdr["InsurancePlanId"],
+                                    Pid = primaryId,
+                                    PlanNum = rdr["PlanNum"],
+                                    LastCharge = rdr["LastCharge"],
+                                    TotalCost = rdr["TotalCost"],
+                                    OpmRemainder = rdr["OPMRemainder"],
+                                    PymbRemainder = rdr["PYMBRemainder"],
+                                    ApdRemainder = rdr["apdRemainder"],
+                                });
+                            } // while 
+                            rdr.Close();
+                        }
                     } // using 
                     foreach (var cachedPlan in cachedPlans)
                     {
