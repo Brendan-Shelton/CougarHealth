@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
 using CoreProject.Data.HealthcareServiceProvider;
+using CoreProject.Data.Employees;
 
 namespace CoreProject.Data.Tests
 {
@@ -97,7 +98,7 @@ namespace CoreProject.Data.Tests
             {
                 MailingAddr = "805 N Guest",
                 BillingAddr = "805 N Guest",
-                Email = "new@dude.com",
+                Email = "new@dudee.com",
                 FirstName = "Guest",
                 LastName = "Guest",
                 HomePhone = "1234567890",
@@ -131,6 +132,7 @@ namespace CoreProject.Data.Tests
             var Plan = mgr.GetPlanByType("Basic");
 
             Assert.IsNotNull(ret);
+            Assert.AreEqual(Plan.Id, ret);
             Assert.AreEqual(50, Plan.APD);
         }
 
@@ -219,6 +221,74 @@ namespace CoreProject.Data.Tests
             Assert.AreEqual(hsp.Personnel, "Contact");
             Assert.IsTrue(hsp.ServicesOffered.Any());
             Assert.IsNull(notHsp);
+        }
+        /// <summary>
+        /// Gets a test employee by Name
+        /// </summary>
+        [TestMethod()]
+        public void GetEmployeeByNameTest()
+        {
+            var employee = mgr.GetEmployeeByName("Guest");
+            var employee2 = mgr.GetEmployeeByName("");
+
+
+            Assert.AreEqual("Guest", employee.UserName);
+            Assert.IsNull(employee2);
+        }
+        /// <summary>
+        /// Gets a test employee by Id
+        /// </summary>
+        [TestMethod()]
+        public void GetEmployeeByIdTest()
+        {
+            var employee = mgr.GetEmployeeById(1);
+            var employee2 = mgr.GetEmployeeById(-1);
+
+            Assert.AreEqual("Guest", employee.UserName);
+            Assert.IsNull(employee2);
+        }
+        /// <summary>
+        /// Save a new test Employee
+        /// </summary>
+        [TestMethod()]
+        public void SaveEmployeeTest()
+        {
+            Employee employee = new Employee()
+            {
+                UserName = "GuestTest",
+                Password = "NotTelling",
+                Permission = Permission.Manager
+            };
+            int insertId = mgr.SaveEmployee(employee);
+
+            Assert.AreEqual(2, insertId);
+        }
+        /// <summary>
+        /// Update a test employee
+        /// </summary>
+        [TestMethod()]
+        public void UpdateEmployeeTest()
+        {
+            var employee = mgr.GetEmployeeByName("Guest");
+            employee.NewName = "Changed";
+            employee.Permission = Permission.Accountant;
+            employee.Password = "Password";
+            var updated = mgr.UpdateEmployee(employee);
+            employee = mgr.GetEmployeeById(1);
+            Assert.AreEqual(1, updated);
+            Assert.AreEqual("Changed", employee.UserName);
+        }
+        /// <summary>
+        /// Get a list of all Employees
+        /// </summary>
+        [TestMethod()]
+        public void GetAllEmployeesTest()
+        {
+            var employees = mgr.GetAllEmployees();
+
+            Assert.IsNotNull(employees);
+            Assert.IsInstanceOfType(employees, typeof(List<Employee>));
+            Assert.IsTrue(employees.Any());
         }
 
         [TestMethod()]

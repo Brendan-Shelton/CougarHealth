@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CoreProject.Data.Enrollee;
 using CoreProject.Data.HealthcareServiceProvider;
 using CoreProject.Data.Employees;
+using System.Collections;
 
 namespace CoreProject.Data
 {
@@ -286,13 +287,57 @@ namespace CoreProject.Data
         /// <returns></returns>
         public int SaveEmployee(Employee employee)
         {
+            int permissionId, resultId;
 
+            var getPermissionId = @"SELECT Id FROM Permission 
+                                    WHERE Permission.Name = @name";
+
+            var saveEmployee = @"INSERT INTO Employee
+                                 (UserName,
+                                 Password,
+                                 PermissionId)
+                                 VALUES
+                                 (@user,
+                                  @pass,
+                                  @PermissionId
+                                 )";
+            
+            try
+            {
+                this.Connection.Open();
+
+                using (var getPermissionIdCmd = new SqlCommand(getPermissionId, this.Connection))
+                {
+                    getPermissionIdCmd.Parameters.AddWithValue("@name", Enum.GetName(typeof(Permission), employee.Permission).ToString());
+                    permissionId = (int)getPermissionIdCmd.ExecuteScalar();
+                }
+
+                using (var saveEmployeeCmd = new SqlCommand(saveEmployee, this.Connection))
+                {
+                    saveEmployeeCmd.Parameters.AddWithValue("@user", employee.UserName);
+                    saveEmployeeCmd.Parameters.AddWithValue("@pass", employee.Password);
+                    saveEmployeeCmd.Parameters.AddWithValue("@PermissionId", permissionId);
+
+                    object lastId = saveEmployeeCmd.CommandWithId();
+                    if (lastId == DBNull.Value)
+                    {
+                        throw new DataException("I tried to insert your enrollee, but nothing got inserted");
+                    }
+                    resultId = Convert.ToInt32(lastId);
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+            // TODO: update this to work with new database
             if (!EmployeeSet.Add(employee))
             {
                 throw new DataException($"{employee.UserName} was already in our system");
             }
 
-            return employee.Id;
+            return resultId;
         }
         /// <summary>
         /// Basically SELECT * FROM Employee
@@ -300,7 +345,71 @@ namespace CoreProject.Data
         /// <returns></returns>
         public IEnumerable<Employee> GetAllEmployees()
         {
-            return EmployeeSet;
+
+
+
+            List<Employee> employees = new List<Employee>();
+            try
+            {
+                this.Connection.Open();
+                var getEmployees = @"SELECT * FROM Employee";
+                var getPermission = "SELECT Name FROM Permission WHERE Permission.Id = (SELECT PermissionId from Employee WHERE Employee.UserName = @name);";
+                using (var getEmployeesCmd = new SqlCommand(getEmployees, this.Connection))
+                {
+                    var rdr = getEmployeesCmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        var employee = new Employee
+                        {
+                            Id = Convert.ToInt32(rdr["Id"]),
+                            UserName = Convert.ToString(rdr["UserName"]),
+                            Password = Convert.ToString(rdr["Password"])
+                        };
+
+
+                        employees.Add(employee);
+                    }
+                    rdr.Close();
+                }
+                    
+                    foreach(var employee in employees)
+                    {
+                        using (var getPermissionCmd = new SqlCommand(getPermission, this.Connection))
+                        {
+                            getPermissionCmd.Parameters.AddWithValue("@name", employee.UserName);
+                            var res = (string)getPermissionCmd.ExecuteScalar();
+
+                            switch (res)
+                            {
+                                case "None":
+                                    employee.Permission = Permission.None;
+                                    break;
+                                case "PlanAdmin":
+                                    employee.Permission = Permission.PlanAdmin;
+                                    break;
+                                case "EnrolleeSupport":
+                                    employee.Permission = Permission.EnrolleeSupport;
+                                    break;
+                                case "HSPSupport":
+                                    employee.Permission = Permission.HSPSupport;
+                                    break;
+                                case "Accountant":
+                                    employee.Permission = Permission.Accountant;
+                                    break;
+                                case "Manager":
+                                    employee.Permission = Permission.Manager;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+            return employees;
         }
         /// <summary>
         /// Update the employee that corresponds to the id of the employee 
@@ -310,7 +419,55 @@ namespace CoreProject.Data
         /// <returns></returns>
         public int UpdateEmployee(Employee emp)
         {
-            var toUpdate = (from employee in EmployeeSet
+
+            int permissionId, returnId;
+
+            var updateEmployee = @"UPDATE Employee SET UserName = @name, Password = @pass, 
+                                   PermissionId = @permissionId OUTPUT INSERTED.Id WHERE Id = @id;";
+
+            var getPermissionId = @"SELECT Id FROM Permission 
+                                    WHERE Permission.Name = @name";
+
+
+            try
+            {
+                this.Connection.Open();
+
+                using (var getPermissionIdCmd = new SqlCommand(getPermissionId, this.Connection))
+                {
+                    getPermissionIdCmd.Parameters.AddWithValue("@name", Enum.GetName(typeof(Permission), emp.Permission).ToString());
+                    permissionId = (int)getPermissionIdCmd.ExecuteScalar();
+                }
+
+                using (var updateEmployeeCmd = new SqlCommand(updateEmployee, this.Connection))
+                {
+                    if(emp.NewName != null)
+                    {
+                        updateEmployeeCmd.Parameters.AddWithValue("@name", emp.NewName);
+                    }
+                    else
+                    {
+                        updateEmployeeCmd.Parameters.AddWithValue("@name", emp.UserName);
+                    }
+                    
+                    updateEmployeeCmd.Parameters.AddWithValue("@pass", emp.Password);
+                    updateEmployeeCmd.Parameters.AddWithValue("@permissionId", permissionId);
+                    updateEmployeeCmd.Parameters.AddWithValue("@id", emp.Id);
+
+                    //returnId = updateEmployeeCmd.CommandWithId();
+                    returnId = Convert.ToInt32(updateEmployeeCmd.ExecuteScalar());
+                }
+
+
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+
+
+            /*var toUpdate = (from employee in EmployeeSet
                             where employee.UserName == emp.UserName
                             select employee).FirstOrDefault();
             if (toUpdate == null)
@@ -325,8 +482,10 @@ namespace CoreProject.Data
 
             toUpdate.UserName = emp.UserName;
             toUpdate.Password = emp.Password;
-            toUpdate.Permission = emp.Permission;
-            return toUpdate.Id;
+            toUpdate.Permission = emp.Permission;*/
+
+
+            return returnId;
         }
 
         /// <summary>
@@ -336,18 +495,144 @@ namespace CoreProject.Data
         /// <returns></returns>
         public Employee GetEmployeeByName(string employeeName)
         {
-            return (from employee in EmployeeSet
-                    where employee.UserName == employeeName
-                    select employee)?.FirstOrDefault();
+            Employee employee = null;
+            string permissionString;
+            var getEmployee = @"SELECT * FROM Employee 
+                              WHERE Employee.UserName = @name";
+
+            var getPermission = @"SELECT Name FROM Permission 
+                                WHERE Permission.Id = 
+                                (SELECT PermissionId FROM Employee WHERE Employee.UserName = @name);";
+            
+            try
+            {
+                this.Connection.Open();
+                using (var getEmployeeCmd = new SqlCommand(getEmployee, this.Connection))
+                {
+                    getEmployeeCmd.Parameters.AddWithValue("@name", employeeName);
+                    var rdr = getEmployeeCmd.ExecuteReader();
+                    employee = rdr.Single(e => new Employee
+                    {
+                        Id = Convert.ToInt32(e["id"]),
+                        UserName = Convert.ToString(e["UserName"]),
+                        Password = Convert.ToString(e["Password"])
+                    });
+                    rdr.Close();
+                }
+
+                using (var getPermissionCmd = new SqlCommand(getPermission, this.Connection))
+                {
+                    getPermissionCmd.Parameters.AddWithValue("@name", employeeName);
+                    permissionString = (string)getPermissionCmd.ExecuteScalar();
+                }
+
+                switch (permissionString)
+                {
+                    case "None":
+                        employee.Permission = Permission.None;
+                        break;
+                    case "PlanAdmin":
+                        employee.Permission = Permission.PlanAdmin;
+                        break;
+                    case "EnrolleeSupport":
+                        employee.Permission = Permission.EnrolleeSupport;
+                        break;
+                    case "HSPSupport":
+                        employee.Permission = Permission.HSPSupport;
+                        break;
+                    case "Accountant":
+                        employee.Permission = Permission.Accountant;
+                        break;
+                    case "Manager":
+                        employee.Permission = Permission.Manager;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+            return employee;
+
+            //return (from employee in EmployeeSet
+            //        where employee.UserName == employeeName
+            //        select employee)?.FirstOrDefault();
         }
 
         public Employee GetEmployeeById(int id)
         {
-            var result = (from employee in EmployeeSet
-                          where employee.Id == id
-                          select employee)?.FirstOrDefault();
 
-            return result;
+            string permissionString;
+
+            var getEmployee = @"SElECT * FROM Employee 
+                              WHERE Employee.Id = @id";
+
+            var getPermission = @"SELECT Name FROM Permission 
+                                WHERE Permission.Id = 
+                                (SELECT PermissionId FROM Employee WHERE Id = @id);";
+
+            Employee employee = null;
+            try
+            {
+                this.Connection.Open();
+                using (var getEmployeeCmd = new SqlCommand(getEmployee, this.Connection))
+                {
+                    getEmployeeCmd.Parameters.AddWithValue("@id", id);
+                    var rdr = getEmployeeCmd.ExecuteReader();
+                    employee = rdr.Single(e => new Employee
+                    {
+                        Id = Convert.ToInt32(e["id"]),
+                        UserName = Convert.ToString(e["UserName"])
+                    });
+                    rdr.Close();
+                }
+
+
+                using (var getPermissionCmd = new SqlCommand(getPermission, this.Connection))
+                {
+                    getPermissionCmd.Parameters.AddWithValue("@id", id);
+                    permissionString = (string)getPermissionCmd.ExecuteScalar();
+                }
+
+                switch (permissionString)
+                {
+                    case "None":
+                        employee.Permission = Permission.None;
+                        break;
+                    case "PlanAdmin":
+                        employee.Permission = Permission.PlanAdmin;
+                        break;
+                    case "EnrolleeSupport":
+                        employee.Permission = Permission.EnrolleeSupport;
+                        break;
+                    case "HSPSupport":
+                        employee.Permission = Permission.HSPSupport;
+                        break;
+                    case "Accountant":
+                        employee.Permission = Permission.Accountant;
+                        break;
+                    case "Manager":
+                        employee.Permission = Permission.Manager;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+
+            //var result = (from employee in EmployeeSet
+             //             where employee.Id == id
+              //            select employee)?.FirstOrDefault();
+
+            return employee;
         }
 
         public void adminUpdateVerify(int passkey, string planType, String category,
@@ -391,14 +676,14 @@ namespace CoreProject.Data
                 // strings for name are hard coded, and so should have a sql injection
                 var updatePlan = "UPDATE InsurancePlan " +
                                 $"SET { name } = {val}" +
-                                @"WHERE Type = @type";
+                                @"OUTPUT INSERTED.Id WHERE Type = @type;";
                 try
                 {
                     this.Connection.Open();
                     using (var cmd = new SqlCommand(updatePlan, this.Connection))
                     {
                         cmd.Parameters.AddWithValue("@type", planType);
-                        updateId = cmd.CommandWithId();
+                        updateId = (int)cmd.ExecuteScalar();
                     }
                 }
                 finally
@@ -447,37 +732,37 @@ namespace CoreProject.Data
                         // update the percent coverage of the service
                         var updateService = "UPDATE Service " +
                                            $"SET PercentCoverage = {val} " +
-                                           $"WHERE Id IN ({inService}) AND " +
+                                           $"OUTPUT INSERTED.Id WHERE Id IN ({inService}) AND " +
                                            $"Name = @name;";
                         using (var cmd = new SqlCommand(updateService, this.Connection))
                         {
                             cmd.Parameters.AddWithValue("@name", name);
-                            updateId = cmd.CommandWithId();
+                            updateId = (int)cmd.ExecuteScalar();
                         }
                     }
                     else if (max)
                     {
                         var updateService = "UPDATE Service " +
                                            $"SET InNetworkMax = {val} " +
-                                           $"WHERE Id IN ({inService}) AND " +
+                                           $"OUTPUT INSERTED.Id WHERE Id IN ({inService}) AND " +
                                            $"Name = @name;";
                         using (var cmd = new SqlCommand(updateService, this.Connection))
                         {
                             cmd.Parameters.AddWithValue("@name", name);
-                            updateId = cmd.CommandWithId();
+                            updateId = (int)cmd.ExecuteScalar();
                         }
                     }
                     else
                     {
                         var updateService = "UPDATE Service " +
                                            $"SET RequiredCopayment = {val} " +
-                                           $"WHERE Id IN ({inService}) AND " +
+                                           $"OUTPUT INSERTED.Id WHERE Id IN ({inService}) AND " +
                                            $"Name = @name;";
 
                         using (var cmd = new SqlCommand(updateService, this.Connection))
                         {
                             cmd.Parameters.AddWithValue("@name", name);
-                            updateId = cmd.CommandWithId();
+                            updateId = (int)cmd.ExecuteScalar();
                         }
                     } // else
                 } // try
@@ -1032,6 +1317,7 @@ namespace CoreProject.Data
         public Enrollee.InsurancePlan GetPlanByType(string type)
         {
             InsurancePlan plan = null;
+            var services = new List<Service>(); 
             try
             {
                 this.Connection.Open();
@@ -1054,6 +1340,32 @@ namespace CoreProject.Data
                         PrimaryChangeFee = Convert.ToDouble(p["PrimaryChangeFee"]),
                         DependentChangeFee = Convert.ToDouble(p["DependentChangeFee"])
                     });
+                    rdr.Close();
+                }
+                if (plan != null) {
+                    var pullServices = @"Select * FROM Service
+                                        WHERE InsurancePlanId = @planId";
+                    using (var cmd = new SqlCommand(pullServices, this.Connection))
+                    {
+                        cmd.Parameters.AddWithValue("@planId", plan.Id);
+                        var rdr = cmd.ExecuteReader();
+
+                        while (rdr.Read())
+                        {
+                            services.Add(new Service(
+                                id: Convert.ToInt32(rdr["Id"]),
+                                name: Convert.ToString(rdr["Name"]),
+                                category: Convert.ToString(rdr["Category"]),
+                                coverage: Convert.ToDouble(rdr["PercentCoverage"]),
+                                maxPayRate: Convert.ToString(rdr["MaxPayRate"]),
+                                inNetworkMax: Convert.ToDouble(rdr["InNetworkMax"]),
+                                insurancePlan: Convert.ToInt32(rdr["InsurancePlanId"]),
+                                reqCopay: Convert.ToDouble(rdr["RequiredCopayment"])
+                                ));
+                        }
+                        rdr.Close();
+                        plan.ServiceCosts = services;
+                    }
                 }
             }
             finally
@@ -1104,7 +1416,6 @@ namespace CoreProject.Data
             }
             return plans;
         }
-
         /// <summary>
         /// Find the enrollee with the matching email and password. If no 
         /// enrollee exists then the query will return 0 and in which case 
@@ -1751,5 +2062,47 @@ namespace CoreProject.Data
 
             return services;
         } // get services 
-    } // class 
-} // namespace 
+
+        public IEnumerable<HSP> GetProviders(Service service) {
+
+            var providers = new List<HSP>();
+
+            try
+            {
+                if (this.Connection.State == ConnectionState.Closed)
+                {
+                    this.Connection.Open();
+                }
+                var pullHSP = @"Select * FROM HSP AS HSP
+                                INNER JOIN ServiceHSP AS SHSP
+                                    ON SHSP.ServiceID = @serviceID
+                                WHERE SHSP.HSPId = HSP.Id";
+                using (var cmd = new SqlCommand(pullHSP, this.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@serviceID", service.Id);
+                    var rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        providers.Add(new HSP(
+                            id: Convert.ToInt32(rdr["Id"]),
+                            routingNum: Convert.ToInt32(rdr["RoutingNum"]),
+                            accountNum: Convert.ToInt32(rdr["AccountNum"]),
+                            pin: Convert.ToString(rdr["Pin"]),
+                            bankName: Convert.ToString(rdr["BankName"]),
+                            personelContact: Convert.ToString(rdr["PersonelContact"]),
+                            name: Convert.ToString(rdr["Name"]),
+                            address: Convert.ToString(rdr["Address"]),
+                            isInNetwork: Convert.ToBoolean(rdr["IsInNetwork"])
+                            ));
+                    }
+                }
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+            return providers;
+        }
+    }
+}

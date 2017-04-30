@@ -33,6 +33,17 @@ namespace CoreProject.Present
             enrolleeGUI.Show();
         }
 
+        private void EnrolleePortal_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void searchHSPButton_Click(object sender, EventArgs e)
+        {
+            var search = new SearchHSP();
+            search.Show();
+        }
+
 
         //private void ModifyPlan_Click(object sender, EventArgs e)
         //{
