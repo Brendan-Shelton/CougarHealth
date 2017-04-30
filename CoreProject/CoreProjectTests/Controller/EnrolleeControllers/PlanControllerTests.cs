@@ -39,17 +39,17 @@ namespace CoreProjectTests.Controller.EnrolleeControllers
             double enrolleeBillAmount = 460;
 
 
-            var bill = new Bill(date, hsp, service.Id, enrolleeId, email, totalBillAmount, enrolleeBillAmount);
+            var bill = new Bill(date, hsp.Id, service.Id, enrolleeId, email, totalBillAmount, enrolleeBillAmount);
 
             plnCtrl.addBill(bill);
 
             var retBill = dbmgr.GetBillsById(1);
 
-            Assert.AreEqual((double)1000, retBill[0].totalBillAmount);
-            Assert.AreEqual((double)460, retBill[0].enrolleeBillAmount);
-            Assert.AreEqual("Inpatient", dbmgr.GetServiceById(retBill[0].serviceId).Name);
-            Assert.AreEqual(date.Date, retBill[0].date.Date);
-            Assert.AreEqual(hsp, retBill[0].hsp);
+            Assert.AreEqual((double)1000, retBill.ElementAt(0).totalBillAmount);
+            Assert.AreEqual((double)460, retBill.ElementAt(0).enrolleeBillAmount);
+            Assert.AreEqual("Inpatient", dbmgr.GetServiceById(retBill.ElementAt(0).serviceId).Name);
+            Assert.AreEqual(date.Date, retBill.ElementAt(0).date.Date);
+            Assert.AreEqual(hsp, dbmgr.GrabHspById( retBill.ElementAt(0).hspId));
 
         }
     }

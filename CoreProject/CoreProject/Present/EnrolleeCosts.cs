@@ -69,10 +69,10 @@ namespace CoreProject.Present
             if (enrollee == null)
             {
                 var depEnrollee = planCtrl.dbmgr.FindDependentById(bill.enrolleeId);
-                BillsListView.Rows.Add(bill.date.ToShortDateString(), (depEnrollee.FirstName + " " + depEnrollee.LastName), bill.hsp.Name, planCtrl.dbmgr.GetServiceById(bill.serviceId).Name, bill.enrolleeBillAmount, bill.totalBillAmount);
+                BillsListView.Rows.Add(bill.date.ToShortDateString(), (depEnrollee.FirstName + " " + depEnrollee.LastName), planCtrl.dbmgr.GrabHspById(bill.hspId).Name, planCtrl.dbmgr.GetServiceById(bill.serviceId).Name, bill.enrolleeBillAmount, bill.totalBillAmount);
                 return;
             }
-            BillsListView.Rows.Add(bill.date.ToShortDateString(), (enrollee.FirstName + " " + enrollee.LastName), bill.hsp.Name, planCtrl.dbmgr.GetServiceById(bill.serviceId).Name, bill.enrolleeBillAmount, bill.totalBillAmount);
+            BillsListView.Rows.Add(bill.date.ToShortDateString(), (enrollee.FirstName + " " + enrollee.LastName), planCtrl.dbmgr.GrabHspById(bill.hspId).Name, planCtrl.dbmgr.GetServiceById(bill.serviceId).Name, bill.enrolleeBillAmount, bill.totalBillAmount);
         }
 
         public void setPolicyNumber(int amount)

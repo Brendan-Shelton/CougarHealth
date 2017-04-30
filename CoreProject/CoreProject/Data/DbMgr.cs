@@ -151,7 +151,6 @@ namespace CoreProject.Data
                 this.Connection.Open();
                 var insertBill = @"INSERT INTO Bill
                                    (
-                                        Id,
                                         Date,
                                         TotalBillAmount,
                                         EnrolleeBillAmount,
@@ -163,7 +162,6 @@ namespace CoreProject.Data
                                     )
                                     VALUES
                                     (
-                                        @id,
                                         @totalBillAmount,
                                         @enrolleeBillAmount,
                                         @serviceId,
@@ -171,14 +169,20 @@ namespace CoreProject.Data
                                         @primaryId,
                                         @dependentId,
                                         @isPrimary
-                                    );";
+                                    );
+                                     SELECT CAST(scope_identity() AS int)";
+
                 using (var planCmd = new SqlCommand(insertBill, this.Connection))
                 {
-                    planCmd.Parameters.AddWithValue("@id", bill.Id);
+                    object lastId = planCmd.ExecuteScalar();
+                    if (lastId == DBNull.Value)
+                    {
+                        throw new DataException("I tried to insert your enrollee, but nothing got inserted");
+                    }
                     planCmd.Parameters.AddWithValue("@totalBillAmount", bill.totalBillAmount);
                     planCmd.Parameters.AddWithValue("@enrolleeBillAmount", bill.enrolleeBillAmount);
                     planCmd.Parameters.AddWithValue("@serviceId", bill.serviceId);
-                    planCmd.Parameters.AddWithValue("@hspId", bill.hsp);
+                    planCmd.Parameters.AddWithValue("@hspId", bill.hspId);
                     if (bill.IsPrimary)
                         planCmd.Parameters.AddWithValue("@primaryId", bill.enrolleeId);
                     else
@@ -186,6 +190,8 @@ namespace CoreProject.Data
                     planCmd.Parameters.AddWithValue("@isPrimary", bill.IsPrimary);
                     planNum = planCmd.CommandWithId();
                 }
+
+
             }
             
             finally
@@ -227,11 +233,11 @@ namespace CoreProject.Data
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Bill[] GetBillsById(int id)
+        public HashSet<Bill> GetBillsById(int id)
         {
             string selBill = @"SELECT Id, Date, TotalBillAmount, EnrolleeBillAmount, ServiceId, PlanNum, HSPId, PrimaryId, DependentId, IsPrimary
                                FROM Bill 
-                               WHERE Id = @id";
+                               WHERE PrimaryId = @id";
             HashSet<Bill> bills = new HashSet<Bill>();
 
             try
@@ -258,11 +264,10 @@ namespace CoreProject.Data
                         string enrolleeEmail = Convert.ToString(rdr["EnrolleeEmail"]);
                         double totalBill = Convert.ToDouble(rdr["TotalBillAmount"]);
                         double enrolleeBill = Convert.ToDouble(rdr["EnrolleeBillAmount"]);
-                        
-                        if (Convert.ToBoolean(rdr["IsPrimary"]))
-                            bills.Add(new Bill(
+                       
+                        bills.Add(new Bill(
                                                 date,
-                                                hsp,
+                                                hsp.Id,
                                                 service,
                                                 enrolleeId,
                                                 enrolleeEmail,
@@ -279,7 +284,7 @@ namespace CoreProject.Data
             }
 
 
-
+            return bills;
 
 
 
@@ -330,7 +335,6 @@ namespace CoreProject.Data
 
             //return finalBills;
 
-            throw new NotImplementedException();
 
         }
 
@@ -829,6 +833,8 @@ namespace CoreProject.Data
 
             } // else 
 
+            return updateId;
+
             /* Da Faq dawg!!!  */
             //for (int i = 0; i < 2; i++)
             //{
@@ -884,7 +890,7 @@ namespace CoreProject.Data
 
             //}
 
-            return updateId;
+
         }
 
 
@@ -2107,6 +2113,7 @@ namespace CoreProject.Data
                             reqCopay: Convert.ToDouble(rdr["RequiredCopayment"])
                             );
                     }
+                    rdr.Close();
                 }
             }
             finally
@@ -2156,6 +2163,7 @@ namespace CoreProject.Data
                             reqCopay: Convert.ToDouble(rdr["RequiredCopayment"])
                         ));
                     }
+                    rdr.Close();
                 }
             }
             finally
