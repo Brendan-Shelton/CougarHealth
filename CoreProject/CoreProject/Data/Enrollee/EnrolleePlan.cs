@@ -73,6 +73,7 @@ namespace CoreProject.Data.Enrollee
         public EnrolleePlan( PrimaryEnrollee primary, InsurancePlan plan )
         {
             // identifiers
+            this.Plan = plan;
             this.PrimaryEnrollee = primary.Id;
             this.Type = plan.Type;
             this.Dependents = new List<int>();

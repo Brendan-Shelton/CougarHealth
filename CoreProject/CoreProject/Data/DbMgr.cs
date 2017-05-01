@@ -1995,78 +1995,203 @@ namespace CoreProject.Data
             return enrollee;
         }
 
-        public EnrolleePlan GetPlanByEmail(string email)
+        public List<EnrolleePlan> GetPlanByEmail(string email)
         {
+
+
             var enrollee = GetEnrolleeByEmail(email);
-            var plan = new CachedPlan();
             var plans = new List<EnrolleePlan>();
+            List<int> epIds = new List<int>();
+            //string selPlan;
+            //if (enrollee.IsPrimary)
+            //{
+            //    selPlan = "SELECT * " + 
+            //              "FROM dbo.PrimaryPlan " + 
+            //              $"WHERE PrimaryEnrolleeId = { enrollee.Id }";
+            //}
+            //else
+            //{
+            //    selPlan = "SELECT * " +
+            //              "FROM dbo.DependentPlan " +
+            //              $"WHERE DependentEnrolleeId = { enrollee.Id }";
+            //}
 
-
-            string selPlan;
-
-            if (enrollee.IsPrimary)
-            {
-                    selPlan = @"SELECT * FROM PrimaryPlan
-                               WHERE PrimaryEnrolleeId = @id";
-            } else
-            {
-                selPlan = @"SELECT * FROM DependentPlan
-                            WHERE DependentEnrolleeId = @id";
-            }
+            var selPrimaryPlan = @"SELECT * 
+                                       FROM PrimaryPlan AS pp
+                                       WHERE pp.PrimaryEnrolleeId = @pid";
+            
 
             try
             {
                 this.Connection.Open();
-                using (var cmd = new SqlCommand(selPlan, this.Connection))
+                //using (var cmd = new SqlCommand(selPlan, this.Connection))
+                //{
+                //    var rdr = cmd.ExecuteReader();
+                //    // there can be multiple plans per a primary 
+                //    while (rdr.Read())
+                //    {
+                //        epIds.Add(Convert.ToInt32(rdr["EnrolleePlanId"]));
+                //    }
+                //    rdr.Close();
+                //}
+                using (var cmd = new SqlCommand(selPrimaryPlan, this.Connection))
                 {
-                    // command is parameterized to prevent SQL injection
-                    cmd.Parameters.AddWithValue("@id", enrollee.Id);
+                    cmd.Parameters.AddWithValue("@pid", enrollee.Id);
                     var rdr = cmd.ExecuteReader();
-
-                    // I should only get one result back 
-                    if (rdr.Read())
+                    // there can be multiple plans per a primary 
+                    while (rdr.Read())
                     {
-                        if (Convert.ToBoolean(rdr["IsPrimary"]))
+                        epIds.Add(Convert.ToInt32(rdr["EnrolleePlanId"]));
+                    }
+                    rdr.Close();
+                }
+
+                // select the enrolleeplan
+                var selEP = @"SELECT *  
+                              FROM EnrolleePlan AS ep
+                              WHERE ep.PlanNum = @epId";
+                // zero is the default value for ints 
+                if (epIds.Count() != 0)
+                {
+                    var cachedPlans = new List<CachedPlan>();
+                    // Find the plan itself 
+
+                    foreach (int id in epIds)
+                    {
+                        using (var cmd = new SqlCommand(selEP, this.Connection))
                         {
-                            plan.Pid = Convert.ToInt32(rdr["PrimaryEnrolleeId"]);
-                         
-                        } // if 
+                            cmd.Parameters.AddWithValue("@epId", id);
+                            var rdr = cmd.ExecuteReader();
+                            while (rdr.Read())
+                            {
+                                cachedPlans.Add(new CachedPlan
+                                {
+                                    Plan = rdr["InsurancePlanId"],
+                                    PlanNum = rdr["PlanNum"],
+                                    LastCharge = rdr["LastCharge"],
+                                    TotalCost = rdr["TotalCost"],
+                                    OpmRemainder = rdr["OPMRemainder"],
+                                    PymbRemainder = rdr["PYMBRemainder"],
+                                    ApdRemainder = rdr["apdRemainder"],
+                                });
+                            } // while 
+                            rdr.Close();
+                        }// using 
+                    }
+                    foreach (var cachedPlan in cachedPlans)
+                    {
+                        InsurancePlan iplan = this.GetPLanById(Convert.ToInt32(cachedPlan.Plan));
+                        if (cachedPlan.LastCharge != DBNull.Value)
+                        {
+                            plans.Add(new EnrolleePlan(
+                                pid: cachedPlan.Pid,
+                                plan: iplan,
+                                planNum: Convert.ToInt32(cachedPlan.PlanNum),
+                                lastCharge: Convert.ToDateTime(cachedPlan.LastCharge),
+                                totalCost: Convert.ToDouble(cachedPlan.TotalCost),
+                                opmRemainder: Convert.ToDouble(cachedPlan.OpmRemainder),
+                                pymbRemainder: Convert.ToDouble(cachedPlan.PymbRemainder),
+                                apdRemainder: Convert.ToDouble(cachedPlan.ApdRemainder)
+                        )); // plans.Add 
+                        }
+
                         else
                         {
-                            plan.Pid = Convert.ToInt32(rdr["DependentEnrolleeId"]);
-                           
-                        }
-                        plan.PlanNum = rdr["EnrolleePlanId"];
-                        plan.TotalCost = rdr["TotalCost"];
-                        plan.LastCharge = rdr["LastCharge"];
-                        plan.ApdRemainder = rdr["APDRemainder"];
-                        plan.OpmRemainder = rdr["OPMRemainder"];
-                        plan.PymbRemainder = rdr["PYMBRemainder"];
-                        plan.Plan = rdr["InsurancePlanId"];
-
-
-                        InsurancePlan iplan = this.GetPLanById(Convert.ToInt32(plan.Plan));
-                         plans.Add(new EnrolleePlan(
-                                pid: plan.Pid,
+                            plans.Add(new EnrolleePlan(
+                                pid: cachedPlan.Pid,
                                 plan: iplan,
-                                planNum: Convert.ToInt32(plan.PlanNum),
-                                lastCharge: Convert.ToDateTime(plan.LastCharge),
-                                totalCost: Convert.ToDouble(plan.TotalCost),
-                                opmRemainder: Convert.ToDouble(plan.OpmRemainder),
-                                pymbRemainder: Convert.ToDouble(plan.PymbRemainder),
-                                apdRemainder: Convert.ToDouble(plan.ApdRemainder)
-                        ));
-                        
-                    } 
-                }  
-            } 
+                                planNum: Convert.ToInt32(cachedPlan.PlanNum),
+                                lastCharge: Convert.ToDateTime(null),
+                                totalCost: Convert.ToDouble(cachedPlan.TotalCost),
+                                opmRemainder: Convert.ToDouble(cachedPlan.OpmRemainder),
+                                pymbRemainder: Convert.ToDouble(cachedPlan.PymbRemainder),
+                                apdRemainder: Convert.ToDouble(cachedPlan.ApdRemainder)
+                        )); // plans.Add 
+                        }
+
+
+                    }
+                    if (this.Connection.State == ConnectionState.Closed)
+                    {
+                        // GetPlanById may clsoe the connection to the database 
+                        this.Connection.Open();
+                    }
+                } // if 
+
+                // get all dependents foreach plan 
+                foreach (var plan in plans)
+                {
+                    this.AddPlanDependents(plan);
+                } // foreach 
+
+                // finally get all the bills 
+                foreach (var plan in plans)
+                {
+                    this.AddPlanBills(plan);
+                } // foreach  
+            } // try
             finally
             {
-                // always close connection
                 this.Connection.Close();
-            }
+            } // finally 
 
-            return plans.ElementAt(0);
+            return plans;
+
+            //    selPlan = @"SELECT * FROM EnrolleePlan WHERE PlanNum = @pid";
+
+
+            //    using (var cmd = new SqlCommand(selPlan, this.Connection))
+            //    {
+            //        // command is parameterized to prevent SQL injection
+            //        cmd.Parameters.AddWithValue("@pid", epId);
+            //        var rdr = cmd.ExecuteReader();
+
+            //        // I should only get one result back 
+            //        if (rdr.Read())
+            //        {
+            //            if (Convert.ToBoolean(rdr["IsPrimary"]))
+            //            {
+            //                plan.Pid = Convert.ToInt32(rdr["PrimaryEnrolleeId"]);
+
+            //            } // if 
+            //            else
+            //            {
+            //                plan.Pid = Convert.ToInt32(rdr["DependentEnrolleeId"]);
+
+            //            }
+            //            plan.PlanNum = rdr["EnrolleePlanId"];
+            //            plan.TotalCost = rdr["TotalCost"];
+            //            plan.LastCharge = rdr["LastCharge"];
+            //            plan.ApdRemainder = rdr["APDRemainder"];
+            //            plan.OpmRemainder = rdr["OPMRemainder"];
+            //            plan.PymbRemainder = rdr["PYMBRemainder"];
+            //            plan.Plan = rdr["InsurancePlanId"];
+
+
+            //            InsurancePlan iplan = this.GetPLanById(Convert.ToInt32(plan.Plan));
+            //            plans.Add(new EnrolleePlan(
+            //                   pid: plan.Pid,
+            //                   plan: iplan,
+            //                   planNum: Convert.ToInt32(plan.PlanNum),
+            //                   lastCharge: Convert.ToDateTime(plan.LastCharge),
+            //                   totalCost: Convert.ToDouble(plan.TotalCost),
+            //                   opmRemainder: Convert.ToDouble(plan.OpmRemainder),
+            //                   pymbRemainder: Convert.ToDouble(plan.PymbRemainder),
+            //                   apdRemainder: Convert.ToDouble(plan.ApdRemainder)
+            //           ));
+
+            //        }
+            //        rdr.Close();
+            //    }
+
+            //}
+            //finally
+            //{
+            //    // always close connection
+            //    this.Connection.Close();
+            //}
+
+            //return plans;
         }
 
 

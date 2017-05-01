@@ -307,29 +307,31 @@ namespace CoreProject.Data.Tests
 
             mgr.SaveHsp(hsp);
 
-            var guest = new PrimaryEnrollee("1234")
+            var newDude = new PrimaryEnrollee("1234")
             {
-                Email = "me812@aol.com",
-                FirstName = "Zach",
-                LastName = "Auer",
-                HomePhone = "5555555555",
-                MobilePhone = "5555555555",
-                BillingAddr = "666 Avenue St.",
-                MailingAddr = "666 Avenue St.",
-                SSN = "123456789"
+                MailingAddr = "805 N Guest",
+                BillingAddr = "805 N Guest",
+                Email = "new@dudee.com",
+                FirstName = "Guest",
+                LastName = "Guest",
+                HomePhone = "1234567890",
+                MobilePhone = "1234567890",
+                SSN = "123456788"
             };
+            var services = mgr.GetServicesByPlan("Basic");
+            var plan = mgr.GetPlanByType("Basic");
+            var ePlan = new EnrolleePlan(newDude, plan);
+            mgr.SaveEnrolleePlan(ePlan);
 
-            mgr.SaveEnrollee(guest);
-
-            var plan = mgr.GetServicesByPlan("Basic");
-
+            var myId = mgr.SaveEnrollee(newDude);
+          
             var bill = new Bill(
                                 DateTime.Now,
                                 hsp.Id,
-                                mgr.GetPlanByEmail(guest.Email).PlanNum,
-                                plan.ElementAt(0).Id,
-                                guest.Id,
-                                guest.Email,
+                                mgr.GetPlanByPrimary(newDude.Id).ElementAt(0).PlanNum,
+                                services.ElementAt(0).Id,
+                                newDude.Id,
+                                newDude.Email,
                                 1000,
                                 500
                                 );
