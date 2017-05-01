@@ -321,14 +321,16 @@ namespace CoreProject.Data.Tests
             var services = mgr.GetServicesByPlan("Basic");
             var plan = mgr.GetPlanByType("Basic");
             var ePlan = new EnrolleePlan(newDude, plan);
-            mgr.SaveEnrolleePlan(ePlan);
-
             var myId = mgr.SaveEnrollee(newDude);
+            ePlan.PrimaryEnrollee = newDude.Id;
+            var planNum = (int)mgr.SaveEnrolleePlan(ePlan);
+
+            
           
             var bill = new Bill(
                                 DateTime.Now,
                                 hsp.Id,
-                                mgr.GetPlanByPrimary(newDude.Id).ElementAt(0).PlanNum,
+                                planNum,
                                 services.ElementAt(0).Id,
                                 newDude.Id,
                                 newDude.Email,
@@ -336,11 +338,11 @@ namespace CoreProject.Data.Tests
                                 500
                                 );
 
-
+            bill.IsPrimary = true;
             mgr.addBill(bill);
             Bill dbBill = null;
 
-            dbBill = mgr.GetBillsById(guest.Id).ElementAt(0);
+            dbBill = mgr.GetBillsById(newDude.Id).ElementAt(0);
 
             Assert.IsNotNull(dbBill);
             Assert.AreEqual(dbBill.Id, bill.Id);

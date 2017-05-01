@@ -155,6 +155,7 @@ namespace CoreProject.Data
                                         TotalBillAmount,
                                         EnrolleeBillAmount,
                                         ServiceId,
+                                        PlanNum,
                                         HSPId,
                                         PrimaryId,
                                         DependentId,
@@ -166,6 +167,7 @@ namespace CoreProject.Data
                                         @totalBillAmount,
                                         @enrolleeBillAmount,
                                         @serviceId,
+                                        @planNum,
                                         @hspId,
                                         @primaryId,
                                         @dependentId,
@@ -183,6 +185,7 @@ namespace CoreProject.Data
                     planCmd.Parameters.AddWithValue("@totalBillAmount", bill.totalBillAmount);
                     planCmd.Parameters.AddWithValue("@enrolleeBillAmount", bill.enrolleeBillAmount);
                     planCmd.Parameters.AddWithValue("@serviceId", bill.serviceId);
+                    planCmd.Parameters.AddWithValue("@planNum", bill.planNum);
                     planCmd.Parameters.AddWithValue("@hspId", bill.hspId);
                     if (bill.IsPrimary)
                     {
@@ -252,6 +255,18 @@ namespace CoreProject.Data
             try
             {
                 this.Connection.Open();
+
+                var getEnrolleeP = "SELECT Email FROM PrimaryEnrollee WHERE Id = @id";
+                string email; 
+                using (var cmd = new SqlCommand(getEnrolleeP, this.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    email = (string)cmd.ExecuteScalar();
+                }
+
+                
+                
+
                 using (var cmd = new SqlCommand(selBill, this.Connection))
                 {
 
@@ -263,7 +278,7 @@ namespace CoreProject.Data
                     while (rdr.Read())
                     {
                         DateTime date = Convert.ToDateTime(rdr["Date"]);
-                        HSP hsp = GrabHspById(Convert.ToInt32(rdr["HSPId"]));
+                        int hspId = Convert.ToInt32(rdr["HSPId"]);
                         int service = Convert.ToInt32(rdr["ServiceId"]);
                         int enrolleeId;
                         if (Convert.ToBoolean(rdr["IsPrimary"]))
@@ -271,17 +286,16 @@ namespace CoreProject.Data
                         else
                             enrolleeId = Convert.ToInt32(rdr["DependentId"]);
                         int planNum = Convert.ToInt32(rdr["PlanNum"]);
-                        string enrolleeEmail = Convert.ToString(rdr["EnrolleeEmail"]);
                         double totalBill = Convert.ToDouble(rdr["TotalBillAmount"]);
                         double enrolleeBill = Convert.ToDouble(rdr["EnrolleeBillAmount"]);
                        
                         bills.Add(new Bill(
                                                 date,
-                                                hsp.Id,
+                                                hspId,
                                                 planNum,
                                                 service,
                                                 enrolleeId,
-                                                enrolleeEmail,
+                                                email,
                                                 totalBill,
                                                 enrolleeBill 
                                                ));
@@ -1072,6 +1086,8 @@ namespace CoreProject.Data
                                        @totalCost, 
                                        @lastCharge,
                                        @insurancePlanId
+
+                                       
                                    );";
                 using (var planCmd = new SqlCommand(insertPlan, this.Connection))
                 {
